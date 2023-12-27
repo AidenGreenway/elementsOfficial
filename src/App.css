@@ -36,3 +36,72 @@
     transform: rotate(360deg);
   }
 }
+.small-newsletter {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: lightgray;
+  padding: 10px;
+}
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  filter: brightness(85%);
+}
+
+.fire {
+  color: red;
+}
+
+.water {
+  color: blue;
+}
+
+.earth {
+  color: green;
+}
+
+.air {
+  color: grey;
+}
+/* app.css */
+.drawerOpen .course-modules {
+  transition: margin-left 0.2s;
+  margin-left: 240px; /* Szerokość otwartego Drawer'a */
+}
+
+.drawerClosed .course-modules {
+  transition: margin-left 0.2s;
+  margin-left: 0; /* Szerokość zamkniętego Drawer'a */
+}
+.white-text {
+  color: white;
+}
+
+.burnAnimation {
+  display: none;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.burnButton:hover + .burnAnimation {
+  display: block;
+}
+/* Dodaj do arkusza stylów */
+.fireAnimation {
+  display: none;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  right: 20px; /* Dopasuj pozycję według potrzeb */
+  top: 50px; /* Dopasuj pozycję według potrzeb */
+}
+
+.burnButton:hover + .fireAnimation {
+  display: block;
+}
+
