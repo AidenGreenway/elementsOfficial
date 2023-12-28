@@ -50,26 +50,26 @@ export const Forum = () => {
   const hoverStyles = {
     fire: {
       "&:hover": {
-        backgroundColor: "#ff6347",
-        color: "#fff",
+        backgroundColor: "#ff5a00",
+        color: "black",
       },
     },
     water: {
       "&:hover": {
-        backgroundColor: "#6495ed",
-        color: "#fff",
+        backgroundColor: "#00cdff",
+        color: "black",
       },
     },
     air: {
       "&:hover": {
-        backgroundColor: "#87ceeb",
-        color: "#fff",
+        backgroundColor: "white",
+        color: "black",
       },
     },
     earth: {
       "&:hover": {
-        backgroundColor: "#8fbc8f",
-        color: "#fff",
+        backgroundColor: "#355E3B",
+        color: "black",
       },
     },
   };
@@ -89,7 +89,6 @@ export const Forum = () => {
       {["fire", "water", "air", "earth"].map((group) => (
         <Box sx={{ marginRight: "20px" }} key={group}>
           <Button
-            disabled={group === "fire"}
             onClick={() => handleElementSelection(group)}
             sx={{
               ...buttonStyle,

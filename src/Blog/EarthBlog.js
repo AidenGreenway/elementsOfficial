@@ -1,4 +1,13 @@
-import { Box, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 
 const EarthBlog = () => {
@@ -39,24 +48,121 @@ const EarthBlog = () => {
       <Grid container spacing={4} sx={{ width: "100%" }}>
         <Grid item xs={6}>
           <Box
-            sx={
-              {
-                // Styl dla lewej kolumny
-              }
-            }
+            sx={{
+              width: "100%",
+              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              padding: "20px",
+              borderRadius: "8px",
+              height: "80vh",
+              overflowY: "auto",
+            }}
           >
-            {/* Formularz dodawania posta */}
+            <Typography variant="h6" color="#008000" sx={{ marginBottom: 1 }}>
+              Title
+            </Typography>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="title"
+              value={newPost.title}
+              onChange={handleInputChange}
+              sx={{
+                marginBottom: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderColor: "#008000",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+                "& input": {
+                  color: "#FFF",
+                },
+              }}
+            />
+            <Typography variant="h6" color="#008000" sx={{ marginBottom: 1 }}>
+              Content
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              minRows={4}
+              variant="outlined"
+              name="content"
+              value={newPost.content}
+              onChange={handleInputChange}
+              sx={{
+                marginBottom: 2,
+                "& .MuiOutlinedInput-root": {
+                  borderColor: "#008000",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+                "& textarea": {
+                  color: "#FFF",
+                },
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={handlePostSubmit}
+              sx={{ backgroundColor: "#008000", color: "#FFF" }}
+            >
+              Add Post
+            </Button>
           </Box>
         </Grid>
         <Grid item xs={6}>
           <Box
-            sx={
-              {
-                // Styl dla prawej kolumny
-              }
-            }
+            sx={{
+              width: "100%",
+              padding: "20px",
+              borderRadius: "8px",
+              height: "80vh",
+              overflowY: "auto",
+            }}
           >
-            {/* Wyświetlanie postów */}
+            {blogPosts.map((post) => (
+              <Card
+                key={post.id}
+                sx={{
+                  marginBottom: 2,
+                  borderRadius: "8px",
+                  overflowY: "auto",
+                  maxHeight: "300px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  padding: "16px",
+                }}
+              >
+                <CardHeader
+                  title={post.title}
+                  subheader={post.date}
+                  sx={{
+                    color: "#008000",
+                    textAlign: "right",
+                    fontSize: "14px",
+                    "& .MuiCardHeader-subheader": {
+                      color: "#FFFF00",
+                      textAlign: "right",
+                      fontSize: "12px",
+                    },
+                  }}
+                />
+                <CardContent>
+                  <Typography variant="body1" color="text.secondary" sx={{ color: "#FFFF00" }}>
+                    {post.content}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ marginTop: 2, color: "#008000" }}
+                  >
+                    <strong>Comments:</strong>
+                    {post.comments.map((comment, index) => (
+                      <Typography key={index} variant="body2" color="text.secondary">
+                        {comment}
+                      </Typography>
+                    ))}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
           </Box>
         </Grid>
       </Grid>
