@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
+import videoSource from "../assets/background.mp4";
 
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
@@ -31,7 +32,7 @@ const Banner = () => {
     },
     water: {
       "&:hover": {
-        backgroundColor: "#6495ed",
+        backgroundColor: "#00cdff",
         color: "#fff",
       },
     },
@@ -52,90 +53,116 @@ const Banner = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "none",
-        padding: "40px",
-        textAlign: "center",
-        borderRadius: "8px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        position: "relative",
         maxWidth: "600px",
         marginLeft: "210px",
         marginTop: "40px",
         color: "#fff",
       }}
     >
-      <Typography
+      <Box
         sx={{
-          marginBottom: "30px",
-          fontFamily: "Kalnia, sans-serif",
-          fontSize: "40px",
+          backgroundColor: "none",
+          padding: "40px",
+          textAlign: "center",
+          borderRadius: "8px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          color: "#fff",
         }}
       >
-        ELEMENTS
-      </Typography>
+        <Typography
+          sx={{
+            marginBottom: "30px",
+            fontFamily: "Kalnia, sans-serif",
+            fontSize: "40px",
+          }}
+        >
+          ELEMENTS
+        </Typography>
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {/* Przyciski */}
+          <div style={{ marginRight: "20px" }}>
+            <Button
+              onClick={() => handleElementSelection("fire")}
+              sx={{
+                ...buttonStyle,
+                ...hoverStyles["fire"],
+                color: element === "fire" ? "#fff" : "#fff",
+                backgroundColor: element === "fire" ? "#ff6347" : "transparent",
+              }}
+            >
+              Fire
+            </Button>
+          </div>
+          <div style={{ marginRight: "20px" }}>
+            <Button
+              onClick={() => handleElementSelection("water")}
+              sx={{
+                ...buttonStyle,
+                ...hoverStyles["water"],
+                color: element === "water" ? "#fff" : "#fff",
+                backgroundColor: element === "water" ? "#00cdff" : "transparent",
+              }}
+            >
+              Water
+            </Button>
+          </div>
+          <div style={{ marginRight: "20px" }}>
+            <Button
+              onClick={() => handleElementSelection("air")}
+              sx={{
+                ...buttonStyle,
+                ...hoverStyles["air"],
+                color: element === "air" ? "#fff" : "#fff",
+                backgroundColor: element === "air" ? "grey" : "transparent",
+              }}
+            >
+              Air
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => handleElementSelection("earth")}
+              sx={{
+                ...buttonStyle,
+                ...hoverStyles["earth"],
+                color: element === "earth" ? "#fff" : "#fff",
+                backgroundColor: element === "earth" ? "#8fbc8f" : "transparent",
+              }}
+            >
+              Earth
+            </Button>
+          </div>
+        </div>
+      </Box>
       <Typography
         variant="body1"
         sx={{
-          marginBottom: "30px",
+          marginBottom: "10px",
+          marginTop: "-25px",
           fontFamily: "Kalnia, sans-serif",
-          fontSize: "1.2rem",
+          fontSize: "14px",
         }}
       >
-        in built
+        CHOOSE ELEMENT
       </Typography>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ marginRight: "20px" }}>
-          <Button
-            onClick={() => handleElementSelection("fire")}
-            sx={{
-              ...buttonStyle,
-              ...hoverStyles["fire"],
-              color: element === "fire" ? "#fff" : "#fff",
-              backgroundColor: element === "fire" ? "#ff6347" : "transparent",
-            }}
-          >
-            Fire
-          </Button>
-        </div>
-        <div style={{ marginRight: "20px" }}>
-          <Button
-            onClick={() => handleElementSelection("water")}
-            sx={{
-              ...buttonStyle,
-              ...hoverStyles["water"],
-              color: element === "water" ? "#fff" : "#fff",
-              backgroundColor: element === "water" ? "#6495ed" : "transparent",
-            }}
-          >
-            Water
-          </Button>
-        </div>
-        <div style={{ marginRight: "20px" }}>
-          <Button
-            onClick={() => handleElementSelection("air")}
-            sx={{
-              ...buttonStyle,
-              ...hoverStyles["air"],
-              color: element === "air" ? "#fff" : "#fff",
-              backgroundColor: element === "air" ? "#87ceeb" : "transparent",
-            }}
-          >
-            Air
-          </Button>
-        </div>
-        <div>
-          <Button
-            onClick={() => handleElementSelection("earth")}
-            sx={{
-              ...buttonStyle,
-              ...hoverStyles["earth"],
-              color: element === "earth" ? "#fff" : "#fff",
-              backgroundColor: element === "earth" ? "#8fbc8f" : "transparent",
-            }}
-          >
-            Earth
-          </Button>
-        </div>
-      </div>
+      {/* Wyświetlanie filmu */}
+      <video
+        autoPlay
+        loop
+        muted
+        controls
+        src={videoSource}
+        style={{
+          width: "60%",
+          height: "auto",
+          borderRadius: "8px",
+          border: "1px solid white",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          marginTop: "20px",
+        }}
+      />
     </Box>
   );
 };

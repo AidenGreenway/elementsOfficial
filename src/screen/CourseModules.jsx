@@ -52,10 +52,10 @@ export const CourseModules = () => {
   return (
     <div className="course-modules">
       <Typography
-        variant="h2"
+        variant="h3"
         sx={{ color: "white", marginBottom: "20px", fontFamily: "Kalnia, sans-serif" }}
       >
-        Course Modules
+        COURSE MODULES
       </Typography>
       <List component="nav" aria-label="course modules">
         {elementData.map(({ element, icon, description, hoverColor, handleClick }) => (

@@ -51,25 +51,25 @@ export const Forum = () => {
     fire: {
       "&:hover": {
         backgroundColor: "#ff5a00",
-        color: "black",
+        // color: "black",
       },
     },
     water: {
       "&:hover": {
         backgroundColor: "#00cdff",
-        color: "black",
+        color: "white",
       },
     },
     air: {
       "&:hover": {
-        backgroundColor: "white",
-        color: "black",
+        backgroundColor: "grey",
+        //color: "black",
       },
     },
     earth: {
       "&:hover": {
-        backgroundColor: "#355E3B",
-        color: "black",
+        backgroundColor: "#00ff7f",
+        //color: "black",
       },
     },
   };

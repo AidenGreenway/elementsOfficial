@@ -2,10 +2,10 @@ import { Button, Divider, List, ListItem, ListItemText, Typography } from "@mui/
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import airGif from "../images/airgif.gif";
-import earthGif from "../images/earthgif.gif";
-import fireGif from "../images/firegif.gif";
-import waterGif from "../images/watergif.gif";
+import airg from "../assets/airg.gif";
+import earthg from "../assets/earthg.gif";
+import fireg from "../assets/fireg.gif";
+import waterg from "../assets/waterg.gif";
 
 export const Challenges = () => {
   const navigate = useNavigate();
@@ -23,16 +23,16 @@ export const Challenges = () => {
     // Wybór odpowiedniego gifa na podstawie nazwy przycisku
     switch (name) {
       case "fire":
-        setCurrentGif(fireGif);
+        setCurrentGif(fireg);
         break;
       case "water":
-        setCurrentGif(waterGif);
+        setCurrentGif(waterg);
         break;
       case "air":
-        setCurrentGif(airGif);
+        setCurrentGif(airg);
         break;
       case "earth":
-        setCurrentGif(earthGif);
+        setCurrentGif(earthg);
         break;
       default:
         setCurrentGif("");
@@ -57,13 +57,13 @@ export const Challenges = () => {
     {
       name: "water",
       component: "WaterChallenge",
-      color: "darkBlue",
+      color: "#00cdff",
       destination: "water",
     },
     {
       name: "air",
       component: "AirChallenge",
-      color: "skyBlue",
+      color: "grey",
       destination: "air",
     },
     {
@@ -78,8 +78,8 @@ export const Challenges = () => {
   return (
     <div style={{ color: "white", display: "flex", justifyContent: "space-between" }}>
       <div>
-        <Typography variant="h2" style={{ color: "white", marginBottom: "20px" }}>
-          Challenges
+        <Typography variant="h3" style={{ color: "white", marginBottom: "20px" }}>
+          CHALLENGES
         </Typography>
         <List>
           {challengesData.map((challenge, index) => (
