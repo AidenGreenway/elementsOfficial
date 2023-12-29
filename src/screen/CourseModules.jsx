@@ -1,10 +1,11 @@
-import CloudIcon from "@mui/icons-material/Cloud";
-import TerrainIcon from "@mui/icons-material/Terrain"; // Poprzednia ikona ziemi
-import WavesIconOutlined from "@mui/icons-material/WavesOutlined";
-import WhatshotIconOutlined from "@mui/icons-material/WhatshotOutlined";
 import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import aird from "../images/aird.png";
+import earthd from "../images/earthd.png";
+import fired from "../images/fired.jpg";
+import waterd from "../images/waterd.png";
 
 export const CourseModules = () => {
   const [hoveredElement, setHoveredElement] = useState(null);
@@ -21,28 +22,28 @@ export const CourseModules = () => {
   const elementData = [
     {
       element: "FIRE",
-      icon: <WhatshotIconOutlined sx={{ fontSize: "2rem", color: "red", marginRight: "10px" }} />,
+      icon: <img src={fired} alt="Fire Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
       hoverColor: "#ff6347",
       handleClick: () => navigate("fire"),
     },
     {
       element: "WATER",
-      icon: <WavesIconOutlined sx={{ fontSize: "2rem", color: "blue", marginRight: "10px" }} />,
+      icon: <img src={waterd} alt="Water Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
       hoverColor: "#00bfff",
       handleClick: () => navigate("water"),
     },
     {
       element: "AIR",
-      icon: <CloudIcon sx={{ fontSize: "2rem", color: "white", marginRight: "10px" }} />, // Ikona chmury jako symbol wiatru/powietrza
+      icon: <img src={aird} alt="Air Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
       hoverColor: "#808080",
       handleClick: () => navigate("air"),
     },
     {
       element: "EARTH",
-      icon: <TerrainIcon sx={{ fontSize: "2rem", color: "green", marginRight: "10px" }} />, // Poprzednia ikona ziemi
+      icon: <img src={earthd} alt="Earth Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT  ",
       hoverColor: "#3cb371",
       handleClick: () => navigate("earth"),
@@ -77,7 +78,9 @@ export const CourseModules = () => {
             }}
           >
             <Grid container alignItems="center">
-              <Grid item>{icon}</Grid>
+              <Grid item>
+                {hoveredElement === element ? null : icon} {/* Ukryj ikonę, jeśli najechano */}
+              </Grid>
               <Grid item>
                 {hoveredElement === element && (
                   <ListItemText primary={description} sx={{ color: "#fff", marginLeft: "10px" }} />

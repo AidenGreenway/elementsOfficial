@@ -16,17 +16,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-// Inne propozycje:
-// import TerrainIcon from "@mui/icons-material/Terrain";
-// import FilterVintageIcon from "@mui/icons-material/FilterVintage";
-// import GrainIcon from "@mui/icons-material/Grain";
 
 const ElementIcons = {
   fire: <WhatshotIcon />,
   water: <WavesIcon />,
   air: <CloudIcon />,
   earth: <NatureIcon />, // Zamiennik dla Eco
-  // Możesz użyć innych ikon z propozycji powyżej
 };
 
 const ElementColors = {
@@ -34,7 +29,6 @@ const ElementColors = {
   water: ["blue", "darkBlue", "grey"],
   air: ["#4B0082", "#00BFFF", "#FFFF00"],
   earth: ["#A52A2A", "#008000", "#808080"],
-  // Dodaj więcej żywiołów i kolory
 };
 
 const Profile = () => {
@@ -44,6 +38,7 @@ const Profile = () => {
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [description, setDescription] = useState("");
   const [showSettings, setShowSettings] = useState(false);
+  const [username, setUsername] = useState("User123");
 
   const handleInputChange = (event, inputType) => {
     const value = event.target.value;
@@ -53,6 +48,9 @@ const Profile = () => {
         break;
       case "description":
         setDescription(value);
+        break;
+      case "username":
+        setUsername(value);
         break;
       default:
         break;
@@ -68,9 +66,7 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Tutaj można dodać logikę zapisu danych profilu, np. do bazy danych
-    // Przykładowo:
-    // saveProfileData({ element, name, selectedColor, description });
+    // Logika zapisu danych profilu
   };
 
   return (
@@ -80,21 +76,37 @@ const Profile = () => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Box mb={4} bgcolor={selectedColor} p={2} borderRadius={8}>
-            <Typography variant="h6" style={{ marginLeft: "-400px", fontSize: "1.5rem" }}>
-              Twoje dane:
-            </Typography>
-            <Avatar
-              style={{
-                width: 25,
-                height: 25,
-                backgroundColor: selectedAvatarColor,
-                marginTop: -5,
-                marginLeft: 295,
+          <Box
+            mb={4}
+            p={2}
+            borderRadius={8}
+            sx={{
+              borderColor: selectedColor,
+              borderWidth: 2,
+              borderStyle: "solid",
+            }}
+          >
+            <Box
+              sx={{
+                p: 4,
+                borderRadius: 2,
+                backgroundColor: "inherit", // Usunięto zmianę koloru tła
+                color: "white",
               }}
             >
-              {ElementIcons[element]}
-            </Avatar>
+              <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+                <Avatar
+                  sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}
+                >
+                  {ElementIcons[element]}
+                </Avatar>
+                <Typography variant="h5">{username}</Typography>
+              </Box>
+            </Box>
+            {/* reszta kodu wewnątrz Box */}
+            <Typography variant="h6" style={{ fontSize: "1.5rem" }}>
+              Twoje dane:
+            </Typography>
             <Typography variant="body2" color="white">
               <strong>Element:</strong> {element}
             </Typography>
@@ -105,10 +117,11 @@ const Profile = () => {
               <strong>Opis:</strong> {description}
             </Typography>
           </Box>
+
           <Button
             variant="contained"
             onClick={() => setShowSettings(!showSettings)}
-            style={{ marginTop: 100, backgroundColor: selectedColor }}
+            style={{ backgroundColor: selectedColor }}
           >
             Edytuj Profil
           </Button>
@@ -123,13 +136,22 @@ const Profile = () => {
                 size="small"
                 value={name}
                 onChange={(event) => handleInputChange(event, "name")}
-                InputLabelProps={{
-                  style: { color: "white" },
-                }}
+                InputLabelProps={{ style: { color: "white" } }}
                 InputProps={{
                   style: { color: "white", backgroundColor: "black", borderColor: "white" },
                 }}
-                style={{ marginTop: 8 }}
+                variant="outlined"
+              />
+              <TextField
+                label="Zmień nazwę użytkownika"
+                fullWidth
+                size="small"
+                value={username}
+                onChange={(event) => handleInputChange(event, "username")}
+                InputLabelProps={{ style: { color: "white" } }}
+                InputProps={{
+                  style: { color: "white", backgroundColor: "black", borderColor: "white" },
+                }}
                 variant="outlined"
               />
               <TextField
@@ -140,13 +162,10 @@ const Profile = () => {
                 size="small"
                 value={description}
                 onChange={(event) => handleInputChange(event, "description")}
-                InputLabelProps={{
-                  style: { color: "white" },
-                }}
+                InputLabelProps={{ style: { color: "white" } }}
                 InputProps={{
                   style: { color: "white", backgroundColor: "black", borderColor: "white" },
                 }}
-                style={{ marginTop: 8 }}
                 variant="outlined"
               />
               <FormControl fullWidth size="small" sx={{ backgroundColor: "black" }}>
@@ -213,7 +232,11 @@ const Profile = () => {
                   display: "block",
                 }}
               >
-                <Button variant="contained" onClick={handleSubmit}>
+                <Button
+                  variant="contained"
+                  onClick={handleSubmit}
+                  style={{ backgroundColor: selectedColor }}
+                >
                   Zapisz
                 </Button>
               </Box>
