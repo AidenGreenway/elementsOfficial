@@ -8,7 +8,7 @@ const CustomDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     width: 240,
     backgroundColor: "black",
-    color: "#fff",
+    color: "white",
     paddingTop: theme ? theme.spacing(4) : 0,
   },
 }));
@@ -44,7 +44,7 @@ const NavBar = () => {
           <ListItemText primary="Forum" />
         </ListItem>
         <ListItem button component={Link} to="/Profile">
-          <ListItemText primary="Profile" />
+          <ListItemText primary="Diary" />
         </ListItem>
         {/* Wyświetlanie ikony wybranej z Banner */}
         <ListItem>

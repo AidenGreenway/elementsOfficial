@@ -29,12 +29,15 @@ const Water = () => {
     <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#1a1aff" }}>
-            Strongest of them All?
+          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#82eefd" }}>
+            Water
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "#009688", fontSize: "16px" }}>
+          <Typography
+            sx={{ marginBottom: "20px", color: "#00ccff", fontSize: "16px" }}
+            align="left"
+          >
             Water is the best teacher for adopting, it can be invsible and has no physical form
             basiclly, also it can be in form tougher than diamnods, the same water! Individuals
             associated with the water element emanate tranquility, intuition, and adaptability. They
@@ -48,10 +51,10 @@ const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-          <Typography sx={{ color: "#1a1aff" }}>Strengths:</Typography>
+          <Typography sx={{ color: "#82eefd" }}>Strengths:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#009688" }}>
+          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Tranquility and intuition: Immersion in emotions and intuitive approach to life." />
             </ListItem>
@@ -74,10 +77,10 @@ const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-          <Typography sx={{ color: "#1a1aff" }}>Weaknesses:</Typography>
+          <Typography sx={{ color: "#82eefd" }}>Weaknesses:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#009688" }}>
+          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Excessive emotional sensitivity: Difficulty coping with intense emotions." />
             </ListItem>
@@ -100,10 +103,10 @@ const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
-          <Typography sx={{ color: "#1a1aff" }}>Exercises for Managing Water Traits:</Typography>
+          <Typography sx={{ color: "#82eefd" }}>Exercises for Managing Water Traits:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#009688" }}>
+          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Mindfulness and meditation practice: Cultivating inner peace." />
             </ListItem>
@@ -126,12 +129,12 @@ const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
-          <Typography variant="body1" sx={{ color: "#1a1aff" }}>
+          <Typography variant="body1" sx={{ color: "#82eefd" }}>
             Key Strategies for Harmony with the Water Element:
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#009688" }}>
+          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Developing emotion control skills: Training in regulating emotional sensitivity." />
             </ListItem>

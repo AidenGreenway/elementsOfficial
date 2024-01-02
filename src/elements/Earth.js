@@ -29,12 +29,15 @@ const Earth = () => {
     <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#00ff7f" }}>
-            Earth Stability
+          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#00ff7f" }} align="left">
+            Earth
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}>
+          <Typography
+            sx={{ marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}
+            align="left"
+          >
             An individual associated with the element of earth exudes calmness, stability, and deep
             internal strength. It's someone immersed in reality, practical, with strong moral
             foundations and common sense. They are characterized by perseverance, patience, and an

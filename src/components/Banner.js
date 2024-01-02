@@ -1,8 +1,11 @@
-import { Box, Button, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
 import videoSource from "../assets/background.mp4";
+import airGif from "../images/airgif.gif"; // Import pliku gif dla "Air"
+import earthGif from "../images/earthgif.gif"; // Import pliku gif dla "Earth"
+import fireGif from "../images/firegif.gif"; // Import pliku gif dla "Fire"
+import waterGif from "../images/watergif.gif"; // Import pliku gif dla "Water"
 
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
@@ -13,46 +16,9 @@ const Banner = () => {
     setElementIcon(selectedElement);
   };
 
-  const buttonStyle = {
-    marginRight: "20px",
-    backgroundColor: "transparent",
-    color: "#fff",
-    border: "1px solid #fff",
-    borderRadius: "4px",
-    padding: "8px 16px",
-    transition: "background-color 0.3s, color 0.3s",
-  };
-
-  const hoverStyles = {
-    fire: {
-      "&:hover": {
-        backgroundColor: "#ff6347",
-        color: "#fff",
-      },
-    },
-    water: {
-      "&:hover": {
-        backgroundColor: "#00cdff",
-        color: "#fff",
-      },
-    },
-    air: {
-      "&:hover": {
-        backgroundColor: "grey",
-        color: "#fff",
-      },
-    },
-    earth: {
-      "&:hover": {
-        backgroundColor: "#8fbc8f",
-        color: "#fff",
-      },
-    },
-  };
-
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         position: "relative",
         maxWidth: "600px",
         marginLeft: "210px",
@@ -60,8 +26,8 @@ const Banner = () => {
         color: "#fff",
       }}
     >
-      <Box
-        sx={{
+      <div
+        style={{
           backgroundColor: "none",
           padding: "40px",
           textAlign: "center",
@@ -70,75 +36,53 @@ const Banner = () => {
           color: "#fff",
         }}
       >
-        <Typography
-          sx={{
+        <h1
+          style={{
             marginBottom: "30px",
             fontFamily: "Kalnia, sans-serif",
             fontSize: "40px",
           }}
         >
           ELEMENTS
-        </Typography>
+        </h1>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          {/* Przyciski */}
           <div style={{ marginRight: "20px" }}>
-            <Button
+            <img
+              src={fireGif}
+              alt="Fire"
               onClick={() => handleElementSelection("fire")}
-              sx={{
-                ...buttonStyle,
-                ...hoverStyles["fire"],
-                color: element === "fire" ? "#fff" : "#fff",
-                backgroundColor: element === "fire" ? "#ff6347" : "transparent",
-              }}
-            >
-              Fire
-            </Button>
+              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+            />
           </div>
           <div style={{ marginRight: "20px" }}>
-            <Button
+            <img
+              src={waterGif}
+              alt="Water"
               onClick={() => handleElementSelection("water")}
-              sx={{
-                ...buttonStyle,
-                ...hoverStyles["water"],
-                color: element === "water" ? "#fff" : "#fff",
-                backgroundColor: element === "water" ? "#00cdff" : "transparent",
-              }}
-            >
-              Water
-            </Button>
+              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+            />
           </div>
           <div style={{ marginRight: "20px" }}>
-            <Button
+            <img
+              src={airGif}
+              alt="Air"
               onClick={() => handleElementSelection("air")}
-              sx={{
-                ...buttonStyle,
-                ...hoverStyles["air"],
-                color: element === "air" ? "#fff" : "#fff",
-                backgroundColor: element === "air" ? "grey" : "transparent",
-              }}
-            >
-              Air
-            </Button>
+              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+            />
           </div>
           <div>
-            <Button
+            <img
+              src={earthGif}
+              alt="Earth"
               onClick={() => handleElementSelection("earth")}
-              sx={{
-                ...buttonStyle,
-                ...hoverStyles["earth"],
-                color: element === "earth" ? "#fff" : "#fff",
-                backgroundColor: element === "earth" ? "#8fbc8f" : "transparent",
-              }}
-            >
-              Earth
-            </Button>
+              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+            />
           </div>
         </div>
-      </Box>
-      <Typography
-        variant="body1"
-        sx={{
+      </div>
+      <p
+        style={{
           marginBottom: "10px",
           marginTop: "-25px",
           fontFamily: "Kalnia, sans-serif",
@@ -146,8 +90,7 @@ const Banner = () => {
         }}
       >
         CHOOSE ELEMENT
-      </Typography>
-      {/* Wyświetlanie filmu */}
+      </p>
       <video
         autoPlay
         loop
@@ -163,7 +106,7 @@ const Banner = () => {
           marginTop: "20px",
         }}
       />
-    </Box>
+    </div>
   );
 };
 

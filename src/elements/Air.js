@@ -29,12 +29,15 @@ const Air = () => {
     <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "white" }}>
-            Wise of Air
+          <Typography variant="h4" sx={{ marginBottom: "12px", color: "white", align: "left" }}>
+            Air
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "#66c2ff", fontSize: "16px" }}>
+          <Typography
+            sx={{ marginBottom: "20px", color: "#b3b3b3", fontSize: "16px" }}
+            align="left"
+          >
             Individuals associated with the air element are intelligent, dynamic, and communicative.
             They are characterized by openness to change and new experiences. They are social, enjoy
             interacting with others, and have the ability to analyze situations from various
@@ -48,7 +51,7 @@ const Air = () => {
           <Typography sx={{ color: "white" }}>Strengths:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#66c2ff" }}>
+          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
             <ListItem>
               <ListItemText primary="Intelligence and flexibility: Ability to adapt to new situations." />
             </ListItem>
@@ -73,7 +76,7 @@ const Air = () => {
           <Typography sx={{ color: "white" }}>Weaknesses:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#66c2ff" }}>
+          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
             <ListItem>
               <ListItemText primary="Emotional instability: Difficulty maintaining calmness in tense situations." />
             </ListItem>
@@ -98,7 +101,7 @@ const Air = () => {
           <Typography sx={{ color: "white" }}>Exercises for Managing Air Traits:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#66c2ff" }}>
+          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
             <ListItem>
               <ListItemText primary="Stress management practices: Exercises to reduce tension." />
             </ListItem>
@@ -125,7 +128,7 @@ const Air = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#66c2ff" }}>
+          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
             <ListItem>
               <ListItemText primary="Maintaining balance between adaptability and calmness: Training in balancing adaptation with maintaining tranquility." />
             </ListItem>

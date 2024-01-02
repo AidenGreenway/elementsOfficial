@@ -1,8 +1,12 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import YourContext from "../YourContextFile/YourContext";
+import airg from "../assets/airg.gif";
+import earthg from "../assets/earthg.gif";
+import fireg from "../assets/fireg.gif";
+import waterg from "../assets/waterg.gif";
 
 export const Forum = () => {
   const { setElementIcon } = useContext(YourContext);
@@ -13,16 +17,16 @@ export const Forum = () => {
   const handleGroupHover = (group) => {
     switch (group) {
       case "fire":
-        setDescription("GOING HARD");
+        setDescription(fireg);
         break;
       case "water":
-        setDescription("EMPATHY AND UNDERSTANDING");
+        setDescription(waterg);
         break;
       case "air":
-        setDescription("JOY AND AWARENESS");
+        setDescription(airg);
         break;
       case "earth":
-        setDescription("TOUGH SHIT");
+        setDescription(earthg);
         break;
       default:
         setDescription("");
@@ -51,7 +55,6 @@ export const Forum = () => {
     fire: {
       "&:hover": {
         backgroundColor: "#ff5a00",
-        // color: "black",
       },
     },
     water: {
@@ -63,16 +66,24 @@ export const Forum = () => {
     air: {
       "&:hover": {
         backgroundColor: "grey",
-        //color: "black",
       },
     },
     earth: {
       "&:hover": {
         backgroundColor: "#00ff7f",
-        //color: "black",
       },
     },
   };
+
+  const centeredImageStyle = {
+    position: "fixed",
+    top: "55%",
+    left: "55%",
+    transform: "translate(-50%, -50%)",
+    display: description ? "block" : "none",
+  };
+
+  const imageWidth = "450px"; // Ustal stałą szerokość dla obrazków gif
 
   return (
     <Box
@@ -87,7 +98,12 @@ export const Forum = () => {
       }}
     >
       {["fire", "water", "air", "earth"].map((group) => (
-        <Box sx={{ marginRight: "20px" }} key={group}>
+        <Box
+          sx={{
+            marginRight: "20px",
+          }}
+          key={group}
+        >
           <Button
             onClick={() => handleElementSelection(group)}
             sx={{
@@ -105,21 +121,9 @@ export const Forum = () => {
         </Box>
       ))}
       {description && (
-        <Typography
-          variant="h5"
-          sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            padding: "20px",
-            borderRadius: "5px",
-            textAlign: "center",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          {description}
-        </Typography>
+        <div style={centeredImageStyle}>
+          <img src={description} alt={element} width={imageWidth} />
+        </div>
       )}
     </Box>
   );

@@ -30,11 +30,11 @@ const Fire = () => {
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "yellow" }}>
-            Burn Baby Burn
+            Fire
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "orange", fontSize: "16px" }}>
+          <Typography sx={{ marginBottom: "20px", color: "orange", fontSize: "16px" }} align="left">
             Fire is the most charismatic, most dengerous and "cool" type of persona. An individual
             associated with the element of fire is a person who exudes intensity and fervor. Their
             life is driven by unstoppable energy and passion, which is hard to miss. This person

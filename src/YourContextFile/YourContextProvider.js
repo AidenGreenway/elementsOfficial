@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 import YourContext from "./YourContext";
-import airGif from "../images/airgif.gif";
-import earthGif from "../images/earthgif.gif";
-import fireGif from "../images/firegif.gif";
-import waterGif from "../images/watergif.gif";
+import aird from "../images/aird.png";
+import earthd from "../images/earthd.png";
+import fired from "../images/fired.jpg";
+import waterd from "../images/waterd.png";
 
 export const YourContextProvider = ({ children }) => {
   const [yourValue, setYourValue] = useState(""); // Przykładowy stan
   const [elementImages] = useState({
-    fire: fireGif,
-    water: waterGif,
-    air: airGif,
-    earth: earthGif,
+    fire: fired,
+    water: waterd,
+    air: aird,
+    earth: earthd,
   });
 
   const setElementIcon = (element) => {
