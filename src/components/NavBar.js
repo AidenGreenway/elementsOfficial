@@ -9,18 +9,37 @@ const CustomDrawer = styled(Drawer)(({ theme }) => ({
     width: 240,
     backgroundColor: "black",
     color: "white",
-    paddingTop: theme ? theme.spacing(4) : 0,
+    paddingTop: theme.spacing(4),
   },
 }));
 
+const getHoverStyle = (element) => {
+  switch (element) {
+    case "Home":
+      return { "&:hover": { borderBottom: "2px solid white" } };
+    case "CourseModules":
+      return { "&:hover": { borderBottom: "2px solid green" } };
+    case "Challenges":
+      return { "&:hover": { borderBottom: "2px solid blue" } };
+    case "Forum":
+      return { "&:hover": { borderBottom: "2px solid yellow" } };
+    case "Profile":
+      return { "&:hover": { borderBottom: "2px solid #ff5a00" } };
+    default:
+      return {};
+  }
+};
+
 const NavBar = () => {
   const goBack = () => {
-    window?.history.back();
+    window.history.back();
   };
 
   const { elementImages, yourValue } = useContext(YourContext);
 
   console.log({ elementImages, yourValue });
+
+  const menuItems = ["Home", "CourseModules", "Challenges", "Forum", "Profile"];
 
   return (
     <CustomDrawer variant="permanent" anchor="left">
@@ -30,23 +49,11 @@ const NavBar = () => {
             <ArrowBackIcon />
           </Button>
         </ListItem>
-        <ListItem button component={Link} to="/">
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button component={Link} to="/CourseModules">
-          <ListItemText primary="CourseModules" />
-        </ListItem>
-        {/* Dodaj inne nawigacyjne linki dla innych komponentów */}
-        <ListItem button component={Link} to="/Challenges">
-          <ListItemText primary="Challenges" />
-        </ListItem>
-        <ListItem button component={Link} to="/Forum">
-          <ListItemText primary="Forum" />
-        </ListItem>
-        <ListItem button component={Link} to="/Profile">
-          <ListItemText primary="Diary" />
-        </ListItem>
-        {/* Wyświetlanie ikony wybranej z Banner */}
+        {menuItems.map((item) => (
+          <ListItem button component={Link} to={`/${item}`} sx={getHoverStyle(item)} key={item}>
+            <ListItemText primary={item} />
+          </ListItem>
+        ))}
         <ListItem>
           {elementImages?.[yourValue] && (
             <img src={elementImages?.[yourValue]} style={{ width: "50px", height: "50px" }} />

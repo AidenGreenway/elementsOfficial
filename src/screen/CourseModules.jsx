@@ -2,10 +2,10 @@ import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import fired from "../diaryImages/fire/fire4.jpg";
+import waterd from "../diaryImages/water/water3.jpg";
 import aird from "../images/aird.png";
 import earthd from "../images/earthd.png";
-import fired from "../images/fired.jpg";
-import waterd from "../images/waterd.png";
 
 export const CourseModules = () => {
   const [hoveredElement, setHoveredElement] = useState(null);

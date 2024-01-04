@@ -36,10 +36,20 @@ const Banner = () => {
           color: "#fff",
         }}
       >
+        <h2
+          style={{
+            marginBottom: "-20px",
+            fontFamily: "Kalnia, sans-serif",
+            fontSize: "12px",
+          }}
+        >
+          Hello to your very first experience with
+        </h2>
+
         <h1
           style={{
             marginBottom: "30px",
-            fontFamily: "Kalnia, sans-serif",
+            fontFamily: "The Next Font",
             fontSize: "40px",
           }}
         >
@@ -52,7 +62,14 @@ const Banner = () => {
               src={fireGif}
               alt="Fire"
               onClick={() => handleElementSelection("fire")}
-              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+              style={{
+                cursor: "pointer",
+                width: "100px",
+                height: "100px",
+                transition: "transform 0.3s ease-in-out", // Dodaj efekt transition
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")} // Powiększenie obrazka po najechaniu
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // Powrót do normalnego rozmiaru po zjechaniu }}
             />
           </div>
           <div style={{ marginRight: "20px" }}>
@@ -60,7 +77,14 @@ const Banner = () => {
               src={waterGif}
               alt="Water"
               onClick={() => handleElementSelection("water")}
-              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+              style={{
+                cursor: "pointer",
+                width: "100px",
+                height: "100px",
+                transition: "transform 0.3s ease-in-out", // Dodaj efekt transition
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")} // Powiększenie obrazka po najechaniu
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // Powrót do normalnego rozmiaru po zjechaniu }}
             />
           </div>
           <div style={{ marginRight: "20px" }}>
@@ -68,7 +92,14 @@ const Banner = () => {
               src={airGif}
               alt="Air"
               onClick={() => handleElementSelection("air")}
-              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+              style={{
+                cursor: "pointer",
+                width: "100px",
+                height: "100px",
+                transition: "transform 0.3s ease-in-out", // Dodaj efekt transition
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")} // Powiększenie obrazka po najechaniu
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // Powrót do normalnego rozmiaru po zjechaniu }}
             />
           </div>
           <div>
@@ -76,7 +107,14 @@ const Banner = () => {
               src={earthGif}
               alt="Earth"
               onClick={() => handleElementSelection("earth")}
-              style={{ cursor: "pointer", width: "100px", height: "100px" }}
+              style={{
+                cursor: "pointer",
+                width: "100px",
+                height: "100px",
+                transition: "transform 0.3s ease-in-out", // Dodaj efekt transition
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.1)")} // Powiększenie obrazka po najechaniu
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // Powrót do normalnego rozmiaru po zjechaniu }}
             />
           </div>
         </div>

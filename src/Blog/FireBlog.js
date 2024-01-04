@@ -8,10 +8,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FireBlog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
+
+  // Ładowanie postów z localStorage przy montowaniu
+  useEffect(() => {
+    const savedPosts = localStorage.getItem("blogPosts");
+    if (savedPosts) {
+      setBlogPosts(JSON.parse(savedPosts));
+    }
+  }, []);
+
+  // Aktualizacja localStorage przy każdej zmianie blogPosts
+  useEffect(() => {
+    localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
+  }, [blogPosts]);
+
   const [newPost, setNewPost] = useState({ title: "", content: "" });
 
   const handleInputChange = (e) => {

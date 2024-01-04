@@ -36,11 +36,10 @@ const CourseDescription = () => {
           color: "#555",
         }}
       >
-        Kurs skupia się na interpretacji 4 żywiołów: ogień, woda, powietrze,
-        ziemia. Odkryj, jak te żywioły odzwierciedlają ludzkie cechy i jak ta
-        wiedza może być wykorzystana do rozwoju osobistego. Poznaj sposoby, w
-        jakie te symboliczne elementy natury wpływają na nasze charaktery i jak
-        możemy korzystać z tej wiedzy dla własnego rozwoju.
+        Kurs skupia się na interpretacji 4 żywiołów: ogień, woda, powietrze, ziemia. Odkryj, jak te
+        żywioły odzwierciedlają ludzkie cechy i jak ta wiedza może być wykorzystana do rozwoju
+        osobistego. Poznaj sposoby, w jakie te symboliczne elementy natury wpływają na nasze
+        charaktery i jak możemy korzystać z tej wiedzy dla własnego rozwoju.
       </Typography>
     </Box>
   );
