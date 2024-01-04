@@ -12,6 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import airGif from "../images/airgif.gif";
 const Air = () => {
   const location = useLocation();
 
@@ -31,6 +32,9 @@ const Air = () => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "white", align: "left" }}>
             Air
+          </Typography>
+          <Typography variant="h4" sx={{ marginLeft: "-360px", color: "white", align: "left" }}>
+            <img src={airGif} width="10%" />
           </Typography>
         </AccordionSummary>
         <AccordionDetails>

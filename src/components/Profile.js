@@ -22,6 +22,7 @@ import earthGif1 from "../diaryImages/earth/earth1.jpg";
 import earthGif2 from "../diaryImages/earth/earth2.jpg";
 import earthGif3 from "../diaryImages/earth/earth3.jpg";
 import earthGif4 from "../diaryImages/earth/earth4.jpg";
+import earthGif5 from "../diaryImages/earth/earth5.png";
 import fireGif1 from "../diaryImages/fire/fire1.jpg";
 import fireGif2 from "../diaryImages/fire/fire2.jpg";
 import fireGif3 from "../diaryImages/fire/fire3.jpg";
@@ -30,12 +31,11 @@ import waterGif1 from "../diaryImages/water/water1.jpg";
 import waterGif2 from "../diaryImages/water/water2.jpg";
 import waterGif3 from "../diaryImages/water/water3.jpg";
 import waterGif4 from "../diaryImages/water/water4.jpg";
-
 const ElementImages = {
   fire: [fireGif1, fireGif2, fireGif3, fireGif4],
   water: [waterGif1, waterGif2, waterGif3, waterGif4],
   air: [airGif1, airGif2, airGif3, airGif4],
-  earth: [earthGif1, earthGif2, earthGif3, earthGif4],
+  earth: [earthGif1, earthGif2, earthGif3, earthGif4, earthGif5],
 };
 
 const ElementColors = {
@@ -46,13 +46,13 @@ const ElementColors = {
 };
 
 const Profile = () => {
-  const [element, setElement] = useState("fire");
+  const [element, setElement] = useState("earth");
   const [name, setName] = useState("");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
   const [description, setDescription] = useState("");
-  const [username, setUsername] = useState("User123");
+  const [username, setUsername] = useState("Aiden Greenway");
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState("");
   const [activeSection, setActiveSection] = useState("tablica"); // "tablica", "edycja", "nowyPost"
@@ -241,7 +241,12 @@ const Profile = () => {
             <Button
               variant="contained"
               onClick={handleSubmit}
-              style={{ backgroundColor: selectedColor, marginTop: 2, width: "50%" }}
+              style={{
+                backgroundColor: selectedColor,
+                marginTop: 2,
+                width: "15%",
+                margin: "20px auto",
+              }}
             >
               Zapisz
             </Button>
@@ -259,7 +264,11 @@ const Profile = () => {
               onChange={handleNewPostChange}
               sx={{ bgcolor: "white", color: "black", my: 2 }}
             />
-            <Button variant="contained" onClick={handleAddPost} sx={{ mb: 2, width: "50%" }}>
+            <Button
+              variant="contained"
+              onClick={handleAddPost}
+              sx={{ mb: 2, width: "50%", margin: "0 auto", backgroundColor: selectedColor }}
+            >
               Dodaj Post
             </Button>
           </Box>
@@ -331,17 +340,17 @@ const Profile = () => {
             <Stack direction="column" spacing={1}>
               <Button
                 variant="contained"
-                onClick={() => toggleActiveSection("edycja")}
-                style={{ backgroundColor: selectedColor, width: "50%" }}
+                onClick={() => toggleActiveSection("nowyPost")}
+                style={{ backgroundColor: selectedColor, width: "40%", margin: "0 auto" }}
               >
-                Edytuj Profil
+                Dodaj Nowy Post
               </Button>
               <Button
                 variant="contained"
-                onClick={() => toggleActiveSection("nowyPost")}
-                style={{ backgroundColor: selectedColor, width: "50%" }}
+                onClick={() => toggleActiveSection("edycja")}
+                style={{ backgroundColor: selectedColor, width: "40%", margin: "10px auto" }}
               >
-                Dodaj Nowy Post
+                Edytuj Profil
               </Button>
             </Stack>
           </Box>

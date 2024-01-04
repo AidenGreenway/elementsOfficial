@@ -12,6 +12,8 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import earthGif from "../images/earthgif.gif";
+
 const Earth = () => {
   const location = useLocation();
 
@@ -32,6 +34,7 @@ const Earth = () => {
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "#00ff7f" }} align="left">
             Earth
           </Typography>
+          <img src={earthGif} width="10%" />
         </AccordionSummary>
         <AccordionDetails>
           <Typography

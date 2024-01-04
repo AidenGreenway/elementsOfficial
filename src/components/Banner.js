@@ -2,10 +2,10 @@ import { useContext, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
 import videoSource from "../assets/background.mp4";
-import airGif from "../images/airgif.gif"; // Import pliku gif dla "Air"
-import earthGif from "../images/earthgif.gif"; // Import pliku gif dla "Earth"
-import fireGif from "../images/firegif.gif"; // Import pliku gif dla "Fire"
-import waterGif from "../images/watergif.gif"; // Import pliku gif dla "Water"
+import airGif from "../diaryImages/air/air3.jpg"; // Import pliku gif dla "Air"
+import earthGif from "../diaryImages/earth/earth4.jpg"; // Import pliku gif dla "Earth"
+import fireGif from "../diaryImages/fire/fire4.jpg"; // Import pliku gif dla "Fire"
+import waterGif from "../diaryImages/water/water3.jpg"; // Import pliku gif dla "Water"
 
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);

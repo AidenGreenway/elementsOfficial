@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import YourContext from "./YourContext";
-import aird from "../images/aird.png";
-import earthd from "../images/earthd.png";
-import fired from "../images/fired.jpg";
-import waterd from "../images/waterd.png";
+import aird from "../diaryImages/air/air3.jpg";
+import earthd from "../diaryImages/earth/earth4.jpg";
+import fired from "../diaryImages/fire/fire4.jpg";
+import waterd from "../diaryImages/water/water3.jpg";
 
 export const YourContextProvider = ({ children }) => {
   const [yourValue, setYourValue] = useState(""); // Przykładowy stan

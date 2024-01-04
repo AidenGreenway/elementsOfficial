@@ -12,6 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import waterGif from "../images/watergif.gif";
 const Water = () => {
   const location = useLocation();
 
@@ -32,6 +33,7 @@ const Water = () => {
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "#82eefd" }}>
             Water
           </Typography>
+          <img src={waterGif} width="6%" />
         </AccordionSummary>
         <AccordionDetails>
           <Typography

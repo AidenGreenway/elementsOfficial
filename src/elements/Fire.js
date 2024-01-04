@@ -12,6 +12,8 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import fireGif from "../images/firegif.gif";
+
 const Fire = () => {
   const location = useLocation();
 
@@ -28,14 +30,27 @@ const Fire = () => {
   return (
     <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          sx={{
+            display: "flex",
+            alignItems: "center", // Wyśrodkowanie tekstu i obrazka w pionie
+          }}
+        >
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "yellow" }}>
             Fire
           </Typography>
+          <Typography
+            variant="h4"
+            sx={{ marginTop: "-70px", marginLeft: "-145px", color: "yellow" }}
+          >
+            <img src={fireGif} width="30%" />
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "orange", fontSize: "16px" }} align="left">
-            Fire is the most charismatic, most dengerous and "cool" type of persona. An individual
+          <Typography sx={{ marginBottom: "0px", color: "orange", fontSize: "16px" }} align="left">
+            Fire is the most charismatic, most dangerous and "cool" type of persona. An individual
             associated with the element of fire is a person who exudes intensity and fervor. Their
             life is driven by unstoppable energy and passion, which is hard to miss. This person
             engages in everything they do with tremendous enthusiasm and commitment. They possess an
