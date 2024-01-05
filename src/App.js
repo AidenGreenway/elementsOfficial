@@ -1,10 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-import { useState } from "react";
-
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-
-import SignIn from "./Login/SignIn";
 
 import { YourContextProvider } from "./YourContextFile/YourContextProvider";
 
@@ -32,52 +28,34 @@ const theme = createTheme({
 });
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // Funkcja do logowania użytkownika
-
-  const login = () => {
-    setIsLoggedIn(true);
-  };
-
-  // Funkcja do wylogowania użytkownika
-
-  const logout = () => {
-    setIsLoggedIn(false);
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <YourContextProvider>
         <Router>
           <Routes>
-            <Route path="/signin" element={<SignIn onLogin={login} />} />
+            <Route path="/" element={<Dashboard />}>
+              <Route path="home" element={<Banner />} />
 
-            {isLoggedIn ? (
-              <Route path="/" element={<Dashboard onLogout={logout} />}>
-                <Route index element={<Banner />} />
+              {/* Dodaj ścieżki dla AirBlog i EarthBlog analogicznie */}
 
-                <Route path="/Home" element={<Banner />} />
+              {/* <Route path="CourseDescription" element={<CourseDescription />} /> */}
 
-                <Route path="CourseModules" element={<CourseModules />} />
+              <Route path="CourseModules" element={<CourseModules />} />
 
-                <Route path="/CourseModules/:type" element={<ElementScreen />} />
+              <Route path="/CourseModules/:type" element={<ElementScreen />} />
 
-                <Route path="Challenges" element={<Challenges />} />
+              <Route path="Challenges" element={<Challenges />} />
 
-                <Route path="/Challenges/:type" element={<ChallengeDetailScreen />} />
+              <Route path="/Challenges/:type" element={<ChallengeDetailScreen />} />
 
-                <Route path="Forum" element={<Forum />} />
+              <Route path="Forum" element={<Forum />} />
 
-                <Route path="/Forum/:type" element={<ForumScreen />} />
+              <Route path="/Forum/:type" element={<ForumScreen />} />
 
-                <Route path="Profile" element={<Profile />} />
+              <Route path="Profile" element={<Profile />} />
 
-                <Route path="/" element={<Navigate to="home" />} />
-              </Route>
-            ) : (
-              <Route path="*" element={<Navigate to="/signin" />} />
-            )}
+              <Route path="/" element={<Navigate to="home" />} />
+            </Route>
           </Routes>
         </Router>
       </YourContextProvider>

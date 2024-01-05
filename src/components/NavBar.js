@@ -16,15 +16,15 @@ const CustomDrawer = styled(Drawer)(({ theme }) => ({
 const getHoverStyle = (element) => {
   switch (element) {
     case "Home":
-      return { "&:hover": { borderBottom: "2px solid white" } };
+      return { "&:hover": { borderBottom: "2px solid red" } };
     case "CourseModules":
-      return { "&:hover": { borderBottom: "2px solid green" } };
-    case "Challenges":
       return { "&:hover": { borderBottom: "2px solid blue" } };
+    case "Challenges":
+      return { "&:hover": { borderBottom: "2px solid white" } };
     case "Forum":
-      return { "&:hover": { borderBottom: "2px solid yellow" } };
+      return { "&:hover": { borderBottom: "2px solid green" } };
     case "Profile":
-      return { "&:hover": { borderBottom: "2px solid #ff5a00" } };
+      return { "&:hover": { borderBottom: "2px solid purple" } };
     default:
       return {};
   }

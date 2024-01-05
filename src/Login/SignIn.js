@@ -21,21 +21,29 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // Tutaj sprawdzasz, czy login i hasło to "M"
     if (data.get("email") === "M" && data.get("password") === "M") {
-      navigate("/Home"); // Przekierowanie na stronę główną po pomyślnym zalogowaniu
+      navigate("/Home");
     } else {
       console.log("Niepoprawne dane logowania");
     }
   };
 
+  const bannerStyle = {
+    position: "relative",
+    maxWidth: "600px",
+    marginLeft: "210px",
+    marginTop: "40px",
+    backgroundColor: "none", // Ustaw odpowiedni kolor tła
+    color: "#fff", // Ustaw biały kolor tekstu
+    fontFamily: "Kalnia, sans-serif", // Zastosuj czcionkę z Banner
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={bannerStyle}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -44,7 +52,7 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" style={{ fontFamily: "The Next Font" }}>
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -57,6 +65,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
             />
             <TextField
               margin="normal"
@@ -67,22 +76,24 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" style={{ color: "#fff" }}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" style={{ color: "#fff" }}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
