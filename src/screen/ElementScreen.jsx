@@ -9,7 +9,7 @@ import { ELEMENTS } from "../constants";
 export const ElementScreen = () => {
   const location = useLocation();
 
-  const elementType = location.pathname?.split("/")?.[2];
+  const elementType = location.pathname?.split("/")?.[3];
 
   switch (elementType) {
     case ELEMENTS.FIRE:

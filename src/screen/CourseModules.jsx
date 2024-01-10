@@ -24,7 +24,7 @@ export const CourseModules = () => {
       element: "FIRE",
       icon: <img src={fired} alt="Fire Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
-      hoverColor: "#ff6347",
+      hoverColor: "#D70040",
       handleClick: () => navigate("fire"),
     },
     {
@@ -54,9 +54,9 @@ export const CourseModules = () => {
     <div className="course-modules">
       <Typography
         variant="h3"
-        sx={{ color: "white", marginBottom: "20px", fontFamily: "Kalnia, sans-serif" }}
+        sx={{ color: "white", marginBottom: "20px", fontFamily: "The Next Font" }}
       >
-        COURSE MODULES
+        COURSE - MODULES
       </Typography>
       <List component="nav" aria-label="course modules">
         {elementData.map(({ element, icon, description, hoverColor, handleClick }) => (

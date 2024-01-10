@@ -2,6 +2,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
+import SignIn from "./Login/SignIn";
+
 import { YourContextProvider } from "./YourContextFile/YourContextProvider";
 
 import Banner from "./components/Banner";
@@ -33,28 +35,26 @@ const App = () => {
       <YourContextProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Dashboard />}>
+            <Route path="/" element={<SignIn />} />
+
+            <Route path="/dashboard" element={<Dashboard />}>
               <Route path="home" element={<Banner />} />
 
-              {/* Dodaj ścieżki dla AirBlog i EarthBlog analogicznie */}
+              <Route path="profile" element={<Profile />} />
 
-              {/* <Route path="CourseDescription" element={<CourseDescription />} /> */}
+              <Route path="challenges" element={<Challenges />} />
 
-              <Route path="CourseModules" element={<CourseModules />} />
+              <Route path="challenges/:type" element={<ChallengeDetailScreen />} />
 
-              <Route path="/CourseModules/:type" element={<ElementScreen />} />
+              <Route path="coursemodules" element={<CourseModules />} />
 
-              <Route path="Challenges" element={<Challenges />} />
+              <Route path="coursemodules/:type" element={<ElementScreen />} />
 
-              <Route path="/Challenges/:type" element={<ChallengeDetailScreen />} />
+              <Route path="forum" element={<Forum />} />
 
-              <Route path="Forum" element={<Forum />} />
+              <Route path="forum/:type" element={<ForumScreen />} />
 
-              <Route path="/Forum/:type" element={<ForumScreen />} />
-
-              <Route path="Profile" element={<Profile />} />
-
-              <Route path="/" element={<Navigate to="home" />} />
+              <Route path="/dashboard" element={<Navigate to="home" />} />
             </Route>
           </Routes>
         </Router>

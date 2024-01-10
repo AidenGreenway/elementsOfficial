@@ -1,7 +1,8 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Button, Drawer, List, ListItem, ListItemText, styled } from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Ikona wylogowania
+import { Button, Drawer, List, ListItem, ListItemIcon, ListItemText, styled } from "@mui/material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import YourContext from "src/YourContextFile/YourContext";
 
 const CustomDrawer = styled(Drawer)(({ theme }) => ({
@@ -31,15 +32,26 @@ const getHoverStyle = (element) => {
 };
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
   const goBack = () => {
     window.history.back();
   };
 
+  const handleLogout = () => {
+    // Tutaj logika wylogowania
+    navigate("/"); // Przekieruj na stronę główną / logowania
+  };
+
   const { elementImages, yourValue } = useContext(YourContext);
 
-  console.log({ elementImages, yourValue });
-
-  const menuItems = ["Home", "CourseModules", "Challenges", "Forum", "Profile"];
+  const menuItems = [
+    { name: "Home", path: "dashboard/home" },
+    { name: "Course Modules", path: "dashboard/courseModules" },
+    { name: "Challenges", path: "dashboard/challenges" },
+    { name: "Forum", path: "dashboard/forum" },
+    { name: "Profile", path: "dashboard/profile" },
+  ];
 
   return (
     <CustomDrawer variant="permanent" anchor="left">
@@ -50,14 +62,32 @@ const NavBar = () => {
           </Button>
         </ListItem>
         {menuItems.map((item) => (
-          <ListItem button component={Link} to={`/${item}`} sx={getHoverStyle(item)} key={item}>
-            <ListItemText primary={item} />
+          <ListItem
+            button
+            component={Link}
+            to={`/${item.path}`}
+            sx={getHoverStyle(item.name)}
+            key={item.name}
+          >
+            <ListItemText primary={item.name} />
           </ListItem>
         ))}
-        <ListItem>
-          {elementImages?.[yourValue] && (
-            <img src={elementImages?.[yourValue]} style={{ width: "50px", height: "50px" }} />
-          )}
+        {elementImages?.[yourValue] && (
+          <ListItem>
+            <ListItemIcon>
+              <img
+                src={elementImages?.[yourValue]}
+                style={{ width: "50px", height: "50px" }}
+                alt="Element"
+              />
+            </ListItemIcon>
+          </ListItem>
+        )}
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon>
+            <ExitToAppIcon style={{ color: "white" }} />
+          </ListItemIcon>
+          <ListItemText primary="" />
         </ListItem>
       </List>
     </CustomDrawer>

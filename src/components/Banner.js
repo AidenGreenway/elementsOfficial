@@ -7,15 +7,33 @@ import earthGif from "../diaryImages/earth/earth4.jpg";
 import fireGif from "../diaryImages/fire/fire4.jpg";
 import waterGif from "../diaryImages/water/water3.jpg";
 
-// Mapowanie żywiołów do par słów opisujących ich cechy oraz kolorów
 const elementDescriptions = {
-  fire: { words: ["Passion", "Energy"], color: "red" },
-  water: { words: ["Flow", "Emotions"], color: "blue" },
-  air: { words: ["Freedom", "Movement"], color: "lightblue" },
-  earth: { words: ["Stability", "Discipline"], color: "green" },
+  fire: {
+    words: ["fire", "burn"],
+    description:
+      "Fire symbolizes passion, energy, and transformation. Discover your inner strength and motivation.",
+    color: "#D70040",
+  },
+  water: {
+    words: ["water", "freeze"],
+    description:
+      "Water represents emotions, intuition, and adaptation. Learn to flow with the stream of life.",
+    color: "#1F51FF",
+  },
+  air: {
+    words: ["air", "aware"],
+    description:
+      "Air stands for intellect, communication, and creativity. Develop your thinking and self-expression skills.",
+    color: "#F0FFFF",
+  },
+  earth: {
+    words: ["earth", "stable"],
+    description:
+      "Earth symbolizes stability, growth, and renewal. Find your roots and build solid foundations.",
+    color: "#009E60",
+  },
 };
 
-// Komponent do wyświetlania tekstu w pionie
 const VerticalText = ({ word, color }) => (
   <p
     style={{
@@ -23,7 +41,7 @@ const VerticalText = ({ word, color }) => (
       textOrientation: "upright",
       margin: 0,
       color,
-      fontSize: "24px",
+      fontSize: "72px",
       fontWeight: "bold",
       fontFamily: "The Next Font",
     }}
@@ -34,12 +52,11 @@ const VerticalText = ({ word, color }) => (
 
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
-  const [element, setElement] = useState("");
-  const [hoveredElement, setHoveredElement] = useState(""); // Stan dla najechanego żywiołu
+  const [hoveredElement, setHoveredElement] = useState("");
 
-  const handleElementSelection = (selectedElement) => {
-    setElement(selectedElement);
-    setElementIcon(selectedElement);
+  const handleClick = (element) => {
+    setHoveredElement(element);
+    setElementIcon(element); // Aktualizacja ikony w drawerze po kliknięciu
   };
 
   const handleMouseOver = (element) => {
@@ -54,7 +71,7 @@ const Banner = () => {
     <div
       style={{
         position: "relative",
-        maxWidth: "600px",
+        maxWidth: "700px",
         marginLeft: "210px",
         marginTop: "40px",
         color: "#fff",
@@ -65,7 +82,7 @@ const Banner = () => {
           <div
             style={{
               position: "absolute",
-              left: "-210px",
+              left: "-120px",
               top: "50%",
               transform: "translateY(-50%)",
             }}
@@ -78,15 +95,24 @@ const Banner = () => {
           <div
             style={{
               position: "absolute",
-              right: "-210px",
+              right: "-190px",
               top: "50%",
               transform: "translateY(-50%)",
+              color: elementDescriptions[hoveredElement].color,
+              maxWidth: "250px",
+              textAlign: "center",
             }}
           >
-            <VerticalText
-              word={elementDescriptions[hoveredElement].words[1]}
-              color={elementDescriptions[hoveredElement].color}
-            />
+            <p
+              style={{
+                margin: 0,
+                fontSize: "28px",
+                fontWeight: "bold",
+                fontFamily: "The Next Font",
+              }}
+            >
+              {elementDescriptions[hoveredElement].description}
+            </p>
           </div>
         </>
       )}
@@ -101,12 +127,26 @@ const Banner = () => {
           color: "#fff",
         }}
       >
-        <h2 style={{ marginBottom: "-20px", fontFamily: "Kalnia, sans-serif", fontSize: "12px" }}>
+        <h2
+          style={{
+            marginBottom: "-20px",
+            fontFamily: "Kalnia, sans-serif",
+            fontSize: "12px",
+            marginRight: "177px",
+          }}
+        >
           Hello to your very first experience with
         </h2>
 
-        <h1 style={{ marginBottom: "30px", fontFamily: "The Next Font", fontSize: "40px" }}>
-          ELEMENTS
+        <h1
+          style={{
+            marginBottom: "30px",
+            fontFamily: "The Next Font",
+            fontSize: "40px",
+            marginRight: "215px",
+          }}
+        >
+          ELEMENTS.
         </h1>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -115,7 +155,7 @@ const Banner = () => {
             <img
               src={fireGif}
               alt="Fire"
-              onClick={() => handleElementSelection("fire")}
+              onClick={() => handleClick("fire")}
               onMouseOver={() => handleMouseOver("fire")}
               onMouseOut={handleMouseOut}
               style={{
@@ -132,7 +172,7 @@ const Banner = () => {
             <img
               src={waterGif}
               alt="Water"
-              onClick={() => handleElementSelection("water")}
+              onClick={() => handleClick("water")}
               onMouseOver={() => handleMouseOver("water")}
               onMouseOut={handleMouseOut}
               style={{
@@ -149,7 +189,7 @@ const Banner = () => {
             <img
               src={airGif}
               alt="Air"
-              onClick={() => handleElementSelection("air")}
+              onClick={() => handleClick("air")}
               onMouseOver={() => handleMouseOver("air")}
               onMouseOut={handleMouseOut}
               style={{
@@ -166,7 +206,7 @@ const Banner = () => {
             <img
               src={earthGif}
               alt="Earth"
-              onClick={() => handleElementSelection("earth")}
+              onClick={() => handleClick("earth")}
               onMouseOver={() => handleMouseOver("earth")}
               onMouseOut={handleMouseOut}
               style={{
@@ -178,34 +218,33 @@ const Banner = () => {
             />
           </div>
         </div>
+
+        <p
+          style={{
+            marginBottom: "10px",
+            fontFamily: "Kalnia, sans-serif",
+            fontSize: "14px",
+          }}
+        >
+          CHOOSE ELEMENT
+        </p>
+
+        <video
+          autoPlay
+          loop
+          muted
+          controls
+          src={videoSource}
+          style={{
+            width: "60%",
+            height: "auto",
+            borderRadius: "8px",
+            border: "1px solid white",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            marginTop: "20px",
+          }}
+        />
       </div>
-
-      <p
-        style={{
-          marginBottom: "10px",
-          marginTop: "-25px",
-          fontFamily: "Kalnia, sans-serif",
-          fontSize: "14px",
-        }}
-      >
-        CHOOSE ELEMENT
-      </p>
-
-      <video
-        autoPlay
-        loop
-        muted
-        controls
-        src={videoSource}
-        style={{
-          width: "60%",
-          height: "auto",
-          borderRadius: "8px",
-          border: "1px solid white",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          marginTop: "20px",
-        }}
-      />
     </div>
   );
 };

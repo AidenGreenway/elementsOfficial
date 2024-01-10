@@ -11,39 +11,77 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: '"The Next Font", Arial, sans-serif',
+    color: "#FFFFFF",
+  },
+  palette: {
+    background: {
+      default: "#000000",
+    },
+    text: {
+      primary: "#FFFFFF",
+      secondary: "#FFFFFF",
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderRadius: "4px",
+          "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.15)",
+          },
+          "& .Mui-focused": {
+            // backgroundColor: "rgba(255, 255, 255, 0.2)",
+            // Removed boxShadow to eliminate the border effect when focused
+            // boxShadow: "0 0 5px white",
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: "0 4px 10px 0 rgba(0,0,0,0.2)",
+          transition: "0.3s",
+          "&:hover": {
+            boxShadow: "0 6px 14px 0 rgba(0,0,0,0.4)",
+            transform: "translateY(-2px)",
+          },
+        },
+      },
+    },
+  },
+});
 
 export default function SignIn() {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    if (data.get("email") === "M" && data.get("password") === "M") {
-      navigate("/Home");
+    if (email === "M" && password === "M") {
+      navigate("/dashboard");
     } else {
       console.log("Niepoprawne dane logowania");
     }
   };
 
-  const bannerStyle = {
-    position: "relative",
-    maxWidth: "600px",
-    marginLeft: "210px",
-    marginTop: "40px",
-    backgroundColor: "none", // Ustaw odpowiedni kolor tła
-    color: "#fff", // Ustaw biały kolor tekstu
-    fontFamily: "Kalnia, sans-serif", // Zastosuj czcionkę z Banner
-  };
-
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" style={bannerStyle}>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
+            marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -52,8 +90,9 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" style={{ fontFamily: "The Next Font" }}>
-            Sign in
+          <Typography>ELEMENTS</Typography>
+          <Typography component="h1" variant="h3">
+            Login
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -65,7 +104,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
-              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -76,24 +116,24 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
-              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-              style={{ color: "#fff" }} // Zastosuj biały kolor tekstu
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 5, mb: 2 }}>
+              Login
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2" style={{ color: "#fff" }}>
+                <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" style={{ color: "#fff" }}>
+                <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

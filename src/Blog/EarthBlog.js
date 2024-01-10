@@ -8,11 +8,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EarthBlog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: "", content: "" });
+
+  useEffect(() => {
+    const savedPosts = localStorage.getItem("earthBlogPosts");
+    if (savedPosts) {
+      setBlogPosts(JSON.parse(savedPosts));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("earthBlogPosts", JSON.stringify(blogPosts));
+  }, [blogPosts]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +43,11 @@ const EarthBlog = () => {
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
     }
+  };
+
+  const clearBlogPosts = () => {
+    localStorage.removeItem("earthBlogPosts");
+    setBlogPosts([]);
   };
 
   return (
@@ -72,9 +88,7 @@ const EarthBlog = () => {
                   borderColor: "#008000",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& input": {
-                  color: "#FFF",
-                },
+                "& input": { color: "#FFF" },
               }}
             />
             <Typography variant="h6" color="#008000" sx={{ marginBottom: 1 }}>
@@ -94,9 +108,7 @@ const EarthBlog = () => {
                   borderColor: "#008000",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& textarea": {
-                  color: "#FFF",
-                },
+                "& textarea": { color: "#FFF" },
               }}
             />
             <Button
@@ -105,6 +117,13 @@ const EarthBlog = () => {
               sx={{ backgroundColor: "#008000", color: "#FFF" }}
             >
               Add Post
+            </Button>
+            <Button
+              variant="contained"
+              onClick={clearBlogPosts}
+              sx={{ backgroundColor: "#800000", color: "#FFF", marginTop: 2 }}
+            >
+              Clear Data
             </Button>
           </Box>
         </Grid>

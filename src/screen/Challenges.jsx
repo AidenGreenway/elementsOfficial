@@ -51,7 +51,7 @@ export const Challenges = () => {
     {
       name: "fire",
       component: "FireChallenge",
-      color: "red",
+      color: "#D70040",
       destination: "fire",
     },
     {
