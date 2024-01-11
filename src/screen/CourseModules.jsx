@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import fired from "../diaryImages/fire/fire4.jpg";
-import waterd from "../diaryImages/water/water3.jpg";
+import waterd from "../diaryImages/water/water3.png";
 import aird from "../images/aird.png";
 import earthd from "../images/earthd.png";
 

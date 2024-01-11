@@ -14,13 +14,16 @@ const EarthBlog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: "", content: "" });
 
+  // Ładowanie wpisów z localStorage przy montowaniu komponentu
   useEffect(() => {
     const savedPosts = localStorage.getItem("earthBlogPosts");
     if (savedPosts) {
-      setBlogPosts(JSON.parse(savedPosts));
+      const loadedPosts = JSON.parse(savedPosts);
+      setBlogPosts(loadedPosts);
     }
   }, []);
 
+  // Zapisywanie wpisów do localStorage przy każdej aktualizacji
   useEffect(() => {
     localStorage.setItem("earthBlogPosts", JSON.stringify(blogPosts));
   }, [blogPosts]);
@@ -42,6 +45,7 @@ const EarthBlog = () => {
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
+      console.log("New post added:", newBlogPost);
     }
   };
 
@@ -166,18 +170,6 @@ const EarthBlog = () => {
                 <CardContent>
                   <Typography variant="body1" color="text.secondary" sx={{ color: "#FFFF00" }}>
                     {post.content}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ marginTop: 2, color: "#008000" }}
-                  >
-                    <strong>Comments:</strong>
-                    {post.comments.map((comment, index) => (
-                      <Typography key={index} variant="body2" color="text.secondary">
-                        {comment}
-                      </Typography>
-                    ))}
                   </Typography>
                 </CardContent>
               </Card>

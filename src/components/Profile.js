@@ -21,15 +21,15 @@ import airGif4 from "../diaryImages/air/air4.jpg";
 import earthGif1 from "../diaryImages/earth/earth1.jpg";
 import earthGif2 from "../diaryImages/earth/earth2.jpg";
 import earthGif3 from "../diaryImages/earth/earth3.jpg";
-import earthGif4 from "../diaryImages/earth/earth4.jpg";
+import earthGif4 from "../diaryImages/earth/earth4.png";
 import earthGif5 from "../diaryImages/earth/earth5.png";
 import fireGif1 from "../diaryImages/fire/fire1.jpg";
 import fireGif2 from "../diaryImages/fire/fire2.jpg";
 import fireGif3 from "../diaryImages/fire/fire3.jpg";
-import fireGif4 from "../diaryImages/fire/fire4.jpg";
+import fireGif4 from "../diaryImages/fire/fire4.png";
 import waterGif1 from "../diaryImages/water/water1.jpg";
 import waterGif2 from "../diaryImages/water/water2.jpg";
-import waterGif3 from "../diaryImages/water/water3.jpg";
+import waterGif3 from "../diaryImages/water/water3.png";
 import waterGif4 from "../diaryImages/water/water4.jpg";
 const ElementImages = {
   fire: [fireGif1, fireGif2, fireGif3, fireGif4],
