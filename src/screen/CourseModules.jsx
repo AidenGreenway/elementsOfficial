@@ -2,9 +2,10 @@ import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import fired from "../diaryImages/fire/fire4.jpg";
+import fired from "../diaryImages/fire/fire4.png";
 import waterd from "../diaryImages/water/water3.png";
 import aird from "../images/aird.png";
+import dalle from "../images/delle1.png";
 import earthd from "../images/earthd.png";
 
 export const CourseModules = () => {
@@ -68,12 +69,12 @@ export const CourseModules = () => {
             sx={{
               backgroundColor: hoveredElement === element ? hoverColor : "transparent",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "10px",
-              borderRadius: "5px",
-              marginBottom: "5px",
-              position: "relative",
+              //alignItems: "center",
+              //justifyContent: "space-between",
+              // padding: "10px",
+              //borderRadius: "5px",
+              // marginBottom: "5px",
+              // position: "relative",
               cursor: "pointer",
             }}
           >
@@ -110,6 +111,15 @@ export const CourseModules = () => {
           </ListItem>
         ))}
       </List>
+      <img
+        src={dalle}
+        style={{
+          position: "sticky",
+          width: "45%",
+          height: "auto",
+          marginRight: "50px",
+        }}
+      />
     </div>
   );
 };

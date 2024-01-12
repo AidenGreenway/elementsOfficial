@@ -1,124 +1,119 @@
-import { Box } from "@mui/material";
 import { useContext, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
 import videoSource from "../assets/background.mp4";
-import airGif from "../diaryImages/air/air3.jpg";
+import aird1 from "../diaryImages/air/air2.jpg";
+import aird from "../diaryImages/air/air3.jpg";
 import earthGif from "../diaryImages/earth/earth4.png";
+import earthGif1 from "../diaryImages/earth/earth5.png";
+import fireGif1 from "../diaryImages/fire/fire3.jpg";
 import fireGif from "../diaryImages/fire/fire4.png";
 import waterGif from "../diaryImages/water/water3.png";
+import waterGif1 from "../diaryImages/water/water33.png";
 
-const elementDescriptions = {
+const ELEMENT_DESCRIPTIONS = {
   fire: {
-    words: ["", "burn"],
+    words: ["", "FIRE"],
     description:
       "Fire symbolizes passion, energy, and transformation. Discover your inner strength and motivation.",
-    colors: ["#D70040", "#4A0404"], // Dodaj kolory dla każdego słowa
+    colors: ["#D70040", "#4A0404"],
+    image: fireGif,
+    altImage: fireGif1,
   },
   water: {
-    words: ["", "freeze"],
+    words: ["", "WATER"],
     description:
       "Water represents emotions, intuition, and adaptation. Learn to flow with the stream of life.",
-    colors: ["#1434A4", "#00FFFF"], // Dodaj kolory dla każdego słowa
+    colors: ["#1434A4", "#00FFFF"],
+    image: waterGif,
+    altImage: waterGif1,
   },
   air: {
-    words: ["", "aware"],
+    words: ["", "AIR"],
     description:
       "Air stands for intellect, communication, and creativity. Develop your thinking and self-expression skills.",
-    colors: ["#ADD8E6", "white"], // Dodaj kolory dla każdego słowa
+    colors: ["#ADD8E6", "white"],
+    image: aird,
+    altImage: aird1,
   },
   earth: {
-    words: ["", "stable"],
+    words: ["", "EARTH"],
     description:
       "Earth symbolizes stability, growth, and renewal. Find your roots and build solid foundations.",
-    colors: ["#355E3B", "black"], // Dodaj kolory dla każdego słowa
+    colors: ["#355E3B", "#4CBB17"],
+    image: earthGif,
+    altImage: earthGif1,
   },
 };
-
-const VerticalText = ({ words, colors }) => (
-  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-    {words.map((word, index) => (
-      <p
-        key={index}
-        style={{
-          writingMode: "vertical-rl",
-          textOrientation: "upright",
-          margin: 0,
-          color: colors[index],
-          fontSize: "72px",
-          fontWeight: "bold",
-          fontFamily: "The Next Font",
-        }}
-      >
-        {word}
-      </p>
-    ))}
-  </div>
-);
 
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
+  const [otherIconsVisible, setOtherIconsVisible] = useState(true);
 
   const handleClick = (element) => {
     setHoveredElement(element);
-    setElementIcon(element); // Aktualizacja ikony w drawerze po kliknięciu
+    setElementIcon(element);
   };
 
   const handleMouseOver = (element) => {
     setHoveredElement(element);
+    setOtherIconsVisible(false);
   };
 
   const handleMouseOut = () => {
     setHoveredElement("");
+    setOtherIconsVisible(true);
   };
 
   const getBackgroundColor = () => {
     if (hoveredElement) {
-      return elementDescriptions[hoveredElement].colors[0]; // Ustaw kolor tła dla pierwszego słowa
-    } else {
-      // Domyślny kolor tła strony, gdy nie najezdżamy na żadną ikonę
-      return "black"; // Tutaj możesz ustawić dowolny kolor
+      return ELEMENT_DESCRIPTIONS[hoveredElement].colors[0];
     }
+    return "black";
   };
 
   const getTextColor = () => {
     if (hoveredElement) {
-      return elementDescriptions[hoveredElement].colors[1]; // Ustaw kolor tekstu dla drugiego słowa
-    } else {
-      // Domyślny kolor tekstu, gdy nie najezdżamy na żadną ikonę
-      return "#000"; // Tutaj możesz ustawić dowolny kolor tekstu
+      return ELEMENT_DESCRIPTIONS[hoveredElement].colors[1];
     }
+    return "#000";
   };
 
-  const getElementsTextColor = () => {
+  const getCurrentImage = () => {
     if (hoveredElement) {
-      return elementDescriptions[hoveredElement].colors[1]; // Ustaw kolor tekstu dla drugiego słowa
-    } else {
-      // Domyślny kolor tekstu, gdy nie najezdżamy na żadną ikonę
-      return "#fff"; // Kolor tekstu "ELEMENTS" na stronie głównej
+      return ELEMENT_DESCRIPTIONS[hoveredElement].image;
     }
+    return null;
+  };
+
+  const getCurrentAltImage = () => {
+    if (hoveredElement) {
+      return ELEMENT_DESCRIPTIONS[hoveredElement].altImage;
+    }
+    return null;
   };
 
   return (
-    <Box
-      sx={{
-        backgroundColor: getBackgroundColor(), // Zmiana koloru tła strony
-        // transition: "background-color 0.3s ease-in-out",
-        minHeight: "100vh", // Ustal odpowiednią wysokość
+    <div
+      style={{
+        backgroundColor: getBackgroundColor(),
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <div
         style={{
           position: "relative",
           maxWidth: "700px",
-          marginLeft: "210px",
-          marginTop: "40px",
-          backgroundColor: getBackgroundColor(), // Zmiana koloru tła strony
-          color: "#fff",
+          marginLeft: "auto",
+          marginRight: "auto",
+          backgroundColor: getBackgroundColor(),
         }}
       >
-        {hoveredElement && (
+        {hoveredElement ? (
           <>
             <div
               style={{
@@ -128,10 +123,32 @@ const Banner = () => {
                 transform: "translateY(-50%)",
               }}
             >
-              <VerticalText
-                words={elementDescriptions[hoveredElement].words}
-                colors={elementDescriptions[hoveredElement].colors} // Przekaż kolory do komponentu VerticalText
-              />
+              <p
+                style={{
+                  writingMode: "vertical-rl",
+                  textOrientation: "upright",
+                  margin: 0,
+                  color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[0],
+                  fontSize: "72px",
+                  fontWeight: "bold",
+                  fontFamily: "The Next Font",
+                }}
+              >
+                {ELEMENT_DESCRIPTIONS[hoveredElement].words[0]}
+              </p>
+              <p
+                style={{
+                  writingMode: "vertical-rl",
+                  textOrientation: "upright",
+                  margin: 0,
+                  color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[1],
+                  fontSize: "72px",
+                  fontWeight: "bold",
+                  fontFamily: "The Next Font",
+                }}
+              >
+                {ELEMENT_DESCRIPTIONS[hoveredElement].words[1]}
+              </p>
             </div>
             <div
               style={{
@@ -139,7 +156,7 @@ const Banner = () => {
                 right: "-190px",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: elementDescriptions[hoveredElement].colors[0], // Ustaw kolor tła dla pierwszego słowa
+                color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[0],
                 maxWidth: "250px",
                 textAlign: "center",
               }}
@@ -150,21 +167,19 @@ const Banner = () => {
                   fontSize: "32px",
                   fontWeight: "bold",
                   fontFamily: "The Next Font",
-                  color: getTextColor(), // Ustaw kolor tekstu
+                  color: getTextColor(),
                 }}
               >
-                {elementDescriptions[hoveredElement].description}
+                {ELEMENT_DESCRIPTIONS[hoveredElement].description}
               </p>
             </div>
           </>
-        )}
+        ) : null}
 
         <div
           style={{
             padding: "40px",
             textAlign: "center",
-            //borderRadius: "8px",
-            //  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           }}
         >
           <h2
@@ -172,8 +187,7 @@ const Banner = () => {
               marginBottom: "-20px",
               fontFamily: "Kalnia, sans-serif",
               fontSize: "12px",
-              marginRight: "177px",
-              color: getElementsTextColor(),
+              color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
             }}
           >
             Hello to your very first experience with
@@ -184,18 +198,20 @@ const Banner = () => {
               marginBottom: "30px",
               fontFamily: "The Next Font",
               fontSize: "40px",
-              marginRight: "215px",
-              color: getElementsTextColor(), // Ustaw kolor tekstu "ELEMENTS"
+              color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
             }}
           >
             ELEMENTS.
           </h1>
 
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* Fire Element */}
             <div style={{ marginRight: "20px" }}>
               <img
-                src={fireGif}
+                src={
+                  hoveredElement === "fire"
+                    ? ELEMENT_DESCRIPTIONS.fire.altImage
+                    : ELEMENT_DESCRIPTIONS.fire.image
+                }
                 alt="Fire"
                 onClick={() => handleClick("fire")}
                 onMouseOver={() => handleMouseOver("fire")}
@@ -205,14 +221,18 @@ const Banner = () => {
                   width: "100px",
                   height: "100px",
                   transition: "transform 0.3s ease-in-out",
+                  opacity: hoveredElement === "fire" ? 1 : otherIconsVisible ? 1 : 0,
                 }}
               />
             </div>
 
-            {/* Water Element */}
             <div style={{ marginRight: "20px" }}>
               <img
-                src={waterGif}
+                src={
+                  hoveredElement === "water"
+                    ? ELEMENT_DESCRIPTIONS.water.altImage
+                    : ELEMENT_DESCRIPTIONS.water.image
+                }
                 alt="Water"
                 onClick={() => handleClick("water")}
                 onMouseOver={() => handleMouseOver("water")}
@@ -222,14 +242,18 @@ const Banner = () => {
                   width: "100px",
                   height: "100px",
                   transition: "transform 0.3s ease-in-out",
+                  opacity: hoveredElement === "water" ? 1 : otherIconsVisible ? 1 : 0,
                 }}
               />
             </div>
 
-            {/* Air Element */}
             <div style={{ marginRight: "20px" }}>
               <img
-                src={airGif}
+                src={
+                  hoveredElement === "air"
+                    ? ELEMENT_DESCRIPTIONS.air.altImage
+                    : ELEMENT_DESCRIPTIONS.air.image
+                }
                 alt="Air"
                 onClick={() => handleClick("air")}
                 onMouseOver={() => handleMouseOver("air")}
@@ -239,14 +263,18 @@ const Banner = () => {
                   width: "100px",
                   height: "100px",
                   transition: "transform 0.3s ease-in-out",
+                  opacity: hoveredElement === "air" ? 1 : otherIconsVisible ? 1 : 0,
                 }}
               />
             </div>
 
-            {/* Earth Element */}
             <div>
               <img
-                src={earthGif}
+                src={
+                  hoveredElement === "earth"
+                    ? ELEMENT_DESCRIPTIONS.earth.altImage
+                    : ELEMENT_DESCRIPTIONS.earth.image
+                }
                 alt="Earth"
                 onClick={() => handleClick("earth")}
                 onMouseOver={() => handleMouseOver("earth")}
@@ -256,6 +284,7 @@ const Banner = () => {
                   width: "100px",
                   height: "100px",
                   transition: "transform 0.3s ease-in-out",
+                  opacity: hoveredElement === "earth" ? 1 : otherIconsVisible ? 1 : 0,
                 }}
               />
             </div>
@@ -266,7 +295,7 @@ const Banner = () => {
               marginBottom: "10px",
               fontFamily: "Kalnia, sans-serif",
               fontSize: "14px",
-              color: getElementsTextColor(),
+              color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
             }}
           >
             CHOOSE ELEMENT
@@ -289,7 +318,7 @@ const Banner = () => {
           />
         </div>
       </div>
-    </Box>
+    </div>
   );
 };
 

@@ -3,36 +3,13 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import YourContext from "../YourContextFile/YourContext";
-import airg from "../assets/airg.gif";
-import earthg from "../assets/earthg.gif";
-import fireg from "../assets/fireg.gif";
-import waterg from "../assets/waterg.gif";
+import dalle from "../images/delle1.png";
 
 export const Forum = () => {
   const { setElementIcon } = useContext(YourContext);
-  const [description, setDescription] = useState("");
   const [element, setElement] = useState("");
+  const [hoveredElement, setHoveredElement] = useState(""); // Dodajemy stan do śledzenia najechanego elementu
   const navigate = useNavigate();
-
-  const handleGroupHover = (group) => {
-    switch (group) {
-      case "fire":
-        setDescription(fireg);
-        break;
-      case "water":
-        setDescription(waterg);
-        break;
-      case "air":
-        setDescription(airg);
-        break;
-      case "earth":
-        setDescription(earthg);
-        break;
-      default:
-        setDescription("");
-        break;
-    }
-  };
 
   const handleElementSelection = (selectedElement) => {
     setElement(selectedElement);
@@ -42,36 +19,27 @@ export const Forum = () => {
 
   const buttonStyle = {
     marginRight: "20px",
-    backgroundColor: "transparent",
-    color: "#fff",
-    border: "1px solid #fff",
     borderRadius: "4px",
     padding: "12px 24px",
-    transition: "background-color 0.3s, color 0.3s",
     fontSize: "1.2rem",
   };
 
   const hoverStyles = {
     fire: {
-      "&:hover": {
-        backgroundColor: "#ff5a00",
-      },
+      backgroundColor: "#D70040",
+      color: "#4A0404", // Dodajemy kolor tekstu po najechaniu
     },
     water: {
-      "&:hover": {
-        backgroundColor: "#00cdff",
-        color: "white",
-      },
+      backgroundColor: "#1434A4",
+      color: "#00FFFF",
     },
     air: {
-      "&:hover": {
-        backgroundColor: "grey",
-      },
+      backgroundColor: "#ADD8E6",
+      color: "white",
     },
     earth: {
-      "&:hover": {
-        backgroundColor: "#00ff7f",
-      },
+      backgroundColor: "#355E3B",
+      color: "grey",
     },
   };
 
@@ -80,10 +48,8 @@ export const Forum = () => {
     top: "55%",
     left: "55%",
     transform: "translate(-50%, -50%)",
-    display: description ? "block" : "none",
+    display: "block",
   };
-
-  const imageWidth = "450px"; // Ustal stałą szerokość dla obrazków gif
 
   return (
     <Box
@@ -108,23 +74,25 @@ export const Forum = () => {
             onClick={() => handleElementSelection(group)}
             sx={{
               ...buttonStyle,
-              ...hoverStyles[group],
-              color: element === group ? "#fff" : "#fff",
-              backgroundColor:
-                element === group ? hoverStyles[group]["&:hover"].backgroundColor : "transparent",
+              ...(hoveredElement === group ? {} : hoverStyles[group]), // Ustawiamy odpowiedni styl na podstawie stanu najechanego elementu
             }}
-            onMouseEnter={() => handleGroupHover(group)}
-            onMouseLeave={() => setDescription("")}
+            // onMouseEnter={() => handleHover(group)} // Ustawiamy onMouseEnter do obsługi hover
           >
             {`${group.charAt(0).toUpperCase()}${group.slice(1)}`}
           </Button>
         </Box>
       ))}
-      {description && (
-        <div style={centeredImageStyle}>
-          <img src={description} alt={element} width={imageWidth} />
-        </div>
-      )}
+
+      <div style={centeredImageStyle}>
+        <img
+          src={dalle}
+          style={{
+            width: "150%",
+            height: "auto",
+            marginLeft: "-170px",
+          }}
+        />
+      </div>
     </Box>
   );
 };

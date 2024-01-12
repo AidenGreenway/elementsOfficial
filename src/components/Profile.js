@@ -118,7 +118,7 @@ const Profile = () => {
         return (
           <Stack direction="column" spacing={2}>
             <TextField
-              label="Zmień imię"
+              label="CHANGE NAME"
               fullWidth
               size="small"
               value={name}
@@ -130,7 +130,7 @@ const Profile = () => {
               variant="outlined"
             />
             <TextField
-              label="Zmień nazwę użytkownika"
+              label="CHANGE USERNAME"
               fullWidth
               size="small"
               value={username}
@@ -142,7 +142,7 @@ const Profile = () => {
               variant="outlined"
             />
             <TextField
-              label="Zmień opis"
+              label="CHANGE TEXT"
               multiline
               rows={4}
               fullWidth
@@ -290,7 +290,7 @@ const Profile = () => {
   return (
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
       <Typography variant="h4" mb={2}>
-        Diary
+        PROFILE
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
@@ -331,10 +331,10 @@ const Profile = () => {
                 <strong>Element:</strong> {element}
               </Typography>
               <Typography variant="body2" color="white" align="left">
-                <strong>Imię:</strong> {name}
+                <strong>NAME:</strong> {name}
               </Typography>
               <Typography variant="body2" color="white" align="left">
-                <strong>Opis:</strong> {description}
+                <strong>TEXT:</strong> {description}
               </Typography>
             </Box>
             <Stack direction="column" spacing={1}>

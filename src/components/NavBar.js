@@ -17,9 +17,9 @@ const CustomDrawer = styled(Drawer)(({ theme }) => ({
 const getHoverStyle = (element) => {
   switch (element) {
     case "Home":
-      return { "&:hover": { borderBottom: "2px solid red" } };
-    case "CourseModules":
-      return { "&:hover": { borderBottom: "2px solid blue" } };
+      return { "&:hover": { borderBottom: "2px solid #D70040" } };
+    case "Course Modules":
+      return { "&:hover": { borderBottom: "2px solid #00FFFF" } };
     case "Challenges":
       return { "&:hover": { borderBottom: "2px solid white" } };
     case "Forum":
