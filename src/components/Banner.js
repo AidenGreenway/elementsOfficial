@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
-import videoSource from "../assets/background.mp4";
+import four from "../diaryImages/air/444.png";
 import aird1 from "../diaryImages/air/air2.jpg";
 import aird from "../diaryImages/air/air3.jpg";
 import earthGif from "../diaryImages/earth/earth4.png";
@@ -40,7 +40,7 @@ const ELEMENT_DESCRIPTIONS = {
     words: ["", "EARTH"],
     description:
       "Earth symbolizes stability, growth, and renewal. Find your roots and build solid foundations.",
-    colors: ["#355E3B", "#4CBB17"],
+    colors: ["#355E3B", "#50C878"],
     image: earthGif,
     altImage: earthGif1,
   },
@@ -184,6 +184,8 @@ const Banner = () => {
         >
           <h2
             style={{
+              marginRight: "175px",
+
               marginBottom: "-20px",
               fontFamily: "Kalnia, sans-serif",
               fontSize: "12px",
@@ -195,6 +197,7 @@ const Banner = () => {
 
           <h1
             style={{
+              marginRight: "210px",
               marginBottom: "30px",
               fontFamily: "The Next Font",
               fontSize: "40px",
@@ -208,9 +211,7 @@ const Banner = () => {
             <div style={{ marginRight: "20px" }}>
               <img
                 src={
-                  hoveredElement === "fire"
-                    ? ELEMENT_DESCRIPTIONS.fire.altImage
-                    : ELEMENT_DESCRIPTIONS.fire.image
+                  hoveredElement === "fire" ? getCurrentAltImage() : ELEMENT_DESCRIPTIONS.fire.image
                 }
                 alt="Fire"
                 onClick={() => handleClick("fire")}
@@ -230,7 +231,7 @@ const Banner = () => {
               <img
                 src={
                   hoveredElement === "water"
-                    ? ELEMENT_DESCRIPTIONS.water.altImage
+                    ? getCurrentAltImage()
                     : ELEMENT_DESCRIPTIONS.water.image
                 }
                 alt="Water"
@@ -250,9 +251,7 @@ const Banner = () => {
             <div style={{ marginRight: "20px" }}>
               <img
                 src={
-                  hoveredElement === "air"
-                    ? ELEMENT_DESCRIPTIONS.air.altImage
-                    : ELEMENT_DESCRIPTIONS.air.image
+                  hoveredElement === "air" ? getCurrentAltImage() : ELEMENT_DESCRIPTIONS.air.image
                 }
                 alt="Air"
                 onClick={() => handleClick("air")}
@@ -272,7 +271,7 @@ const Banner = () => {
               <img
                 src={
                   hoveredElement === "earth"
-                    ? ELEMENT_DESCRIPTIONS.earth.altImage
+                    ? getCurrentAltImage()
                     : ELEMENT_DESCRIPTIONS.earth.image
                 }
                 alt="Earth"
@@ -290,29 +289,12 @@ const Banner = () => {
             </div>
           </div>
 
-          <p
+          <img
+            src={four}
             style={{
-              marginBottom: "10px",
-              fontFamily: "Kalnia, sans-serif",
-              fontSize: "14px",
-              color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
-            }}
-          >
-            CHOOSE ELEMENT
-          </p>
-
-          <video
-            autoPlay
-            loop
-            muted
-            controls
-            src={videoSource}
-            style={{
-              width: "60%",
+              width: "40%",
               height: "auto",
-              borderRadius: "8px",
-              border: "1px solid white",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+
               marginTop: "20px",
             }}
           />
