@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import YourContext from "../YourContextFile/YourContext";
 import determineElement from "../components/YourElement"; // Importuj funkcję z nowego komponentu
@@ -51,7 +51,12 @@ const ELEMENT_DESCRIPTIONS = {
     altImage: earthGif1,
   },
 };
-
+const advices = [
+  { element: "fire", text: "BURN" },
+  { element: "water", text: "FREEZE" },
+  { element: "air", text: "BLOW" },
+  { element: "earth", text: "ROCK" },
+];
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
@@ -109,6 +114,15 @@ const Banner = () => {
     }
     return null;
   };
+  const [currentAdviceIndex, setCurrentAdviceIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentAdviceIndex((prevIndex) => (prevIndex + 1) % advices.length);
+    }, 3000); // Zmiana rady co 3 sekundy
+
+    return () => clearInterval(interval);
+  }, []);
   const infoContent = (
     <Box
       sx={{
@@ -121,10 +135,6 @@ const Banner = () => {
         color: "white",
         textAlign: "end",
         padding: "0 20px",
-        // backgroundColor: "rgba(255, 255, 255, 0.4)", // Zwiększ przezroczystość i dostosuj kolor
-        // borderRadius: "1px",
-        // borderColor:"white" // Dodaj zaokrąglenie brzegów
-        // boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)", // Możesz dodać delikatny cień
       }}
     >
       <Typography
@@ -457,6 +467,19 @@ const Banner = () => {
             }
             style={{ width: "50%", height: "auto", marginTop: "20px" }}
           />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "50px",
+              left: "-110px",
+              transform: "translateX(-50%)",
+              color: "#fff",
+              fontSize: "90px",
+              fontFamily: "The Next Font",
+            }}
+          >
+            <h3>{advices[currentAdviceIndex].text}</h3>
+          </div>
         </div>
       </div>
     </div>
