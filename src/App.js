@@ -6,6 +6,8 @@ import ForgotPassword from "./Login/ForgotPassword"; // Import the Forgot Passwo
 
 import Register from "./Login/Register";
 
+import Regulamin from "./Login/Regulamin";
+
 import SignIn from "./Login/SignIn";
 
 import { YourContextProvider } from "./YourContextFile/YourContextProvider";
@@ -42,6 +44,7 @@ const App = () => {
             <Route path="/" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add the new route */}
+            <Route path="/regulamin" element={<Regulamin />} />
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="home" element={<Banner />} />
 

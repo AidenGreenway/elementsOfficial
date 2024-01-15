@@ -10,7 +10,7 @@ const determineElement = (day, month) => {
     (month === 11 && day >= 22) ||
     (month === 12 && day <= 21)
   ) {
-    return "Ogień";
+    return "fire";
   }
   // Ziemia: Byk, Panna, Koziorożec
   if (
@@ -21,7 +21,7 @@ const determineElement = (day, month) => {
     (month === 12 && day >= 22) ||
     (month === 1 && day <= 19)
   ) {
-    return "Ziemia";
+    return "earth";
   }
   // Powietrze: Bliźnięta, Waga, Wodnik
   if (
@@ -32,7 +32,7 @@ const determineElement = (day, month) => {
     (month === 1 && day >= 20) ||
     (month === 2 && day <= 18)
   ) {
-    return "Powietrze";
+    return "air";
   }
   // Woda: Rak, Skorpion, Ryby
   if (
@@ -43,7 +43,7 @@ const determineElement = (day, month) => {
     (month === 2 && day >= 19) ||
     (month === 3 && day <= 20)
   ) {
-    return "Woda";
+    return "water";
   }
   return "Nieznany"; // Dla nieprawidłowych dat
 };

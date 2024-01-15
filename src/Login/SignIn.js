@@ -13,6 +13,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import image444 from "../diaryImages/air/444.png";
 const theme = createTheme({
   typography: {
     fontFamily: '"The Next Font", Arial, sans-serif',
@@ -89,21 +90,15 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 3,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            {/* You can use a different icon for login */}
-            {/* For example, use a LockOutlinedIcon */}
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
-          <Typography>ELEMENTS</Typography>
-          <Typography component="h1" variant="h3">
-            Login
-          </Typography>
+          <Avatar sx={{ m: 1, width: 140, height: 140 }} alt="Avatar" src={image444}></Avatar>
+          <Typography sx={{ fontSize: "60px" }}>ELEMENTS.</Typography>
+          <Typography sx={{ fontSize: "24px" }}>Login</Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -133,17 +128,33 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 5, mb: 2 }}>
+            <Button
+              type="submit"
+              fullWidth
+              sx={{
+                textAlign: "left",
+                mt: 2,
+                mb: 2,
+                right: 0,
+                color: "white",
+                border: "1px solid white",
+                "&:hover": {
+                  backgroundColor: "white", // Kolor tła przy najechaniu
+                  color: "black", // Kolor tekstu przy najechaniu
+                  // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                },
+              }}
+            >
               Login
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2" onClick={handleForgotClick}>
+                <Link href="#" variant="body2" sx={{ color: "white" }} onClick={handleForgotClick}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" onClick={handleSignUpClick}>
+                <Link href="#" variant="body2" sx={{ color: "white" }} onClick={handleSignUpClick}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,6 +8,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import image444 from "../diaryImages/air/444.png";
 const theme = createTheme({
   typography: {
     fontFamily: '"The Next Font", Arial, sans-serif',
@@ -72,9 +74,11 @@ const ForgotPassword = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            marginTop: "2rem",
+            marginTop: "6rem",
           }}
         >
+          <Avatar sx={{ m: 1, width: 50, height: 50 }} alt="Avatar" src={image444}></Avatar>
+
           <Typography component="h1" variant="h5">
             Forgot Password?
           </Typography>
@@ -91,11 +95,42 @@ const ForgotPassword = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
+            <Button
+              type="submit"
+              fullWidth
+              sx={{
+                textAlign: "left",
+                mt: 0,
+                mb: 1,
+                right: 0,
+                color: "white",
+                border: "1px solid white",
+                "&:hover": {
+                  backgroundColor: "white", // Kolor tła przy najechaniu
+                  color: "black", // Kolor tekstu przy najechaniu
+                  // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                },
+              }}
+            >
               Send Reset Instructions
             </Button>
           </form>
-          <Button fullWidth variant="outlined" sx={{ mt: 2 }} onClick={handleBackToLoginClick}>
+          <Button
+            fullWidth
+            sx={{
+              textAlign: "left",
+
+              right: 0,
+              color: "white",
+              border: "1px solid white",
+              "&:hover": {
+                backgroundColor: "white", // Kolor tła przy najechaniu
+                color: "black", // Kolor tekstu przy najechaniu
+                // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+              },
+            }}
+            onClick={handleBackToLoginClick}
+          >
             Back to Login
           </Button>
         </div>

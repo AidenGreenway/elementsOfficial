@@ -12,6 +12,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import image444 from "../diaryImages/air/444.png";
+
 const theme = createTheme({
   typography: {
     fontFamily: '"The Next Font", Arial, sans-serif',
@@ -65,7 +67,10 @@ const Register = () => {
     event.preventDefault();
     // Handle registration logic here
   };
-
+  const handleGoToRegulamin = () => {
+    // Navigate to the registration page when "Sign Up" is clicked
+    navigate("/regulamin");
+  };
   const handleBackToLoginClick = () => {
     // Navigate back to the login page when "Back to Login" is clicked
     navigate("/");
@@ -77,19 +82,16 @@ const Register = () => {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            {/* You can use a different icon for registration */}
-            {/* For example, create an icon for registration or use a user icon */}
-            {/* <UserIcon /> */}
-          </Avatar>
-          <Typography>ELEMENTS</Typography>
-          <Typography component="h1" variant="h3">
+          <Avatar sx={{ m: 1, width: 100, height: 100 }} alt="Avatar" src={image444}></Avatar>
+
+          <Typography>ELEMENTS.</Typography>
+          <Typography component="h1" variant="h3" sx={{ color: "white" }}>
             Register
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -150,10 +152,55 @@ const Register = () => {
                 label="I accept the terms and conditions"
               />
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+            <Button
+              // href="#"
+              sx={{
+                marginBottom: "10px",
+                color: "white",
+                fontSize: "10px",
+                display: "flex",
+                justifyContent: "center", // Wyrównaj na środku w poziomie
+                alignItems: "center", // Wyrównaj na środku w pionie
+                height: "100%", // Dla wyrównania na środku w pionie
+                cursor: "pointer",
+              }}
+              onClick={handleGoToRegulamin}
+            >
+              regulamin
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              sx={{
+                textAlign: "center",
+                color: "white",
+                border: "1px solid white",
+                "&:hover": {
+                  backgroundColor: "white", // Kolor tła przy najechaniu
+                  color: "black", // Kolor tekstu przy najechaniu
+                  // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                },
+              }}
+            >
               Register
             </Button>
-            <Button fullWidth variant="outlined" sx={{ mt: 2 }} onClick={handleBackToLoginClick}>
+            <Button
+              fullWidth
+              variant="outlined"
+              sx={{
+                textAlign: "left",
+                mt: 1,
+                right: 0,
+                color: "white",
+                border: "1px solid white",
+                "&:hover": {
+                  backgroundColor: "white", // Kolor tła przy najechaniu
+                  color: "black", // Kolor tekstu przy najechaniu
+                  // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                },
+              }}
+              onClick={handleBackToLoginClick}
+            >
               Back to Login
             </Button>
           </Box>

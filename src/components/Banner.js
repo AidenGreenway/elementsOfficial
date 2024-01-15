@@ -305,7 +305,23 @@ const Banner = () => {
                     }}
                   >
                     <Typography variant="body1" style={{ color: "#fff", fontSize: "20px" }}>
-                      Your element is: {astroElement}
+                      <Button
+                        type="submit"
+                        sx={{
+                          textAlign: "left",
+                          right: 0,
+                          color: "white",
+                          border: "1px solid white",
+
+                          "&:hover": {
+                            backgroundColor: "white", // Kolor tła przy najechaniu
+                            color: "black", // Kolor tekstu przy najechaniu
+                            // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                          },
+                        }}
+                      >
+                        Your element is: {astroElement}
+                      </Button>
                     </Typography>
                   </Box>
                 )}
