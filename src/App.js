@@ -2,6 +2,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
+import ForgotPassword from "./Login/ForgotPassword"; // Import the Forgot Password component
+
+import Register from "./Login/Register";
+
 import SignIn from "./Login/SignIn";
 
 import { YourContextProvider } from "./YourContextFile/YourContextProvider";
@@ -36,7 +40,8 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<SignIn />} />
-
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add the new route */}
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="home" element={<Banner />} />
 

@@ -1,4 +1,3 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -75,6 +74,15 @@ export default function SignIn() {
     }
   };
 
+  const handleSignUpClick = () => {
+    // Navigate to the registration page when "Sign Up" is clicked
+    navigate("/register");
+  };
+  const handleForgotClick = () => {
+    // Navigate to the registration page when "Sign Up" is clicked
+    navigate("/forgot-password");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -88,7 +96,9 @@ export default function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+            {/* You can use a different icon for login */}
+            {/* For example, use a LockOutlinedIcon */}
+            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography>ELEMENTS</Typography>
           <Typography component="h1" variant="h3">
@@ -128,12 +138,12 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={handleForgotClick}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={handleSignUpClick}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

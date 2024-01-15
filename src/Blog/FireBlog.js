@@ -11,22 +11,23 @@ import {
 import { useEffect, useState } from "react";
 
 const FireBlog = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [blogPosts, setBlogPosts] = useState(
+    JSON.parse(localStorage.getItem("fireBlogPosts")) || []
+  );
+  const [newPost, setNewPost] = useState({ title: "", content: "" });
 
-  // Ładowanie postów z localStorage przy montowaniu
+  // Load posts from localStorage on mount
   useEffect(() => {
-    const savedPosts = localStorage.getItem("blogPosts");
+    const savedPosts = localStorage.getItem("fireBlogPosts");
     if (savedPosts) {
       setBlogPosts(JSON.parse(savedPosts));
     }
   }, []);
 
-  // Aktualizacja localStorage przy każdej zmianie blogPosts
+  // Update localStorage whenever blogPosts changes
   useEffect(() => {
-    localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
+    localStorage.setItem("fireBlogPosts", JSON.stringify(blogPosts));
   }, [blogPosts]);
-
-  const [newPost, setNewPost] = useState({ title: "", content: "" });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +42,7 @@ const FireBlog = () => {
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
-        comments: [],
+        comments: [], // Assuming you want to keep this field
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });

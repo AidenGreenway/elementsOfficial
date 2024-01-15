@@ -27,7 +27,7 @@ export const Forum = () => {
   const hoverStyles = {
     fire: {
       backgroundColor: "#D70040",
-      color: "#4A0404", // Dodajemy kolor tekstu po najechaniu
+      color: "yellow", // Dodajemy kolor tekstu po najechaniu
     },
     water: {
       backgroundColor: "#1434A4",

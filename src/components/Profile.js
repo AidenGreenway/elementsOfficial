@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
@@ -31,6 +31,7 @@ import waterGif1 from "../diaryImages/water/water1.jpg";
 import waterGif2 from "../diaryImages/water/water2.jpg";
 import waterGif3 from "../diaryImages/water/water3.png";
 import waterGif4 from "../diaryImages/water/water4.jpg";
+
 const ElementImages = {
   fire: [fireGif1, fireGif2, fireGif3, fireGif4],
   water: [waterGif1, waterGif2, waterGif3, waterGif4],
@@ -41,21 +42,38 @@ const ElementImages = {
 const ElementColors = {
   fire: ["#FF3131"],
   water: ["#0047AB"],
-  air: ["#ADD8E6 "],
-  earth: ["	#009E60	"],
+  air: ["#ADD8E6"],
+  earth: ["#009E60"],
 };
 
 const Profile = () => {
-  const [element, setElement] = useState("earth");
-  const [name, setName] = useState("");
+  const [element, setElement] = useState(localStorage.getItem("element") || "earth");
+  const [name, setName] = useState(localStorage.getItem("name") || "");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
   const [description, setDescription] = useState("");
-  const [username, setUsername] = useState("Aiden Greenway");
-  const [posts, setPosts] = useState([]);
+  const [username, setUsername] = useState(localStorage.getItem("username") || "Aiden Greenway");
+  const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
-  const [activeSection, setActiveSection] = useState("tablica"); // "tablica", "edycja", "nowyPost"
+  const [activeSection, setActiveSection] = useState("tablica");
+
+  const handleDeletePost = (indexToDelete) => {
+    const updatedPosts = posts.filter((_, index) => index !== indexToDelete);
+    setPosts(updatedPosts);
+    localStorage.setItem("posts", JSON.stringify(updatedPosts));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("element", element);
+    localStorage.setItem("name", name);
+    localStorage.setItem("username", username);
+    // Save posts to localStorage
+  }, [element, name, username]);
+
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
 
   const toggleActiveSection = (section) => {
     setActiveSection(activeSection === section ? "tablica" : section);
@@ -92,7 +110,7 @@ const Profile = () => {
 
   const handleAddPost = () => {
     if (newPost) {
-      setPosts([...posts, newPost]);
+      setPosts([newPost, ...posts]);
       setNewPost("");
       setActiveSection("tablica");
     }
@@ -142,7 +160,7 @@ const Profile = () => {
               variant="outlined"
             />
             <TextField
-              label="CHANGE TEXT"
+              label="CHANGE bio"
               multiline
               rows={4}
               fullWidth
@@ -192,7 +210,7 @@ const Profile = () => {
             </FormControl>
             <FormControl fullWidth size="small" sx={{ backgroundColor: "black" }}>
               <InputLabel id="avatar-label" style={{ color: "white" }}>
-                Wybierz obrazek
+                choose icon
               </InputLabel>
               <Select
                 labelId="avatar-label"
@@ -248,7 +266,7 @@ const Profile = () => {
                 margin: "20px auto",
               }}
             >
-              Zapisz
+              save
             </Button>
           </Stack>
         );
@@ -259,7 +277,7 @@ const Profile = () => {
               fullWidth
               multiline
               rows={4}
-              placeholder="Dodaj nowy post..."
+              placeholder="add new post"
               value={newPost}
               onChange={handleNewPostChange}
               sx={{ bgcolor: "white", color: "black", my: 2 }}
@@ -269,7 +287,7 @@ const Profile = () => {
               onClick={handleAddPost}
               sx={{ mb: 2, width: "50%", margin: "0 auto", backgroundColor: selectedColor }}
             >
-              Dodaj Post
+              add post{" "}
             </Button>
           </Box>
         );
@@ -278,8 +296,22 @@ const Profile = () => {
         return (
           <Stack spacing={2}>
             {posts.map((post, index) => (
-              <Paper key={index} sx={{ p: 2, bgcolor: "grey" }}>
-                {post}
+              <Paper key={index} sx={{ p: 2, bgcolor: "white", position: "relative" }}>
+                <Typography
+                  variant="caption"
+                  sx={{ position: "absolute", top: "10px", left: "10px", color: "grey" }}
+                >
+                  #{posts.length - index}
+                </Typography>
+                <Typography variant="body2" sx={{ textAlign: "left", marginLeft: "20px" }}>
+                  {post}
+                </Typography>
+                <Button
+                  onClick={() => handleDeletePost(index)}
+                  style={{ position: "absolute", right: "10px", top: "10px", color: "red" }}
+                >
+                  DELETE
+                </Button>
               </Paper>
             ))}
           </Stack>
@@ -322,7 +354,7 @@ const Profile = () => {
                     style={{ width: "100%", height: "100%", borderRadius: "50%" }}
                   />
                 </Avatar>
-                <Typography variant="h5">{username}</Typography>
+                <Typography variant="h4choseni">{username}</Typography>
               </Box>
               <Typography variant="h6" style={{ fontSize: "1.5rem" }} align="left">
                 Persona:
@@ -334,7 +366,7 @@ const Profile = () => {
                 <strong>NAME:</strong> {name}
               </Typography>
               <Typography variant="body2" color="white" align="left">
-                <strong>TEXT:</strong> {description}
+                <strong>BIO:</strong> {description}
               </Typography>
             </Box>
             <Stack direction="column" spacing={1}>
@@ -343,14 +375,28 @@ const Profile = () => {
                 onClick={() => toggleActiveSection("nowyPost")}
                 style={{ backgroundColor: selectedColor, width: "40%", margin: "0 auto" }}
               >
-                Dodaj Nowy Post
+                {activeSection === "nowyPost" ? "show posts" : "add new post"}
               </Button>
               <Button
                 variant="contained"
                 onClick={() => toggleActiveSection("edycja")}
                 style={{ backgroundColor: selectedColor, width: "40%", margin: "10px auto" }}
               >
-                Edytuj Profil
+                edit profile{" "}
+              </Button>
+              <Button
+                onClick={() => {
+                  localStorage.clear();
+                  setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
+                }}
+                style={{
+                  color: "white",
+                  backgroundColor: selectedColor,
+                  width: "40%",
+                  margin: " auto",
+                }}
+              >
+                clear data{" "}
               </Button>
             </Stack>
           </Box>

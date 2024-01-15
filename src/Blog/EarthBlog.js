@@ -11,17 +11,10 @@ import {
 import { useEffect, useState } from "react";
 
 const EarthBlog = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [blogPosts, setBlogPosts] = useState(
+    JSON.parse(localStorage.getItem("earthBlogPosts")) || []
+  );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
-
-  // Ładowanie wpisów z localStorage przy montowaniu komponentu
-  useEffect(() => {
-    const savedPosts = localStorage.getItem("earthBlogPosts");
-    if (savedPosts) {
-      const loadedPosts = JSON.parse(savedPosts);
-      setBlogPosts(loadedPosts);
-    }
-  }, []);
 
   // Zapisywanie wpisów do localStorage przy każdej aktualizacji
   useEffect(() => {
@@ -41,11 +34,9 @@ const EarthBlog = () => {
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
-        comments: [],
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
-      console.log("New post added:", newBlogPost);
     }
   };
 

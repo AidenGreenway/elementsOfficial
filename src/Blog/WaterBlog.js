@@ -8,11 +8,26 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const WaterBlog = () => {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [blogPosts, setBlogPosts] = useState(
+    JSON.parse(localStorage.getItem("waterBlogPosts")) || []
+  );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
+
+  // Load posts from localStorage on mount
+  useEffect(() => {
+    const savedPosts = localStorage.getItem("waterBlogPosts");
+    if (savedPosts) {
+      setBlogPosts(JSON.parse(savedPosts));
+    }
+  }, []);
+
+  // Update localStorage whenever blogPosts changes
+  useEffect(() => {
+    localStorage.setItem("waterBlogPosts", JSON.stringify(blogPosts));
+  }, [blogPosts]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +42,7 @@ const WaterBlog = () => {
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
-        comments: [],
+        comments: [], // Assuming you want to keep this field
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
@@ -72,9 +87,7 @@ const WaterBlog = () => {
                   borderColor: "#4A90E2",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& input": {
-                  color: "#FFF",
-                },
+                "& input": { color: "#FFF" },
               }}
             />
             <Typography variant="h6" color="#4A90E2" sx={{ marginBottom: 1 }}>
@@ -94,9 +107,7 @@ const WaterBlog = () => {
                   borderColor: "#4A90E2",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& textarea": {
-                  color: "#FFF",
-                },
+                "& textarea": { color: "#FFF" },
               }}
             />
             <Button
