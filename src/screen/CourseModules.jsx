@@ -32,14 +32,14 @@ export const CourseModules = () => {
       element: "WATER",
       icon: <img src={waterd} alt="Water Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
-      hoverColor: "#00bfff",
+      hoverColor: "#1434A4",
       handleClick: () => navigate("water"),
     },
     {
       element: "AIR",
       icon: <img src={aird} alt="Air Icon" style={{ width: "2rem", marginRight: "10px" }} />,
       description: "LEARN ABOUT ",
-      hoverColor: "#808080",
+      hoverColor: "#ADD8E6",
       handleClick: () => navigate("air"),
     },
     {

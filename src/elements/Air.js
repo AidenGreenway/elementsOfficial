@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import airGif from "../images/airgif.gif";
+// import airGif from "../images/airgif.gif";
 const Air = () => {
   const location = useLocation();
 
@@ -27,21 +27,18 @@ const Air = () => {
   }, [location.hash]);
 
   return (
-    <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
+    <Box sx={{ backgroundColor: "#ADD8E6", padding: "20px", borderRadius: "8px" }}>
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "white", align: "left" }}>
             Air
           </Typography>
-          <Typography variant="h4" sx={{ marginLeft: "-360px", color: "white", align: "left" }}>
+          {/* <Typography variant="h4" sx={{ marginLeft: "-360px", color: "white", align: "left" }}>
             <img src={airGif} width="10%" />
-          </Typography>
+          </Typography> */}
         </AccordionSummary>
         <AccordionDetails>
-          <Typography
-            sx={{ marginBottom: "20px", color: "#b3b3b3", fontSize: "16px" }}
-            align="left"
-          >
+          <Typography sx={{ marginBottom: "20px", color: "white", fontSize: "16px" }} align="left">
             Individuals associated with the air element are intelligent, dynamic, and communicative.
             They are characterized by openness to change and new experiences. They are social, enjoy
             interacting with others, and have the ability to analyze situations from various

@@ -54,25 +54,46 @@ const ELEMENT_DESCRIPTIONS = {
 const advices = [
   {
     element: "fire",
-    text: "Ignite your ambitions. Embrace challenges as opportunities to grow",
+    text: "Fire can melt metals with low melting points, such as lead or aluminum.",
     color: "#D70040",
-  }, // Example color for fire
+  },
+  {
+    element: "fire",
+    text: "Fire is the only element that humans can control and use for various purposes.",
+    color: "#D70040",
+  },
   {
     element: "water",
-    text: "Flow like water. Be adaptable in your approach .",
+    text: "Water has the incredible ability to disperse sound, making it an excellent medium for underwater sound transmission.",
     color: "#00FFFF",
-  }, // Example color for water
+  },
+  {
+    element: "water",
+    text: "Under certain conditions, water can exist in a triple-phase state, simultaneously as a solid (ice), liquid (water), and gas (water vapor).",
+    color: "#00FFFF",
+  },
   {
     element: "air",
-    text: "Let your thoughts soar like the wind. Cultivate clear communication",
+    text: "Air is essential for human survival and contains approximately 78% nitrogen, 21% oxygen, and trace amounts of other gases.",
     color: "#87CEEB",
-  }, // Example color for air
+  },
+  {
+    element: "air",
+    text: "Air pressure decreases with altitude, which is why it becomes more challenging to breathe at higher elevations.",
+    color: "#87CEEB",
+  },
   {
     element: "earth",
-    text: "Grow roots to stand tall. Embrace stability and continuous growth",
-    color: "darkGreen",
-  }, // Example color for earth
+    text: "The Earth's crust is divided into tectonic plates that constantly move, leading to the formation of continents and geological phenomena like earthquakes and volcanoes.",
+    color: "#90EE90",
+  },
+  {
+    element: "earth",
+    text: "Soil is a vital part of Earth's ecosystem and contains a rich diversity of organisms, including bacteria, fungi, and insects, essential for plant growth.",
+    color: "#90EE90",
+  },
 ];
+
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
@@ -308,14 +329,17 @@ const Banner = () => {
                       <Button
                         type="submit"
                         sx={{
-                          textAlign: "left",
-                          right: 0,
+                          textAlign: "center",
+
+                          margin: " auto",
+                          mt: 1,
                           color: "white",
                           border: "1px solid white",
 
                           "&:hover": {
                             backgroundColor: "white", // Kolor tła przy najechaniu
-                            color: "black", // Kolor tekstu przy najechaniu
+                            color: "black",
+                            // Kolor tekstu przy najechaniu
                             // Dodaj tutaj inne style, które chcesz zastosować podczas hover
                           },
                         }}
@@ -510,14 +534,13 @@ const Banner = () => {
             <div
               style={{
                 position: "absolute",
-                bottom: "140px",
-                left: "-105px",
-                transform: "translateX(-50%)",
+                bottom: "150px",
+                left: "-241px", // Zmieniamy 'left' na '0' dla wyświetlania od lewej strony
                 color: advices[currentAdviceIndex].color, // Dynamic color
                 fontSize: "20px",
                 fontFamily: "The Next Font",
-                maxWidth: "350px",
-                justifyContent: "left",
+                maxWidth: "380px",
+                textAlign: "left", // Ustawiamy 'textAlign' na 'left'
                 opacity: hoveredElement === "" ? 1 : 0, // Visibility based on hoveredElement
               }}
             >

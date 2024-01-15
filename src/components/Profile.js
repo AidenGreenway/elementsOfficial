@@ -287,7 +287,7 @@ const Profile = () => {
               onClick={handleAddPost}
               sx={{ mb: 2, width: "50%", margin: "0 auto", backgroundColor: selectedColor }}
             >
-              add post{" "}
+              add post
             </Button>
           </Box>
         );

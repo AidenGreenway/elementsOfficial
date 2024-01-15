@@ -38,9 +38,7 @@ const theme = createTheme({
             backgroundColor: "rgba(255, 255, 255, 0.15)",
           },
           "& .Mui-focused": {
-            // backgroundColor: "rgba(255, 255, 255, 0.2)",
-            // Removed boxShadow to eliminate the border effect when focused
-            // boxShadow: "0 0 5px white",
+            border: "none",
           },
         },
       },

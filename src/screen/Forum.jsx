@@ -39,7 +39,7 @@ export const Forum = () => {
     },
     earth: {
       backgroundColor: "#355E3B",
-      color: "grey",
+      color: "#7CFC00",
     },
   };
 

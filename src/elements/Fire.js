@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import fireGif from "../images/firegif.gif";
+//import fireGif from "../images/firegif.gif";
 
 const Fire = () => {
   const location = useLocation();
@@ -41,15 +41,15 @@ const Fire = () => {
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "yellow" }}>
             Fire
           </Typography>
-          <Typography
+          {/* <Typography
             variant="h4"
             sx={{ marginTop: "-70px", marginLeft: "-145px", color: "yellow" }}
           >
             <img src={fireGif} width="30%" />
-          </Typography>
+          </Typography> */}
         </AccordionSummary>
         <AccordionDetails>
-          <Typography sx={{ marginBottom: "0px", color: "orange", fontSize: "16px" }} align="left">
+          <Typography sx={{ marginBottom: "0px", color: "#D70040", fontSize: "16px" }} align="left">
             Fire is the most charismatic, most dangerous and "cool" type of persona. An individual
             associated with the element of fire is a person who exudes intensity and fervor. Their
             life is driven by unstoppable energy and passion, which is hard to miss. This person
@@ -95,7 +95,7 @@ const Fire = () => {
           <Typography sx={{ color: "yellow" }}>Weaknesses:</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "orange" }}>
+          <List sx={{ marginTop: "8px", color: "#D70040" }}>
             <ListItem>
               <ListItemText primary="Impulsive risk-taking without consideration." />
             </ListItem>
