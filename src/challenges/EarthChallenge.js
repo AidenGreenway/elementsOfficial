@@ -7,49 +7,49 @@ const EarthChallenge = () => {
 
   const earthQuestions = [
     {
-      question: "Jak oceniasz swoją cierpliwość?",
-      answers: ["Niska", "Średnia", "Wysoka", "Bardzo wysoka"],
+      question: "How do you rate your patience?",
+      answers: ["Low", "Medium", "High", "Very High"],
     },
     {
-      question: "Czy lubisz pracować długo nad jednym zadaniem?",
-      answers: ["Zdecydowanie nie", "Nie zawsze", "Czasami", "Zawsze"],
+      question: "Do you like to work on one task for a long time?",
+      answers: ["Definitely not", "Not always", "Sometimes", "Always"],
     },
     {
-      question: "Jak często analizujesz sytuacje przed podjęciem decyzji?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you analyze situations before making decisions?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Czy masz skłonność do planowania z góry?",
-      answers: ["Zdecydowanie nie", "Raczej nie", "Czasami", "Zawsze"],
+      question: "Do you have a tendency to plan ahead?",
+      answers: ["Definitely not", "Not usually", "Sometimes", "Always"],
     },
     {
-      question: "Jak radzisz sobie ze stresem?",
-      answers: ["Źle", "Średnio", "Dobrze", "Bardzo dobrze"],
+      question: "How well do you handle stress?",
+      answers: ["Poorly", "Average", "Well", "Very well"],
     },
     {
-      question: "Czy często udzielasz pomocy innym?",
-      answers: ["Rzadko", "Czasami", "Często", "Zawsze"],
+      question: "How often do you offer help to others?",
+      answers: ["Rarely", "Sometimes", "Often", "Always"],
     },
     {
-      question: "Jak radzisz sobie w sytuacjach kryzysowych?",
+      question: "How do you handle crisis situations?",
       answers: [
-        "Zazwyczaj tracę kontrolę",
-        "Czasami tracę kontrolę",
-        "Rzadko tracę kontrolę",
-        "Nigdy nie tracę kontrolę",
+        "Usually lose control",
+        "Sometimes lose control",
+        "Rarely lose control",
+        "Never lose control",
       ],
     },
     {
-      question: "Czy dbasz o swoje otoczenie?",
-      answers: ["Rzadko", "Czasami", "Często", "Zawsze"],
+      question: "Do you take care of your environment?",
+      answers: ["Rarely", "Sometimes", "Often", "Always"],
     },
     {
-      question: "Jak często bazujesz na swojej intuicji?",
-      answers: ["Rzadko", "Czasami", "Często", "Zawsze"],
+      question: "How often do you rely on your intuition?",
+      answers: ["Rarely", "Sometimes", "Often", "Always"],
     },
     {
-      question: "Czy zazwyczaj przed podejmowaniem decyzji słuchasz opinii innych?",
-      answers: ["Rzadko", "Czasami", "Często", "Zawsze"],
+      question: "Do you usually listen to others' opinions before making decisions?",
+      answers: ["Rarely", "Sometimes", "Often", "Always"],
     },
   ];
 
@@ -62,18 +62,40 @@ const EarthChallenge = () => {
     if (questionIndex >= earthQuestions.length) {
       const percentage = (points / 40) * 100;
       return (
-        <div style={{ color: "white" }}>
-          <Typography variant="h4">Twój wynik dla żywiołu Ziemi: {points} / 40</Typography>
-          <Typography variant="h5">Twój poziom integracji z żywiołem to: {percentage}%</Typography>
+        <div
+          style={{
+            color: "#228B22",
+            textAlign: "left",
+            fontFamily: "The Next Font",
+            marginTop: "20px",
+            marginLeft: "20px",
+          }}
+        >
+          <Typography variant="h4">Your score for the Earth element: {points} / 40</Typography>
+          <Typography variant="h5">
+            Your level of integration with the element is: {percentage}%
+          </Typography>
         </div>
       );
     }
 
     const currentQuestion = earthQuestions[questionIndex];
     return (
-      <div style={{ color: "white" }}>
-        <Typography variant="h6">Pytanie {questionIndex + 1}</Typography>
-        <Typography variant="body1">{currentQuestion.question}</Typography>
+      <div
+        style={{
+          marginTop: "60px",
+          marginLeft: "0px",
+          textAlign: "left",
+          color: "lightGreen",
+          fontFamily: "The Next Font",
+        }}
+      >
+        <Typography variant="h6" sx={{ color: "lightGreen" }}>
+          Question {questionIndex + 1}
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#50C878", fontSize: "30px" }}>
+          {currentQuestion.question}
+        </Typography>
         <List>
           {currentQuestion.answers.map((answer, index) => (
             <ListItem key={index} disablePadding>
@@ -81,8 +103,14 @@ const EarthChallenge = () => {
                 onClick={() => handleAnswerSelection(index + 1)}
                 variant="contained"
                 fullWidth
+                sx={{
+                  "&:hover": {
+                    color: "#2E8B57",
+                    transition: "color 0.3s ease",
+                  },
+                }}
               >
-                {answer}
+                * {answer}
               </ListItemButton>
             </ListItem>
           ))}

@@ -102,11 +102,13 @@ const Banner = () => {
   const [birthDay, setBirthDay] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [astroElement, setAstroElement] = useState("");
+  const [selectedElement, setSelectedElement] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const element = determineElement(parseInt(birthDay), parseInt(birthMonth));
     setAstroElement(element);
+    setSelectedElement(element);
   };
 
   const handleClick = (element) => {
@@ -174,15 +176,7 @@ const Banner = () => {
         padding: "0 20px",
       }}
     >
-      <Typography
-        fontFamily="The Next Font"
-        fontSize="23px"
-        sx={
-          {
-            // Tutaj możesz dodać dodatkowe style specyficzne dla Typography, jeśli są potrzebne
-          }
-        }
-      >
+      <Typography fontFamily="The Next Font" fontSize="23px">
         Discover how understanding the four elements - Fire, Water, Air, and Earth - can help you in
         your journey of self-development. Embrace the unique qualities of each element to find
         balance and harmony in your life.
@@ -225,7 +219,6 @@ const Banner = () => {
                     left: "-240px",
                     display: "flex",
                     flexDirection: "column",
-                    // border: "1px white solid",
                   }}
                 >
                   <TextField
@@ -298,7 +291,6 @@ const Banner = () => {
                       "&:hover": {
                         backgroundColor: "white", // Kolor tła przy najechaniu
                         color: "black", // Kolor tekstu przy najechaniu
-                        // Dodaj tutaj inne style, które chcesz zastosować podczas hover
                       },
                     }}
                   >
@@ -310,7 +302,6 @@ const Banner = () => {
                       right: 0, // Przesuwa element na prawo
                       top: "50%",
                       transform: "translateY(-50%)",
-                      // Dodaj inne style według potrzeb
                     }}
                   >
                     {infoContent}
@@ -320,7 +311,7 @@ const Banner = () => {
                   <Box
                     sx={{
                       position: "absolute",
-                      top: "230px",
+                      top: "220px",
                       left: "-240px",
                       color: "white",
                     }}
@@ -329,22 +320,36 @@ const Banner = () => {
                       <Button
                         type="submit"
                         sx={{
-                          textAlign: "center",
-
-                          margin: " auto",
-                          mt: 1,
-                          color: "white",
+                          right: "-90px",
+                          color: "black",
                           border: "1px solid white",
-
+                          backgroundColor:
+                            selectedElement === "fire"
+                              ? "#D70040"
+                              : selectedElement === "water"
+                                ? "#00FFFF"
+                                : selectedElement === "air"
+                                  ? "#ADD8E6"
+                                  : selectedElement === "earth"
+                                    ? "lightGreen"
+                                    : "", // Ustaw kolor guzika na podstawie wybranego żywiołu
                           "&:hover": {
-                            backgroundColor: "white", // Kolor tła przy najechaniu
-                            color: "black",
-                            // Kolor tekstu przy najechaniu
-                            // Dodaj tutaj inne style, które chcesz zastosować podczas hover
+                            backgroundColor: "black", // Kolor tła przy najechaniu
+                            color:
+                              selectedElement === "fire"
+                                ? "#D70040"
+                                : selectedElement === "water"
+                                  ? "#00FFFF"
+                                  : selectedElement === "air"
+                                    ? "#ADD8E6"
+                                    : selectedElement === "earth"
+                                      ? "lightGreen"
+                                      : "black", // Kolor tekstu przy najechaniu, użyj koloru wybranego żywiołu lub domyślnego "black"
                           },
+                          marginTop: "20px", // Dodaj margines od góry
                         }}
                       >
-                        Your element is: {astroElement}
+                        {astroElement}
                       </Button>
                     </Typography>
                   </Box>
@@ -534,12 +539,12 @@ const Banner = () => {
             <div
               style={{
                 position: "absolute",
-                bottom: "150px",
+                bottom: "100px",
                 left: "-241px", // Zmieniamy 'left' na '0' dla wyświetlania od lewej strony
                 color: advices[currentAdviceIndex].color, // Dynamic color
-                fontSize: "20px",
+                fontSize: "16px",
                 fontFamily: "The Next Font",
-                maxWidth: "380px",
+                maxWidth: "280px",
                 textAlign: "left", // Ustawiamy 'textAlign' na 'left'
                 opacity: hoveredElement === "" ? 1 : 0, // Visibility based on hoveredElement
               }}

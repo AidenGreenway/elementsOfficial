@@ -7,59 +7,59 @@ const FireChallenge = () => {
 
   const fireQuestions = [
     {
-      question: "Czy często podejmujesz ryzyko?",
-      answers: ["Unikam ryzyka", "Rzadko", "Czasami", "Często, lubię ryzyko"],
+      question: "How often do you take risks?",
+      answers: ["I avoid risks", "Rarely", "Sometimes", "Often, I enjoy taking risks"],
     },
     {
-      question: "Jak reagujesz na wyzwania?",
+      question: "How do you respond to challenges?",
       answers: [
-        "Unikam wyzwań",
-        "Staram się im unikać",
-        "Akceptuję je czasami",
-        "Akceptuję wyzwania otwarcie",
+        "I try to avoid them",
+        "I attempt to avoid them",
+        "I accept them occasionally",
+        "I openly embrace challenges",
       ],
     },
     {
-      question: "Czy łatwo się denerwujesz?",
+      question: "Do you get easily annoyed?",
       answers: [
-        "Jestem spokojny/a",
-        "Raczej spokojny/a",
-        "Czasami łatwo się denerwuję",
-        "Często się denerwuję",
+        "I am calm",
+        "I am rather calm",
+        "I get annoyed sometimes",
+        "I get annoyed frequently",
       ],
     },
     {
-      question: "Jak oceniasz swoją determinację?",
+      question: "How do you rate your determination?",
       answers: [
-        "Jestem mało zdeterminowany/a",
-        "Mam średnią determinację",
-        "Jestem dość zdeterminowany/a",
-        "Jestem bardzo zdeterminowany/a",
+        "I have low determination",
+        "I have moderate determination",
+        "I have fairly high determination",
+        "I am highly determined",
       ],
     },
     {
-      question: "Czy szybko się nudzisz?",
-      answers: ["Szybko się nudzę", "Raczej szybko", "Raczej nie", "Nie nudzę się łatwo"],
+      question: "Do you get bored quickly?",
+      answers: ["I get bored quickly", "Rather quickly", "Not often", "I don't get bored easily"],
     },
     {
-      question: "Czy preferujesz aktywność fizyczną?",
-      answers: ["Wcale nie lubię się ruszać", "Rzadko", "Czasami", "Uwielbiam być aktywny/a"],
+      question: "Do you prefer physical activity?",
+      answers: ["I dislike moving at all", "Rarely", "Sometimes", "I love being active"],
     },
     {
-      question: "Jak często szukasz nowych doświadczeń?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Często, uwielbiam nowe doświadczenia"],
+      question: "How often do you seek new experiences?",
+      answers: ["Never", "Rarely", "Sometimes", "Often, I love new experiences"],
     },
     {
-      question: "Czy lubisz dominować w sytuacjach?",
-      answers: ["Unikam takich sytuacji", "Rzadko", "Czasami", "Tak, lubię dominować"],
+      question: "Do you like to dominate situations?",
+      answers: ["I avoid such situations", "Rarely", "Sometimes", "Yes, I like to dominate"],
     },
     {
-      question: "Jak szybko podejmujesz decyzje?",
-      answers: ["Bardzo wolno", "Raczej powoli", "Raczej szybko", "Natychmiastowo"],
+      question: "How quickly do you make decisions?",
+      answers: ["Very slowly", "Rather slowly", "Rather quickly", "Immediately"],
     },
     {
-      question: "Czy łatwo się denerwujesz?",
-      answers: ["Bardzo rzadko", "Raczej rzadko", "Czasami", "Często"],
+      question: "Do you get easily annoyed?",
+      answers: ["Very rarely", "Rather rarely", "Sometimes", "Frequently"],
     },
   ];
 
@@ -72,20 +72,34 @@ const FireChallenge = () => {
     if (questionIndex >= fireQuestions.length) {
       const percentage = (points / 40) * 100;
       return (
-        <div style={{ color: "white" }}>
-          <Typography variant="h4">Twój wynik dla żywiołu Ognia: {points} / 40</Typography>
-          <Typography variant="h5">Twój poziom integracji z żywiołem to: {percentage}%</Typography>
-          {/* Tutaj można dodać logikę interpretacji wyników */}
+        <div style={{ color: "#D70040" }}>
+          <Typography variant="h4">Your score for the Fire element: {points} / 40</Typography>
+          <Typography variant="h5">
+            Your level of integration with the element is: {percentage}%
+          </Typography>
+          {/* You can add result interpretation logic here */}
         </div>
       );
     }
 
     const currentQuestion = fireQuestions[questionIndex];
     return (
-      <div style={{ color: "white" }}>
+      <div
+        style={{
+          marginTop: "60px",
+          marginLeft: "0px",
+          textAlign: "left",
+          color: "#D70040",
+          fontFamily: "The Next Font",
+        }}
+      >
         <div>
-          <Typography variant="h6">Pytanie {questionIndex + 1}</Typography>
-          <Typography variant="body1">{currentQuestion.question}</Typography>
+          <Typography variant="h6" sx={{ color: "yellow" }}>
+            Question {questionIndex + 1}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "orange", fontSize: "30px" }}>
+            {currentQuestion.question}
+          </Typography>
           <List>
             {currentQuestion.answers.map((answer, index) => (
               <ListItem key={index} disablePadding>
@@ -93,8 +107,14 @@ const FireChallenge = () => {
                   onClick={() => handleAnswerSelection(index + 1)}
                   variant="contained"
                   fullWidth
+                  sx={{
+                    "&:hover": {
+                      color: "#ffcc00", // Zmiana koloru tekstu na hover
+                      transition: "color 0.3s ease", // Animacja przejścia
+                    },
+                  }}
                 >
-                  {answer}
+                  * {answer}
                 </ListItemButton>
               </ListItem>
             ))}

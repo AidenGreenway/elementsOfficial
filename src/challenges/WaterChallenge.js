@@ -7,44 +7,44 @@ const WaterChallenge = () => {
 
   const waterQuestions = [
     {
-      question: "Jak oceniasz swoją empatię?",
-      answers: ["Niska", "Średnia", "Wysoka", "Bardzo wysoka"],
+      question: "How do you rate your empathy?",
+      answers: ["Low", "Medium", "High", "Very High"],
     },
     {
-      question: "Czy jesteś introwertykiem czy ekstrawertykiem?",
-      answers: ["Introwertyk", "Raczej introwertyk", "Raczej ekstrawertyk", "Ekstrawertyk"],
+      question: "Are you an introvert or an extrovert?",
+      answers: ["Introvert", "Somewhat introverted", "Somewhat extroverted", "Extrovert"],
     },
     {
-      question: "Jak często wyrażasz swoje emocje?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you express your emotions?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Czy zazwyczaj unikasz konfliktów?",
-      answers: ["Zawsze unikam", "Czasami unikam", "Rzadko unikam", "Nigdy nie unikam"],
+      question: "Do you usually avoid conflicts?",
+      answers: ["Always avoid", "Sometimes avoid", "Rarely avoid", "Never avoid"],
     },
     {
-      question: "Jak reagujesz na stres?",
-      answers: ["Bardzo źle", "Źle", "Średnio", "Dobrze"],
+      question: "How do you react to stress?",
+      answers: ["Very poorly", "Poorly", "Average", "Well"],
     },
     {
-      question: "Czy łatwo nawiązujesz głębokie relacje?",
-      answers: ["Trudno", "Raczej trudno", "Raczej łatwo", "Łatwo"],
+      question: "Do you easily form deep relationships?",
+      answers: ["Difficult", "Somewhat difficult", "Somewhat easy", "Easy"],
     },
     {
-      question: "Jak często odczuwasz potrzebę pomagania innym?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you feel the need to help others?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Czy często oddajesz się swoim marzeniom i fantazjom?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "Do you often indulge in your dreams and fantasies?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Jak radzisz sobie z emocjonalnym obciążeniem?",
-      answers: ["Źle", "Średnio", "Dobrze", "Bardzo dobrze"],
+      question: "How well do you handle emotional burdens?",
+      answers: ["Poorly", "Average", "Well", "Very well"],
     },
     {
-      question: "Jak często jesteś w stanie zrozumieć punkt widzenia innych osób?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often can you understand the perspective of others?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
   ];
 
@@ -57,31 +57,53 @@ const WaterChallenge = () => {
     if (questionIndex >= waterQuestions.length) {
       const percentage = (points / 40) * 100;
       return (
-        <div style={{ color: "white" }}>
-          <Typography variant="h4">Twój wynik dla żywiołu Wody: {points} / 40</Typography>
-          <Typography variant="h5">Twój poziom integracji z żywiołem to: {percentage}%</Typography>
+        <div style={{ color: "#00FFFF" }}>
+          <Typography variant="h4">Your score for the Water element: {points} / 40</Typography>
+          <Typography variant="h5">
+            Your level of integration with the element is: {percentage}%
+          </Typography>
         </div>
       );
     }
 
     const currentQuestion = waterQuestions[questionIndex];
     return (
-      <div style={{ color: "white" }}>
-        <Typography variant="h6">Pytanie {questionIndex + 1}</Typography>
-        <Typography variant="body1">{currentQuestion.question}</Typography>
-        <List>
-          {currentQuestion.answers.map((answer, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton
-                onClick={() => handleAnswerSelection(index + 1)}
-                variant="contained"
-                fullWidth
-              >
-                {answer}
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+      <div
+        style={{
+          marginTop: "60px",
+          marginLeft: "0px",
+          textAlign: "left",
+          color: "blue",
+          fontFamily: "The Next Font",
+        }}
+      >
+        <div>
+          <Typography variant="h6" sx={{ color: "blue" }}>
+            Question {questionIndex + 1}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "lightBlue", fontSize: "30px" }}>
+            {currentQuestion.question}
+          </Typography>
+          <List>
+            {currentQuestion.answers.map((answer, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton
+                  onClick={() => handleAnswerSelection(index + 1)}
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    "&:hover": {
+                      color: "#00FFFF", // Zmiana koloru tekstu na hover
+                      transition: "color 0.3s ease", // Animacja przejścia
+                    },
+                  }}
+                >
+                  * {answer}
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </div>
     );
   };

@@ -7,44 +7,44 @@ const AirChallenge = () => {
 
   const airQuestions = [
     {
-      question: "Jak oceniasz swoją optymistyczność?",
-      answers: ["Pesymista", "Raczej pesymista", "Raczej optymista", "Optymista"],
+      question: "How do you rate your optimism?",
+      answers: ["Pessimist", "Somewhat pessimistic", "Somewhat optimistic", "Optimist"],
     },
     {
-      question: "Czy lubisz zmiany?",
-      answers: ["Unikam zmian", "Nie zawsze", "Czasami", "Uwielbiam zmiany"],
+      question: "Do you like changes?",
+      answers: ["Avoid changes", "Not always", "Sometimes", "Love changes"],
     },
     {
-      question: "Jak często podkreślasz swoje zdanie?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you emphasize your opinion?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Czy potrafisz być analityczny?",
-      answers: ["Zdecydowanie nie", "Raczej nie", "Czasami", "Zdecydowanie tak"],
+      question: "Can you be analytical?",
+      answers: ["Definitely not", "Rather not", "Sometimes", "Definitely yes"],
     },
     {
-      question: "Jak często dostosowujesz się do zmieniającej się sytuacji?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you adapt to changing situations?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
     {
-      question: "Jak często zmieniasz zdanie?",
-      answers: ["Bardzo rzadko", "Rzadko", "Czasami", "Często"],
+      question: "How often do you change your mind?",
+      answers: ["Very rarely", "Rarely", "Sometimes", "Often"],
     },
     {
-      question: "Czy szybko się nudzisz rutyną?",
-      answers: ["Bardzo szybko", "Raczej szybko", "Raczej nie", "Nigdy"],
+      question: "Do you get bored with routine quickly?",
+      answers: ["Very quickly", "Rather quickly", "Not often", "Never"],
     },
     {
-      question: "Jak reagujesz na sytuacje stresowe?",
-      answers: ["Bardzo źle", "Źle", "Średnio", "Dobrze"],
+      question: "How do you react to stressful situations?",
+      answers: ["Very poorly", "Poorly", "Average", "Well"],
     },
     {
-      question: "Czy potrafisz być analityczny?",
-      answers: ["Zdecydowanie nie", "Raczej nie", "Czasami", "Zdecydowanie tak"],
+      question: "Can you be analytical?",
+      answers: ["Definitely not", "Rather not", "Sometimes", "Definitely yes"],
     },
     {
-      question: "Jak często dostosowujesz się do zmieniającej się sytuacji?",
-      answers: ["Nigdy", "Rzadko", "Czasami", "Zawsze"],
+      question: "How often do you adapt to changing situations?",
+      answers: ["Never", "Rarely", "Sometimes", "Always"],
     },
   ];
 
@@ -55,21 +55,33 @@ const AirChallenge = () => {
 
   const renderQuestion = () => {
     if (questionIndex >= airQuestions.length) {
-      const percentage = (points / 40) * 100; // Obliczenie procentowego wyniku
+      const percentage = (points / 40) * 100; // Calculate the percentage score
       return (
         <div style={{ color: "white" }}>
-          <Typography variant="h4">Twój wynik dla żywiołu Powietrza: {points} / 40</Typography>
-          <Typography variant="h5">Twoja integracja z żywiołem wynosi: {percentage}%</Typography>
+          <Typography variant="h4">Your score for the Air element: {points} / 40</Typography>
+          <Typography variant="h5">Your integration with the element is: {percentage}%</Typography>
         </div>
       );
     }
 
     const currentQuestion = airQuestions[questionIndex];
     return (
-      <div style={{ color: "white" }}>
+      <div
+        style={{
+          marginTop: "60px",
+          marginLeft: "0px",
+          textAlign: "left",
+          color: "white", // Light blue color for Air element
+          fontFamily: "The Next Font",
+        }}
+      >
         <div>
-          <Typography variant="h6">Pytanie {questionIndex + 1}</Typography>
-          <Typography variant="body1">{currentQuestion.question}</Typography>
+          <Typography variant="h6" sx={{ color: "white" }}>
+            Question {questionIndex + 1}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#87CEEB", fontSize: "30px" }}>
+            {currentQuestion.question}
+          </Typography>
           <List>
             {currentQuestion.answers.map((answer, index) => (
               <ListItem key={index} disablePadding>
@@ -77,8 +89,14 @@ const AirChallenge = () => {
                   onClick={() => handleAnswerSelection(index + 1)}
                   variant="contained"
                   fullWidth
+                  sx={{
+                    "&:hover": {
+                      color: "#00BFFF", // Change text color on hover to gold
+                      transition: "color 0.3s ease", // Transition animation
+                    },
+                  }}
                 >
-                  {answer}
+                  * {answer}
                 </ListItemButton>
               </ListItem>
             ))}
@@ -87,6 +105,7 @@ const AirChallenge = () => {
       </div>
     );
   };
+
   return <div style={{ backgroundColor: "black" }}>{renderQuestion()}</div>;
 };
 
