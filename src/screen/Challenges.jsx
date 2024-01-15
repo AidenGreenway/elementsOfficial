@@ -91,7 +91,7 @@ export const Challenges = () => {
                       variant="text"
                       style={{
                         color: hoveredButton === challenge.name ? challenge.color : "inherit",
-                        fontSize: "40px",
+                        fontSize: "50px",
                       }}
                       onClick={() => handleClick(challenge.destination)}
                       onMouseEnter={() => handleButtonHover(challenge.name)}

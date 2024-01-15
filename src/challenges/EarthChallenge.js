@@ -83,7 +83,7 @@ const EarthChallenge = () => {
     return (
       <div
         style={{
-          marginTop: "60px",
+          marginTop: "70px",
           marginLeft: "0px",
           textAlign: "left",
           color: "lightGreen",
@@ -93,7 +93,7 @@ const EarthChallenge = () => {
         <Typography variant="h6" sx={{ color: "lightGreen" }}>
           Question {questionIndex + 1}
         </Typography>
-        <Typography variant="body1" sx={{ color: "#50C878", fontSize: "30px" }}>
+        <Typography variant="body1" sx={{ color: "#00A36C", fontSize: "35px" }}>
           {currentQuestion.question}
         </Typography>
         <List>

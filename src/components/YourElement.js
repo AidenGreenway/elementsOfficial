@@ -45,7 +45,7 @@ const determineElement = (day, month) => {
   ) {
     return "water";
   }
-  return "Nieznany"; // Dla nieprawidłowych dat
+  return "invalid data"; // Dla nieprawidłowych dat
 };
 
 export default determineElement;

@@ -68,7 +68,7 @@ const AirChallenge = () => {
     return (
       <div
         style={{
-          marginTop: "60px",
+          marginTop: "70px",
           marginLeft: "0px",
           textAlign: "left",
           color: "white", // Light blue color for Air element
@@ -79,7 +79,7 @@ const AirChallenge = () => {
           <Typography variant="h6" sx={{ color: "white" }}>
             Question {questionIndex + 1}
           </Typography>
-          <Typography variant="body1" sx={{ color: "#87CEEB", fontSize: "30px" }}>
+          <Typography variant="body1" sx={{ color: "#87CEEB", fontSize: "35px" }}>
             {currentQuestion.question}
           </Typography>
           <List>

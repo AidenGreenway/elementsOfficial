@@ -221,6 +221,16 @@ const Banner = () => {
                     flexDirection: "column",
                   }}
                 >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "10px",
+                      textAlign: "left",
+                      marginBottom: "-12px",
+                    }}
+                  >
+                    put your birthday here
+                  </Typography>
                   <TextField
                     type="number"
                     value={birthDay}
@@ -256,7 +266,7 @@ const Banner = () => {
                     value={birthMonth}
                     onChange={(e) => setBirthMonth(e.target.value)}
                     placeholder="month"
-                    margin="normal"
+                    margin="dense"
                     InputLabelProps={{
                       style: { color: "#fff" },
                     }}
@@ -265,6 +275,7 @@ const Banner = () => {
                         color: "#fff",
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
                         borderColor: "#fff",
+                        marginTop: "-10px",
                       },
                     }}
                     sx={{
@@ -286,6 +297,7 @@ const Banner = () => {
                     sx={{
                       textAlign: "left",
                       right: 0,
+                      bottom: -10,
                       color: "white",
                       border: "1px solid white",
                       "&:hover": {
@@ -320,7 +332,7 @@ const Banner = () => {
                       <Button
                         type="submit"
                         sx={{
-                          right: "-90px",
+                          alignItems: "left",
                           color: "black",
                           border: "1px solid white",
                           backgroundColor:
@@ -332,7 +344,7 @@ const Banner = () => {
                                   ? "#ADD8E6"
                                   : selectedElement === "earth"
                                     ? "lightGreen"
-                                    : "", // Ustaw kolor guzika na podstawie wybranego żywiołu
+                                    : "red", // Ustaw kolor guzika na podstawie wybranego żywiołu
                           "&:hover": {
                             backgroundColor: "black", // Kolor tła przy najechaniu
                             color:
@@ -344,7 +356,7 @@ const Banner = () => {
                                     ? "#ADD8E6"
                                     : selectedElement === "earth"
                                       ? "lightGreen"
-                                      : "black", // Kolor tekstu przy najechaniu, użyj koloru wybranego żywiołu lub domyślnego "black"
+                                      : "darkRed", // Kolor tekstu przy najechaniu, użyj koloru wybranego żywiołu lub domyślnego "black"
                           },
                           marginTop: "20px", // Dodaj margines od góry
                         }}

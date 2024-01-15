@@ -70,7 +70,7 @@ const WaterChallenge = () => {
     return (
       <div
         style={{
-          marginTop: "60px",
+          marginTop: "70px",
           marginLeft: "0px",
           textAlign: "left",
           color: "blue",
@@ -81,7 +81,7 @@ const WaterChallenge = () => {
           <Typography variant="h6" sx={{ color: "blue" }}>
             Question {questionIndex + 1}
           </Typography>
-          <Typography variant="body1" sx={{ color: "lightBlue", fontSize: "30px" }}>
+          <Typography variant="body1" sx={{ color: "lightBlue", fontSize: "35px" }}>
             {currentQuestion.question}
           </Typography>
           <List>
