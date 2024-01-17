@@ -281,6 +281,13 @@ const Profile = () => {
               value={newPost}
               onChange={handleNewPostChange}
               sx={{ bgcolor: "white", color: "black", my: 2 }}
+              autoFocus
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault(); // Zapobiegnij domyślnej akcji (np. przejście do nowej linii)
+                  handleAddPost(); // Wywołaj funkcję dodawania posta
+                }
+              }}
             />
             <Button
               variant="contained"
@@ -295,25 +302,35 @@ const Profile = () => {
       default:
         return (
           <Stack spacing={2}>
-            {posts.map((post, index) => (
-              <Paper key={index} sx={{ p: 2, bgcolor: "white", position: "relative" }}>
-                <Typography
-                  variant="caption"
-                  sx={{ position: "absolute", top: "10px", left: "10px", color: "grey" }}
+            <Box
+              sx={{
+                maxHeight: "580px", // Maksymalna wysokość kontenera z postami
+                overflowY: "auto", // Dodanie paska przewijania, gdy zawartość przekracza maksymalną wysokość
+              }}
+            >
+              {posts.map((post, index) => (
+                <Paper
+                  key={index}
+                  sx={{ p: 2, bgcolor: "white", position: "relative", marginBottom: "15px" }}
                 >
-                  #{posts.length - index}
-                </Typography>
-                <Typography variant="body2" sx={{ textAlign: "left", marginLeft: "20px" }}>
-                  {post}
-                </Typography>
-                <Button
-                  onClick={() => handleDeletePost(index)}
-                  style={{ position: "absolute", right: "10px", top: "10px", color: "red" }}
-                >
-                  DELETE
-                </Button>
-              </Paper>
-            ))}
+                  <Typography
+                    variant="caption"
+                    sx={{ position: "absolute", top: "10px", left: "10px", color: "grey" }}
+                  >
+                    #{posts.length - index}
+                  </Typography>
+                  <Typography variant="body2" sx={{ textAlign: "left", marginLeft: "20px" }}>
+                    {post}
+                  </Typography>
+                  <Button
+                    onClick={() => handleDeletePost(index)}
+                    style={{ position: "absolute", right: "10px", top: "10px", color: "red" }}
+                  >
+                    DELETE
+                  </Button>
+                </Paper>
+              ))}
+            </Box>
           </Stack>
         );
     }

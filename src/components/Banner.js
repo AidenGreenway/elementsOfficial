@@ -60,6 +60,23 @@ const advices = [
     color: "#D70040",
   },
   {
+    element: "water",
+    text: "Under certain conditions, water can exist in a triple-phase state, simultaneously as a solid (ice), liquid (water), and gas (water vapor).",
+    color: "#00FFFF",
+  },
+
+  {
+    element: "air",
+    text: "Air pressure decreases with altitude, which is why it becomes more challenging to breathe at higher elevations.",
+    color: "#87CEEB",
+  },
+  {
+    element: "earth",
+    text: "The Earth's crust is divided into tectonic plates that constantly move, leading to the formation of continents and geological phenomena like earthquakes and volcanoes.",
+    color: "#90EE90",
+  },
+
+  {
     element: "fire",
     text: "Fire is the only element that humans can control and use for various purposes.",
     color: "#D70040",
@@ -70,24 +87,9 @@ const advices = [
     color: "#00FFFF",
   },
   {
-    element: "water",
-    text: "Under certain conditions, water can exist in a triple-phase state, simultaneously as a solid (ice), liquid (water), and gas (water vapor).",
-    color: "#00FFFF",
-  },
-  {
     element: "air",
     text: "Air is essential for human survival and contains approximately 78% nitrogen, 21% oxygen, and trace amounts of other gases.",
     color: "#87CEEB",
-  },
-  {
-    element: "air",
-    text: "Air pressure decreases with altitude, which is why it becomes more challenging to breathe at higher elevations.",
-    color: "#87CEEB",
-  },
-  {
-    element: "earth",
-    text: "The Earth's crust is divided into tectonic plates that constantly move, leading to the formation of continents and geological phenomena like earthquakes and volcanoes.",
-    color: "#90EE90",
   },
   {
     element: "earth",

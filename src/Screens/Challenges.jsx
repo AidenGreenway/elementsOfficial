@@ -57,13 +57,13 @@ export const Challenges = () => {
     {
       name: "water",
       component: "WaterChallenge",
-      color: "#00cdff",
+      color: "darkBlue",
       destination: "water",
     },
     {
       name: "air",
       component: "AirChallenge",
-      color: "grey",
+      color: "lightBlue",
       destination: "air",
     },
     {
