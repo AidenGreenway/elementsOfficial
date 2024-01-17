@@ -2,6 +2,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
+import Banner from "./Components/Banner";
+
+import { Dashboard } from "./Components/Dashboard";
+import Profile from "./Components/Profile";
 import ForgotPassword from "./Login/ForgotPassword"; // Import the Forgot Password component
 
 import Register from "./Login/Register";
@@ -10,14 +14,6 @@ import Regulamin from "./Login/Regulamin";
 
 import SignIn from "./Login/SignIn";
 
-import { YourContextProvider } from "./YourContextFile/YourContextProvider";
-
-import Banner from "./components/Banner";
-
-import { Dashboard } from "./components/Dashboard";
-
-import Profile from "./components/Profile";
-
 import {
   ChallengeDetailScreen,
   Challenges,
@@ -25,7 +21,9 @@ import {
   ElementScreen,
   Forum,
   ForumScreen,
-} from "./screen";
+} from "./Screens";
+
+import { YourContextProvider } from "./YourContextFile/YourContextProvider";
 
 const theme = createTheme({
   typography: {

@@ -1,8 +1,9 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import determineElement from "./YourElement";
 import YourContext from "../YourContextFile/YourContext";
-import determineElement from "../components/YourElement"; // Importuj funkcję z nowego komponentu
 import four from "../diaryImages/air/444.png"; // Obrazek początkowy
 import aird1 from "../diaryImages/air/air2.jpg";
 import aird from "../diaryImages/air/air3.jpg";
@@ -51,6 +52,7 @@ const ELEMENT_DESCRIPTIONS = {
     altImage: earthGif1,
   },
 };
+
 const advices = [
   {
     element: "fire",
@@ -93,7 +95,10 @@ const advices = [
     color: "#90EE90",
   },
 ];
-
+const texts = [
+  "Discover how understanding the four elements - Fire, Water, Air, and Earth - can help you in your journey of self-development. Embrace the unique qualities of each element to find balance and harmony in your life.",
+  "Explore the power of the four elements - Fire, Water, Air, and Earth - and see how they influence your daily life. Allow yourself a deeper understanding of these fundamental forces to better harmonize with the world around you.",
+];
 const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
@@ -103,6 +108,7 @@ const Banner = () => {
   const [birthMonth, setBirthMonth] = useState("");
   const [astroElement, setAstroElement] = useState("");
   const [selectedElement, setSelectedElement] = useState("");
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -110,12 +116,27 @@ const Banner = () => {
     setAstroElement(element);
     setSelectedElement(element);
   };
-
+  const navigate = useNavigate();
   const handleClick = (element) => {
     setHoveredElement(element);
     setElementIcon(element);
+    switch (element) {
+      case "fire":
+        navigate("/dashboard/courseModules/fire");
+        break;
+      case "water":
+        navigate("/dashboard/courseModules/water");
+        break;
+      case "air":
+        navigate("/dashboard/courseModules/air");
+        break;
+      case "earth":
+        navigate("/dashboard/courseModules/earth");
+        break;
+      default:
+        break;
+    }
   };
-
   const handleMouseOver = (element) => {
     setHoveredElement(element);
     setOtherIconsVisible(false);
@@ -140,13 +161,6 @@ const Banner = () => {
     return "#000";
   };
 
-  const getCurrentImage = () => {
-    if (hoveredElement) {
-      return ELEMENT_DESCRIPTIONS[hoveredElement].image;
-    }
-    return null;
-  };
-
   const getCurrentAltImage = () => {
     if (hoveredElement) {
       return ELEMENT_DESCRIPTIONS[hoveredElement].altImage;
@@ -157,11 +171,20 @@ const Banner = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentAdviceIndex((prevIndex) => (prevIndex + 1) % advices.length);
-    }, 7000); // Zmiana rady co 3 sekundy
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 7000); // Zmienia indeks tekstu co 7 sekund
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentAdviceIndex((prevIndex) => (prevIndex + 1) % advices.length);
+    }, 7000); // Zmienia poradę co 5 sekund
+
+    return () => clearInterval(interval);
+  }, []);
+
   const infoContent = (
     <Box
       sx={{
@@ -176,10 +199,13 @@ const Banner = () => {
         padding: "0 20px",
       }}
     >
-      <Typography fontFamily="The Next Font" fontSize="23px">
-        Discover how understanding the four elements - Fire, Water, Air, and Earth - can help you in
-        your journey of self-development. Embrace the unique qualities of each element to find
-        balance and harmony in your life.
+      <Typography
+        key={currentTextIndex} // Dodaj klucz zależny od zmieniającego się indeksu
+        fontFamily="The Next Font"
+        fontSize="23px"
+        className="animate__animated animate__bounceInDown" // Twoja klasa animacji
+      >
+        {texts[currentTextIndex]}
       </Typography>
     </Box>
   );
@@ -192,7 +218,6 @@ const Banner = () => {
     >
       <div
         style={{
-          transition: "opacity 0.4s ease-in-out", // Smooth transition for opacity
           backgroundColor: getBackgroundColor(),
           minHeight: "100vh",
           display: "flex",
@@ -224,7 +249,7 @@ const Banner = () => {
                   <Typography
                     sx={{
                       color: "white",
-                      fontSize: "10px",
+                      fontSize: "15px",
                       textAlign: "left",
                       marginBottom: "-12px",
                     }}
@@ -238,7 +263,7 @@ const Banner = () => {
                     placeholder="day"
                     margin="normal"
                     InputLabelProps={{
-                      style: { color: "#fff" },
+                      style: { color: "red" },
                     }}
                     InputProps={{
                       style: {
@@ -361,7 +386,7 @@ const Banner = () => {
                           marginTop: "20px", // Dodaj margines od góry
                         }}
                       >
-                        {astroElement}
+                        create profil: {astroElement}
                       </Button>
                     </Typography>
                   </Box>
@@ -549,16 +574,18 @@ const Banner = () => {
               style={{ width: "50%", height: "auto", marginTop: "20px" }}
             />
             <div
+              key={currentAdviceIndex}
+              className="animate__animated animate__bounceInUp"
               style={{
                 position: "absolute",
-                bottom: "100px",
-                left: "-241px", // Zmieniamy 'left' na '0' dla wyświetlania od lewej strony
-                color: advices[currentAdviceIndex].color, // Dynamic color
-                fontSize: "16px",
+                bottom: "70px",
+                left: "-241px",
+                color: advices[currentAdviceIndex].color,
+                fontSize: "18px",
                 fontFamily: "The Next Font",
                 maxWidth: "280px",
-                textAlign: "left", // Ustawiamy 'textAlign' na 'left'
-                opacity: hoveredElement === "" ? 1 : 0, // Visibility based on hoveredElement
+                textAlign: "left",
+                opacity: hoveredElement === "" ? 1 : 0,
               }}
             >
               <h3>{advices[currentAdviceIndex].text}</h3>

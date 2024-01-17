@@ -19,11 +19,11 @@ const getHoverStyle = (element) => {
     case "Home":
       return { "&:hover": { borderBottom: "2px solid #D70040" } };
     case "Course Modules":
-      return { "&:hover": { borderBottom: "2px solid #00FFFF" } };
+      return { "&:hover": { borderBottom: "2px solid #1434A4" } };
     case "Challenges":
-      return { "&:hover": { borderBottom: "2px solid white" } };
+      return { "&:hover": { borderBottom: "2px solid #ADD8E6" } };
     case "Forum":
-      return { "&:hover": { borderBottom: "2px solid green" } };
+      return { "&:hover": { borderBottom: "2px solid #7CFC00" } };
     case "Profile":
       return { "&:hover": { borderBottom: "2px solid purple" } };
     default:

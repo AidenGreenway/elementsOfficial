@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import earthGif from "../images/earthgif.gif";
+import earthGif from "../Images/earthgif.gif";
 
 const Earth = () => {
   const location = useLocation();

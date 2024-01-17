@@ -3,7 +3,7 @@ import { AirBlog } from "src/Blog/AirBlog";
 import EarthBlog from "src/Blog/EarthBlog";
 import FireBlog from "src/Blog/FireBlog";
 import WaterBlog from "src/Blog/WaterBlog";
-import { ELEMENTS } from "src/constants";
+import { ELEMENTS } from "src/Constants";
 
 export const ForumScreen = () => {
   const location = useLocation();

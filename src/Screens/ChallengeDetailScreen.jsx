@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
 
-import AirChallange from "../challenges/AirChallenge";
-import EarthChallenge from "../challenges/EarthChallenge";
-import FireChallenge from "../challenges/FireChallenge";
-import WaterChallenge from "../challenges/WaterChallenge";
-import { ELEMENTS } from "../constants";
+import AirChallange from "../Challenges/AirChallenge";
+import EarthChallenge from "../Challenges/EarthChallenge";
+import FireChallenge from "../Challenges/FireChallenge";
+import WaterChallenge from "../Challenges/WaterChallenge";
+import { ELEMENTS } from "../Constants";
 
 export const ChallengeDetailScreen = () => {
   const location = useLocation();

@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import waterGif from "../images/watergif.gif";
+import waterback from "../diaryImages/water/dallwaterr.jpg";
 const Water = () => {
   const location = useLocation();
 
@@ -27,17 +27,27 @@ const Water = () => {
   }, [location.hash]);
 
   return (
-    <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
+    <Box
+      sx={{
+        background: `url(${waterback})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        padding: "20px",
+        borderRadius: "8px",
+        position: "relative",
+        height: "100%", // Dodaj tę właściwość
+        overflow: "scroll",
+      }}
+    >
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "#82eefd" }}>
             Water
           </Typography>
-          <img src={waterGif} width="6%" />
         </AccordionSummary>
         <AccordionDetails>
           <Typography
-            sx={{ marginBottom: "20px", color: "#00ccff", fontSize: "16px" }}
+            sx={{ maxWidth: "60%", marginBottom: "20px", color: "#00ccff", fontSize: "16px" }}
             align="left"
           >
             Water is the best teacher for adopting, it can be invsible and has no physical form
@@ -50,7 +60,6 @@ const Water = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
           <Typography sx={{ color: "#82eefd" }}>Strengths:</Typography>
@@ -76,7 +85,6 @@ const Water = () => {
           </List>
         </AccordionDetails>
       </Accordion>
-
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
           <Typography sx={{ color: "#82eefd" }}>Weaknesses:</Typography>
@@ -102,7 +110,6 @@ const Water = () => {
           </List>
         </AccordionDetails>
       </Accordion>
-
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
           <Typography sx={{ color: "#82eefd" }}>Exercises for Managing Water Traits:</Typography>
@@ -128,7 +135,6 @@ const Water = () => {
           </List>
         </AccordionDetails>
       </Accordion>
-
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
           <Typography variant="body1" sx={{ color: "#82eefd" }}>

@@ -2,11 +2,11 @@ import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import aird from "../Images/aird.png";
+import dalle from "../Images/delle1.png";
+import earthd from "../Images/earthd.png";
 import fired from "../diaryImages/fire/fire4.png";
 import waterd from "../diaryImages/water/water3.png";
-import aird from "../images/aird.png";
-import dalle from "../images/delle1.png";
-import earthd from "../images/earthd.png";
 
 export const CourseModules = () => {
   const [hoveredElement, setHoveredElement] = useState(null);

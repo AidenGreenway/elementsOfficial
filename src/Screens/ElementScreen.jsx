@@ -1,10 +1,10 @@
 import { useLocation } from "react-router-dom";
-import Air from "src/elements/Air";
-import Earth from "src/elements/Earth";
-import Fire from "src/elements/Fire";
-import Water from "src/elements/Water";
+import Air from "src/Elements/Air";
+import Earth from "src/Elements/Earth";
+import Fire from "src/Elements/Fire";
+import Water from "src/Elements/Water";
 
-import { ELEMENTS } from "../constants";
+import { ELEMENTS } from "../Constants";
 
 export const ElementScreen = () => {
   const location = useLocation();

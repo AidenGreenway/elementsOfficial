@@ -2,10 +2,10 @@ import { Button, Divider, List, ListItem, ListItemText, Typography } from "@mui/
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import airg from "../assets/airg.gif";
-import earthg from "../assets/earthg.gif";
-import fireg from "../assets/fireg.gif";
-import waterg from "../assets/waterg.gif";
+import airg from "../Assets/airg.gif";
+import earthg from "../Assets/earthg.gif";
+import fireg from "../Assets/fireg.gif";
+import waterg from "../Assets/waterg.gif";
 
 export const Challenges = () => {
   const navigate = useNavigate();
