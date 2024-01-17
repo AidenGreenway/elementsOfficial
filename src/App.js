@@ -23,7 +23,7 @@ import {
   ForumScreen,
 } from "./Screens";
 
-import { YourContextProvider } from "./YourContextFile/YourContextProvider";
+import { YourContextProvider } from "./ElementContext/YourContextProvider";
 
 const theme = createTheme({
   typography: {

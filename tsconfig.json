@@ -22,6 +22,6 @@
     "isolatedModules": false,
     "sourceMap": true
   },
-  "include": ["src", ".eslintrc.json", "src/YourContextFile"],
+  "include": ["src", ".eslintrc.json", "src/ElementContext"],
   "exclude": ["node_modules"]
 }

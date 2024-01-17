@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import determineElement from "./YourElement";
-import YourContext from "../YourContextFile/YourContext";
+import YourContext from "../ElementContext/YourContext";
 import four from "../diaryImages/air/444.png"; // Obrazek początkowy
 import aird1 from "../diaryImages/air/air2.jpg";
 import aird from "../diaryImages/air/air3.jpg";

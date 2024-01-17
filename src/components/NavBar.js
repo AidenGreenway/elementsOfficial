@@ -3,7 +3,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Ikona wylogowania
 import { Button, Drawer, List, ListItem, ListItemIcon, ListItemText, styled } from "@mui/material";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import YourContext from "src/YourContextFile/YourContext";
+import YourContext from "src/ElementContext/YourContext";
 
 const CustomDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
