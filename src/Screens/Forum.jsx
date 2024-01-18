@@ -5,10 +5,29 @@ import { useNavigate } from "react-router-dom";
 import YourContext from "../ElementContext/YourContext";
 import dalle from "../Images/forumdall.png";
 
+const hoverStyles = {
+  fire: {
+    backgroundColor: "#D70040",
+    color: "yellow",
+  },
+  water: {
+    backgroundColor: "#1434A4",
+    color: "#00FFFF",
+  },
+  air: {
+    backgroundColor: "#ADD8E6",
+    color: "white",
+  },
+  earth: {
+    backgroundColor: "#355E3B",
+    color: "#7CFC00",
+  },
+};
+
 export const Forum = () => {
   const { setElementIcon } = useContext(YourContext);
   const [element, setElement] = useState("");
-  const [hoveredElement, setHoveredElement] = useState(""); // Dodajemy stan do śledzenia najechanego elementu
+  const [hoveredElement, setHoveredElement] = useState("");
   const navigate = useNavigate();
 
   const handleElementSelection = (selectedElement) => {
@@ -22,40 +41,38 @@ export const Forum = () => {
     borderRadius: "4px",
     padding: "12px 24px",
     fontSize: "1.2rem",
-  };
-
-  const hoverStyles = {
-    fire: {
-      backgroundColor: "#D70040",
-      color: "yellow", // Dodajemy kolor tekstu po najechaniu
-    },
-    water: {
-      backgroundColor: "#1434A4",
-      color: "#00FFFF",
-    },
-    air: {
-      backgroundColor: "#ADD8E6",
-      color: "white",
-    },
-    earth: {
-      backgroundColor: "#355E3B",
-      color: "#7CFC00",
-    },
+    color: "#ffffff",
+    backgroundColor: "transparent",
+    transition: "transform 0.3s ease, color 0.3s ease",
   };
 
   const centeredImageStyle = {
     position: "fixed",
-    top: "59%", // Wyśrodkowanie poziome na połowie ekranu
-    left: "57%", // Wyśrodkowanie pionowe na połowie ekranu
-    transform: "translate(-50%, -50%)", // Przesunięcie o połowę szerokości i wysokości obrazka
+    top: "59%",
+    left: "57%",
+    transform: "translate(-50%, -50%)",
     display: "block",
-    maxWidth: "30%", // Maksymalna szerokość obrazka, aby uniknąć wyjścia poza ekran
-    maxHeight: "100vh", // Maksymalna wysokość obrazka równa wysokości ekranu
+    maxWidth: "30%",
+    maxHeight: "100vh",
   };
 
   const imageStyle = {
-    width: "100%", // Dostosuj szerokość obrazka do szerokości kontenera
-    height: "auto", // Ustaw wysokość jako "auto" w celu zachowania proporcji
+    width: "100%",
+    height: "auto",
+  };
+
+  const textContainerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    width: "300px",
+    margin: "0 auto",
+    transition: "transform 0.3s ease", // Dodaj przejście do stylu
+  };
+
+  const textHoverStyle = {
+    transform: "scale(1.05)",
   };
 
   return (
@@ -70,18 +87,61 @@ export const Forum = () => {
         padding: "20px",
       }}
     >
+      <Box
+        sx={{
+          marginRight: "50px",
+          marginTop: "100px",
+          color: "yellow",
+          fontFamily: "The Next Font",
+        }}
+      >
+        <div
+          style={{
+            ...textContainerStyle,
+            ...(hoveredElement === "fire" ? textHoverStyle : {}),
+            color: "#D70040",
+          }}
+        >
+          <p>
+            "This forum is ablaze with passionate discussions! Users share their fire-driven
+            projects, ideas, and creativity." "While the atmosphere is full of energy, it's also
+            supportive and understanding for those who feel that fire guides them in life."
+          </p>
+        </div>
+        <Box sx={{ marginTop: "100px", color: "blue", fontFamily: "The Next Font" }}>
+          <div
+            style={{
+              ...textContainerStyle,
+              ...(hoveredElement === "water" ? textHoverStyle : {}),
+              color: "#00FFFF",
+            }}
+          >
+            <p>
+              "Deep waters flow on this forum. Users share their emotions, intuition, and
+              experiences related to the water element." "It's a place where people seek
+              understanding and empathy in their emotional journeys and discuss the mysteries
+              associated with water signs in the zodiac."
+            </p>
+          </div>
+        </Box>
+      </Box>
+
       {["fire", "water", "air", "earth"].map((group) => (
         <Box
           sx={{
-            marginRight: "20px",
+            alignContent: "center",
           }}
           key={group}
         >
           <Button
             onClick={() => handleElementSelection(group)}
+            onMouseEnter={() => setHoveredElement(group)}
+            onMouseLeave={() => setHoveredElement("")}
             sx={{
               ...buttonStyle,
-              ...(hoveredElement === group ? {} : hoverStyles[group]), // Ustawiamy odpowiedni styl na podstawie stanu najechanego elementu
+              backgroundColor: hoverStyles[group].backgroundColor,
+              color: hoverStyles[group].color,
+              transition: "transform 0.3s ease, color 0.3s ease", // Dodaj przejście do stylu przycisku
             }}
           >
             {`${group.charAt(0).toUpperCase()}${group.slice(1)}`}
@@ -90,11 +150,46 @@ export const Forum = () => {
       ))}
 
       <div style={centeredImageStyle}>
-        <img
-          src={dalle}
-          style={imageStyle} // Ustawienie stylu obrazka
-        />
+        <img alt="" src={dalle} style={imageStyle} />
       </div>
+
+      <Box
+        sx={{
+          marginLeft: "10px",
+          marginTop: "100px",
+          color: "lightBlue",
+          fontFamily: "The Next Font",
+        }}
+      >
+        <div
+          style={{
+            ...textContainerStyle,
+            ...(hoveredElement === "air" ? textHoverStyle : {}),
+          }}
+        >
+          <p>
+            "This is an intellectual forum where thoughts are in the air. Users debate, exchange
+            ideas, and develop their abstract thinking skills." "It's a space for those who
+            appreciate intellectual challenges and want to learn more about the air elements in
+            astrology."
+          </p>
+        </div>
+        <Box sx={{ marginTop: "100px", color: "green", fontFamily: "The Next Font" }}>
+          <div
+            style={{
+              ...textContainerStyle,
+              ...(hoveredElement === "earth" ? textHoverStyle : {}),
+              color: "#7CFC00",
+            }}
+          >
+            <p>
+              "Practicality rules on this forum. Users discuss stability, career, and achieving
+              goals related to the earth element." "This place is dedicated to those seeking
+              practical tips and inspiration for building solid foundations in their lives."
+            </p>
+          </div>
+        </Box>
+      </Box>
     </Box>
   );
 };
