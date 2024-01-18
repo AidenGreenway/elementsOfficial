@@ -15,8 +15,9 @@ export const AirBlog = () => {
     JSON.parse(localStorage.getItem("airBlogPosts")) || []
   );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
+  const [showComments, setShowComments] = useState({});
+  const [commentText, setCommentText] = useState({});
 
-  // Load posts from localStorage on mount
   useEffect(() => {
     const savedPosts = localStorage.getItem("airBlogPosts");
     if (savedPosts) {
@@ -24,7 +25,6 @@ export const AirBlog = () => {
     }
   }, []);
 
-  // Update localStorage whenever blogPosts changes
   useEffect(() => {
     localStorage.setItem("airBlogPosts", JSON.stringify(blogPosts));
   }, [blogPosts]);
@@ -42,10 +42,42 @@ export const AirBlog = () => {
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
-        comments: [], // Assuming you want to keep this field
+        comments: [],
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
+    }
+  };
+
+  const handleClearData = () => {
+    localStorage.removeItem("airBlogPosts");
+    setBlogPosts([]);
+  };
+
+  const handleToggleComments = (postId) => {
+    setShowComments((prevComments) => ({
+      ...prevComments,
+      [postId]: !prevComments[postId],
+    }));
+  };
+
+  const handleCommentInputChange = (postId, e) => {
+    setCommentText({ ...commentText, [postId]: e.target.value });
+  };
+
+  const handleAddComment = (postId) => {
+    if (commentText[postId]?.trim() !== "") {
+      const updatedPosts = blogPosts.map((post) => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            comments: [commentText[postId], ...post.comments],
+          };
+        }
+        return post;
+      });
+      setBlogPosts(updatedPosts);
+      setCommentText({ ...commentText, [postId]: "" });
     }
   };
 
@@ -57,7 +89,7 @@ export const AirBlog = () => {
         alignItems: "flex-start",
         minHeight: "100vh",
         padding: "20px",
-        backgroundColor: "#000",
+        backgroundColor: "#000", // Czarne tło
       }}
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
@@ -65,14 +97,14 @@ export const AirBlog = () => {
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              backgroundColor: "black", // Kolor niebieski
               padding: "20px",
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
             }}
           >
-            <Typography variant="h6" color="#87ceeb" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="lightBlue" sx={{ marginBottom: 1 }}>
               Title
             </Typography>
             <TextField
@@ -84,13 +116,15 @@ export const AirBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#87ceeb",
+                  borderColor: "lightBlue",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& input": { color: "#FFF" },
+                "& input": {
+                  color: "lightBlue",
+                },
               }}
             />
-            <Typography variant="h6" color="#87ceeb" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="lightBlue" sx={{ marginBottom: 1 }}>
               Content
             </Typography>
             <TextField
@@ -104,18 +138,27 @@ export const AirBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#87ceeb",
+                  borderColor: "lightBlue",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& textarea": { color: "#FFF" },
+                "& textarea": {
+                  color: "lightBlue",
+                },
               }}
             />
             <Button
               variant="contained"
               onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#87ceeb", color: "#FFF" }}
+              sx={{ backgroundColor: "#87CEFA", color: "#FFF", marginRight: 2 }} // Kolor jasnoniebieski
             >
               Add Post
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClearData}
+              sx={{ backgroundColor: "#87CEFA", color: "#FFF" }} // Kolor jasnoniebieski
+            >
+              Clear Data
             </Button>
           </Box>
         </Grid>
@@ -137,40 +180,103 @@ export const AirBlog = () => {
                   borderRadius: "8px",
                   overflowY: "auto",
                   maxHeight: "300px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)", // Półprzezroczyste tło
                   padding: "16px",
                 }}
               >
                 <CardHeader
                   title={post.title}
-                  subheader={post.date}
                   sx={{
-                    color: "#87ceeb",
-                    textAlign: "right",
-                    fontSize: "14px",
-                    "& .MuiCardHeader-subheader": {
-                      color: "#FFFF00",
-                      textAlign: "right",
-                      fontSize: "12px",
+                    color: "lightBlue",
+                    textAlign: "left",
+                    fontSize: "18px",
+                    "& .MuiCardHeader-content": {
+                      flexGrow: 1,
                     },
                   }}
+                  action={
+                    <Typography variant="body2" color="lightBlue">
+                      {post.date}
+                    </Typography>
+                  }
                 />
                 <CardContent>
-                  <Typography variant="body1" color="text.secondary" sx={{ color: "#FFFF00" }}>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ color: "lightBlue", textAlign: "left" }}
+                  >
                     {post.content}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ marginTop: 2, color: "#87ceeb" }}
-                  >
-                    <strong>Comments:</strong>
-                    {post.comments.map((comment, index) => (
-                      <Typography key={index} variant="body2" color="text.secondary">
-                        {comment}
+                  {showComments[post.id] && (
+                    <div>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        placeholder="Add a comment..."
+                        value={commentText[post.id] || ""}
+                        onChange={(e) => handleCommentInputChange(post.id, e)}
+                        sx={{
+                          marginTop: 1,
+                          "& .MuiOutlinedInput-root": {
+                            borderColor: "#87CEFA",
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          },
+                          "& input": {
+                            color: "lightBlue",
+                          },
+                        }}
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={() => handleAddComment(post.id)}
+                        sx={{ backgroundColor: "#87CEFA", color: "#FFF", marginTop: 1 }} // Kolor jasnoniebieski
+                      >
+                        Add Comment
+                      </Button>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          marginTop: 2,
+                          marginBottom: 3,
+                          color: "lightBlue",
+                          textAlign: "left",
+                        }}
+                      >
+                        <strong>Comments:</strong>
                       </Typography>
-                    ))}
-                  </Typography>
+                      {post.comments.map((comment, index) => (
+                        <Typography
+                          key={index}
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            color: "lightBlue",
+                            textAlign: "left",
+                            borderBottom: "1px solid #87CEFA",
+                            paddingBottom: 1,
+                            marginBottom: 1,
+                          }}
+                        >
+                          {comment}
+                        </Typography>
+                      ))}
+                    </div>
+                  )}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleToggleComments(post.id)}
+                      sx={{
+                        color: "#87CEFA",
+                        borderColor: "#87CEFA",
+                        textTransform: "none",
+                      }}
+                    >
+                      Comments
+                    </Button>
+                  </Box>
                 </CardContent>
               </Card>
             ))}

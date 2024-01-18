@@ -16,7 +16,7 @@ const FireBlog = () => {
   );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
   const [showComments, setShowComments] = useState({});
-  const [commentText, setCommentText] = useState("");
+  const [commentText, setCommentText] = useState({});
 
   useEffect(() => {
     const savedPosts = localStorage.getItem("fireBlogPosts");
@@ -56,24 +56,29 @@ const FireBlog = () => {
     }));
   };
 
-  const handleCommentInputChange = (e) => {
-    setCommentText(e.target.value);
+  const handleCommentInputChange = (postId, e) => {
+    setCommentText({ ...commentText, [postId]: e.target.value });
   };
 
   const handleAddComment = (postId) => {
-    if (commentText.trim() !== "") {
+    if (commentText[postId]?.trim() !== "") {
       const updatedPosts = blogPosts.map((post) => {
         if (post.id === postId) {
           return {
             ...post,
-            comments: [...post.comments, commentText],
+            comments: [commentText[postId], ...post.comments],
           };
         }
         return post;
       });
       setBlogPosts(updatedPosts);
-      setCommentText("");
+      setCommentText({ ...commentText, [postId]: "" });
     }
+  };
+
+  const handleClearData = () => {
+    localStorage.removeItem("fireBlogPosts");
+    setBlogPosts([]);
   };
 
   return (
@@ -89,6 +94,7 @@ const FireBlog = () => {
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
         <Grid item xs={6}>
+          {/* Section for adding new post */}
           <Box
             sx={{
               width: "100%",
@@ -144,13 +150,21 @@ const FireBlog = () => {
             <Button
               variant="contained"
               onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#FF6E00", color: "#FFF" }}
+              sx={{ backgroundColor: "#FF6E00", color: "#FFF", marginRight: 2 }}
             >
               Add Post
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClearData}
+              sx={{ backgroundColor: "#FF6E00", color: "#FFF" }}
+            >
+              Clear Data
             </Button>
           </Box>
         </Grid>
         <Grid item xs={6}>
+          {/* Section for displaying posts */}
           <Box
             sx={{
               width: "100%",
@@ -174,50 +188,36 @@ const FireBlog = () => {
               >
                 <CardHeader
                   title={post.title}
-                  subheader={post.date}
                   sx={{
                     color: "#FF6E00",
                     textAlign: "left",
                     fontSize: "18px",
-                    "& .MuiCardHeader-subheader": {
-                      color: "#FFD700",
-                      textAlign: "left",
-                      fontSize: "14px",
+                    "& .MuiCardHeader-content": {
+                      flexGrow: 1,
                     },
                   }}
+                  action={
+                    <Typography variant="body2" color="#FFD700">
+                      {post.date}
+                    </Typography>
+                  }
                 />
                 <CardContent>
-                  <Typography variant="body1" color="text.secondary" sx={{ color: "#FFD700" }}>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ color: "#FFD700", textAlign: "left" }}
+                  >
                     {post.content}
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleToggleComments(post.id)}
-                    sx={{
-                      marginTop: 2,
-                      color: "#FF6E00",
-                      borderColor: "#FF6E00",
-                      textTransform: "none",
-                    }}
-                  >
-                    Comments
-                  </Button>
                   {showComments[post.id] && (
                     <div>
-                      <Typography variant="body2" color="text.secondary" sx={{ marginTop: 2 }}>
-                        <strong>Comments:</strong>
-                      </Typography>
-                      {post.comments.map((comment, index) => (
-                        <Typography key={index} variant="body2" color="text.secondary">
-                          {comment}
-                        </Typography>
-                      ))}
                       <TextField
                         fullWidth
                         variant="outlined"
                         placeholder="Add a comment..."
-                        value={commentText}
-                        onChange={handleCommentInputChange}
+                        value={commentText[post.id] || ""}
+                        onChange={(e) => handleCommentInputChange(post.id, e)}
                         sx={{
                           marginTop: 1,
                           "& .MuiOutlinedInput-root": {
@@ -236,8 +236,44 @@ const FireBlog = () => {
                       >
                         Add Comment
                       </Button>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginTop: 2, marginBottom: 3, color: "white", textAlign: "left" }}
+                      >
+                        <strong>Comments:</strong>
+                      </Typography>
+                      {post.comments.map((comment, index) => (
+                        <Typography
+                          key={index}
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            color: "#FFD700",
+                            textAlign: "left",
+                            borderBottom: "1px solid #FF6E00",
+                            paddingBottom: 1,
+                            marginBottom: 1,
+                          }}
+                        >
+                          {comment}
+                        </Typography>
+                      ))}
                     </div>
                   )}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleToggleComments(post.id)}
+                      sx={{
+                        color: "#FF6E00",
+                        borderColor: "#FF6E00",
+                        textTransform: "none",
+                      }}
+                    >
+                      Comments
+                    </Button>
+                  </Box>
                 </CardContent>
               </Card>
             ))}

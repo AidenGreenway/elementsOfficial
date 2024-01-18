@@ -15,8 +15,9 @@ const WaterBlog = () => {
     JSON.parse(localStorage.getItem("waterBlogPosts")) || []
   );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
+  const [showComments, setShowComments] = useState({});
+  const [commentText, setCommentText] = useState({});
 
-  // Load posts from localStorage on mount
   useEffect(() => {
     const savedPosts = localStorage.getItem("waterBlogPosts");
     if (savedPosts) {
@@ -24,7 +25,6 @@ const WaterBlog = () => {
     }
   }, []);
 
-  // Update localStorage whenever blogPosts changes
   useEffect(() => {
     localStorage.setItem("waterBlogPosts", JSON.stringify(blogPosts));
   }, [blogPosts]);
@@ -42,10 +42,42 @@ const WaterBlog = () => {
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
-        comments: [], // Assuming you want to keep this field
+        comments: [],
       };
       setBlogPosts([newBlogPost, ...blogPosts]);
       setNewPost({ title: "", content: "" });
+    }
+  };
+
+  const handleClearData = () => {
+    localStorage.removeItem("waterBlogPosts");
+    setBlogPosts([]);
+  };
+
+  const handleToggleComments = (postId) => {
+    setShowComments((prevComments) => ({
+      ...prevComments,
+      [postId]: !prevComments[postId],
+    }));
+  };
+
+  const handleCommentInputChange = (postId, e) => {
+    setCommentText({ ...commentText, [postId]: e.target.value });
+  };
+
+  const handleAddComment = (postId) => {
+    if (commentText[postId]?.trim() !== "") {
+      const updatedPosts = blogPosts.map((post) => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            comments: [commentText[postId], ...post.comments],
+          };
+        }
+        return post;
+      });
+      setBlogPosts(updatedPosts);
+      setCommentText({ ...commentText, [postId]: "" });
     }
   };
 
@@ -57,7 +89,7 @@ const WaterBlog = () => {
         alignItems: "flex-start",
         minHeight: "100vh",
         padding: "20px",
-        backgroundColor: "#000",
+        backgroundColor: "#000", // Czarne tło
       }}
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
@@ -65,14 +97,14 @@ const WaterBlog = () => {
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              backgroundColor: "black", // Ciężki, ciemnoniebieski kolor
               padding: "20px",
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
             }}
           >
-            <Typography variant="h6" color="#4A90E2" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
               Title
             </Typography>
             <TextField
@@ -84,13 +116,15 @@ const WaterBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#4A90E2",
+                  borderColor: "#26c6da",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& input": { color: "#FFF" },
+                "& input": {
+                  color: "#FFF",
+                },
               }}
             />
-            <Typography variant="h6" color="#4A90E2" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
               Content
             </Typography>
             <TextField
@@ -104,18 +138,27 @@ const WaterBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#4A90E2",
+                  borderColor: "#26c6da",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
-                "& textarea": { color: "#FFF" },
+                "& textarea": {
+                  color: "#FFF",
+                },
               }}
             />
             <Button
               variant="contained"
               onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#4A90E2", color: "#FFF" }}
+              sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginRight: 2 }}
             >
               Add Post
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClearData}
+              sx={{ backgroundColor: "#00bcd4", color: "#FFF" }}
+            >
+              Clear Data
             </Button>
           </Box>
         </Grid>
@@ -143,34 +186,92 @@ const WaterBlog = () => {
               >
                 <CardHeader
                   title={post.title}
-                  subheader={post.date}
                   sx={{
-                    color: "#4A90E2",
-                    textAlign: "right",
-                    fontSize: "14px",
-                    "& .MuiCardHeader-subheader": {
-                      color: "#FFD700",
-                      textAlign: "right",
-                      fontSize: "12px",
+                    color: "#00acc1",
+                    textAlign: "left",
+                    fontSize: "18px",
+                    "& .MuiCardHeader-content": {
+                      flexGrow: 1,
                     },
                   }}
+                  action={
+                    <Typography variant="body2" color="#80deea">
+                      {post.date}
+                    </Typography>
+                  }
                 />
                 <CardContent>
-                  <Typography variant="body1" color="text.secondary" sx={{ color: "#FFD700" }}>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    sx={{ color: "#80deea", textAlign: "left" }}
+                  >
                     {post.content}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ marginTop: 2, color: "#4A90E2" }}
-                  >
-                    <strong>Comments:</strong>
-                    {post.comments.map((comment, index) => (
-                      <Typography key={index} variant="body2" color="text.secondary">
-                        {comment}
+                  {showComments[post.id] && (
+                    <div>
+                      <TextField
+                        fullWidth
+                        variant="outlined"
+                        placeholder="Add a comment..."
+                        value={commentText[post.id] || ""}
+                        onChange={(e) => handleCommentInputChange(post.id, e)}
+                        sx={{
+                          marginTop: 1,
+                          "& .MuiOutlinedInput-root": {
+                            borderColor: "#00bcd4",
+                            backgroundColor: "rgba(255, 255, 255, 0.1)",
+                          },
+                          "& input": {
+                            color: "#FFF",
+                          },
+                        }}
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={() => handleAddComment(post.id)}
+                        sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginTop: 1 }}
+                      >
+                        Add Comment
+                      </Button>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ marginTop: 2, marginBottom: 3, color: "#80deea", textAlign: "left" }}
+                      >
+                        <strong>Comments:</strong>
                       </Typography>
-                    ))}
-                  </Typography>
+                      {post.comments.map((comment, index) => (
+                        <Typography
+                          key={index}
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            color: "#80deea",
+                            textAlign: "left",
+                            borderBottom: "1px solid #00bcd4",
+                            paddingBottom: 1,
+                            marginBottom: 1,
+                          }}
+                        >
+                          {comment}
+                        </Typography>
+                      ))}
+                    </div>
+                  )}
+                  <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleToggleComments(post.id)}
+                      sx={{
+                        color: "#00bcd4",
+                        borderColor: "#00bcd4",
+                        textTransform: "none",
+                      }}
+                    >
+                      Comments
+                    </Button>
+                  </Box>
                 </CardContent>
               </Card>
             ))}

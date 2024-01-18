@@ -5,7 +5,10 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-d
 import Banner from "./Components/Banner";
 
 import { Dashboard } from "./Components/Dashboard";
+
 import Profile from "./Components/Profile";
+import { YourContextProvider } from "./ElementContext/YourContextProvider";
+
 import ForgotPassword from "./Login/ForgotPassword"; // Import the Forgot Password component
 
 import Register from "./Login/Register";
@@ -22,8 +25,6 @@ import {
   Forum,
   ForumScreen,
 } from "./Screens";
-
-import { YourContextProvider } from "./ElementContext/YourContextProvider";
 
 const theme = createTheme({
   typography: {
