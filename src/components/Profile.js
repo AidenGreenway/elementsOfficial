@@ -371,7 +371,9 @@ const Profile = () => {
                     style={{ width: "100%", height: "100%", borderRadius: "50%" }}
                   />
                 </Avatar>
-                <Typography variant="h4choseni">{username}</Typography>
+                <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
+                  {username}
+                </Typography>
               </Box>
               <Typography variant="h6" style={{ fontSize: "1.5rem" }} align="left">
                 Persona:
