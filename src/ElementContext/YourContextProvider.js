@@ -1,10 +1,13 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 
-const YourContext = createContext();
+import YourContext from "./YourContext";
+import aird from "../diaryImages/air/air3.jpg";
+import earthd from "../diaryImages/earth/earth4.png";
+import fired from "../diaryImages/fire/fire4.png";
+import waterd from "../diaryImages/water/water3.png";
 
 export const YourContextProvider = ({ children }) => {
   const [yourValue, setYourValue] = useState(""); // Przykładowy stan
-  const [selectedElement, setSelectedElement] = useState(""); // Nowy stan dla wybranego żywiołu
   const [elementImages] = useState({
     fire: fired,
     water: waterd,
@@ -16,15 +19,8 @@ export const YourContextProvider = ({ children }) => {
     setYourValue(element);
   };
 
-  // Dodaj funkcję do ustawiania wybranego żywiołu
-  const setSelectedElement = (element) => {
-    setSelectedElement(element);
-  };
-
   return (
-    <YourContext.Provider
-      value={{ yourValue, setElementIcon, elementImages, selectedElement, setSelectedElement }}
-    >
+    <YourContext.Provider value={{ yourValue, setElementIcon, elementImages }}>
       {children}
     </YourContext.Provider>
   );

@@ -119,6 +119,9 @@ const Banner = () => {
     setSelectedElement(element);
   };
   const navigate = useNavigate();
+  const goToProfile = () => {
+    navigate("/dashboard/profile");
+  };
   const handleClick = (element) => {
     setHoveredElement(element);
     setElementIcon(element);
@@ -174,7 +177,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 7000); // Zmienia indeks tekstu co 7 sekund
+    }, 10000); // Zmienia indeks tekstu co 7 sekund
 
     return () => clearInterval(interval);
   }, []);
@@ -387,6 +390,7 @@ const Banner = () => {
                           },
                           marginTop: "20px", // Dodaj margines od góry
                         }}
+                        //onClick={goToProfile} // Update with your desired path
                       >
                         create profil: {astroElement}
                       </Button>

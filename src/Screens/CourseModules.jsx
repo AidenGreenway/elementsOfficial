@@ -87,26 +87,7 @@ export const CourseModules = () => {
                   <ListItemText primary={description} sx={{ color: "#fff", marginLeft: "10px" }} />
                 )}
               </Grid>
-              <Grid item>
-                {/* Button
-                  onClick={handleClick}
-                  variant="contained"
-                  sx={{
-                    color: hoveredElement === element ? hoverColor : "#fff",
-                    marginLeft: "auto",
-                    position: "absolute",
-                    bottom: "10px",
-                    right: "10px",
-                    backgroundColor: "#000",
-                    "&:hover": {
-                      backgroundColor: hoveredElement === element ? "#000" : "#000",
-                    },
-                  }}
-                >
-                  open
-                </Button> */}
-              </Grid>{" "}
-              /<Typography sx={{ color: "white" }}>{element}</Typography>
+              <Grid item></Grid> /<Typography sx={{ color: "white" }}>{element}</Typography>
             </Grid>
           </ListItem>
         ))}
