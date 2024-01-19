@@ -1,7 +1,10 @@
+import AddIcon from "@mui/icons-material/Add";
+import SettingsIcon from "@mui/icons-material/Settings";
 import {
   Avatar,
   Box,
   Button,
+  Fab,
   FormControl,
   Grid,
   InputLabel,
@@ -57,6 +60,10 @@ const Profile = () => {
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
   const [activeSection, setActiveSection] = useState("tablica");
+  const [showSettings, setShowSettings] = useState(false);
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
 
   const handleDeletePost = (indexToDelete) => {
     const updatedPosts = posts.filter((_, index) => index !== indexToDelete);
@@ -338,9 +345,6 @@ const Profile = () => {
 
   return (
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
-      <Typography variant="h4" mb={2}>
-        PROFILE
-      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Box
@@ -351,30 +355,46 @@ const Profile = () => {
               borderColor: selectedColor,
               borderWidth: 2,
               borderStyle: "solid",
+              height: "600px",
+              position: "relative", // Pozycjonowanie względne dla tego kontenera
             }}
           >
-            <Box
-              sx={{
-                p: 4,
-                borderRadius: 2,
-                backgroundColor: "inherit",
-                color: "white",
-              }}
-            >
-              <Box sx={{ display: "flex", marginBottom: 2 }}>
-                <Avatar
-                  sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}
+            {/* Sekcja Avatar + Username */}
+            <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+              <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
+                <img
+                  src={ElementImages[element][selectedAvatarIndex]}
+                  alt={element}
+                  style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+                />
+              </Avatar>
+              <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
+                {username}
+              </Typography>
+            </Box>
+
+            {/* Sekcja Przycisków "+" i Ustawień z pozycjonowaniem absolutnym */}
+            <Box sx={{ position: "absolute", top: "10px", right: "10px" }}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Fab
+                  color="primary"
+                  onClick={toggleSettings}
+                  style={{ backgroundColor: selectedColor }}
                 >
-                  <img
-                    src={ElementImages[element][selectedAvatarIndex]}
-                    alt={element}
-                    style={{ width: "100%", height: "100%", borderRadius: "50%" }}
-                  />
-                </Avatar>
-                <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
-                  {username}
-                </Typography>
-              </Box>
+                  <SettingsIcon />
+                </Fab>
+                <Fab
+                  color="primary"
+                  onClick={() => toggleActiveSection("nowyPost")}
+                  style={{ backgroundColor: selectedColor }}
+                >
+                  <AddIcon />
+                </Fab>
+              </Stack>
+            </Box>
+
+            {/* Sekcja Danych Osobowych */}
+            <Box sx={{ marginTop: 5 }}>
               <Typography variant="h6" style={{ fontSize: "1.5rem" }} align="left">
                 Persona:
               </Typography>
@@ -388,38 +408,9 @@ const Profile = () => {
                 <strong>BIO:</strong> {description}
               </Typography>
             </Box>
-            <Stack direction="column" spacing={1}>
-              <Button
-                variant="contained"
-                onClick={() => toggleActiveSection("nowyPost")}
-                style={{ backgroundColor: selectedColor, width: "40%", margin: "0 auto" }}
-              >
-                {activeSection === "nowyPost" ? "show posts" : "add new post"}
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => toggleActiveSection("edycja")}
-                style={{ backgroundColor: selectedColor, width: "40%", margin: "10px auto" }}
-              >
-                edit profile{" "}
-              </Button>
-              <Button
-                onClick={() => {
-                  localStorage.clear();
-                  setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
-                }}
-                style={{
-                  color: "white",
-                  backgroundColor: selectedColor,
-                  width: "40%",
-                  margin: " auto",
-                }}
-              >
-                clear data{" "}
-              </Button>
-            </Stack>
           </Box>
         </Grid>
+
         <Grid item xs={12} md={6}>
           {renderRightSection()}
         </Grid>

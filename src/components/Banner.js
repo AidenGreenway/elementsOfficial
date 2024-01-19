@@ -390,7 +390,7 @@ const Banner = () => {
                           },
                           marginTop: "20px", // Dodaj margines od góry
                         }}
-                        //onClick={goToProfile} // Update with your desired path
+                        onClick={goToProfile} // Update with your desired path
                       >
                         create profil: {astroElement}
                       </Button>
