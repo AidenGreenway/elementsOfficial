@@ -1,22 +1,58 @@
-import { Avatar, Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import SettingsIcon from "@mui/icons-material/Settings";
+import {
+  Avatar,
+  Box,
+  Button,
+  Fab,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
 import airGif4 from "../diaryImages/air/air4.jpg";
+import earthGif1 from "../diaryImages/earth/earth1.jpg";
+import earthGif2 from "../diaryImages/earth/earth2.jpg";
+import earthGif3 from "../diaryImages/earth/earth3.jpg";
+import earthGif4 from "../diaryImages/earth/earth4.png";
+import earthGif5 from "../diaryImages/earth/earth5.png";
+import fireGif1 from "../diaryImages/fire/fire1.jpg";
+import fireGif2 from "../diaryImages/fire/fire2.jpg";
+import fireGif3 from "../diaryImages/fire/fire3.jpg";
+import fireGif4 from "../diaryImages/fire/fire4.png";
+import waterGif1 from "../diaryImages/water/water1.jpg";
+import waterGif2 from "../diaryImages/water/water2.jpg";
+import waterGif3 from "../diaryImages/water/water3.png";
+import waterGif4 from "../diaryImages/water/water4.jpg";
 
 const ElementImages = {
+  fire: [fireGif1, fireGif2, fireGif3, fireGif4],
+  water: [waterGif1, waterGif2, waterGif3, waterGif4],
   air: [airGif1, airGif2, airGif3, airGif4],
+  earth: [earthGif1, earthGif2, earthGif3, earthGif4, earthGif5],
 };
 
 const ElementColors = {
+  fire: ["#FF3131"],
+  water: ["#0047AB"],
   air: ["#ADD8E6"],
+  earth: ["#009E60"],
 };
 
-const Profile = () => {
-  const element = "air";
+export const Profile = () => {
+  const [element, setElement] = useState(localStorage.getItem("element") || "earth");
   const [name, setName] = useState(localStorage.getItem("name") || "");
+  const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
   const [description, setDescription] = useState("");
@@ -24,6 +60,10 @@ const Profile = () => {
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
   const [activeSection, setActiveSection] = useState("tablica");
+  const [showSettings, setShowSettings] = useState(false);
+  const toggleSettings = () => {
+    setShowSettings(!showSettings);
+  };
 
   const handleDeletePost = (indexToDelete) => {
     const updatedPosts = posts.filter((_, index) => index !== indexToDelete);
@@ -32,10 +72,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("element", element);
     localStorage.setItem("name", name);
     localStorage.setItem("username", username);
     // Save posts to localStorage
-  }, [name, username]);
+  }, [element, name, username]);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
@@ -62,6 +103,14 @@ const Profile = () => {
     }
   };
 
+  const handleElementChange = (event) => {
+    const selectedElement = event.target.value;
+    setElement(selectedElement);
+    setSelectedColor(ElementColors[selectedElement][0]);
+    setSelectedAvatarColor(ElementColors[selectedElement][0]);
+    setSelectedAvatarIndex(0); // Reset indeksu obrazka
+  };
+
   const handleNewPostChange = (event) => {
     setNewPost(event.target.value);
   };
@@ -76,11 +125,13 @@ const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Logika zapisu danych profilu
     setActiveSection("tablica");
   };
 
   const handleAvatarChange = (step) => {
     const newAvatarIndex = selectedAvatarIndex + step;
+
     if (newAvatarIndex >= 0 && newAvatarIndex < ElementImages[element].length) {
       setSelectedAvatarIndex(newAvatarIndex);
     }
@@ -294,9 +345,6 @@ const Profile = () => {
 
   return (
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
-      <Typography variant="h4" mb={2}>
-        PROFILE
-      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Box
@@ -304,31 +352,100 @@ const Profile = () => {
             p={2}
             borderRadius={8}
             sx={{
-              borderColor: ElementColors[element][0],
+              borderColor: selectedColor,
               borderWidth: 2,
               borderStyle: "solid",
+              height: "600px",
+              position: "relative", // Pozycjonowanie względne dla tego kontenera
             }}
           >
-            <Box
-              sx={{
-                p: 4,
-                borderRadius: 2,
-                backgroundColor: "inherit",
-                color: "white",
-              }}
-            >
-              <Box sx={{ display: "flex", marginBottom: 2 }}>
-                <Avatar
-                  sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}
-                >
-                  <img
-                    src={ElementImages[element][selectedAvatarIndex]}
-                    alt={element}
-                    style={{ width: "100%", height: "100%", borderRadius: "50%" }}
-                  />
-                </Avatar>
-                <Typography variant="h4choseni">{username}</Typography>
-              </Box>
+            {/* Sekcja Avatar + Username */}
+            <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+              <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
+                <img
+                  src={ElementImages[element][selectedAvatarIndex]}
+                  alt={element}
+                  style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+                />
+              </Avatar>
+              <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
+                {username}
+              </Typography>
+            </Box>
+
+            {/* Sekcja Przycisków "+" i Ustawień z pozycjonowaniem absolutnym */}
+            <Box sx={{ position: "absolute", top: "20px", right: "20px" }}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                {/* Stos dla guzika Ustawień i jego podpisu */}
+                <Stack direction="column" alignItems="center">
+                  <Fab
+                    color="primary"
+                    onClick={toggleSettings}
+                    sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+                  >
+                    <SettingsIcon />
+                  </Fab>
+                  <Typography variant="caption" sx={{ textAlign: "center", width: "80px" }}>
+                    Settings
+                  </Typography>
+                </Stack>
+                {showSettings && (
+  <Box sx={{ marginTop: 2, backgroundColor: 'white', padding: 2, borderRadius: 2 }}>
+    <Typography variant="h6">Edycja Profilu</Typography>
+    <TextField
+      label="Imię"
+      fullWidth
+      size="small"
+      value={name}
+      onChange={(event) => handleInputChange(event, "name")}
+      variant="outlined"
+      sx={{ my: 1 }}
+    />
+    <TextField
+      label="Nazwa Użytkownika"
+      fullWidth
+      size="small"
+      value={username}
+      onChange={(event) => handleInputChange(event, "username")}
+      variant="outlined"
+      sx={{ my: 1 }}
+    />
+    <TextField
+      label="Opis"
+      multiline
+      rows={4}
+      fullWidth
+      size="small"
+      value={description}
+      onChange={(event) => handleInputChange(event, "description")}
+      variant="outlined"
+      sx={{ my: 1 }}
+    />
+    <Button
+      variant="contained"
+      onClick={handleSubmit}
+      sx={{ mt: 2, backgroundColor: selectedColor }}
+    >
+      Zapisz Zmiany
+    </Button>
+  </Box>
+                {/* Stos dla guzika "+" i jego podpisu */}
+                <Stack direction="column" alignItems="center">
+                  <Fab
+                    color="primary"
+                    onClick={() => toggleActiveSection("nowyPost")}
+                    sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+                  >
+                    <AddIcon />
+                  </Fab>
+                  <Typography variant="caption" sx={{ textAlign: "center", width: "80px" }}>
+                    {activeSection === "nowyPost" ? "SHOW POSTS" : "ADD POST"}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Box>
+            {/* Sekcja Danych Osobowych */}
+            <Box sx={{ marginTop: 8, marginLeft: 4 }}>
               <Typography variant="h6" style={{ fontSize: "1.5rem" }} align="left">
                 Persona:
               </Typography>
@@ -342,11 +459,9 @@ const Profile = () => {
                 <strong>BIO:</strong> {description}
               </Typography>
             </Box>
-            <Stack direction="column" spacing={1}>
-              {/* [Buttons for adding posts, editing profile, and clearing data remain the same] */}
-            </Stack>
           </Box>
         </Grid>
+
         <Grid item xs={12} md={6}>
           {renderRightSection()}
         </Grid>
@@ -355,4 +470,3 @@ const Profile = () => {
   );
 };
 
-export default Profile;

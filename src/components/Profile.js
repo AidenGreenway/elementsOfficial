@@ -15,7 +15,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
+
+// ...
 
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
@@ -60,10 +63,6 @@ const Profile = () => {
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
   const [activeSection, setActiveSection] = useState("tablica");
-  const [showSettings, setShowSettings] = useState(false);
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
-  };
 
   const handleDeletePost = (indexToDelete) => {
     const updatedPosts = posts.filter((_, index) => index !== indexToDelete);
@@ -264,22 +263,59 @@ const Profile = () => {
               </Select>
             </FormControl>
             <Button
-              variant="contained"
               onClick={handleSubmit}
-              style={{
-                backgroundColor: selectedColor,
+              sx={{
+                // backgroundColor: selectedColor,
                 marginTop: 2,
                 width: "15%",
-                margin: "20px auto",
+                margin: "0px auto",
+                color: "white",
+                backgroundColor: "none", // Brak koloru tła
+                "&:hover": {
+                  backgroundColor: "none", // Tło pozostaje bez zmian
+                  color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                },
               }}
             >
               save
+            </Button>
+            <Button
+              onClick={() => {
+                localStorage.clear();
+                setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
+              }}
+              sx={{
+                color: "white",
+                backgroundColor: "none", // Brak koloru tła
+                "&:hover": {
+                  backgroundColor: "none", // Tło pozostaje bez zmian
+                  color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                },
+                // backgroundColor: selectedColor,
+                width: "15%",
+
+                align: "center",
+              }}
+            >
+              clear data{" "}
             </Button>
           </Stack>
         );
       case "nowyPost":
         return (
           <Box>
+            <Stack direction="row" spacing={2} justifyContent="center">
+              <Fab
+                color="primary"
+                onClick={() => toggleActiveSection("nowyPost")}
+                style={{ backgroundColor: selectedColor }}
+              >
+                <AddIcon />
+              </Fab>
+            </Stack>
+            <Typography variant="caption" textAlign="center">
+              {activeSection === "nowyPost" ? "Show Posts" : "Add Post / Edit Profile"}
+            </Typography>
             <TextField
               fullWidth
               multiline
@@ -291,18 +327,11 @@ const Profile = () => {
               autoFocus
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
-                  event.preventDefault(); // Zapobiegnij domyślnej akcji (np. przejście do nowej linii)
-                  handleAddPost(); // Wywołaj funkcję dodawania posta
+                  event.preventDefault(); // Prevent default action (e.g., moving to a new line)
+                  handleAddPost(); // Invoke the function to add a post
                 }
               }}
             />
-            <Button
-              variant="contained"
-              onClick={handleAddPost}
-              sx={{ mb: 2, width: "50%", margin: "0 auto", backgroundColor: selectedColor }}
-            >
-              add post
-            </Button>
           </Box>
         );
       case "tablica":
@@ -356,10 +385,10 @@ const Profile = () => {
               borderWidth: 2,
               borderStyle: "solid",
               height: "600px",
-              position: "relative", // Pozycjonowanie względne dla tego kontenera
+              backgroundColor: "black",
             }}
           >
-            {/* Sekcja Avatar + Username */}
+            {/* Sekcja profilu użytkownika (username i logo/avatar) */}
             <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
                 <img
@@ -373,40 +402,72 @@ const Profile = () => {
               </Typography>
             </Box>
 
-            {/* Sekcja Przycisków "+" i Ustawień z pozycjonowaniem absolutnym */}
-            <Box sx={{ position: "absolute", top: "10px", right: "10px" }}>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Fab
-                  color="primary"
-                  onClick={toggleSettings}
-                  style={{ backgroundColor: selectedColor }}
-                >
-                  <SettingsIcon />
-                </Fab>
-                <Fab
-                  color="primary"
+            {/* Sekcja przycisków (Settings i Add Post) */}
+            <Box
+              sx={{ position: "relative", marginBottom: 5, marginRight: 0, textAlign: "center" }}
+            >
+              <Stack
+                direction="row"
+                alignItems="center"
+                marginLeft="470px"
+                marginTop="-63px"
+                spacing={1}
+              >
+                <IconButton
                   onClick={() => toggleActiveSection("nowyPost")}
-                  style={{ backgroundColor: selectedColor }}
+                  sx={{
+                    color: "white",
+                    backgroundColor: "none", // Brak koloru tła
+                    "&:hover": {
+                      backgroundColor: "none", // Tło pozostaje bez zmian
+                      color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                    },
+                  }}
                 >
                   <AddIcon />
-                </Fab>
+                </IconButton>
+
+                <IconButton
+                  onClick={() => toggleActiveSection("edycja")}
+                  sx={{
+                    color: "white",
+                    backgroundColor: "none", // Brak koloru tła
+                    "&:hover": {
+                      backgroundColor: "none", // Tło pozostaje bez zmian
+                      color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                    },
+                  }}
+                >
+                  <SettingsIcon />
+                </IconButton>
               </Stack>
             </Box>
 
-            {/* Sekcja Danych Osobowych */}
-            <Box sx={{ marginTop: 5 }}>
-              <Typography variant="h6" style={{ fontSize: "1.5rem" }} align="left">
+            {/* Sekcja danych personalnych (Persona, Element, Name, Bio) */}
+            <Box>
+              <Typography
+                variant="h6"
+                align="left"
+                sx={{ fontSize: "1.5rem", marginBottom: 3, fontWeight: "bold" }}
+              >
                 Persona:
               </Typography>
-              <Typography variant="body2" color="white" align="left">
-                <strong>Element:</strong> {element}
-              </Typography>
-              <Typography variant="body2" color="white" align="left">
-                <strong>NAME:</strong> {name}
-              </Typography>
-              <Typography variant="body2" color="white" align="left">
-                <strong>BIO:</strong> {description}
-              </Typography>
+              <Box>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Element:</strong> {element}
+                </Typography>
+                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
+
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>NAME:</strong> {name}
+                </Typography>
+                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
+
+                <Typography variant="body2" align="left">
+                  <strong>BIO:</strong> {description}
+                </Typography>
+                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
+              </Box>
             </Box>
           </Box>
         </Grid>
