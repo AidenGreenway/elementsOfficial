@@ -94,7 +94,7 @@ const FireChallenge = () => {
         }}
       >
         <div>
-          <Typography variant="h6" sx={{ color: "yellow" }}>
+          <Typography variant="h6" sx={{ color: "#D70040" }}>
             Question {questionIndex + 1}
           </Typography>
           <Typography variant="body1" sx={{ color: "orange", fontSize: "35px" }}>

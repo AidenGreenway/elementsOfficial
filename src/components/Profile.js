@@ -4,7 +4,6 @@ import {
   Avatar,
   Box,
   Button,
-  Fab,
   FormControl,
   Grid,
   InputLabel,
@@ -142,31 +141,45 @@ const Profile = () => {
         return (
           <Stack direction="column" spacing={2}>
             <TextField
-              label="CHANGE NAME"
-              fullWidth
-              size="small"
-              value={name}
-              onChange={(event) => handleInputChange(event, "name")}
-              InputLabelProps={{ style: { color: "white" } }}
-              InputProps={{
-                style: { color: "white", backgroundColor: "black", borderColor: "white" },
-              }}
-              variant="outlined"
-            />
-            <TextField
-              label="CHANGE USERNAME"
+              // label="CHANGE USERNAME"
+              placeholder="change username"
               fullWidth
               size="small"
               value={username}
               onChange={(event) => handleInputChange(event, "username")}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
-                style: { color: "white", backgroundColor: "black", borderColor: "white" },
+                style: {
+                  color: "white",
+                  backgroundColor: "black",
+                  borderColor: "white",
+                  border: "1px white solid",
+                },
               }}
               variant="outlined"
             />
             <TextField
-              label="CHANGE bio"
+              // label="CHANGE NAME"
+              placeholder="change name"
+              fullWidth
+              size="small"
+              value={name}
+              onChange={(event) => handleInputChange(event, "name")}
+              InputLabelProps={{ style: { color: "white" } }}
+              InputProps={{
+                style: {
+                  color: "white",
+                  backgroundColor: "black",
+                  borderColor: "white",
+                  border: "1px white solid",
+                },
+              }}
+              variant="outlined"
+            />
+
+            <TextField
+              // label="CHANGE bio"
+              placeholder="change bio"
               multiline
               rows={4}
               fullWidth
@@ -175,7 +188,7 @@ const Profile = () => {
               onChange={(event) => handleInputChange(event, "description")}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
-                style: { color: "white", backgroundColor: "black", borderColor: "white" },
+                style: { color: "white", backgroundColor: "black", border: "1px white solid" },
               }}
               variant="outlined"
             />
@@ -266,6 +279,7 @@ const Profile = () => {
               onClick={handleSubmit}
               sx={{
                 // backgroundColor: selectedColor,
+                border: "1px white solid",
                 marginTop: 2,
                 width: "15%",
                 margin: "0px auto",
@@ -273,7 +287,7 @@ const Profile = () => {
                 backgroundColor: "none", // Brak koloru tła
                 "&:hover": {
                   backgroundColor: "none", // Tło pozostaje bez zmian
-                  color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                  color: "#00e676", // Zmiana koloru ikony przy najechaniu myszką
                 },
               }}
             >
@@ -285,15 +299,16 @@ const Profile = () => {
                 setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
               }}
               sx={{
+                border: "1px white solid",
                 color: "white",
                 backgroundColor: "none", // Brak koloru tła
                 "&:hover": {
                   backgroundColor: "none", // Tło pozostaje bez zmian
-                  color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                  color: "red", // Zmiana koloru ikony przy najechaniu myszką
                 },
                 // backgroundColor: selectedColor,
                 width: "15%",
-
+                fontSize: "12px",
                 align: "center",
               }}
             >
@@ -304,7 +319,7 @@ const Profile = () => {
       case "nowyPost":
         return (
           <Box>
-            <Stack direction="row" spacing={2} justifyContent="center">
+            {/* <Stack direction="row" spacing={2} justifyContent="center">
               <Fab
                 color="primary"
                 onClick={() => toggleActiveSection("nowyPost")}
@@ -312,15 +327,15 @@ const Profile = () => {
               >
                 <AddIcon />
               </Fab>
-            </Stack>
-            <Typography variant="caption" textAlign="center">
+            </Stack> 
+             <Typography variant="caption" textAlign="center">
               {activeSection === "nowyPost" ? "Show Posts" : "Add Post / Edit Profile"}
-            </Typography>
+            </Typography> */}
             <TextField
               fullWidth
               multiline
-              rows={4}
-              placeholder="add new post"
+              rows={10}
+              placeholder="write new post...save"
               value={newPost}
               onChange={handleNewPostChange}
               sx={{ bgcolor: "white", color: "black", my: 2 }}
@@ -332,6 +347,24 @@ const Profile = () => {
                 }
               }}
             />
+            <Button
+              onClick={handleAddPost}
+              sx={{
+                // backgroundColor: selectedColor,
+                border: "1px white solid",
+
+                width: "15%",
+                marginLeft: "515px ",
+                color: "#00e676",
+                backgroundColor: "none", // Brak koloru tła
+                "&:hover": {
+                  backgroundColor: "none", // Tło pozostaje bez zmian
+                  color: "#69f0ae", // Zmiana koloru ikony przy najechaniu myszką
+                },
+              }}
+            >
+              add post
+            </Button>
           </Box>
         );
       case "tablica":
@@ -466,7 +499,6 @@ const Profile = () => {
                 <Typography variant="body2" align="left">
                   <strong>BIO:</strong> {description}
                 </Typography>
-                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
               </Box>
             </Box>
           </Box>
