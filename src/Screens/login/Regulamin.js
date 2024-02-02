@@ -1,14 +1,21 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import IconButton from "@mui/material/IconButton";
+
 import Typography from "@mui/material/Typography";
+
 import { Link } from "react-router-dom";
-const Regulamin = () => {
+
+export const Regulamin = () => {
   const typographyStyle = {
     color: "white",
+
     fontFamily: "The Next Font",
   };
+
   const backButtonStyle = {
     color: "white", // Kolor ikony strzałki
+
     backgroundColor: "transparent", // Tło przycisku przezroczyste
   };
 
@@ -89,4 +96,3 @@ const Regulamin = () => {
   );
 };
 
-export default Regulamin;

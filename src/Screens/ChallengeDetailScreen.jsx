@@ -1,10 +1,8 @@
 import { useLocation } from "react-router-dom";
 
-import AirChallange from "../Challenges/AirChallenge";
-import EarthChallenge from "../Challenges/EarthChallenge";
-import FireChallenge from "../Challenges/FireChallenge";
-import WaterChallenge from "../Challenges/WaterChallenge";
-import { ELEMENTS } from "../Constants";
+import { AirChallenge, EarthChallenge, FireChallenge, WaterChallenge } from "src/components";
+
+import { ELEMENTS } from "src/constants";
 
 export const ChallengeDetailScreen = () => {
   const location = useLocation();
@@ -16,11 +14,15 @@ export const ChallengeDetailScreen = () => {
   switch (elementType) {
     case ELEMENTS.FIRE:
       return <FireChallenge />;
+
     case ELEMENTS.EARTH:
       return <EarthChallenge />;
+
     case ELEMENTS.AIR:
-      return <AirChallange />;
+      return <AirChallenge />;
+
     case ELEMENTS.WATER:
       return <WaterChallenge />;
   }
 };
+

@@ -1,10 +1,8 @@
 import { useLocation } from "react-router-dom";
-import Air from "src/Elements/Air";
-import Earth from "src/Elements/Earth";
-import Fire from "src/Elements/Fire";
-import Water from "src/Elements/Water";
 
-import { ELEMENTS } from "../Constants";
+import { Air, Earth, Fire, Water } from "src/components";
+
+import { ELEMENTS } from "src/constants";
 
 export const ElementScreen = () => {
   const location = useLocation();
@@ -14,11 +12,15 @@ export const ElementScreen = () => {
   switch (elementType) {
     case ELEMENTS.FIRE:
       return <Fire />;
+
     case ELEMENTS.EARTH:
       return <Earth />;
+
     case ELEMENTS.AIR:
       return <Air />;
+
     case ELEMENTS.WATER:
       return <Water />;
   }
 };
+

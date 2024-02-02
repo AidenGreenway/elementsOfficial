@@ -1,4 +1,5 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import {
   Accordion,
   AccordionDetails,
@@ -9,18 +10,22 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
 import { useEffect } from "react";
+
 import { useLocation } from "react-router-dom";
 
 //import fireGif from "../images/firegif.gif";
 
-const Fire = () => {
+export const Fire = () => {
   const location = useLocation();
 
   useEffect(() => {
     const hash = location.hash;
+
     if (hash) {
       const element = document.querySelector(hash);
+
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -35,19 +40,27 @@ const Fire = () => {
           aria-controls="panel1a-content"
           sx={{
             display: "flex",
+
             alignItems: "center", // Wyśrodkowanie tekstu i obrazka w pionie
           }}
         >
           <Typography variant="h4" sx={{ marginBottom: "12px", color: "yellow" }}>
             Fire
           </Typography>
+
           {/* <Typography
+
             variant="h4"
+
             sx={{ marginTop: "-70px", marginLeft: "-145px", color: "yellow" }}
+
           >
+
             <img src={fireGif} width="30%" />
+
           </Typography> */}
         </AccordionSummary>
+
         <AccordionDetails>
           <Typography sx={{ marginBottom: "0px", color: "#D70040", fontSize: "16px" }} align="left">
             Fire is the most charismatic, most dangerous and "cool" type of persona. An individual
@@ -69,20 +82,25 @@ const Fire = () => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
           <Typography sx={{ color: "yellow" }}>Strengths:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "orange" }}>
             <ListItem>
               <ListItemText primary="Energy and passion: Intensity, enthusiasm, commitment." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Inspiration and creativity: Creative potential, ability to express oneself." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Courage and fearlessness: Willingness to face challenges head-on." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Charismatic and influential: Ability to captivate and lead." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Optimism and confidence: Positive outlook and self-assurance." />
             </ListItem>
@@ -94,20 +112,25 @@ const Fire = () => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
           <Typography sx={{ color: "yellow" }}>Weaknesses:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "#D70040" }}>
             <ListItem>
               <ListItemText primary="Impulsive risk-taking without consideration." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Emotional impulsivity and difficulty controlling anger." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Overly competitive nature leading to conflicts." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Restlessness and impatience in slower-paced situations." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Tendency towards dominance and overpowering behaviors." />
             </ListItem>
@@ -119,20 +142,25 @@ const Fire = () => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
           <Typography sx={{ color: "yellow" }}>Exercises to Manage Fire Traits:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "orange" }}>
             <ListItem>
               <ListItemText primary="Fire meditation: Visualizing calmness and positive energy." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Engaging in creative challenges: Art, writing, creativity." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Mindfulness practice for emotional regulation." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Physical activities to channel excess energy." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Learning conflict resolution and patience." />
             </ListItem>
@@ -146,20 +174,25 @@ const Fire = () => {
             Key Strategies for Controlling Fire:
           </Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "orange" }}>
             <ListItem>
               <ListItemText primary="Self-control and reflection on impulsive reactions." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Anger management techniques and relaxation practices." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Developing empathy and understanding others' perspectives." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Embracing patience and practicing moderation." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Learning assertiveness without aggression." />
             </ListItem>
@@ -170,4 +203,3 @@ const Fire = () => {
   );
 };
 
-export default Fire;

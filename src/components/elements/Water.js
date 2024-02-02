@@ -1,4 +1,5 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import {
   Accordion,
   AccordionDetails,
@@ -9,17 +10,22 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+
 import { useEffect } from "react";
+
 import { useLocation } from "react-router-dom";
 
-import waterback from "../diaryImages/water/dallwaterr.jpg";
-const Water = () => {
+import waterback from "src/diaryImages/water/dallwaterr.jpg";
+
+export const Water = () => {
   const location = useLocation();
 
   useEffect(() => {
     const hash = location.hash;
+
     if (hash) {
       const element = document.querySelector(hash);
+
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -30,12 +36,19 @@ const Water = () => {
     <Box
       sx={{
         background: `url(${waterback})`,
+
         backgroundSize: "cover",
+
         backgroundRepeat: "no-repeat",
+
         padding: "20px",
+
         borderRadius: "8px",
+
         position: "relative",
+
         height: "100%", // Dodaj tę właściwość
+
         overflow: "scroll",
       }}
     >
@@ -45,6 +58,7 @@ const Water = () => {
             Water
           </Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <Typography
             sx={{ maxWidth: "60%", marginBottom: "20px", color: "#00ccff", fontSize: "16px" }}
@@ -60,104 +74,132 @@ const Water = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
+
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
           <Typography sx={{ color: "#82eefd" }}>Strengths:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Tranquility and intuition: Immersion in emotions and intuitive approach to life." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Empathy and support: Openness and understanding for others." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Analytical thinking: Ability for reflection and understanding different perspectives." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Creativity: Creative problem-solving approach." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Flexibility and adaptation: Ability to adapt to changing situations." />
             </ListItem>
+
             {/* Remaining strengths */}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
           <Typography sx={{ color: "#82eefd" }}>Weaknesses:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Excessive emotional sensitivity: Difficulty coping with intense emotions." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Decision-making: Sometimes struggling to make quick and decisive decisions." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Excessive emotional involvement: Difficulty disengaging from challenging situations." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Lack of assertiveness: Difficulty in expressing oneself and defending positions." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Overvaluing emotions: Problems maintaining emotional balance." />
             </ListItem>
+
             {/* Remaining weaknesses */}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
           <Typography sx={{ color: "#82eefd" }}>Exercises for Managing Water Traits:</Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Mindfulness and meditation practice: Cultivating inner peace." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Developing assertiveness: Training to express needs and beliefs." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Decision-making exercises: Developing decision-making skills." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Enhancing emotional coping abilities: Emotional regulation training." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Developing emotional balance skills: Exercises to maintain calmness in challenging situations." />
             </ListItem>
+
             {/* Remaining exercises */}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
           <Typography variant="body1" sx={{ color: "#82eefd" }}>
             Key Strategies for Harmony with the Water Element:
           </Typography>
         </AccordionSummary>
+
         <AccordionDetails>
           <List sx={{ marginTop: "8px", color: "#00ccff" }}>
             <ListItem>
               <ListItemText primary="Developing emotion control skills: Training in regulating emotional sensitivity." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Maintaining balance between empathy and decision-making: Working on balancing empathy with decisiveness." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Effective conflict resolution: Developing skills to resolve conflicts constructively." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Fostering resilience: Building the ability to bounce back from setbacks." />
             </ListItem>
+
             <ListItem>
               <ListItemText primary="Improving self-assertiveness: Training to express oneself confidently." />
             </ListItem>
+
             {/* Remaining strategies */}
           </List>
         </AccordionDetails>
@@ -166,4 +208,3 @@ const Water = () => {
   );
 };
 
-export default Water;

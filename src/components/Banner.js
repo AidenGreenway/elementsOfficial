@@ -2,7 +2,6 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import determineElement from "./YourElement";
 import YourContext from "../ElementContext/YourContext";
 import four from "../diaryImages/air/444.png"; // Obrazek początkowy
 import aird1 from "../diaryImages/air/air2.jpg";
@@ -17,6 +16,7 @@ import fireGif from "../diaryImages/fire/fire4.png";
 import dallwater from "../diaryImages/water/dallwater.png";
 import waterGif from "../diaryImages/water/water3.png";
 import waterGif1 from "../diaryImages/water/water33.png";
+import determineElement from "./YourElement";
 
 const ELEMENT_DESCRIPTIONS = {
   fire: {
@@ -101,7 +101,7 @@ const texts = [
   "Discover how understanding the four elements - Fire, Water, Air, and Earth - can help you in your journey of self-development. Embrace the unique qualities of each element to find balance and harmony in your life.",
   "Explore the power of the four elements - Fire, Water, Air, and Earth - and see how they influence your daily life. Allow yourself a deeper understanding of these fundamental forces to better harmonize with the world around you.",
 ];
-const Banner = () => {
+export const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
   const [otherIconsVisible, setOtherIconsVisible] = useState(true);
@@ -603,4 +603,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+

@@ -1,18 +1,25 @@
 import { Box } from "@mui/material";
+
 import { Outlet } from "react-router-dom";
 
-import NavBar from "./NavBar";
+import { NavBar } from "./NavBar";
 
 export const Dashboard = () => {
   return (
     <Box
       sx={{
         display: "flex",
+
         textAlign: "center",
+
         backgroundColor: "black",
+
         backgroundSize: "cover",
+
         backgroundRepeat: "no-repeat",
+
         minHeight: "100vh",
+
         //color: "white",
       }}
     >
@@ -22,6 +29,7 @@ export const Dashboard = () => {
         component="main"
         sx={{
           width: "calc(100vw - 240px)",
+
           paddingLeft: "240px",
         }}
       >
@@ -30,3 +38,4 @@ export const Dashboard = () => {
     </Box>
   );
 };
+

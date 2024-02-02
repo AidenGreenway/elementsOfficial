@@ -10,23 +10,23 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const EarthBlog = () => {
+export const WaterBlog = () => {
   const [blogPosts, setBlogPosts] = useState(
-    JSON.parse(localStorage.getItem("earthBlogPosts")) || []
+    JSON.parse(localStorage.getItem("waterBlogPosts")) || []
   );
   const [newPost, setNewPost] = useState({ title: "", content: "" });
   const [showComments, setShowComments] = useState({});
   const [commentText, setCommentText] = useState({});
 
   useEffect(() => {
-    const savedPosts = localStorage.getItem("earthBlogPosts");
+    const savedPosts = localStorage.getItem("waterBlogPosts");
     if (savedPosts) {
       setBlogPosts(JSON.parse(savedPosts));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("earthBlogPosts", JSON.stringify(blogPosts));
+    localStorage.setItem("waterBlogPosts", JSON.stringify(blogPosts));
   }, [blogPosts]);
 
   const handleInputChange = (e) => {
@@ -50,7 +50,7 @@ const EarthBlog = () => {
   };
 
   const handleClearData = () => {
-    localStorage.removeItem("earthBlogPosts");
+    localStorage.removeItem("waterBlogPosts");
     setBlogPosts([]);
   };
 
@@ -89,7 +89,7 @@ const EarthBlog = () => {
         alignItems: "flex-start",
         minHeight: "100vh",
         padding: "20px",
-        backgroundColor: "black", // Kolor ziemi
+        backgroundColor: "#000", // Czarne tło
       }}
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
@@ -97,14 +97,14 @@ const EarthBlog = () => {
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "black", // Kolor zieleni
+              backgroundColor: "black", // Ciężki, ciemnoniebieski kolor
               padding: "20px",
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
             }}
           >
-            <Typography variant="h6" color="#a5d6a7" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
               Title
             </Typography>
             <TextField
@@ -116,7 +116,7 @@ const EarthBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#a5d6a7",
+                  borderColor: "#26c6da",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
                 "& input": {
@@ -124,7 +124,7 @@ const EarthBlog = () => {
                 },
               }}
             />
-            <Typography variant="h6" color="#a5d6a7" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
               Content
             </Typography>
             <TextField
@@ -138,7 +138,7 @@ const EarthBlog = () => {
               sx={{
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#a5d6a7",
+                  borderColor: "#26c6da",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                 },
                 "& textarea": {
@@ -149,14 +149,14 @@ const EarthBlog = () => {
             <Button
               variant="contained"
               onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#81c784", color: "#FFF", marginRight: 2 }}
+              sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginRight: 2 }}
             >
               Add Post
             </Button>
             <Button
               variant="contained"
               onClick={handleClearData}
-              sx={{ backgroundColor: "#81c784", color: "#FFF" }}
+              sx={{ backgroundColor: "#00bcd4", color: "#FFF" }}
             >
               Clear Data
             </Button>
@@ -187,7 +187,7 @@ const EarthBlog = () => {
                 <CardHeader
                   title={post.title}
                   sx={{
-                    color: "#66bb6a",
+                    color: "#00acc1",
                     textAlign: "left",
                     fontSize: "18px",
                     "& .MuiCardHeader-content": {
@@ -195,7 +195,7 @@ const EarthBlog = () => {
                     },
                   }}
                   action={
-                    <Typography variant="body2" color="#aed581">
+                    <Typography variant="body2" color="#80deea">
                       {post.date}
                     </Typography>
                   }
@@ -204,7 +204,7 @@ const EarthBlog = () => {
                   <Typography
                     variant="body1"
                     color="text.secondary"
-                    sx={{ color: "#aed581", textAlign: "left" }}
+                    sx={{ color: "#80deea", textAlign: "left" }}
                   >
                     {post.content}
                   </Typography>
@@ -219,7 +219,7 @@ const EarthBlog = () => {
                         sx={{
                           marginTop: 1,
                           "& .MuiOutlinedInput-root": {
-                            borderColor: "#81c784",
+                            borderColor: "#00bcd4",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
                           },
                           "& input": {
@@ -230,14 +230,14 @@ const EarthBlog = () => {
                       <Button
                         variant="contained"
                         onClick={() => handleAddComment(post.id)}
-                        sx={{ backgroundColor: "#81c784", color: "#FFF", marginTop: 1 }}
+                        sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginTop: 1 }}
                       >
                         Add Comment
                       </Button>
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                        sx={{ marginTop: 2, marginBottom: 3, color: "#aed581", textAlign: "left" }}
+                        sx={{ marginTop: 2, marginBottom: 3, color: "#80deea", textAlign: "left" }}
                       >
                         <strong>Comments:</strong>
                       </Typography>
@@ -247,9 +247,9 @@ const EarthBlog = () => {
                           variant="body2"
                           color="text.secondary"
                           sx={{
-                            color: "#aed581",
+                            color: "#80deea",
                             textAlign: "left",
-                            borderBottom: "1px solid #81c784",
+                            borderBottom: "1px solid #00bcd4",
                             paddingBottom: 1,
                             marginBottom: 1,
                           }}
@@ -264,8 +264,8 @@ const EarthBlog = () => {
                       variant="outlined"
                       onClick={() => handleToggleComments(post.id)}
                       sx={{
-                        color: "#81c784",
-                        borderColor: "#81c784",
+                        color: "#00bcd4",
+                        borderColor: "#00bcd4",
                         textTransform: "none",
                       }}
                     >
@@ -282,4 +282,4 @@ const EarthBlog = () => {
   );
 };
 
-export default EarthBlog;
+
