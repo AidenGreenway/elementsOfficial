@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import YourContext from "./YourContext";
 import aird from "../diaryImages/air/air3.jpg";
 import earthd from "../diaryImages/earth/earth4.png";
 import fired from "../diaryImages/fire/fire4.png";
 import waterd from "../diaryImages/water/water3.png";
+import YourContext from "./ElementContext";
 
-export const YourContextProvider = ({ children }) => {
+export const ElementContextProvider = ({ children }) => {
   const [yourValue, setYourValue] = useState(""); // Przykładowy stan
   const [elementImages] = useState({
     fire: fired,

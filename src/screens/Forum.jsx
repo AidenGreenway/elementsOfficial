@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import dalle from "src/images/forumdall.png";
 
-import YourContext from "../ElementContext/YourContext";
+import YourContext from "../elementContext/ElementContext";
 
 const hoverStyles = {
   fire: {

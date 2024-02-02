@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import YourContext from "src/ElementContext/YourContext";
+import YourContext from "src/elementContext/ElementContext";
 
 const CustomDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {

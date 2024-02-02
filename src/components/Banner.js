@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import YourContext from "../ElementContext/YourContext";
+import YourContext from "../elementContext/ElementContext";
 import determineElement from "./YourElement";
 
 import four from "../diaryImages/air/444.png"; // Obrazek początkowy

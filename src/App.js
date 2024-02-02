@@ -2,10 +2,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { Navigate, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import { YourContextProvider } from "./ElementContext/YourContextProvider";
-
 import { Banner, Dashboard, Profile } from "./components";
 
+import { ElementContextProvider } from "./elementContext/ElementContextProvider";
 import {
   ChallengeDetailScreen,
   Challenges,
@@ -30,7 +29,7 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <YourContextProvider>
+      <ElementContextProvider>
         <Router>
           <Routes>
             <Route path="/" element={<SignIn />} />
@@ -58,10 +57,9 @@ const App = () => {
             </Route>
           </Routes>
         </Router>
-      </YourContextProvider>
+      </ElementContextProvider>
     </ThemeProvider>
   );
 };
 
 export default App;
-
