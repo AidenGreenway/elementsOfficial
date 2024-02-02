@@ -182,14 +182,6 @@ export const Profile = () => {
     setActiveSection("tablica");
   };
 
-  const handleAvatarChange = (step) => {
-    const newAvatarIndex = selectedAvatarIndex + step;
-
-    if (newAvatarIndex >= 0 && newAvatarIndex < ElementImages[element].length) {
-      setSelectedAvatarIndex(newAvatarIndex);
-    }
-  };
-
   const renderRightSection = () => {
     switch (activeSection) {
       case "edycja":
@@ -488,7 +480,6 @@ export const Profile = () => {
         );
 
       case "tablica":
-
       default:
         return (
           <Stack spacing={2}>

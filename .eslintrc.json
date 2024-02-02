@@ -13,25 +13,19 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "universe",
     "plugin:@typescript-eslint/recommended",
-    // "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime"
   ],
-
   "rules": {
     "no-redeclare": "off",
     "@typescript-eslint/no-redeclare": ["error"],
     "react-native/no-single-element-style-arrays": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    // Choose either "error" or "warn" for the following rule
     "@typescript-eslint/no-unused-vars": ["error"],
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
     "react/jsx-no-bind": ["warn"],
-    "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react-native/sort-styles": 0,
     "react/display-name": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -40,7 +34,11 @@
   },
   "settings": {
     "react": {
-      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+      "version": "detect"
     }
+  },
+  "env": {
+    "browser": true
   }
 }
+

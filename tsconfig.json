@@ -8,7 +8,7 @@
     "resolveJsonModule": true,
     // sets types for project using src/types folder
     "typeRoots": ["node_modules/@types", "src/types/*"],
-    "jsx": "react-jsx",
+    "jsx": "react",
     "lib": ["es6", "dom", "esnext"],
     "target": "esnext",
     "skipLibCheck": true,
