@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const FireBlog = () => {
+export const FireBlog = () => {
   const [blogPosts, setBlogPosts] = useState(
     JSON.parse(localStorage.getItem("fireBlogPosts")) || []
   );

@@ -1,16 +1,24 @@
 import { Button, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
+
 import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
-import airg from "../Assets/airg.gif";
-import earthg from "../Assets/earthg.gif";
-import fireg from "../Assets/fireg.gif";
-import waterg from "../Assets/waterg.gif";
+import airg from "src/assets/airg.gif";
+
+import earthg from "src/assets/earthg.gif";
+
+import fireg from "src/assets/fireg.gif";
+
+import waterg from "src/assets/waterg.gif";
 
 export const Challenges = () => {
   const navigate = useNavigate();
+
   const [showAnimation, setShowAnimation] = useState(false);
+
   const [hoveredButton, setHoveredButton] = useState("");
+
   const [currentGif, setCurrentGif] = useState("");
 
   const handleClick = (destination) => {
@@ -21,21 +29,31 @@ export const Challenges = () => {
     setHoveredButton(name);
 
     // Wybór odpowiedniego gifa na podstawie nazwy przycisku
+
     switch (name) {
       case "fire":
         setCurrentGif(fireg);
+
         break;
+
       case "water":
         setCurrentGif(waterg);
+
         break;
+
       case "air":
         setCurrentGif(airg);
+
         break;
+
       case "earth":
         setCurrentGif(earthg);
+
         break;
+
       default:
         setCurrentGif("");
+
         break;
     }
 
@@ -44,34 +62,51 @@ export const Challenges = () => {
 
   const handleButtonLeave = () => {
     setShowAnimation(false);
+
     setHoveredButton("");
   };
 
   const challengesData = [
     {
       name: "fire",
+
       component: "FireChallenge",
+
       color: "#D70040",
+
       destination: "fire",
     },
+
     {
       name: "water",
+
       component: "WaterChallenge",
+
       color: "darkBlue",
+
       destination: "water",
     },
+
     {
       name: "air",
+
       component: "AirChallenge",
+
       color: "lightBlue",
+
       destination: "air",
     },
+
     {
       name: "earth",
+
       component: "EarthChallenge",
+
       color: "#00ff7f",
+
       destination: "earth",
     },
+
     // Dodaj inne wyzwania tutaj
   ];
 
@@ -81,6 +116,7 @@ export const Challenges = () => {
         <Typography variant="h3" style={{ color: "white", marginBottom: "20px" }}>
           CHALLENGES
         </Typography>
+
         <List>
           {challengesData.map((challenge, index) => (
             <div key={index}>
@@ -91,6 +127,7 @@ export const Challenges = () => {
                       variant="text"
                       style={{
                         color: hoveredButton === challenge.name ? challenge.color : "inherit",
+
                         fontSize: "50px",
                       }}
                       onClick={() => handleClick(challenge.destination)}
@@ -102,11 +139,13 @@ export const Challenges = () => {
                   }
                 />
               </ListItem>
+
               {index !== challengesData.length - 1 && <Divider />}
             </div>
           ))}
         </List>
       </div>
+
       {showAnimation && (
         <div style={{ position: "fixed", top: "50px", right: "50px" }}>
           <img src={currentGif} alt="Animation" style={{ width: "600px", height: "600px" }} />
@@ -115,3 +154,4 @@ export const Challenges = () => {
     </div>
   );
 };
+
