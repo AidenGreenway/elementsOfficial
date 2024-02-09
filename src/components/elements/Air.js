@@ -1,5 +1,4 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import {
   Accordion,
   AccordionDetails,
@@ -10,15 +9,28 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-
-import { useEffect } from "react";
-
+import "animate.css/animate.min.css";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-// import airGif from "../images/airgif.gif";
-
 export const Air = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
   const location = useLocation();
+
+  const texts = ["read me", "hide"];
+
+  const handleChangeText = () => {
+    const newIndex = (currentTextIndex + 1) % texts.length;
+    setCurrentTextIndex(newIndex);
+
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
+  };
 
   useEffect(() => {
     const hash = location.hash;
@@ -33,151 +45,191 @@ export const Air = () => {
   }, [location.hash]);
 
   return (
-    <Box sx={{ backgroundColor: "#ADD8E6", padding: "20px", borderRadius: "8px" }}>
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "white", align: "left" }}>
-            Air
-          </Typography>
-
-          {/* <Typography variant="h4" sx={{ marginLeft: "-360px", color: "white", align: "left" }}>
-
-
-
-            <img src={airGif} width="10%" />
-
-
-
-          </Typography> */}
+    <Box sx={{ backgroundColor: "black" }}>
+      <Accordion
+        sx={{ backgroundColor: "transparent" }}
+        id="panel1a-header-air"
+        expanded={isFirstSectionVisible}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content-air">
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Typography
+              className="animate__animated animate__bounceInDown"
+              sx={{ fontSize: "220px", color: "lightBlue", textAlign: "", marginTop: "-7%" }}
+            >
+              air
+            </Typography>
+            <Typography
+              key={currentTextIndex}
+              className={`animate__animated animate__backInLeft ${texts[
+                currentTextIndex
+              ].toLowerCase()}`}
+              sx={{
+                color: "white",
+                fontSize: "18px",
+                marginTop: "-10%",
+                marginLeft: "-80%",
+                cursor: "pointer",
+              }}
+              onClick={handleChangeText}
+            >
+              {texts[currentTextIndex]}
+            </Typography>
+          </Box>
         </AccordionSummary>
 
-        <AccordionDetails>
-          <Typography sx={{ marginBottom: "20px", color: "white", fontSize: "16px" }} align="left">
-            Individuals associated with the air element are intelligent, dynamic, and communicative.
-            They are characterized by openness to change and new experiences. They are social, enjoy
-            interacting with others, and have the ability to analyze situations from various
-            perspectives.
-          </Typography>
-        </AccordionDetails>
+        {isFirstSectionVisible && (
+          <AccordionDetails>
+            <Typography
+              sx={{ maxWidth: "90%", marginBottom: "20px", color: "lightBlue", fontSize: "16px" }}
+              align="left"
+            >
+              An individual associated with the element of air is characterized by intellect,
+              curiosity, and adaptability. They are quick thinkers, communicative, and enjoy
+              socializing. Air individuals are often open-minded, objective, and value mental
+              stimulation. They possess the ability to connect with diverse perspectives and thrive
+              on change. Their strength lies in their ability to embrace new ideas, communicate
+              effectively, and foster harmonious connections.
+            </Typography>
+          </AccordionDetails>
+        )}
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-          <Typography sx={{ color: "white" }}>Strengths:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="air-zodiac-signs-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="air-zodiac-signs-content">
+          <Typography sx={{ color: "lightBlue" }}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Intelligence and flexibility: Ability to adapt to new situations." />
+              <ListItemText primary="Gemini (May 21 - June 20): Gemini is an Air sign known for its versatility, curiosity, and communication skills. Geminis are adaptable, sociable, and thrive in dynamic environments." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Analytical approach: Skill in analyzing from different perspectives." />
+              <ListItemText primary="Libra (September 23 - October 22): Libra is an Air sign characterized by its sense of balance, harmony, and social grace. Librans value relationships, beauty, and diplomatic solutions." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Open-mindedness and curiosity: Readiness to explore and learn." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Adaptability and resourcefulness: Ability to navigate diverse situations." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Communication skills: Effective expression and reception of ideas." />
+              <ListItemText primary="Aquarius (January 20 - February 18): Aquarius, the Water-Bearer, is an Air sign associated with innovation, originality, and humanitarianism. Aquarians are forward-thinking and enjoy exploring unconventional ideas." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-          <Typography sx={{ color: "white" }}>Weaknesses:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header-air">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content-air">
+          <Typography sx={{ color: "lightBlue" }}>Strengths:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Emotional instability: Difficulty maintaining calmness in tense situations." />
+              <ListItemText primary="Intellect and curiosity: Quick thinking and a thirst for knowledge." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Overanalysis: Inclination to excessively analyze every detail." />
+              <ListItemText primary="Adaptability: Ease in adjusting to new situations." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Indecisiveness: Struggle in making quick decisions." />
+              <ListItemText primary="Communication skills: Ability to express ideas effectively." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Restlessness and detachment: Difficulty in focusing on one thing." />
+              <ListItemText primary="Open-mindedness: Embracing diverse perspectives." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Overly critical tendencies: Inclination to be overly judgmental." />
+              <ListItemText primary="Harmonious connections: Fostering positive relationships." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
-          <Typography sx={{ color: "white" }}>Exercises for Managing Air Traits:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header-air">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content-air">
+          <Typography sx={{ color: "lightBlue" }}>Weaknesses:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Stress management practices: Exercises to reduce tension." />
+              <ListItemText primary="Restlessness: Difficulty staying focused on one task." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Focus training: Developing the ability to concentrate on one task." />
+              <ListItemText primary="Indecisiveness: Weighing multiple options without choosing." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Mindfulness techniques for decision-making." />
+              <ListItemText primary="Overthinking: Analyzing situations excessively." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Practice in patience and grounding exercises." />
+              <ListItemText primary="Detachment: Struggling with emotional expression." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Engagement in structured planning activities." />
+              <ListItemText primary="Inconsistency: Difficulty maintaining commitments." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
-          <Typography variant="body1" sx={{ color: "white" }}>
-            Key Strategies for Harmonizing with the Air Element:
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header-air">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content-air">
+          <Typography sx={{ color: "lightBlue" }}>Exercises Strengthening Air Traits:</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <List sx={{ marginTop: "8px", color: "white" }}>
+            <ListItem>
+              <ListItemText primary="Mindfulness meditation to enhance focus." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Engaging in diverse social activities." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Developing decision-making skills." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Practicing emotional expression." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Balancing intellectual pursuits with relaxation." />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header-air">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content-air">
+          <Typography variant="body1" sx={{ color: "lightBlue" }}>
+            Key Strategies for Harmony with Air:
           </Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#b3b3b3" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Maintaining balance between adaptability and calmness: Training in balancing adaptation with maintaining tranquility." />
+              <ListItemText primary="Embrace change and variety in life." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Developing the ability to see the big picture while also analyzing details." />
+              <ListItemText primary="Practice effective communication skills." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Cultivating patience and embracing change gracefully." />
+              <ListItemText primary="Balance intellectual pursuits with emotional connection." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Enhancing decision-making skills without overthinking." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Practicing effective communication and active listening." />
+              <ListItemText primary="Cultivate patience in decision-making." />
             </ListItem>
           </List>
         </AccordionDetails>
@@ -185,4 +237,3 @@ export const Air = () => {
     </Box>
   );
 };
-

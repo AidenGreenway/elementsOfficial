@@ -1,5 +1,4 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import {
   Accordion,
   AccordionDetails,
@@ -10,15 +9,28 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-
-import { useEffect } from "react";
-
+import "animate.css/animate.min.css";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import earthGif from "src/images/earthgif.gif";
-
 export const Earth = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
   const location = useLocation();
+
+  const texts = ["read me", "hide"];
+
+  const handleChangeText = () => {
+    const newIndex = (currentTextIndex + 1) % texts.length;
+    setCurrentTextIndex(newIndex);
+
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
+  };
 
   useEffect(() => {
     const hash = location.hash;
@@ -33,33 +45,81 @@ export const Earth = () => {
   }, [location.hash]);
 
   return (
-    <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
+    <Box sx={{ backgroundColor: "black" }}>
+      <Accordion
+        sx={{ backgroundColor: "transparent" }}
+        id="panel1a-header"
+        expanded={isFirstSectionVisible}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#00ff7f" }} align="left">
-            Earth
-          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Typography
+              className="animate__animated animate__bounceInDown"
+              sx={{ fontSize: "220px", color: "#00ff7f", textAlign: "", marginTop: "-7%" }}
+            >
+              earth
+            </Typography>
+            <Typography
+              key={currentTextIndex}
+              className={`animate__animated animate__backInLeft ${texts[
+                currentTextIndex
+              ].toLowerCase()}`}
+              sx={{
+                color: "white",
+                fontSize: "18px",
+                marginTop: "-10%",
+                marginLeft: "-80%",
+                cursor: "pointer",
+              }}
+              onClick={handleChangeText}
+            >
+              {texts[currentTextIndex]}
+            </Typography>
+          </Box>
+        </AccordionSummary>
 
-          <img src={earthGif} width="10%" />
+        {isFirstSectionVisible && (
+          <AccordionDetails>
+            <Typography
+              sx={{ maxWidth: "90%", marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}
+              align="left"
+            >
+              An individual associated with the element of earth exudes calmness, stability, and
+              deep internal strength. It's someone immersed in reality, practical, with strong moral
+              foundations and common sense. They are characterized by perseverance, patience, and an
+              ability to feel connected to the surrounding world. An earthy person is practical, has
+              a sense of reality, enabling them to achieve goals step by step. Their strength lies
+              in stability, making them a pillar of support for others. Individuals associated with
+              the earth element need time to build trust and bonds with their surroundings, but once
+              they do, their loyalty and dedication are unwavering.
+            </Typography>
+          </AccordionDetails>
+        )}
+      </Accordion>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="earth-zodiac-signs-header">
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="earth-zodiac-signs-content"
+        >
+          <Typography sx={{ color: "#00ff7f" }}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <Typography
-            sx={{ marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}
-            align="left"
-          >
-            An individual associated with the element of earth exudes calmness, stability, and deep
-            internal strength. It's someone immersed in reality, practical, with strong moral
-            foundations and common sense. They are characterized by perseverance, patience, and an
-            ability to feel connected to the surrounding world. An earthy person is practical, has a
-            sense of reality, enabling them to achieve goals step by step. Their strength lies in
-            stability, making them a pillar of support for others. Individuals associated with the
-            earth element need time to build trust and bonds with their surroundings, but once they
-            do, their loyalty and dedication are unwavering.
-          </Typography>
+          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
+            <ListItem>
+              <ListItemText primary="Taurus (April 20 - May 20): Taurus is an Earth sign known for its practical and grounded nature. Taureans are reliable, patient, and often have a strong sense of determination. They appreciate the beauty of the material world." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Virgo (August 23 - September 22): Virgo is an Earth sign characterized by its attention to detail and analytical mindset. Virgos are often hardworking, reliable, and have a practical approach to problem-solving. They value precision and order." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Capricorn (December 22 - January 19): Capricorn, the Sea-Goat, is an Earth sign associated with ambition and discipline. Capricorns are known for their strong work ethic, determination, and strategic thinking. They strive for long-term success and stability." />
+            </ListItem>
+          </List>
         </AccordionDetails>
       </Accordion>
-
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
           <Typography sx={{ color: "#00ff7f" }}>Strengths:</Typography>
@@ -180,4 +240,3 @@ export const Earth = () => {
     </Box>
   );
 };
-

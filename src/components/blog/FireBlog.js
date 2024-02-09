@@ -94,7 +94,7 @@ export const FireBlog = () => {
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
         <Grid item xs={6}>
-          {/* Section for adding new post */}
+          {/* Section for adding a new post */}
           <Box
             sx={{
               width: "100%",
@@ -103,6 +103,17 @@ export const FireBlog = () => {
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "8px",
+                borderRadius: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#FF6E00",
+                borderRadius: "8px",
+              },
             }}
           >
             <Typography variant="h6" color="#FF6E00" sx={{ marginBottom: 1 }}>
@@ -150,21 +161,40 @@ export const FireBlog = () => {
             <Button
               variant="contained"
               onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#FF6E00", color: "#FFF", marginRight: 2 }}
+              sx={{
+                backgroundColor: "black",
+                color: "orange",
+                marginRight: 2,
+                "&:hover": {
+                  color: "black",
+                  backgroundColor: "orange", // Ustaw kolor hover background tutaj
+                },
+              }}
             >
               Add Post
             </Button>
             <Button
               variant="contained"
               onClick={handleClearData}
-              sx={{ backgroundColor: "#FF6E00", color: "#FFF" }}
+              sx={{
+                backgroundColor: "black",
+                color: "orange",
+                marginRight: 2,
+                "&:hover": {
+                  color: "black",
+                  backgroundColor: "orange", // Ustaw kolor hover background tutaj
+                },
+              }}
             >
               Clear Data
             </Button>
           </Box>
         </Grid>
         <Grid item xs={6}>
-          {/* Section for displaying posts */}
+          <Typography variant="h6" color="#FF6E00" sx={{ marginBottom: 1 }}>
+            posts
+          </Typography>
+          {/* Section for displaying posts with added frame */}
           <Box
             sx={{
               width: "100%",
@@ -172,6 +202,20 @@ export const FireBlog = () => {
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
+              borderImage: "linear-gradient(45deg, #FF6E00, #FFD700) 1",
+              borderImageSlice: 1,
+              boxShadow: "2px 2px 10px rgba(255, 0, 0, 0.8)", // Red shadow
+              "&::-webkit-scrollbar": {
+                width: "8px",
+                borderRadius: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "rgba(255, 0, 0, 0.8)",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#FF6E00",
+                borderRadius: "8px",
+              },
             }}
           >
             {blogPosts.map((post) => (
@@ -184,6 +228,17 @@ export const FireBlog = () => {
                   maxHeight: "300px",
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                   padding: "16px",
+                  "&::-webkit-scrollbar": {
+                    width: "8px",
+                    borderRadius: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#FF6E00",
+                    borderRadius: "8px",
+                  },
                 }}
               >
                 <CardHeader
@@ -197,7 +252,7 @@ export const FireBlog = () => {
                     },
                   }}
                   action={
-                    <Typography variant="body2" color="#FFD700">
+                    <Typography variant="body2" color="white">
                       {post.date}
                     </Typography>
                   }
@@ -229,13 +284,30 @@ export const FireBlog = () => {
                           },
                         }}
                       />
-                      <Button
-                        variant="contained"
-                        onClick={() => handleAddComment(post.id)}
-                        sx={{ backgroundColor: "#FF6E00", color: "#FFF", marginTop: 1 }}
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          marginTop: 2,
+                          marginBottom: 1, // Dodaj margines na dole dla estetyki
+                        }}
                       >
-                        Add Comment
-                      </Button>
+                        <Button
+                          variant="contained"
+                          onClick={() => handleAddComment(post.id)}
+                          sx={{
+                            backgroundColor: "transparent",
+                            color: "orange",
+                            marginLeft: "auto", // Przesuń przycisk na prawą stronę
+                            "&:hover": {
+                              color: "limeGreen",
+                              backgroundColor: "transparent", // Ustaw kolor hover background tutaj
+                            },
+                          }}
+                        >
+                          Add Comment
+                        </Button>
+                      </Box>
                       <Typography
                         variant="body2"
                         color="text.secondary"
@@ -263,12 +335,15 @@ export const FireBlog = () => {
                   )}
                   <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
                     <Button
-                      variant="outlined"
                       onClick={() => handleToggleComments(post.id)}
                       sx={{
-                        color: "#FF6E00",
-                        borderColor: "#FF6E00",
-                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        color: "orange",
+                        margin: 1,
+                        "&:hover": {
+                          color: "black",
+                          backgroundColor: "transparent", // Ustaw kolor hover background tutaj
+                        },
                       }}
                     >
                       Comments

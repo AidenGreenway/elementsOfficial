@@ -1,5 +1,4 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import {
   Accordion,
   AccordionDetails,
@@ -10,15 +9,28 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-
-import { useEffect } from "react";
-
+import "animate.css/animate.min.css";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-//import fireGif from "../images/firegif.gif";
-
 export const Fire = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
   const location = useLocation();
+
+  const texts = ["read me", "hide"];
+
+  const handleChangeText = () => {
+    const newIndex = (currentTextIndex + 1) % texts.length;
+    setCurrentTextIndex(newIndex);
+
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
+  };
 
   useEffect(() => {
     const hash = location.hash;
@@ -33,168 +45,191 @@ export const Fire = () => {
   }, [location.hash]);
 
   return (
-    <Box sx={{ backgroundColor: "black", padding: "20px", borderRadius: "8px" }}>
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          sx={{
-            display: "flex",
-
-            alignItems: "center", // Wyśrodkowanie tekstu i obrazka w pionie
-          }}
-        >
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "yellow" }}>
-            Fire
-          </Typography>
-
-          {/* <Typography
-
-            variant="h4"
-
-            sx={{ marginTop: "-70px", marginLeft: "-145px", color: "yellow" }}
-
-          >
-
-            <img src={fireGif} width="30%" />
-
-          </Typography> */}
+    <Box sx={{ backgroundColor: "black" }}>
+      <Accordion
+        sx={{ backgroundColor: "transparent" }}
+        id="panel1a-header-fire"
+        expanded={isFirstSectionVisible}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content-fire">
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Typography
+              className="animate__animated animate__bounceInDown"
+              sx={{ fontSize: "220px", color: "#FF4500", textAlign: "", marginTop: "-7%" }}
+            >
+              fire
+            </Typography>
+            <Typography
+              key={currentTextIndex}
+              className={`animate__animated animate__backInLeft ${texts[
+                currentTextIndex
+              ].toLowerCase()}`}
+              sx={{
+                color: "white",
+                fontSize: "18px",
+                marginTop: "-10%",
+                marginLeft: "-80%",
+                cursor: "pointer",
+              }}
+              onClick={handleChangeText}
+            >
+              {texts[currentTextIndex]}
+            </Typography>
+          </Box>
         </AccordionSummary>
 
-        <AccordionDetails>
-          <Typography sx={{ marginBottom: "0px", color: "#D70040", fontSize: "16px" }} align="left">
-            Fire is the most charismatic, most dangerous and "cool" type of persona. An individual
-            associated with the element of fire is a person who exudes intensity and fervor. Their
-            life is driven by unstoppable energy and passion, which is hard to miss. This person
-            engages in everything they do with tremendous enthusiasm and commitment. They possess an
-            extraordinary ability to express emotions and act at full throttle, making their
-            surroundings always lively. They fearlessly take on challenges and confront them with
-            determination, acting with incredible intensity. The energy stemming from this element
-            makes them creative, inspiring to others, and characterized by extraordinary dynamism.
-            They possess an unwavering willpower and a fiery temperament capable of transforming the
-            world around them. Individuals associated with the fire element may sometimes act
-            impulsively, occasionally needing moments of reflection on their reactions.
-          </Typography>
-        </AccordionDetails>
+        {isFirstSectionVisible && (
+          <AccordionDetails>
+            <Typography
+              sx={{ maxWidth: "90%", marginBottom: "20px", color: "white", fontSize: "16px" }}
+              align="left"
+            >
+              An individual associated with the element of fire embodies passion, energy, and
+              creativity. They are dynamic, confident, and often seek inspiration and excitement.
+              Fire individuals are driven by their desires, and they possess a natural charisma that
+              attracts others. Their strength lies in their ability to initiate action, express
+              themselves boldly, and bring warmth to those around them. They thrive in environments
+              that allow their creativity to flourish.
+            </Typography>
+          </AccordionDetails>
+        )}
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-          <Typography sx={{ color: "yellow" }}>Strengths:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="fire-zodiac-signs-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="fire-zodiac-signs-content">
+          <Typography sx={{ color: "#FF4500" }}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "orange" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Energy and passion: Intensity, enthusiasm, commitment." />
+              <ListItemText primary="Aries (March 21 - April 19): Aries is a Fire sign known for its enthusiasm, courage, and pioneering spirit. Arians are natural leaders, driven by a desire for challenges and new experiences." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Inspiration and creativity: Creative potential, ability to express oneself." />
+              <ListItemText primary="Leo (July 23 - August 22): Leo is a Fire sign characterized by its confidence, generosity, and leadership qualities. Leos seek recognition and enjoy expressing their creativity and passion." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Courage and fearlessness: Willingness to face challenges head-on." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Charismatic and influential: Ability to captivate and lead." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Optimism and confidence: Positive outlook and self-assurance." />
+              <ListItemText primary="Sagittarius (November 22 - December 21): Sagittarius, the Archer, is a Fire sign associated with exploration and optimism. Sagittarians are adventurous, philosophical, and enjoy expanding their horizons." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-          <Typography sx={{ color: "yellow" }}>Weaknesses:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header-fire">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content-fire">
+          <Typography sx={{ color: "#FF4500" }}>Strengths:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#D70040" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Impulsive risk-taking without consideration." />
+              <ListItemText primary="Passion and enthusiasm: A zest for life and creative pursuits." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Emotional impulsivity and difficulty controlling anger." />
+              <ListItemText primary="Courage and boldness: Willingness to take risks." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Overly competitive nature leading to conflicts." />
+              <ListItemText primary="Leadership qualities: Natural ability to inspire and guide." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Restlessness and impatience in slower-paced situations." />
+              <ListItemText primary="Creativity and expressiveness: A flair for self-expression." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Tendency towards dominance and overpowering behaviors." />
+              <ListItemText primary="Warmth and charisma: A magnetic and inviting presence." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
-          <Typography sx={{ color: "yellow" }}>Exercises to Manage Fire Traits:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header-fire">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content-fire">
+          <Typography sx={{ color: "#FF4500" }}>Weaknesses:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "orange" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Fire meditation: Visualizing calmness and positive energy." />
+              <ListItemText primary="Impulsiveness: Acting without thorough consideration." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Engaging in creative challenges: Art, writing, creativity." />
+              <ListItemText primary="Stubbornness and impatience in dealing with obstacles." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Mindfulness practice for emotional regulation." />
+              <ListItemText primary="Risk of burnout due to excessive energy expenditure." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Physical activities to channel excess energy." />
+              <ListItemText primary="Overconfidence: Underestimating challenges." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Learning conflict resolution and patience." />
+              <ListItemText primary="Potential for conflicts arising from strong opinions." />
             </ListItem>
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
-          <Typography variant="body1" sx={{ color: "yellow" }}>
-            Key Strategies for Controlling Fire:
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header-fire">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content-fire">
+          <Typography sx={{ color: "#FF4500" }}>Exercises Strengthening Fire Traits:</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <List sx={{ marginTop: "8px", color: "white" }}>
+            <ListItem>
+              <ListItemText primary="Engaging in creative activities: Art, music, or writing." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Physical exercises to channel energy positively." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Setting and pursuing ambitious goals." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Mindfulness and meditation for balance." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Developing patience in decision-making." />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header-fire">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content-fire">
+          <Typography variant="body1" sx={{ color: "#FF4500" }}>
+            Key Strategies for Harmony with Fire:
           </Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "orange" }}>
+          <List sx={{ marginTop: "8px", color: "white" }}>
             <ListItem>
-              <ListItemText primary="Self-control and reflection on impulsive reactions." />
+              <ListItemText primary="Balancing passion with practicality." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Anger management techniques and relaxation practices." />
+              <ListItemText primary="Embracing challenges as opportunities for growth." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Developing empathy and understanding others' perspectives." />
+              <ListItemText primary="Maintaining a healthy work-life balance." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Embracing patience and practicing moderation." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Learning assertiveness without aggression." />
+              <ListItemText primary="Fostering humility and openness to feedback." />
             </ListItem>
           </List>
         </AccordionDetails>
@@ -202,4 +237,3 @@ export const Fire = () => {
     </Box>
   );
 };
-

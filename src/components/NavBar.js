@@ -1,43 +1,45 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
-import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Ikona wylogowania
-
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Button, Drawer, List, ListItem, ListItemIcon, ListItemText, styled } from "@mui/material";
-
-import { useContext } from "react";
-
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import YourContext from "src/elementContext/ElementContext";
 
 const CustomDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     width: 240,
-
     backgroundColor: "black",
-
     color: "white",
-
     paddingTop: theme.spacing(4),
   },
 }));
 
-const getHoverStyle = (element) => {
+const getHoverStyle = (element, selectedItem) => {
   switch (element) {
     case "Home":
-      return { "&:hover": { borderBottom: "2px solid #D70040" } };
+      return selectedItem === element
+        ? { borderBottom: "2px solid #D70040" }
+        : { "&:hover": { borderBottom: "2px solid #D70040" } };
 
     case "Course Modules":
-      return { "&:hover": { borderBottom: "2px solid #1434A4" } };
+      return selectedItem === element
+        ? { borderBottom: "2px solid #1434A4" }
+        : { "&:hover": { borderBottom: "2px solid #1434A4" } };
 
     case "Challenges":
-      return { "&:hover": { borderBottom: "2px solid #ADD8E6" } };
+      return selectedItem === element
+        ? { borderBottom: "2px solid #ADD8E6" }
+        : { "&:hover": { borderBottom: "2px solid #ADD8E6" } };
 
     case "Forum":
-      return { "&:hover": { borderBottom: "2px solid #7CFC00" } };
+      return selectedItem === element
+        ? { borderBottom: "2px solid #7CFC00" }
+        : { "&:hover": { borderBottom: "2px solid #7CFC00" } };
 
     case "Profile":
-      return { "&:hover": { borderBottom: "2px solid purple" } };
+      return selectedItem === element
+        ? { borderBottom: "2px solid purple" }
+        : { "&:hover": { borderBottom: "2px solid purple" } };
 
     default:
       return {};
@@ -46,6 +48,7 @@ const getHoverStyle = (element) => {
 
 export const NavBar = () => {
   const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState(""); // Dodany stan dla aktualnie wybranego elementu
 
   const goBack = () => {
     window.history.back();
@@ -53,7 +56,6 @@ export const NavBar = () => {
 
   const handleLogout = () => {
     // Tutaj logika wylogowania
-
     navigate("/"); // Przekieruj na stronę główną / logowania
   };
 
@@ -61,13 +63,9 @@ export const NavBar = () => {
 
   const menuItems = [
     { name: "Home", path: "dashboard/home" },
-
     { name: "Course Modules", path: "dashboard/courseModules" },
-
     { name: "Challenges", path: "dashboard/challenges" },
-
     { name: "Forum", path: "dashboard/forum" },
-
     { name: "Profile", path: "dashboard/profile" },
   ];
 
@@ -85,7 +83,8 @@ export const NavBar = () => {
             button
             component={Link}
             to={`/${item.path}`}
-            sx={getHoverStyle(item.name)}
+            onClick={() => setSelectedItem(item.name)} // Aktualizuj stan po kliknięciu
+            sx={getHoverStyle(item.name, selectedItem)}
             key={item.name}
           >
             <ListItemText primary={item.name} />
@@ -108,11 +107,9 @@ export const NavBar = () => {
           <ListItemIcon>
             <ExitToAppIcon style={{ color: "white" }} />
           </ListItemIcon>
-
           <ListItemText primary="" />
         </ListItem>
       </List>
     </CustomDrawer>
   );
 };
-

@@ -4,11 +4,11 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import aird from "src/images/aird.png";
+import aird from "src/assets/images/aird.png";
 
-import dalle from "src/images/delle1.png";
+import dalle from "src/assets/images/delle1.png";
 
-import earthd from "src/images/earthd.png";
+import earthd from "../diaryImages/earth/earth4.png";
 
 import fired from "../diaryImages/fire/fire4.png";
 
@@ -81,7 +81,12 @@ export const CourseModules = () => {
     <div className="course-modules">
       <Typography
         variant="h3"
-        sx={{ color: "white", marginBottom: "20px", fontFamily: "The Next Font" }}
+        sx={{
+          color: "white",
+          marginBottom: "20px",
+          fontFamily: "The Next Font",
+          fontColor: "white",
+        }}
       >
         COURSE - MODULES
       </Typography>
@@ -95,21 +100,7 @@ export const CourseModules = () => {
             onClick={handleClick}
             sx={{
               backgroundColor: hoveredElement === element ? hoverColor : "transparent",
-
               display: "flex",
-
-              //alignItems: "center",
-
-              //justifyContent: "space-between",
-
-              // padding: "10px",
-
-              //borderRadius: "5px",
-
-              // marginBottom: "5px",
-
-              // position: "relative",
-
               cursor: "pointer",
             }}
           >
@@ -127,7 +118,18 @@ export const CourseModules = () => {
           </ListItem>
         ))}
       </List>
-
+      <Typography
+        sx={{
+          color: "grey",
+          marginTop: "20px",
+          fontFamily: "The Next Font",
+          fontSize: "10x",
+          textAlign: "center",
+        }}
+      >
+        here you can get knowledge about each element, also you can chose one position from every
+        section to complete your profile!
+      </Typography>
       <img
         src={dalle}
         style={{
@@ -143,4 +145,3 @@ export const CourseModules = () => {
     </div>
   );
 };
-

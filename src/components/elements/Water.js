@@ -1,5 +1,4 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import {
   Accordion,
   AccordionDetails,
@@ -10,15 +9,28 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-
-import { useEffect } from "react";
-
+import "animate.css/animate.min.css";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import waterback from "src/diaryImages/water/dallwaterr.jpg";
-
 export const Water = () => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
   const location = useLocation();
+
+  const texts = ["read me", "hide"];
+
+  const handleChangeText = () => {
+    const newIndex = (currentTextIndex + 1) % texts.length;
+    setCurrentTextIndex(newIndex);
+
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
+  };
 
   useEffect(() => {
     const hash = location.hash;
@@ -33,178 +45,199 @@ export const Water = () => {
   }, [location.hash]);
 
   return (
-    <Box
-      sx={{
-        background: `url(${waterback})`,
-
-        backgroundSize: "cover",
-
-        backgroundRepeat: "no-repeat",
-
-        padding: "20px",
-
-        borderRadius: "8px",
-
-        position: "relative",
-
-        height: "100%", // Dodaj tę właściwość
-
-        overflow: "scroll",
-      }}
-    >
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel1a-header" defaultExpanded>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Typography variant="h4" sx={{ marginBottom: "12px", color: "#82eefd" }}>
-            Water
-          </Typography>
+    <Box sx={{ backgroundColor: "black" }}>
+      <Accordion
+        sx={{ backgroundColor: "transparent" }}
+        id="water-panel1a-header"
+        expanded={isFirstSectionVisible}
+      >
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel1a-content">
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Typography
+              className="animate__animated animate__bounceInDown"
+              sx={{ fontSize: "220px", color: "#0074cc", textAlign: "", marginTop: "-7%" }}
+            >
+              water
+            </Typography>
+            <Typography
+              key={currentTextIndex}
+              className={`animate__animated animate__backInLeft ${texts[
+                currentTextIndex
+              ].toLowerCase()}`}
+              sx={{
+                color: "white",
+                fontSize: "18px",
+                marginTop: "-8%",
+                marginLeft: "-80%",
+                cursor: "pointer",
+              }}
+              onClick={handleChangeText}
+            >
+              {texts[currentTextIndex]}
+            </Typography>
+          </Box>
         </AccordionSummary>
 
-        <AccordionDetails>
-          <Typography
-            sx={{ maxWidth: "60%", marginBottom: "20px", color: "#00ccff", fontSize: "16px" }}
-            align="left"
-          >
-            Water is the best teacher for adopting, it can be invsible and has no physical form
-            basiclly, also it can be in form tougher than diamnods, the same water! Individuals
-            associated with the water element emanate tranquility, intuition, and adaptability. They
-            are deeply immersed in emotions and possess the ability to adapt to changing situations.
-            Inner peace allows reflection and understanding of both themselves and others. A watery
-            person has the ability for empathetic feelings and expressing emotions, making them
-            supportive to others.
-          </Typography>
-        </AccordionDetails>
+        {isFirstSectionVisible && (
+          <AccordionDetails>
+            <Typography
+              sx={{ maxWidth: "90%", marginBottom: "20px", color: "#66b2ff", fontSize: "16px" }}
+              align="left"
+            >
+              An individual associated with the element of water embodies fluidity, intuition, and
+              emotional depth. They are often empathetic, adaptable, and attuned to the subtle
+              nuances of their surroundings. Water personalities are known for their ability to
+              navigate through the complexities of emotions and connect with others on a profound
+              level. Like a flowing river, they possess a natural grace and the capacity to heal and
+              nurture. Individuals aligned with the water element may also have a strong sense of
+              creativity and imagination.
+            </Typography>
+          </AccordionDetails>
+        )}
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-          <Typography sx={{ color: "#82eefd" }}>Strengths:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="water-zodiac-signs-header">
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="water-zodiac-signs-content"
+        >
+          <Typography sx={{ color: "#0074cc" }}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
+          <List sx={{ marginTop: "8px", color: "#66b2ff" }}>
             <ListItem>
-              <ListItemText primary="Tranquility and intuition: Immersion in emotions and intuitive approach to life." />
+              <ListItemText primary="Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities. Cancers are intuitive, empathetic, and often have a strong connection to their family and home." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Empathy and support: Openness and understanding for others." />
+              <ListItemText primary="Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion. Scorpios are often resourceful, determined, and have a keen ability to understand the hidden aspects of life." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Analytical thinking: Ability for reflection and understanding different perspectives." />
+              <ListItemText primary="Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion. Pisceans are imaginative, sensitive, and have a deep connection to the spiritual and artistic realms." />
             </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Creativity: Creative problem-solving approach." />
-            </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Flexibility and adaptation: Ability to adapt to changing situations." />
-            </ListItem>
-
-            {/* Remaining strengths */}
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-          <Typography sx={{ color: "#82eefd" }}>Weaknesses:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel2a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel2a-content">
+          <Typography sx={{ color: "#0074cc" }}>Strengths:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
+          <List sx={{ marginTop: "8px", color: "#66b2ff" }}>
             <ListItem>
-              <ListItemText primary="Excessive emotional sensitivity: Difficulty coping with intense emotions." />
+              <ListItemText primary="Empathy and emotional intelligence: Ability to understand and connect with others on a deep level." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Decision-making: Sometimes struggling to make quick and decisive decisions." />
+              <ListItemText primary="Adaptability and fluidity: Capacity to navigate through changing circumstances." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Excessive emotional involvement: Difficulty disengaging from challenging situations." />
+              <ListItemText primary="Intuition and sensitivity: Attuned to subtle nuances and emotions." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Lack of assertiveness: Difficulty in expressing oneself and defending positions." />
+              <ListItemText primary="Creativity and imagination: Strong connection to artistic and spiritual realms." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Overvaluing emotions: Problems maintaining emotional balance." />
+              <ListItemText primary="Nurturing qualities: Ability to heal and support others." />
             </ListItem>
-
-            {/* Remaining weaknesses */}
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
-          <Typography sx={{ color: "#82eefd" }}>Exercises for Managing Water Traits:</Typography>
+      <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel3a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel3a-content">
+          <Typography sx={{ color: "#0074cc" }}>Weaknesses:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
+          <List sx={{ marginTop: "8px", color: "#66b2ff" }}>
             <ListItem>
-              <ListItemText primary="Mindfulness and meditation practice: Cultivating inner peace." />
+              <ListItemText primary="Overly emotional: Tendency to be overwhelmed by emotions." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Developing assertiveness: Training to express needs and beliefs." />
+              <ListItemText primary="Vulnerability to mood swings: Sensitivity to external influences." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Decision-making exercises: Developing decision-making skills." />
+              <ListItemText primary="Avoidance of confrontation: Difficulty dealing with conflict." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Enhancing emotional coping abilities: Emotional regulation training." />
+              <ListItemText primary="Overly idealistic: Struggle with accepting harsh realities." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Developing emotional balance skills: Exercises to maintain calmness in challenging situations." />
+              <ListItemText primary="Tendency to be easily influenced by others." />
             </ListItem>
-
-            {/* Remaining exercises */}
           </List>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
-          <Typography variant="body1" sx={{ color: "#82eefd" }}>
-            Key Strategies for Harmony with the Water Element:
+      <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel4a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel4a-content">
+          <Typography sx={{ color: "#0074cc" }}>Exercises Enhancing Water Traits:</Typography>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          <List sx={{ marginTop: "8px", color: "#66b2ff" }}>
+            <ListItem>
+              <ListItemText primary="Practicing mindfulness and emotional awareness." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Engaging in creative activities: Art, music, writing." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Developing resilience and coping mechanisms for emotional challenges." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Exploring nature and connecting with natural elements." />
+            </ListItem>
+
+            <ListItem>
+              <ListItemText primary="Participating in activities that promote self-care and relaxation." />
+            </ListItem>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel5a-header">
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel5a-content">
+          <Typography variant="body1" sx={{ color: "#0074cc" }}>
+            Key Strategies for Harmony with Water:
           </Typography>
         </AccordionSummary>
 
         <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#00ccff" }}>
+          <List sx={{ marginTop: "8px", color: "#66b2ff" }}>
             <ListItem>
-              <ListItemText primary="Developing emotion control skills: Training in regulating emotional sensitivity." />
+              <ListItemText primary="Cultivating emotional balance and self-awareness." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Maintaining balance between empathy and decision-making: Working on balancing empathy with decisiveness." />
+              <ListItemText primary="Creating a nurturing and supportive environment." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Effective conflict resolution: Developing skills to resolve conflicts constructively." />
+              <ListItemText primary="Expressing creativity and embracing artistic outlets." />
             </ListItem>
 
             <ListItem>
-              <ListItemText primary="Fostering resilience: Building the ability to bounce back from setbacks." />
+              <ListItemText primary="Building healthy boundaries while maintaining empathy." />
             </ListItem>
-
-            <ListItem>
-              <ListItemText primary="Improving self-assertiveness: Training to express oneself confidently." />
-            </ListItem>
-
-            {/* Remaining strategies */}
           </List>
         </AccordionDetails>
       </Accordion>
     </Box>
   );
 };
-

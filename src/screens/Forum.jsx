@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import dalle from "src/images/forumdall.png";
+import dalle from "src/assets/images/forumdall.png";
 
 import YourContext from "../elementContext/ElementContext";
 
@@ -247,4 +247,3 @@ export const Forum = () => {
     </Box>
   );
 };
-

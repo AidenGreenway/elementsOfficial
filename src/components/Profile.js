@@ -410,30 +410,6 @@ export const Profile = () => {
       case "nowyPost":
         return (
           <Box>
-            {/* <Stack direction="row" spacing={2} justifyContent="center">
-
-              <Fab
-
-                color="primary"
-
-                onClick={() => toggleActiveSection("nowyPost")}
-
-                style={{ backgroundColor: selectedColor }}
-
-              >
-
-                <AddIcon />
-
-              </Fab>
-
-            </Stack> 
-
-             <Typography variant="caption" textAlign="center">
-
-              {activeSection === "nowyPost" ? "Show Posts" : "Add Post / Edit Profile"}
-
-            </Typography> */}
-
             <TextField
               fullWidth
               multiline
@@ -524,22 +500,7 @@ export const Profile = () => {
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Box
-            mb={4}
-            p={2}
-            borderRadius={8}
-            sx={{
-              borderColor: selectedColor,
-
-              borderWidth: 2,
-
-              borderStyle: "solid",
-
-              height: "600px",
-
-              backgroundColor: "black",
-            }}
-          >
+          <Box>
             {/* Sekcja profilu użytkownika (username i logo/avatar) */}
 
             <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
@@ -643,4 +604,3 @@ export const Profile = () => {
     </Box>
   );
 };
-

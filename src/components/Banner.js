@@ -1,223 +1,56 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-
 import { useContext, useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
-import YourContext from "../elementContext/ElementContext";
-import determineElement from "./YourElement";
-
 import four from "../diaryImages/air/444.png"; // Obrazek początkowy
-
-import aird1 from "../diaryImages/air/air2.jpg";
-
-import aird from "../diaryImages/air/air3.jpg";
-
 import dallair from "../diaryImages/air/dallair.png";
-
 import dallearth from "../diaryImages/earth/dallearth.png";
-
-import earthGif from "../diaryImages/earth/earth4.png";
-
-import earthGif1 from "../diaryImages/earth/earth5.png";
-
 import dallfire from "../diaryImages/fire/dallfire.png";
-
-import fireGif1 from "../diaryImages/fire/fire3.jpg";
-
-import fireGif from "../diaryImages/fire/fire4.png";
-
 import dallwater from "../diaryImages/water/dallwater.png";
-
-import waterGif from "../diaryImages/water/water3.png";
-
-import waterGif1 from "../diaryImages/water/water33.png";
-
-const ELEMENT_DESCRIPTIONS = {
-  fire: {
-    words: ["", "FIRE"],
-
-    description:
-      "Fire symbolizes passion, energy, and transformation. Discover your inner strength and motivation.",
-
-    colors: ["#D70040", "#4A0404"],
-
-    image: fireGif,
-
-    altImage: fireGif1,
-  },
-
-  water: {
-    words: ["", "WATER"],
-
-    description:
-      "Water represents emotions, intuition, and adaptation. Learn to flow with the stream of life.",
-
-    colors: ["#1434A4", "#00FFFF"],
-
-    image: waterGif,
-
-    altImage: waterGif1,
-  },
-
-  air: {
-    words: ["", "AIR"],
-
-    description:
-      "Air stands for intellect, communication, and creativity. Develop your thinking and self-expression skills.",
-
-    colors: ["#ADD8E6", "white"],
-
-    image: aird,
-
-    altImage: aird1,
-  },
-
-  earth: {
-    words: ["", "EARTH"],
-
-    description:
-      "Earth symbolizes stability, growth, and renewal. Find your roots and build solid foundations.",
-
-    colors: ["#355E3B", "#7CFC00"],
-
-    image: earthGif,
-
-    altImage: earthGif1,
-  },
-};
-
-const advices = [
-  {
-    element: "fire",
-
-    text: "Fire can melt metals with low melting points, such as lead or aluminum.",
-
-    color: "#D70040",
-  },
-
-  {
-    element: "water",
-
-    text: "Under certain conditions, water can exist in a triple-phase state, simultaneously as a solid (ice), liquid (water), and gas (water vapor).",
-
-    color: "#00FFFF",
-  },
-
-  {
-    element: "air",
-
-    text: "Air pressure decreases with altitude, which is why it becomes more challenging to breathe at higher elevations.",
-
-    color: "#87CEEB",
-  },
-
-  {
-    element: "earth",
-
-    text: "The Earth's crust is divided into tectonic plates that constantly move, leading to the formation of continents and geological phenomena like earthquakes and volcanoes.",
-
-    color: "#90EE90",
-  },
-
-  {
-    element: "fire",
-
-    text: "Fire is the only element that humans can control and use for various purposes.",
-
-    color: "#D70040",
-  },
-
-  {
-    element: "water",
-
-    text: "Water has the incredible ability to disperse sound, making it an excellent medium for underwater sound transmission.",
-
-    color: "#00FFFF",
-  },
-
-  {
-    element: "air",
-
-    text: "Air is essential for human survival and contains approximately 78% nitrogen, 21% oxygen, and trace amounts of other gases.",
-
-    color: "#87CEEB",
-  },
-
-  {
-    element: "earth",
-
-    text: "Soil is a vital part of Earth's ecosystem and contains a rich diversity of organisms, including bacteria, fungi, and insects, essential for plant growth.",
-
-    color: "#90EE90",
-  },
-];
-
-const texts = [
-  "Discover how understanding the four elements - Fire, Water, Air, and Earth - can help you in your journey of self-development. Embrace the unique qualities of each element to find balance and harmony in your life.",
-
-  "Explore the power of the four elements - Fire, Water, Air, and Earth - and see how they influence your daily life. Allow yourself a deeper understanding of these fundamental forces to better harmonize with the world around you.",
-];
+import YourContext from "../elementContext/ElementContext";
+import { ELEMENT_DESCRIPTIONS, advices, texts } from "./ElementData";
+import determineElement from "./YourElement";
 
 export const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
-
   const [hoveredElement, setHoveredElement] = useState("");
-
   const [otherIconsVisible, setOtherIconsVisible] = useState(true);
-
   const [birthDay, setBirthDay] = useState("");
-
   const [birthMonth, setBirthMonth] = useState("");
-
   const [astroElement, setAstroElement] = useState("");
-
   const [selectedElement, setSelectedElement] = useState("");
-
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [currentAdviceIndex, setCurrentAdviceIndex] = useState(0);
+  const [elementSelected, setElementSelected] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const element = determineElement(parseInt(birthDay), parseInt(birthMonth));
-
     setAstroElement(element);
-
     setSelectedElement(element);
+    setElementSelected(true);
   };
 
   const navigate = useNavigate();
-
   const goToProfile = () => {
     navigate("/dashboard/profile");
   };
 
   const handleClick = (element) => {
     setHoveredElement(element);
-
     setElementIcon(element);
-
     switch (element) {
       case "fire":
         navigate("/dashboard/courseModules/fire");
-
         break;
-
       case "water":
         navigate("/dashboard/courseModules/water");
-
         break;
-
       case "air":
         navigate("/dashboard/courseModules/air");
-
         break;
-
       case "earth":
         navigate("/dashboard/courseModules/earth");
-
         break;
-
       default:
         break;
     }
@@ -225,13 +58,11 @@ export const Banner = () => {
 
   const handleMouseOver = (element) => {
     setHoveredElement(element);
-
     setOtherIconsVisible(false);
   };
 
   const handleMouseOut = () => {
     setHoveredElement("");
-
     setOtherIconsVisible(true);
   };
 
@@ -239,7 +70,6 @@ export const Banner = () => {
     if (hoveredElement) {
       return ELEMENT_DESCRIPTIONS[hoveredElement].colors[0];
     }
-
     return "black";
   };
 
@@ -247,7 +77,6 @@ export const Banner = () => {
     if (hoveredElement) {
       return ELEMENT_DESCRIPTIONS[hoveredElement].colors[1];
     }
-
     return "#000";
   };
 
@@ -259,13 +88,10 @@ export const Banner = () => {
     return null;
   };
 
-  const [currentAdviceIndex, setCurrentAdviceIndex] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
     }, 10000); // Zmienia indeks tekstu co 7 sekund
-
     return () => clearInterval(interval);
   }, []);
 
@@ -273,73 +99,43 @@ export const Banner = () => {
     const interval = setInterval(() => {
       setCurrentAdviceIndex((prevIndex) => (prevIndex + 1) % advices.length);
     }, 7000); // Zmienia poradę co 5 sekund
-
     return () => clearInterval(interval);
   }, []);
 
   const infoContent = (
-    <Box
-      sx={{
-        position: "absolute",
-
-        left: 640,
-
-        top: 140,
-
-        transform: "translateY(-50%)",
-
-        width: 250,
-
-        display: otherIconsVisible ? "block" : "none",
-
-        color: "white",
-
-        textAlign: "end",
-
-        padding: "0 20px",
-      }}
+    <Typography
+      key={currentTextIndex} // Dodaj klucz zależny od zmieniającego się indeksu
+      fontFamily="The Next Font"
+      fontSize="23px"
+      className="animate__animated animate__bounceInDown" // Twoja klasa animacji
     >
-      <Typography
-        key={currentTextIndex} // Dodaj klucz zależny od zmieniającego się indeksu
-        fontFamily="The Next Font"
-        fontSize="23px"
-        className="animate__animated animate__bounceInDown" // Twoja klasa animacji
-      >
-        {texts[currentTextIndex]}
-      </Typography>
-    </Box>
+      {texts[currentTextIndex]}
+    </Typography>
   );
 
   return (
     <Box
       sx={{
-        transition: "opacity 0.4s ease-in-out", // Smooth transition for opacity
+        transition: "opacity 0.5s ease-in-out", // Smooth transition for opacity
       }}
     >
-      <div
-        style={{
+      <Box
+        sx={{
           backgroundColor: getBackgroundColor(),
-
           minHeight: "100vh",
-
-          display: "flex",
-
-          justifyContent: "center",
-
-          alignItems: "center",
+          transition: "opacity 0.5s ease-in-out",
         }}
       >
-        <div
-          style={{
+        <Box
+          sx={{
             position: "relative",
-
-            maxWidth: "700px",
-
+            maxWidth: "52%",
             marginLeft: "auto",
-
             marginRight: "auto",
-
-            backgroundColor: getBackgroundColor(),
+            minHeight: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {hoveredElement === "" && (
@@ -348,25 +144,17 @@ export const Banner = () => {
                 <Box
                   sx={{
                     position: "absolute",
-
-                    top: "30px",
-
-                    left: "-240px",
-
+                    top: "10%",
+                    left: "-33%",
                     display: "flex",
-
                     flexDirection: "column",
                   }}
                 >
                   <Typography
                     sx={{
                       color: "white",
-
                       fontSize: "15px",
-
                       textAlign: "left",
-
-                      marginBottom: "-12px",
                     }}
                   >
                     put your birthday here
@@ -384,9 +172,7 @@ export const Banner = () => {
                     InputProps={{
                       style: {
                         color: "#fff",
-
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
-
                         borderColor: "#fff",
                       },
                     }}
@@ -395,11 +181,9 @@ export const Banner = () => {
                         "& fieldset": {
                           borderColor: "white",
                         },
-
                         "&:hover fieldset": {
                           borderColor: "white",
                         },
-
                         "&.Mui-focused fieldset": {
                           borderColor: "white",
                         },
@@ -419,11 +203,8 @@ export const Banner = () => {
                     InputProps={{
                       style: {
                         color: "#fff",
-
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
-
                         borderColor: "#fff",
-
                         marginTop: "-10px",
                       },
                     }}
@@ -447,50 +228,28 @@ export const Banner = () => {
                   <Button
                     type="submit"
                     sx={{
-                      textAlign: "left",
-
+                      display: elementSelected ? "none" : "block", // Ukryj guzik, jeśli element został już wybrany
+                      textAlign: "center",
                       right: 0,
-
                       bottom: -10,
-
                       color: "white",
-
                       border: "1px solid white",
-
                       "&:hover": {
-                        backgroundColor: "white", // Kolor tła przy najechaniu
-
-                        color: "black", // Kolor tekstu przy najechaniu
+                        backgroundColor: "white",
+                        color: "black",
                       },
                     }}
                   >
                     check your element
                   </Button>
-
-                  <Box
-                    sx={{
-                      position: "absolute",
-
-                      right: 0, // Przesuwa element na prawo
-
-                      top: "50%",
-
-                      transform: "translateY(-50%)",
-                    }}
-                  >
-                    {infoContent}
-                  </Box>
                 </Box>
 
                 {astroElement && (
                   <Box
                     sx={{
                       position: "absolute",
-
                       top: "220px",
-
                       left: "-240px",
-
                       color: "white",
                     }}
                   >
@@ -499,11 +258,8 @@ export const Banner = () => {
                         type="submit"
                         sx={{
                           alignItems: "left",
-
                           color: "black",
-
                           border: "1px solid white",
-
                           backgroundColor:
                             selectedElement === "fire"
                               ? "#D70040"
@@ -529,8 +285,9 @@ export const Banner = () => {
                                       ? "lightGreen"
                                       : "darkRed", // Kolor tekstu przy najechaniu, użyj koloru wybranego żywiołu lub domyślnego "black"
                           },
-
+                          position: "center",
                           marginTop: "20px", // Dodaj margines od góry
+                          marginLeft: "20px",
                         }}
                         onClick={goToProfile} // Update with your desired path
                       >
@@ -545,105 +302,76 @@ export const Banner = () => {
 
           {hoveredElement && (
             <>
-              <div
+              <Box
                 style={{
                   position: "absolute",
-
                   left: "-140px",
-
                   top: "50%",
-
                   transform: "translateY(-50%)",
                 }}
               >
-                <p
+                <Typography
                   style={{
                     writingMode: "vertical-rl",
-
                     textOrientation: "upright",
-
                     margin: 0,
-
-                    color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[0],
-
                     fontSize: "72px",
-
                     fontWeight: "bold",
-
                     fontFamily: "The Next Font",
+                    color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[0],
                   }}
                 >
                   {ELEMENT_DESCRIPTIONS[hoveredElement].words[0]}
-                </p>
+                </Typography>
 
-                <p
+                <Typography
                   style={{
                     writingMode: "vertical-rl",
-
                     textOrientation: "upright",
-
                     margin: 0,
-
-                    color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[1],
-
                     fontSize: "72px",
-
                     fontWeight: "bold",
-
                     fontFamily: "The Next Font",
+                    color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[1],
                   }}
                 >
                   {ELEMENT_DESCRIPTIONS[hoveredElement].words[1]}
-                </p>
-              </div>
+                </Typography>
+              </Box>
 
-              <div
+              <Box
                 style={{
                   position: "absolute",
-
                   right: "-190px",
-
                   top: "50%",
-
                   transform: "translateY(-50%)",
-
                   color: ELEMENT_DESCRIPTIONS[hoveredElement].colors[0],
-
                   maxWidth: "250px",
-
                   textAlign: "center",
                 }}
               >
-                <p
+                <Typography
                   style={{
                     margin: 0,
-
                     fontSize: "32px",
-
                     fontWeight: "bold",
-
                     fontFamily: "The Next Font",
-
                     color: getTextColor(),
                   }}
                 >
                   {ELEMENT_DESCRIPTIONS[hoveredElement].description}
-                </p>
-              </div>
+                </Typography>
+              </Box>
             </>
           )}
 
-          <div style={{ padding: "40px", textAlign: "center" }}>
+          <Box style={{ padding: "6%" }}>
             <h2
               style={{
-                marginRight: "175px",
-
+                marginRight: "32%",
                 marginBottom: "-20px",
-
-                fontFamily: "Kalnia, sans-serif",
-
+                fontFamily: "unset",
                 fontSize: "12px",
-
                 color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
               }}
             >
@@ -652,22 +380,17 @@ export const Banner = () => {
 
             <h1
               style={{
-                marginRight: "210px",
-
-                marginBottom: "30px",
-
+                marginRight: "34%",
                 fontFamily: "The Next Font",
-
                 fontSize: "40px",
-
                 color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
               }}
             >
               ELEMENTS.
             </h1>
 
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div style={{ marginRight: "20px" }}>
+            <Box style={{ display: "flex", justifyContent: "center" }}>
+              <Box style={{ marginRight: "20px" }}>
                 <img
                   src={
                     hoveredElement === "fire"
@@ -680,19 +403,15 @@ export const Banner = () => {
                   onMouseOut={handleMouseOut}
                   style={{
                     cursor: "pointer",
-
                     width: "100px",
-
                     height: "100px",
-
                     transition: "transform 0.3s ease-in-out",
-
                     opacity: hoveredElement === "fire" ? 1 : otherIconsVisible ? 1 : 0,
                   }}
                 />
-              </div>
+              </Box>
 
-              <div style={{ marginRight: "20px" }}>
+              <Box style={{ marginRight: "20px" }}>
                 <img
                   src={
                     hoveredElement === "water"
@@ -705,19 +424,15 @@ export const Banner = () => {
                   onMouseOut={handleMouseOut}
                   style={{
                     cursor: "pointer",
-
                     width: "100px",
-
                     height: "100px",
-
                     transition: "transform 0.3s ease-in-out",
-
                     opacity: hoveredElement === "water" ? 1 : otherIconsVisible ? 1 : 0,
                   }}
                 />
-              </div>
+              </Box>
 
-              <div style={{ marginRight: "20px" }}>
+              <Box style={{ marginRight: "20px" }}>
                 <img
                   src={
                     hoveredElement === "air" ? getCurrentAltImage() : ELEMENT_DESCRIPTIONS.air.image
@@ -728,19 +443,15 @@ export const Banner = () => {
                   onMouseOut={handleMouseOut}
                   style={{
                     cursor: "pointer",
-
                     width: "100px",
-
                     height: "100px",
-
                     transition: "transform 0.3s ease-in-out",
-
                     opacity: hoveredElement === "air" ? 1 : otherIconsVisible ? 1 : 0,
                   }}
                 />
-              </div>
+              </Box>
 
-              <div>
+              <Box>
                 <img
                   src={
                     hoveredElement === "earth"
@@ -753,19 +464,14 @@ export const Banner = () => {
                   onMouseOut={handleMouseOut}
                   style={{
                     cursor: "pointer",
-
                     width: "100px",
-
                     height: "100px",
-
                     transition: "transform 0.3s ease-in-out",
-
                     opacity: hoveredElement === "earth" ? 1 : otherIconsVisible ? 1 : 0,
                   }}
                 />
-              </div>
-            </div>
-
+              </Box>
+            </Box>
             <img
               src={
                 hoveredElement === "fire"
@@ -780,36 +486,40 @@ export const Banner = () => {
               }
               style={{ width: "50%", height: "auto", marginTop: "20px" }}
             />
-
-            <div
+            <Box
+              sx={{
+                position: "absolute",
+                left: "98%",
+                top: "45%",
+                transform: "translateY(-50%)",
+                width: "35%",
+                display: otherIconsVisible ? "block" : "none",
+                color: "white",
+                textAlign: "end",
+              }}
+            >
+              {infoContent}
+            </Box>
+            <Box
               key={currentAdviceIndex}
               className="animate__animated animate__bounceInUp"
-              style={{
+              sx={{
                 position: "absolute",
-
-                bottom: "70px",
-
-                left: "-241px",
-
+                bottom: "15%",
+                left: "-33%",
                 color: advices[currentAdviceIndex].color,
-
                 fontSize: "18px",
-
                 fontFamily: "The Next Font",
-
-                maxWidth: "280px",
-
+                maxWidth: "40%",
                 textAlign: "left",
-
                 opacity: hoveredElement === "" ? 1 : 0,
               }}
             >
               <h3>{advices[currentAdviceIndex].text}</h3>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 };
-
