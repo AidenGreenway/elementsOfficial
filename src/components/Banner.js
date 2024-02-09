@@ -14,8 +14,8 @@ export const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
   const [otherIconsVisible, setOtherIconsVisible] = useState(true);
-  const [birthDay, setBirthDay] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
+  const [birthDate, setBirthDate] = useState({ day: "", month: "" }); // Dodaj ten state obok innych
+
   const [astroElement, setAstroElement] = useState("");
   const [selectedElement, setSelectedElement] = useState("");
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -24,7 +24,7 @@ export const Banner = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const element = determineElement(parseInt(birthDay), parseInt(birthMonth));
+    const element = determineElement(parseInt(birthDate.day), parseInt(birthDate.month));
     setAstroElement(element);
     setSelectedElement(element);
     setElementSelected(true);
@@ -162,8 +162,8 @@ export const Banner = () => {
 
                   <TextField
                     type="number"
-                    value={birthDay}
-                    onChange={(e) => setBirthDay(e.target.value)}
+                    value={birthDate.day}
+                    onChange={(e) => setBirthDate((prev) => ({ ...prev, day: e.target.value }))}
                     placeholder="day"
                     margin="normal"
                     InputLabelProps={{
@@ -193,8 +193,8 @@ export const Banner = () => {
 
                   <TextField
                     type="number"
-                    value={birthMonth}
-                    onChange={(e) => setBirthMonth(e.target.value)}
+                    value={birthDate.month}
+                    onChange={(e) => setBirthDate((prev) => ({ ...prev, month: e.target.value }))}
                     placeholder="month"
                     margin="dense"
                     InputLabelProps={{
@@ -388,89 +388,29 @@ export const Banner = () => {
             >
               ELEMENTS.
             </h1>
-
             <Box style={{ display: "flex", justifyContent: "center" }}>
-              <Box style={{ marginRight: "20px" }}>
-                <img
-                  src={
-                    hoveredElement === "fire"
-                      ? getCurrentAltImage()
-                      : ELEMENT_DESCRIPTIONS.fire.image
-                  }
-                  alt="Fire"
-                  onClick={() => handleClick("fire")}
-                  onMouseOver={() => handleMouseOver("fire")}
-                  onMouseOut={handleMouseOut}
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                    height: "100px",
-                    transition: "transform 0.3s ease-in-out",
-                    opacity: hoveredElement === "fire" ? 1 : otherIconsVisible ? 1 : 0,
-                  }}
-                />
-              </Box>
-
-              <Box style={{ marginRight: "20px" }}>
-                <img
-                  src={
-                    hoveredElement === "water"
-                      ? getCurrentAltImage()
-                      : ELEMENT_DESCRIPTIONS.water.image
-                  }
-                  alt="Water"
-                  onClick={() => handleClick("water")}
-                  onMouseOver={() => handleMouseOver("water")}
-                  onMouseOut={handleMouseOut}
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                    height: "100px",
-                    transition: "transform 0.3s ease-in-out",
-                    opacity: hoveredElement === "water" ? 1 : otherIconsVisible ? 1 : 0,
-                  }}
-                />
-              </Box>
-
-              <Box style={{ marginRight: "20px" }}>
-                <img
-                  src={
-                    hoveredElement === "air" ? getCurrentAltImage() : ELEMENT_DESCRIPTIONS.air.image
-                  }
-                  alt="Air"
-                  onClick={() => handleClick("air")}
-                  onMouseOver={() => handleMouseOver("air")}
-                  onMouseOut={handleMouseOut}
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                    height: "100px",
-                    transition: "transform 0.3s ease-in-out",
-                    opacity: hoveredElement === "air" ? 1 : otherIconsVisible ? 1 : 0,
-                  }}
-                />
-              </Box>
-
-              <Box>
-                <img
-                  src={
-                    hoveredElement === "earth"
-                      ? getCurrentAltImage()
-                      : ELEMENT_DESCRIPTIONS.earth.image
-                  }
-                  alt="Earth"
-                  onClick={() => handleClick("earth")}
-                  onMouseOver={() => handleMouseOver("earth")}
-                  onMouseOut={handleMouseOut}
-                  style={{
-                    cursor: "pointer",
-                    width: "100px",
-                    height: "100px",
-                    transition: "transform 0.3s ease-in-out",
-                    opacity: hoveredElement === "earth" ? 1 : otherIconsVisible ? 1 : 0,
-                  }}
-                />
-              </Box>
+              {Object.keys(ELEMENT_DESCRIPTIONS).map((elementKey, index) => (
+                <Box key={index} style={{ marginRight: "20px" }}>
+                  <img
+                    src={
+                      hoveredElement === elementKey
+                        ? getCurrentAltImage()
+                        : ELEMENT_DESCRIPTIONS[elementKey].image
+                    }
+                    alt={elementKey}
+                    onClick={() => handleClick(elementKey)}
+                    onMouseOver={() => handleMouseOver(elementKey)}
+                    onMouseOut={handleMouseOut}
+                    style={{
+                      cursor: "pointer",
+                      width: "100px",
+                      height: "100px",
+                      transition: "transform 0.3s ease-in-out",
+                      opacity: hoveredElement === elementKey ? 1 : otherIconsVisible ? 1 : 0,
+                    }}
+                  />
+                </Box>
+              ))}
             </Box>
             <img
               src={

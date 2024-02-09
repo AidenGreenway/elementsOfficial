@@ -1,7 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
-
 import SettingsIcon from "@mui/icons-material/Settings";
-
 import {
   Avatar,
   Box,
@@ -16,104 +14,62 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-
 import IconButton from "@mui/material/IconButton";
-
 import { useEffect, useState } from "react";
-
-// ...
-
 import airGif1 from "../diaryImages/air/air1.jpg";
-
 import airGif2 from "../diaryImages/air/air2.jpg";
-
 import airGif3 from "../diaryImages/air/air3.jpg";
-
 import airGif4 from "../diaryImages/air/air4.jpg";
-
 import earthGif1 from "../diaryImages/earth/earth1.jpg";
-
 import earthGif2 from "../diaryImages/earth/earth2.jpg";
-
 import earthGif3 from "../diaryImages/earth/earth3.jpg";
-
 import earthGif4 from "../diaryImages/earth/earth4.png";
-
 import earthGif5 from "../diaryImages/earth/earth5.png";
-
 import fireGif1 from "../diaryImages/fire/fire1.jpg";
-
 import fireGif2 from "../diaryImages/fire/fire2.jpg";
-
 import fireGif3 from "../diaryImages/fire/fire3.jpg";
-
 import fireGif4 from "../diaryImages/fire/fire4.png";
-
 import waterGif1 from "../diaryImages/water/water1.jpg";
-
 import waterGif2 from "../diaryImages/water/water2.jpg";
-
 import waterGif3 from "../diaryImages/water/water3.png";
-
 import waterGif4 from "../diaryImages/water/water4.jpg";
 
 const ElementImages = {
   fire: [fireGif1, fireGif2, fireGif3, fireGif4],
-
   water: [waterGif1, waterGif2, waterGif3, waterGif4],
-
   air: [airGif1, airGif2, airGif3, airGif4],
-
   earth: [earthGif1, earthGif2, earthGif3, earthGif4, earthGif5],
 };
 
 const ElementColors = {
   fire: ["#FF3131"],
-
   water: ["#0047AB"],
-
   air: ["#ADD8E6"],
-
   earth: ["#009E60"],
 };
 
 export const Profile = () => {
   const [element, setElement] = useState(localStorage.getItem("element") || "earth");
-
   const [name, setName] = useState(localStorage.getItem("name") || "");
-
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
-
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
-
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
-
   const [description, setDescription] = useState("");
-
   const [username, setUsername] = useState(localStorage.getItem("username") || "Aiden Greenway");
-
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
-
   const [newPost, setNewPost] = useState("");
-
   const [activeSection, setActiveSection] = useState("tablica");
 
   const handleDeletePost = (indexToDelete) => {
     const updatedPosts = posts.filter((_, index) => index !== indexToDelete);
-
     setPosts(updatedPosts);
-
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
 
   useEffect(() => {
     localStorage.setItem("element", element);
-
     localStorage.setItem("name", name);
-
     localStorage.setItem("username", username);
-
-    // Save posts to localStorage
   }, [element, name, username]);
 
   useEffect(() => {
@@ -130,19 +86,13 @@ export const Profile = () => {
     switch (inputType) {
       case "name":
         setName(value);
-
         break;
-
       case "description":
         setDescription(value);
-
         break;
-
       case "username":
         setUsername(value);
-
         break;
-
       default:
         break;
     }
@@ -150,13 +100,9 @@ export const Profile = () => {
 
   const handleElementChange = (event) => {
     const selectedElement = event.target.value;
-
     setElement(selectedElement);
-
     setSelectedColor(ElementColors[selectedElement][0]);
-
     setSelectedAvatarColor(ElementColors[selectedElement][0]);
-
     setSelectedAvatarIndex(0); // Reset indeksu obrazka
   };
 
@@ -167,18 +113,13 @@ export const Profile = () => {
   const handleAddPost = () => {
     if (newPost) {
       setPosts([newPost, ...posts]);
-
       setNewPost("");
-
       setActiveSection("tablica");
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Logika zapisu danych profilu
-
     setActiveSection("tablica");
   };
 
@@ -188,8 +129,6 @@ export const Profile = () => {
         return (
           <Stack direction="column" spacing={2}>
             <TextField
-              // label="CHANGE USERNAME"
-
               placeholder="change username"
               fullWidth
               size="small"
@@ -199,11 +138,8 @@ export const Profile = () => {
               InputProps={{
                 style: {
                   color: "white",
-
                   backgroundColor: "black",
-
                   borderColor: "white",
-
                   border: "1px white solid",
                 },
               }}
@@ -211,8 +147,6 @@ export const Profile = () => {
             />
 
             <TextField
-              // label="CHANGE NAME"
-
               placeholder="change name"
               fullWidth
               size="small"
@@ -222,20 +156,14 @@ export const Profile = () => {
               InputProps={{
                 style: {
                   color: "white",
-
                   backgroundColor: "black",
-
                   borderColor: "white",
-
                   border: "1px white solid",
                 },
               }}
               variant="outlined"
             />
-
             <TextField
-              // label="CHANGE bio"
-
               placeholder="change bio"
               multiline
               rows={4}
@@ -326,11 +254,8 @@ export const Profile = () => {
                     <Avatar
                       sx={{
                         bgcolor: selectedAvatarColor,
-
                         width: 56,
-
                         height: 56,
-
                         marginRight: 2,
                       }}
                     >
@@ -350,23 +275,14 @@ export const Profile = () => {
             <Button
               onClick={handleSubmit}
               sx={{
-                // backgroundColor: selectedColor,
-
                 border: "1px white solid",
-
                 marginTop: 2,
-
                 width: "15%",
-
                 margin: "0px auto",
-
                 color: "white",
-
                 backgroundColor: "none", // Brak koloru tła
-
                 "&:hover": {
                   backgroundColor: "none", // Tło pozostaje bez zmian
-
                   color: "#00e676", // Zmiana koloru ikony przy najechaniu myszką
                 },
               }}
@@ -382,23 +298,14 @@ export const Profile = () => {
               }}
               sx={{
                 border: "1px white solid",
-
                 color: "white",
-
                 backgroundColor: "none", // Brak koloru tła
-
                 "&:hover": {
                   backgroundColor: "none", // Tło pozostaje bez zmian
-
                   color: "red", // Zmiana koloru ikony przy najechaniu myszką
                 },
-
-                // backgroundColor: selectedColor,
-
                 width: "15%",
-
                 fontSize: "12px",
-
                 align: "center",
               }}
             >
@@ -431,21 +338,13 @@ export const Profile = () => {
             <Button
               onClick={handleAddPost}
               sx={{
-                // backgroundColor: selectedColor,
-
                 border: "1px white solid",
-
                 width: "15%",
-
                 marginLeft: "515px ",
-
                 color: "#00e676",
-
                 backgroundColor: "none", // Brak koloru tła
-
                 "&:hover": {
                   backgroundColor: "none", // Tło pozostaje bez zmian
-
                   color: "#69f0ae", // Zmiana koloru ikony przy najechaniu myszką
                 },
               }}
@@ -501,8 +400,6 @@ export const Profile = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Box>
-            {/* Sekcja profilu użytkownika (username i logo/avatar) */}
-
             <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
                 <img
@@ -516,8 +413,6 @@ export const Profile = () => {
                 {username}
               </Typography>
             </Box>
-
-            {/* Sekcja przycisków (Settings i Add Post) */}
 
             <Box
               sx={{ position: "relative", marginBottom: 5, marginRight: 0, textAlign: "center" }}
@@ -564,8 +459,6 @@ export const Profile = () => {
                 </IconButton>
               </Stack>
             </Box>
-
-            {/* Sekcja danych personalnych (Persona, Element, Name, Bio) */}
 
             <Box>
               <Typography
