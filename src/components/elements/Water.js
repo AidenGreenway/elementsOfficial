@@ -9,7 +9,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import "animate.css/animate.min.css";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -24,12 +23,7 @@ export const Water = () => {
   const handleChangeText = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
-
-    if (newIndex === 1) {
-      setIsFirstSectionVisible(true);
-    } else {
-      setIsFirstSectionVisible(false);
-    }
+    setIsFirstSectionVisible(newIndex === 1);
   };
 
   useEffect(() => {
@@ -44,6 +38,16 @@ export const Water = () => {
     }
   }, [location.hash]);
 
+  const listItemStyle = {
+    color: "#0181E5",
+    fontSize: "18px",
+    transition: "font-size 0.25s ease",
+    "&:hover": {
+      fontSize: "20px",
+      color: "#00F3FF",
+    },
+  };
+
   return (
     <Box sx={{ backgroundColor: "black" }}>
       <Accordion
@@ -55,7 +59,7 @@ export const Water = () => {
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography
               className="animate__animated animate__bounceInDown"
-              sx={{ fontSize: "220px", color: "#0074cc", textAlign: "", marginTop: "-7%" }}
+              sx={{ fontSize: "220px", color: "#00FFF3", textAlign: "", marginTop: "-7%" }}
             >
               water
             </Typography>
@@ -67,9 +71,14 @@ export const Water = () => {
               sx={{
                 color: "white",
                 fontSize: "18px",
-                marginTop: "-8%",
+                marginTop: "-9%",
                 marginLeft: "-80%",
                 cursor: "pointer",
+                transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                "&:hover": {
+                  fontSize: "20px", // Adjust the larger font size on hover
+                  color: "#00F3FF",
+                },
               }}
               onClick={handleChangeText}
             >
@@ -101,7 +110,7 @@ export const Water = () => {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="water-zodiac-signs-content"
         >
-          <Typography sx={{ color: "#0074cc" }}>Zodiac Signs:</Typography>
+          <Typography sx={listItemStyle}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -123,7 +132,7 @@ export const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel2a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel2a-content">
-          <Typography sx={{ color: "#0074cc" }}>Strengths:</Typography>
+          <Typography sx={listItemStyle}>Strengths:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -153,7 +162,7 @@ export const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel3a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel3a-content">
-          <Typography sx={{ color: "#0074cc" }}>Weaknesses:</Typography>
+          <Typography sx={listItemStyle}>Weaknesses:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -183,7 +192,7 @@ export const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel4a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel4a-content">
-          <Typography sx={{ color: "#0074cc" }}>Exercises Enhancing Water Traits:</Typography>
+          <Typography sx={listItemStyle}>Exercises Enhancing Water Traits:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -213,7 +222,7 @@ export const Water = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="water-panel5a-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="water-panel5a-content">
-          <Typography variant="body1" sx={{ color: "#0074cc" }}>
+          <Typography variant="body1" sx={listItemStyle}>
             Key Strategies for Harmony with Water:
           </Typography>
         </AccordionSummary>

@@ -9,7 +9,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import "animate.css/animate.min.css";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -24,25 +23,28 @@ export const Air = () => {
   const handleChangeText = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
-
-    if (newIndex === 1) {
-      setIsFirstSectionVisible(true);
-    } else {
-      setIsFirstSectionVisible(false);
-    }
+    setIsFirstSectionVisible(newIndex === 1);
   };
 
   useEffect(() => {
     const hash = location.hash;
-
     if (hash) {
       const element = document.querySelector(hash);
-
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     }
   }, [location.hash]);
+
+  const listItemStyle = {
+    color: "lightBlue",
+    fontSize: "18px",
+    transition: "font-size 0.25s ease",
+    "&:hover": {
+      fontSize: "20px",
+      color: "grey",
+    },
+  };
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
@@ -55,26 +57,33 @@ export const Air = () => {
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Typography
               className="animate__animated animate__bounceInDown"
-              sx={{ fontSize: "220px", color: "lightBlue", textAlign: "", marginTop: "-7%" }}
+              sx={{ fontSize: "220px", color: "white", textAlign: "left", marginTop: "-7%" }}
             >
               air
             </Typography>
-            <Typography
-              key={currentTextIndex}
-              className={`animate__animated animate__backInLeft ${texts[
-                currentTextIndex
-              ].toLowerCase()}`}
-              sx={{
-                color: "white",
-                fontSize: "18px",
-                marginTop: "-10%",
-                marginLeft: "-80%",
-                cursor: "pointer",
-              }}
-              onClick={handleChangeText}
-            >
-              {texts[currentTextIndex]}
-            </Typography>
+            <Box sx={{ marginTop: "-17%", marginLeft: "-42%" }}>
+              <Typography
+                key={currentTextIndex}
+                className={`animate__animated animate__backInLeft ${texts[
+                  currentTextIndex
+                ].toLowerCase()}`}
+                sx={{
+                  color: "white",
+                  fontSize: "16px",
+                  marginTop: "-10%",
+                  marginLeft: "-80%",
+                  cursor: "pointer",
+                  transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                  "&:hover": {
+                    fontSize: "18px", // Adjust the larger font size on hover
+                    color: "grey",
+                  },
+                }}
+                onClick={handleChangeText}
+              >
+                {texts[currentTextIndex]}
+              </Typography>
+            </Box>
           </Box>
         </AccordionSummary>
 
@@ -97,7 +106,7 @@ export const Air = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="air-zodiac-signs-header">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="air-zodiac-signs-content">
-          <Typography sx={{ color: "lightBlue" }}>Zodiac Signs:</Typography>
+          <Typography sx={listItemStyle}>Zodiac Signs:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -119,7 +128,7 @@ export const Air = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header-air">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content-air">
-          <Typography sx={{ color: "lightBlue" }}>Strengths:</Typography>
+          <Typography sx={listItemStyle}>Strengths:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -149,7 +158,7 @@ export const Air = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header-air">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content-air">
-          <Typography sx={{ color: "lightBlue" }}>Weaknesses:</Typography>
+          <Typography sx={listItemStyle}>Weaknesses:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -179,7 +188,7 @@ export const Air = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header-air">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content-air">
-          <Typography sx={{ color: "lightBlue" }}>Exercises Strengthening Air Traits:</Typography>
+          <Typography sx={listItemStyle}>Exercises Strengthening Air Traits:</Typography>
         </AccordionSummary>
 
         <AccordionDetails>
@@ -209,7 +218,7 @@ export const Air = () => {
 
       <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header-air">
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content-air">
-          <Typography variant="body1" sx={{ color: "lightBlue" }}>
+          <Typography variant="body1" sx={listItemStyle}>
             Key Strategies for Harmony with Air:
           </Typography>
         </AccordionSummary>
