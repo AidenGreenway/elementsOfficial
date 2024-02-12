@@ -25,14 +25,19 @@ export const Banner = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const element = determineElement(parseInt(birthDate.day), parseInt(birthDate.month));
-    setAstroElement(element);
-    setSelectedElement(element);
-    setElementSelected(true);
+    if (element !== "wrong data") {
+      setAstroElement(element);
+      setSelectedElement(element);
+      setElementSelected(true);
+    } else {
+      // Dodaj tutaj kod obsługujący przypadek "wrong data", np. wyświetlenie komunikatu, że dane są błędne
+      alert("Invalid zodiac sign. Please provide a valid birth date.");
+    }
   };
 
   const navigate = useNavigate();
   const goToProfile = () => {
-    navigate("/dashboard/profile");
+    navigate(`/dashboard/profile?element=${astroElement}`);
   };
 
   const handleClick = (element) => {

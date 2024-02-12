@@ -13,17 +13,28 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const Earth = () => {
+  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
+  const [selectedStrength, setSelectedStrength] = useState(null);
+  const [selectedWeakness, setSelectedWeakness] = useState(null);
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
+  const handleSelect = (item, setter) => {
+    setter(item);
+  };
+
   const listItemStyle = {
-    color: "#00ff7f",
-    fontSize: "18px", // Adjust the base font size as needed
-    transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+    color: "#097969",
+    fontSize: "18px",
+    transition: "font-size 0.25s ease",
     "&:hover": {
-      fontSize: "20px", // Adjust the larger font size on hover
-      color: "#097969",
+      fontSize: "20px",
+      color: "#00ff7f",
     },
   };
+
   const location = useLocation();
 
   const texts = ["read me", "hide"];
@@ -51,7 +62,8 @@ export const Earth = () => {
     }
   }, [location.hash]);
 
-  // Content arrays for each section
+  const content = `An individual associated with the element of earth exudes calmness, stability, and deep internal strength. It's someone immersed in reality, practical, with strong moral foundations and common sense. They are characterized by perseverance, patience, and an ability to feel connected to the surrounding world. An earthy person is practical, has a sense of reality, enabling them to achieve goals step by step. Their strength lies in stability, making them a pillar of support for others. Individuals associated with the earth element need time to build trust and bonds with their surroundings, but once they do, their loyalty and dedication are unwavering.`;
+
   const zodiacSignsContent = [
     "Taurus (April 20 - May 20): Taurus is an Earth sign known for its practical and grounded nature. Taureans are reliable, patient, and often have a strong sense of determination. They appreciate the beauty of the material world.",
     "Virgo (August 23 - September 22): Virgo is an Earth sign characterized by its attention to detail and analytical mindset. Virgos are often hardworking, reliable, and have a practical approach to problem-solving. They value precision and order.",
@@ -89,146 +101,161 @@ export const Earth = () => {
     "Cultivating creativity and innovation.",
   ];
 
+  const sections = [
+    {
+      list: zodiacSignsContent,
+      state: selectedZodiacSign,
+      setter: setSelectedZodiacSign,
+      title: "Zodiac Signs:",
+    },
+    {
+      list: strengthsContent,
+      state: selectedStrength,
+      setter: setSelectedStrength,
+      title: "Strengths:",
+    },
+    {
+      list: weaknessesContent,
+      state: selectedWeakness,
+      setter: setSelectedWeakness,
+      title: "Weaknesses:",
+    },
+    {
+      list: exercisesContent,
+      state: selectedExercise,
+      setter: setSelectedExercise,
+      title: "Exercises Strengthening Traits:",
+    },
+    {
+      list: strategiesContent,
+      state: selectedStrategy,
+      setter: setSelectedStrategy,
+      title: "Key Strategies for Harmony:",
+    },
+  ];
+
   return (
     <Box sx={{ backgroundColor: "black" }}>
-      <Accordion
-        sx={{ backgroundColor: "transparent" }}
-        id="panel1a-header"
-        expanded={isFirstSectionVisible}
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          padding: 2,
+          maxWidth: "20%",
+          textAlign: "right",
+        }}
       >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography
-              className="animate__animated animate__bounceInDown"
-              sx={{ fontSize: "220px", color: "#00ff7f", textAlign: "", marginTop: "-7%" }}
-            >
-              earth
-            </Typography>
-            <Typography
-              key={currentTextIndex}
-              className={`animate__animated animate__backInLeft ${texts[
-                currentTextIndex
-              ].toLowerCase()}`}
-              sx={{
-                color: "white",
-                fontSize: "18px",
-                marginTop: "-10%",
-                marginLeft: "-80%",
-                cursor: "pointer",
-                transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
-                "&:hover": {
-                  fontSize: "20px", // Adjust the larger font size on hover
-                  color: "#097969",
-                },
-              }}
-              onClick={handleChangeText}
-            >
-              {texts[currentTextIndex]}
-            </Typography>
-          </Box>
-        </AccordionSummary>
-
-        {isFirstSectionVisible && (
-          <AccordionDetails>
-            <Typography
-              sx={{ maxWidth: "90%", marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}
-              align="left"
-            >
-              An individual associated with the element of earth exudes calmness, stability, and
-              deep internal strength. It's someone immersed in reality, practical, with strong moral
-              foundations and common sense. They are characterized by perseverance, patience, and an
-              ability to feel connected to the surrounding world. An earthy person is practical, has
-              a sense of reality, enabling them to achieve goals step by step. Their strength lies
-              in stability, making them a pillar of support for others. Individuals associated with
-              the earth element need time to build trust and bonds with their surroundings, but once
-              they do, their loyalty and dedication are unwavering.
-            </Typography>
-          </AccordionDetails>
-        )}
-      </Accordion>
-      <Accordion sx={{ backgroundColor: "transparent" }} id="earth-zodiac-signs-header">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="earth-zodiac-signs-content"
+        <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
+        <DetailView title="Strength" content={selectedStrength || "-"} />
+        <DetailView title="Weakness" content={selectedWeakness || "-"} />
+        <DetailView title="Exercise" content={selectedExercise || "-"} />
+        <DetailView title="Strategy" content={selectedStrategy || "-"} />
+      </Box>
+      <Box sx={{ maxWidth: "70%" }}>
+        <Accordion
+          sx={{ backgroundColor: "transparent" }}
+          id="panel1a-header"
+          expanded={isFirstSectionVisible}
         >
-          <Typography sx={listItemStyle}>Zodiac Signs:</Typography>
-        </AccordionSummary>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Typography
+                className="animate__animated animate__bounceInDown"
+                sx={{ fontSize: "220px", color: "#00ff7f", textAlign: "", marginTop: "-7%" }}
+              >
+                earth
+              </Typography>
+              <Typography
+                key={currentTextIndex}
+                className={`animate__animated animate__backInLeft ${texts[
+                  currentTextIndex
+                ].toLowerCase()}`}
+                sx={{
+                  color: "white",
+                  fontSize: "18px",
+                  marginTop: "-10%",
+                  marginLeft: "-80%",
+                  cursor: "pointer",
+                  transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                  "&:hover": {
+                    fontSize: "20px", // Adjust the larger font size on hover
+                    color: "#097969",
+                  },
+                }}
+                onClick={handleChangeText}
+              >
+                {texts[currentTextIndex]}
+              </Typography>
+            </Box>
+          </AccordionSummary>
 
-        <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
-            {zodiacSignsContent.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel2a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content">
-          <Typography sx={listItemStyle}>Strengths:</Typography>
-        </AccordionSummary>
+          {isFirstSectionVisible && (
+            <AccordionDetails>
+              <Typography
+                sx={{ maxWidth: "90%", marginBottom: "20px", color: "#aaf0c0", fontSize: "16px" }}
+                align="left"
+              >
+                {content}
+              </Typography>
+            </AccordionDetails>
+          )}
+        </Accordion>
 
-        <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
-            {strengthsContent.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
+        {sections.map((section, index) => (
+          <Accordion
+            key={index}
+            sx={{ backgroundColor: "transparent" }}
+            id={`panel${index}a-header`}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel${index}a-content`}
+            >
+              <Typography sx={listItemStyle}>{section.title}</Typography>
+            </AccordionSummary>
 
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel3a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content">
-          <Typography sx={listItemStyle}>Weaknesses:</Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
-            {weaknessesContent.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel4a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4a-content">
-          <Typography sx={listItemStyle}>Exercises Strengthening Earth Traits:</Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
-            {exercisesContent.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
-
-      <Accordion sx={{ backgroundColor: "transparent" }} id="panel5a-header">
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel5a-content">
-          <Typography variant="body1" sx={listItemStyle}>
-            Key Strategies for Harmony with Earth:
-          </Typography>
-        </AccordionSummary>
-
-        <AccordionDetails>
-          <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
-            {strategiesContent.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item} />
-              </ListItem>
-            ))}
-          </List>
-        </AccordionDetails>
-      </Accordion>
+            <AccordionDetails>
+              <List sx={{ marginTop: "8px", color: "#aaf0c0" }}>
+                {section.list.map((item, itemIndex) => (
+                  <ListItem
+                    key={itemIndex}
+                    button
+                    onClick={() => handleSelect(item, section.setter)}
+                  >
+                    <ListItemText sx={{ "&:hover": { color: "#00ff7f" } }} primary={`• ${item}`} />{" "}
+                  </ListItem>
+                ))}
+              </List>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
     </Box>
   );
 };
+
+const DetailView = ({ title, content }) => (
+  <Box sx={{ marginTop: 2, padding: 2 }}>
+    <Typography
+      sx={{
+        fontSize: "25px",
+        color: "#00ff7f",
+        transition: "font-size 0.25s ease",
+        "&:hover": {
+          color: "#00ff7f",
+        },
+      }}
+    >
+      {title}
+    </Typography>
+    <Typography
+      sx={{
+        color: "#097969",
+        fontSize: "12px",
+      }}
+    >
+      {content}
+    </Typography>
+  </Box>
+);

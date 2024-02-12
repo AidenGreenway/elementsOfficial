@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
@@ -49,7 +50,14 @@ const ElementColors = {
 };
 
 export const Profile = () => {
-  const [element, setElement] = useState(localStorage.getItem("element") || "earth");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const elementFromBanner = searchParams.get("element");
+
+  const [element, setElement] = useState(
+    elementFromBanner || localStorage.getItem("element") || "earth"
+  );
+
   const [name, setName] = useState(localStorage.getItem("name") || "");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
@@ -178,7 +186,7 @@ export const Profile = () => {
               variant="outlined"
             />
 
-            <FormControl fullWidth size="small" sx={{ backgroundColor: "black" }}>
+            <FormControl fullWidth size="small" sx={{ display: "none", backgroundColor: "black" }}>
               <InputLabel id="element-label" style={{ color: "white" }}>
                 Element
               </InputLabel>
