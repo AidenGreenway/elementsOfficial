@@ -113,8 +113,13 @@ export const Challenges = () => {
   return (
     <div style={{ color: "white", display: "flex", justifyContent: "space-between" }}>
       <div>
-        <Typography variant="h3" style={{ color: "white", marginBottom: "20px" }}>
+        <Typography style={{ color: "white", fontSize: "80px", marginBottom: "20px" }}>
           CHALLENGES
+        </Typography>
+        <Typography
+          style={{ textAlign: "left", fontSize: "15px", color: "grey", marginTop: "-30px" }}
+        >
+          answer 10 questions to check your knowledge!
         </Typography>
 
         <List>
@@ -124,10 +129,9 @@ export const Challenges = () => {
                 <ListItemText
                   primary={
                     <Button
-                      variant="text"
                       style={{
-                        color: hoveredButton === challenge.name ? challenge.color : "inherit",
-
+                        color: hoveredButton === challenge.name ? challenge.color : "white",
+                        marginBottom: "-6%",
                         fontSize: "50px",
                       }}
                       onClick={() => handleClick(challenge.destination)}
@@ -154,4 +158,3 @@ export const Challenges = () => {
     </div>
   );
 };
-

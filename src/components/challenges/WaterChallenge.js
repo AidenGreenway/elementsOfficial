@@ -1,90 +1,108 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-
+import "animate.css";
 import { useState } from "react";
 
 export const WaterChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-
   const [points, setPoints] = useState(0);
 
   const waterQuestions = [
     {
-      question: "How do you rate your empathy?",
-
-      answers: ["Low", "Medium", "High", "Very High"],
+      question: "How do you handle emotions?",
+      answers: ["Emotionally detached", "Moderate", "Sensitive", "Highly empathetic"],
     },
-
     {
-      question: "Are you an introvert or an extrovert?",
-
-      answers: ["Introvert", "Somewhat introverted", "Somewhat extroverted", "Extrovert"],
+      question: "Are you adaptable?",
+      answers: ["Prefer routine", "Adapt with effort", "Adaptable", "Embrace change"],
     },
-
     {
-      question: "How often do you express your emotions?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Always"],
+      question: "How do you approach relationships?",
+      answers: ["Independent", "Balanced", "Close-knit", "Deep emotional connections"],
     },
-
     {
-      question: "Do you usually avoid conflicts?",
-
-      answers: ["Always avoid", "Sometimes avoid", "Rarely avoid", "Never avoid"],
+      question: "Do you trust easily?",
+      answers: ["Distrustful", "Cautiously trusting", "Trust moderately", "Easily trusting"],
     },
-
     {
-      question: "How do you react to stress?",
-
-      answers: ["Very poorly", "Poorly", "Average", "Well"],
+      question: "How do you handle stress?",
+      answers: ["Stoic", "Handle it well", "Feel stressed but cope", "Get overwhelmed"],
     },
-
     {
-      question: "Do you easily form deep relationships?",
-
-      answers: ["Difficult", "Somewhat difficult", "Somewhat easy", "Easy"],
+      question: "Are you intuitive?",
+      answers: ["Rely on facts", "Occasionally intuitive", "Fairly intuitive", "Highly intuitive"],
     },
-
     {
-      question: "How often do you feel the need to help others?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Always"],
+      question: "How do you communicate?",
+      answers: ["Reserved", "Clear and concise", "Expressive", "In-depth and detailed"],
     },
-
     {
-      question: "Do you often indulge in your dreams and fantasies?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Always"],
+      question: "How do you handle conflicts?",
+      answers: ["Avoid conflicts", "Prefer compromise", "Assertive", "Address conflicts openly"],
     },
-
     {
-      question: "How well do you handle emotional burdens?",
-
-      answers: ["Poorly", "Average", "Well", "Very well"],
+      question: "Are you introverted or extroverted?",
+      answers: ["Introverted", "Balanced", "Slightly extroverted", "Extroverted"],
     },
-
     {
-      question: "How often can you understand the perspective of others?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Always"],
+      question: "How do you recharge?",
+      answers: ["Alone time", "Quiet environment", "In nature", "Socializing with loved ones"],
     },
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
-
     setQuestionIndex(questionIndex + 1);
+  };
+
+  const renderProgressDots = () => {
+    const progressDots = [];
+    for (let i = 0; i < waterQuestions.length; i++) {
+      progressDots.push(
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            width: "20px",
+            height: "20px",
+            borderRadius: "90%",
+            backgroundColor: i <= questionIndex ? "#4682B4" : "white", // Water element color
+            margin: "0 5px",
+          }}
+        ></span>
+      );
+    }
+    return progressDots;
   };
 
   const renderQuestion = () => {
     if (questionIndex >= waterQuestions.length) {
-      const percentage = (points / 40) * 100;
+      const percentage = (points / (waterQuestions.length * 4)) * 100;
 
       return (
-        <div style={{ color: "#00FFFF" }}>
-          <Typography variant="h4">Your score for the Water element: {points} / 40</Typography>
-
-          <Typography variant="h5">
-            Your level of integration with the element is: {percentage}%
+        <div
+          className="animate__animated animate__bounceInDown"
+          style={{
+            color: "white",
+            marginTop: "16%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            textAlign: "center",
+            fontFamily: "The Next Font",
+            padding: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          <Typography variant="h3" style={{ color: "#4682B4" }}>
+            Your score for the Water element:
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {points} / {waterQuestions.length * 4}
+            </Typography>
+          </Typography>
+          <Typography variant="h3" style={{ color: "#4682B4", marginTop: "10px" }}>
+            Your integration with the element:{" "}
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {percentage}%
+            </Typography>
           </Typography>
         </div>
       );
@@ -96,41 +114,36 @@ export const WaterChallenge = () => {
       <div
         style={{
           marginTop: "70px",
-
           marginLeft: "0px",
-
           textAlign: "left",
-
-          color: "blue",
-
+          color: "white",
           fontFamily: "The Next Font",
         }}
+        className="animate__animated animate__bounceInLeft"
       >
         <div>
-          <Typography variant="h6" sx={{ color: "blue" }}>
+          <Typography variant="h6" sx={{ color: "#4682B4" }}>
             Question {questionIndex + 1}
           </Typography>
-
-          <Typography variant="body1" sx={{ color: "lightBlue", fontSize: "35px" }}>
+          <Typography variant="body1" sx={{ color: "#1E90FF", fontSize: "40px" }}>
             {currentQuestion.question}
           </Typography>
-
           <List>
             {currentQuestion.answers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
                   onClick={() => handleAnswerSelection(index + 1)}
-                  variant="contained"
                   fullWidth
                   sx={{
+                    fontSize: "200%",
+                    color: "#4682B4",
                     "&:hover": {
-                      color: "#00FFFF", // Zmiana koloru tekstu na hover
-
-                      transition: "color 0.3s ease", // Animacja przejścia
+                      color: "#1E90FF",
+                      transition: "color 0.3s ease",
                     },
                   }}
                 >
-                  * {answer}
+                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}
@@ -140,6 +153,19 @@ export const WaterChallenge = () => {
     );
   };
 
-  return <div style={{ backgroundColor: "black" }}>{renderQuestion()}</div>;
+  return (
+    <div style={{ backgroundColor: "", position: "relative" }}>
+      {renderQuestion()}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        {renderProgressDots()}
+      </div>
+    </div>
+  );
 };
-

@@ -20,6 +20,7 @@ export const Water = () => {
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+  const [resetLists, setResetLists] = useState(false);
 
   const handleSelect = (item, setter) => {
     setter(item);
@@ -43,6 +44,15 @@ export const Water = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
     setIsFirstSectionVisible(newIndex === 1);
+  };
+
+  const handleResetLists = () => {
+    setResetLists(!resetLists);
+    setSelectedZodiacSign([]);
+    setSelectedStrength([]);
+    setSelectedWeakness([]);
+    setSelectedExercise([]);
+    setSelectedStrategy([]);
   };
 
   useEffect(() => {
@@ -136,6 +146,24 @@ export const Water = () => {
           textAlign: "right",
         }}
       >
+        <Typography
+          className="animate__animated animate__backInLeft"
+          sx={{
+            color: "white",
+            fontSize: "18px",
+            marginTop: "-9%",
+            marginLeft: "-80%",
+            cursor: "pointer",
+            transition: "font-size 0.25s ease",
+            "&:hover": {
+              fontSize: "20px",
+              color: "#00F3FF",
+            },
+          }}
+          onClick={handleResetLists}
+        >
+          Reset
+        </Typography>
         <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
         <DetailView title="Strength" content={selectedStrength || "-"} />
         <DetailView title="Weakness" content={selectedWeakness || "-"} />

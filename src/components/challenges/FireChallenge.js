@@ -1,117 +1,134 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-
+import "animate.css";
 import { useState } from "react";
 
 export const FireChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-
   const [points, setPoints] = useState(0);
 
   const fireQuestions = [
     {
-      question: "How often do you take risks?",
-
-      answers: ["I avoid risks", "Rarely", "Sometimes", "Often, I enjoy taking risks"],
-    },
-
-    {
-      question: "How do you respond to challenges?",
-
+      question: "How do you handle challenges?",
       answers: [
-        "I try to avoid them",
-
-        "I attempt to avoid them",
-
-        "I accept them occasionally",
-
-        "I openly embrace challenges",
+        "Avoid challenges",
+        "Deal with them reluctantly",
+        "Face them bravely",
+        "Seek challenges",
       ],
     },
-
     {
-      question: "Do you get easily annoyed?",
-
+      question: "Are you spontaneous?",
       answers: [
-        "I am calm",
-
-        "I am rather calm",
-
-        "I get annoyed sometimes",
-
-        "I get annoyed frequently",
+        "Very structured",
+        "Somewhat structured",
+        "Somewhat spontaneous",
+        "Very spontaneous",
       ],
     },
-
     {
-      question: "How do you rate your determination?",
-
+      question: "Do you enjoy taking risks?",
       answers: [
-        "I have low determination",
-
-        "I have moderate determination",
-
-        "I have fairly high determination",
-
-        "I am highly determined",
+        "Prefer safety",
+        "Take calculated risks",
+        "Enjoy moderate risks",
+        "Love taking risks",
       ],
     },
-
     {
-      question: "Do you get bored quickly?",
-
-      answers: ["I get bored quickly", "Rather quickly", "Not often", "I don't get bored easily"],
+      question: "How do you express your emotions?",
+      answers: ["Reserved", "Moderate", "Expressive", "Very expressive"],
     },
-
     {
-      question: "Do you prefer physical activity?",
-
-      answers: ["I dislike moving at all", "Rarely", "Sometimes", "I love being active"],
+      question: "Are you competitive?",
+      answers: ["Not at all", "Slightly", "Moderately", "Very competitive"],
     },
-
     {
-      question: "How often do you seek new experiences?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Often, I love new experiences"],
+      question: "How do you handle criticism?",
+      answers: [
+        "Avoid it",
+        "Take it personally",
+        "Consider it objectively",
+        "Welcome constructive criticism",
+      ],
     },
-
     {
-      question: "Do you like to dominate situations?",
-
-      answers: ["I avoid such situations", "Rarely", "Sometimes", "Yes, I like to dominate"],
+      question: "Do you enjoy leading others?",
+      answers: ["Prefer to follow", "Lead when necessary", "Enjoy leading", "Natural leader"],
     },
-
     {
-      question: "How quickly do you make decisions?",
-
-      answers: ["Very slowly", "Rather slowly", "Rather quickly", "Immediately"],
+      question: "How do you approach new opportunities?",
+      answers: ["Skeptical", "Cautious", "Open-minded", "Enthusiastic"],
     },
-
     {
-      question: "Do you get easily annoyed?",
-
-      answers: ["Very rarely", "Rather rarely", "Sometimes", "Frequently"],
+      question: "Do you enjoy socializing?",
+      answers: [
+        "Prefer solitude",
+        "Introverted",
+        "Extroverted with limits",
+        "Extroverted and social",
+      ],
+    },
+    {
+      question: "How do you handle failure?",
+      answers: ["Devastated", "Disheartened", "Learn from it", "See it as a stepping stone"],
     },
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
-
     setQuestionIndex(questionIndex + 1);
+  };
+
+  const renderProgressDots = () => {
+    const progressDots = [];
+    for (let i = 0; i < fireQuestions.length; i++) {
+      progressDots.push(
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            width: "20px",
+            height: "20px",
+            borderRadius: "90%",
+            backgroundColor: i <= questionIndex ? "#FF4500" : "white", // Fire element color
+            margin: "0 5px",
+          }}
+        ></span>
+      );
+    }
+    return progressDots;
   };
 
   const renderQuestion = () => {
     if (questionIndex >= fireQuestions.length) {
-      const percentage = (points / 40) * 100;
+      const percentage = (points / (fireQuestions.length * 4)) * 100;
 
       return (
-        <div style={{ color: "#D70040" }}>
-          <Typography variant="h4">Your score for the Fire element: {points} / 40</Typography>
-
-          <Typography variant="h5">
-            Your level of integration with the element is: {percentage}%
+        <div
+          className="animate__animated animate__bounceInDown"
+          style={{
+            color: "white",
+            marginTop: "16%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            textAlign: "center",
+            fontFamily: "The Next Font",
+            padding: "20px",
+            borderRadius: "10px",
+          }}
+        >
+          <Typography variant="h3" style={{ color: "#FF4500" }}>
+            Your score for the Fire element:
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {points} / {fireQuestions.length * 4}
+            </Typography>
           </Typography>
-
-          {/* You can add result interpretation logic here */}
+          <Typography variant="h3" style={{ color: "#FF4500", marginTop: "10px" }}>
+            Your integration with the element:{" "}
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {percentage}%
+            </Typography>
+          </Typography>
         </div>
       );
     }
@@ -122,41 +139,36 @@ export const FireChallenge = () => {
       <div
         style={{
           marginTop: "70px",
-
           marginLeft: "0px",
-
           textAlign: "left",
-
-          color: "#D70040",
-
+          color: "white",
           fontFamily: "The Next Font",
         }}
+        className="animate__animated animate__bounceInLeft"
       >
         <div>
-          <Typography variant="h6" sx={{ color: "#D70040" }}>
+          <Typography variant="h6" sx={{ color: "orange" }}>
             Question {questionIndex + 1}
           </Typography>
-
-          <Typography variant="body1" sx={{ color: "orange", fontSize: "35px" }}>
+          <Typography variant="body1" sx={{ color: "#D70040", fontSize: "40px" }}>
             {currentQuestion.question}
           </Typography>
-
           <List>
             {currentQuestion.answers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
                   onClick={() => handleAnswerSelection(index + 1)}
-                  variant="contained"
                   fullWidth
                   sx={{
+                    fontSize: "200%",
+                    color: "orange",
                     "&:hover": {
-                      color: "#ffcc00", // Zmiana koloru tekstu na hover
-
-                      transition: "color 0.3s ease", // Animacja przejścia
+                      color: "#D70040",
+                      transition: "color 0.3s ease",
                     },
                   }}
                 >
-                  * {answer}
+                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}
@@ -166,6 +178,19 @@ export const FireChallenge = () => {
     );
   };
 
-  return <div style={{ backgroundColor: "black" }}>{renderQuestion()}</div>;
+  return (
+    <div style={{ backgroundColor: "", position: "relative" }}>
+      {renderQuestion()}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        {renderProgressDots()}
+      </div>
+    </div>
+  );
 };
-

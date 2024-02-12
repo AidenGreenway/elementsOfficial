@@ -1,110 +1,133 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-
+import "animate.css";
 import { useState } from "react";
 
 export const EarthChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-
   const [points, setPoints] = useState(0);
 
   const earthQuestions = [
     {
-      question: "How do you rate your patience?",
-
-      answers: ["Low", "Medium", "High", "Very High"],
-    },
-
-    {
-      question: "Do you like to work on one task for a long time?",
-
-      answers: ["Definitely not", "Not always", "Sometimes", "Always"],
-    },
-
-    {
-      question: "How often do you analyze situations before making decisions?",
-
-      answers: ["Never", "Rarely", "Sometimes", "Always"],
-    },
-
-    {
-      question: "Do you have a tendency to plan ahead?",
-
-      answers: ["Definitely not", "Not usually", "Sometimes", "Always"],
-    },
-
-    {
-      question: "How well do you handle stress?",
-
-      answers: ["Poorly", "Average", "Well", "Very well"],
-    },
-
-    {
-      question: "How often do you offer help to others?",
-
-      answers: ["Rarely", "Sometimes", "Often", "Always"],
-    },
-
-    {
-      question: "How do you handle crisis situations?",
-
+      question: "How do you handle challenges?",
       answers: [
-        "Usually lose control",
-
-        "Sometimes lose control",
-
-        "Rarely lose control",
-
-        "Never lose control",
+        "Avoid challenges",
+        "Deal with them reluctantly",
+        "Face them bravely",
+        "Seek challenges",
       ],
     },
-
     {
-      question: "Do you take care of your environment?",
-
-      answers: ["Rarely", "Sometimes", "Often", "Always"],
+      question: "Are you spontaneous?",
+      answers: [
+        "Very structured",
+        "Somewhat structured",
+        "Somewhat spontaneous",
+        "Very spontaneous",
+      ],
     },
-
     {
-      question: "How often do you rely on your intuition?",
-
-      answers: ["Rarely", "Sometimes", "Often", "Always"],
+      question: "Do you enjoy taking risks?",
+      answers: [
+        "Prefer safety",
+        "Take calculated risks",
+        "Enjoy moderate risks",
+        "Love taking risks",
+      ],
     },
-
     {
-      question: "Do you usually listen to others' opinions before making decisions?",
-
-      answers: ["Rarely", "Sometimes", "Often", "Always"],
+      question: "How do you express your emotions?",
+      answers: ["Reserved", "Moderate", "Expressive", "Very expressive"],
+    },
+    {
+      question: "Are you competitive?",
+      answers: ["Not at all", "Slightly", "Moderately", "Very competitive"],
+    },
+    {
+      question: "How do you handle criticism?",
+      answers: [
+        "Avoid it",
+        "Take it personally",
+        "Consider it objectively",
+        "Welcome constructive criticism",
+      ],
+    },
+    {
+      question: "Do you enjoy leading others?",
+      answers: ["Prefer to follow", "Lead when necessary", "Enjoy leading", "Natural leader"],
+    },
+    {
+      question: "How do you approach new opportunities?",
+      answers: ["Skeptical", "Cautious", "Open-minded", "Enthusiastic"],
+    },
+    {
+      question: "Do you enjoy socializing?",
+      answers: [
+        "Prefer solitude",
+        "Introverted",
+        "Extroverted with limits",
+        "Extroverted and social",
+      ],
+    },
+    {
+      question: "How do you handle failure?",
+      answers: ["Devastated", "Disheartened", "Learn from it", "See it as a stepping stone"],
     },
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
-
     setQuestionIndex(questionIndex + 1);
+  };
+
+  const renderProgressDots = () => {
+    const progressDots = [];
+    for (let i = 0; i < earthQuestions.length; i++) {
+      progressDots.push(
+        <span
+          key={i}
+          style={{
+            display: "inline-block",
+            width: "20px",
+            height: "20px",
+            borderRadius: "90%",
+            backgroundColor: i <= questionIndex ? "#228B22" : "white", // Earth element color
+            margin: "0 5px",
+          }}
+        ></span>
+      );
+    }
+    return progressDots;
   };
 
   const renderQuestion = () => {
     if (questionIndex >= earthQuestions.length) {
-      const percentage = (points / 40) * 100;
+      const percentage = (points / (earthQuestions.length * 4)) * 100;
 
       return (
         <div
+          className="animate__animated animate__bounceInDown"
           style={{
-            color: "#228B22",
-
-            textAlign: "left",
-
+            color: "white",
+            marginTop: "16%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            textAlign: "center",
             fontFamily: "The Next Font",
-
-            marginTop: "20px",
-
-            marginLeft: "20px",
+            padding: "20px",
+            borderRadius: "10px",
           }}
         >
-          <Typography variant="h4">Your score for the Earth element: {points} / 40</Typography>
-
-          <Typography variant="h5">
-            Your level of integration with the element is: {percentage}%
+          <Typography variant="h3" style={{ color: "#228B22" }}>
+            Your score for the Earth element:
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {points} / {earthQuestions.length * 4}
+            </Typography>
+          </Typography>
+          <Typography variant="h3" style={{ color: "#228B22", marginTop: "10px" }}>
+            Your integration with the element:{" "}
+            <Typography variant="h2" sx={{ color: "white" }}>
+              {percentage}%
+            </Typography>
           </Typography>
         </div>
       );
@@ -116,48 +139,58 @@ export const EarthChallenge = () => {
       <div
         style={{
           marginTop: "70px",
-
           marginLeft: "0px",
-
           textAlign: "left",
-
-          color: "lightGreen",
-
+          color: "white",
           fontFamily: "The Next Font",
         }}
+        className="animate__animated animate__bounceInLeft"
       >
-        <Typography variant="h6" sx={{ color: "lightGreen" }}>
-          Question {questionIndex + 1}
-        </Typography>
-
-        <Typography variant="body1" sx={{ color: "#00A36C", fontSize: "35px" }}>
-          {currentQuestion.question}
-        </Typography>
-
-        <List>
-          {currentQuestion.answers.map((answer, index) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton
-                onClick={() => handleAnswerSelection(index + 1)}
-                variant="contained"
-                fullWidth
-                sx={{
-                  "&:hover": {
-                    color: "#2E8B57",
-
-                    transition: "color 0.3s ease",
-                  },
-                }}
-              >
-                * {answer}
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <div>
+          <Typography variant="h6" sx={{ color: "#228B22" }}>
+            Question {questionIndex + 1}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#00A36C", fontSize: "40px" }}>
+            {currentQuestion.question}
+          </Typography>
+          <List>
+            {currentQuestion.answers.map((answer, index) => (
+              <ListItem key={index} disablePadding>
+                <ListItemButton
+                  onClick={() => handleAnswerSelection(index + 1)}
+                  fullWidth
+                  sx={{
+                    fontSize: "200%",
+                    color: "#228B22",
+                    "&:hover": {
+                      color: "#00A36C",
+                      transition: "color 0.3s ease",
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </div>
     );
   };
 
-  return <div style={{ backgroundColor: "black" }}>{renderQuestion()}</div>;
+  return (
+    <div style={{ backgroundColor: "", position: "relative" }}>
+      {renderQuestion()}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        {renderProgressDots()}
+      </div>
+    </div>
+  );
 };
-
