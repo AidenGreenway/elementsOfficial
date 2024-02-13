@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const Water = () => {
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
+  const [selectedZodiacSign, setSelectedZodiacSign] = useState("-");
   const [selectedStrength, setSelectedStrength] = useState(null);
   const [selectedWeakness, setSelectedWeakness] = useState(null);
   const [selectedExercise, setSelectedExercise] = useState(null);

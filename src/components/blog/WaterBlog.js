@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import dalle from "src/assets/images/forumdall.png";
 
 export const WaterBlog = () => {
   const [blogPosts, setBlogPosts] = useState(
@@ -49,11 +50,6 @@ export const WaterBlog = () => {
     }
   };
 
-  const handleClearData = () => {
-    localStorage.removeItem("waterBlogPosts");
-    setBlogPosts([]);
-  };
-
   const handleToggleComments = (postId) => {
     setShowComments((prevComments) => ({
       ...prevComments,
@@ -67,29 +63,28 @@ export const WaterBlog = () => {
 
   const handleAddComment = (postId) => {
     if (commentText[postId]?.trim() !== "") {
-      const updatedPosts = blogPosts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            comments: [commentText[postId], ...post.comments],
-          };
-        }
-        return post;
-      });
+      const updatedPosts = blogPosts.map((post) =>
+        post.id === postId ? { ...post, comments: [commentText[postId], ...post.comments] } : post
+      );
       setBlogPosts(updatedPosts);
       setCommentText({ ...commentText, [postId]: "" });
     }
   };
 
+  const handleClearData = () => {
+    localStorage.removeItem("waterBlogPosts");
+    setBlogPosts([]);
+  };
+
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        minHeight: "100vh",
-        padding: "20px",
-        backgroundColor: "#000", // Czarne tło
+        maxWidth: "auto",
+        padding: "0px",
+        backgroundImage: `url(${dalle})`,
+        backgroundSize: "350px 350px",
+        backgroundPosition: "42% 50%", // Adjust as needed
+        backgroundRepeat: "no-repeat",
       }}
     >
       <Grid container spacing={4} sx={{ width: "100%" }}>
@@ -97,14 +92,24 @@ export const WaterBlog = () => {
           <Box
             sx={{
               width: "100%",
-              backgroundColor: "black", // Ciężki, ciemnoniebieski kolor
               padding: "20px",
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "8px",
+                borderRadius: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#0066cc", // Blue color
+                borderRadius: "8px",
+              },
             }}
           >
-            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="blue" sx={{ marginBottom: 1, textAlign: "left" }}>
               Title
             </Typography>
             <TextField
@@ -115,16 +120,19 @@ export const WaterBlog = () => {
               onChange={handleInputChange}
               sx={{
                 marginBottom: 2,
+                width: "60%",
+                marginRight: "40%",
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#26c6da",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  border: "3px solid #0066cc",
+                  backgroundColor: "black",
+                  opacity: "100%",
                 },
                 "& input": {
-                  color: "#FFF",
+                  color: "white",
                 },
               }}
             />
-            <Typography variant="h6" color="#26c6da" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" color="blue" sx={{ marginBottom: 1, textAlign: "left" }}>
               Content
             </Typography>
             <TextField
@@ -136,40 +144,82 @@ export const WaterBlog = () => {
               value={newPost.content}
               onChange={handleInputChange}
               sx={{
+                width: "60%",
+                marginRight: "40%",
                 marginBottom: 2,
                 "& .MuiOutlinedInput-root": {
-                  borderColor: "#26c6da",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  border: "3px solid #0066cc",
+                  backgroundColor: "black",
+                  opacity: "100%",
                 },
                 "& textarea": {
                   color: "#FFF",
                 },
               }}
             />
-            <Button
-              variant="contained"
-              onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginRight: 2 }}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "8px",
+              }}
             >
-              Add Post
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleClearData}
-              sx={{ backgroundColor: "#00bcd4", color: "#FFF" }}
-            >
-              Clear Data
-            </Button>
+              <Button
+                variant="contained"
+                onClick={handlePostSubmit}
+                sx={{
+                  backgroundColor: "black",
+                  color: "#0066cc",
+                  "&:hover": {
+                    color: "black",
+                    backgroundColor: "#0066cc",
+                  },
+                }}
+              >
+                Add Post
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleClearData}
+                sx={{
+                  backgroundColor: "black",
+                  color: "#0066cc",
+                  "&:hover": {
+                    color: "black",
+                    backgroundColor: "#0066cc",
+                  },
+                }}
+              >
+                Clear Data
+              </Button>
+            </Box>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
+          <Typography color="blue" sx={{ fontSize: "15px", textAlign: "right", marginBottom: 0.5 }}>
+            posts
+          </Typography>
           <Box
             sx={{
+              marginLeft: "17%",
               width: "100%",
               padding: "20px",
               borderRadius: "8px",
               height: "80vh",
               overflowY: "auto",
+              borderImage: "linear-gradient(45deg, #0066cc, #00ccff) 1", // Blue gradient
+              borderImageSlice: 1,
+              "&::-webkit-scrollbar": {
+                width: "8px",
+                borderRadius: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "rgba(0, 102, 204, 0.8)", // Blue color
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#0066cc", // Blue color
+                borderRadius: "8px",
+              },
             }}
           >
             {blogPosts.map((post) => (
@@ -180,14 +230,26 @@ export const WaterBlog = () => {
                   borderRadius: "8px",
                   overflowY: "auto",
                   maxHeight: "300px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  border: "3px solid #0066cc",
+                  backgroundColor: "black",
                   padding: "16px",
+                  "&::-webkit-scrollbar": {
+                    width: "8px",
+                    borderRadius: "8px",
+                  },
+                  "&::-webkit-scrollbar-track": {
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#0066cc",
+                    borderRadius: "8px",
+                  },
                 }}
               >
                 <CardHeader
                   title={post.title}
                   sx={{
-                    color: "#00acc1",
+                    color: "blue",
                     textAlign: "left",
                     fontSize: "18px",
                     "& .MuiCardHeader-content": {
@@ -195,7 +257,7 @@ export const WaterBlog = () => {
                     },
                   }}
                   action={
-                    <Typography variant="body2" color="#80deea">
+                    <Typography variant="body2" color="white">
                       {post.date}
                     </Typography>
                   }
@@ -204,7 +266,7 @@ export const WaterBlog = () => {
                   <Typography
                     variant="body1"
                     color="text.secondary"
-                    sx={{ color: "#80deea", textAlign: "left" }}
+                    sx={{ color: "white", textAlign: "left" }}
                   >
                     {post.content}
                   </Typography>
@@ -219,7 +281,7 @@ export const WaterBlog = () => {
                         sx={{
                           marginTop: 1,
                           "& .MuiOutlinedInput-root": {
-                            borderColor: "#00bcd4",
+                            borderColor: "#0066cc",
                             backgroundColor: "rgba(255, 255, 255, 0.1)",
                           },
                           "& input": {
@@ -227,17 +289,34 @@ export const WaterBlog = () => {
                           },
                         }}
                       />
-                      <Button
-                        variant="contained"
-                        onClick={() => handleAddComment(post.id)}
-                        sx={{ backgroundColor: "#00bcd4", color: "#FFF", marginTop: 1 }}
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          marginTop: 2,
+                          marginBottom: 1,
+                        }}
                       >
-                        Add Comment
-                      </Button>
+                        <Button
+                          variant="contained"
+                          onClick={() => handleAddComment(post.id)}
+                          sx={{
+                            backgroundColor: "transparent",
+                            color: "#0066cc",
+                            marginLeft: "auto",
+                            "&:hover": {
+                              color: "limeGreen",
+                              backgroundColor: "transparent",
+                            },
+                          }}
+                        >
+                          Add Comment
+                        </Button>
+                      </Box>
                       <Typography
                         variant="body2"
                         color="text.secondary"
-                        sx={{ marginTop: 2, marginBottom: 3, color: "#80deea", textAlign: "left" }}
+                        sx={{ marginTop: 2, marginBottom: 3, color: "blue", textAlign: "left" }}
                       >
                         <strong>Comments:</strong>
                       </Typography>
@@ -247,9 +326,9 @@ export const WaterBlog = () => {
                           variant="body2"
                           color="text.secondary"
                           sx={{
-                            color: "#80deea",
+                            color: "white",
                             textAlign: "left",
-                            borderBottom: "1px solid #00bcd4",
+                            borderBottom: "1px solid #0066cc",
                             paddingBottom: 1,
                             marginBottom: 1,
                           }}
@@ -261,12 +340,15 @@ export const WaterBlog = () => {
                   )}
                   <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
                     <Button
-                      variant="outlined"
                       onClick={() => handleToggleComments(post.id)}
                       sx={{
-                        color: "#00bcd4",
-                        borderColor: "#00bcd4",
-                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        color: "blue",
+                        margin: 1,
+                        "&:hover": {
+                          color: "limeGreen",
+                          backgroundColor: "transparent",
+                        },
                       }}
                     >
                       Comments
@@ -281,5 +363,3 @@ export const WaterBlog = () => {
     </Box>
   );
 };
-
-

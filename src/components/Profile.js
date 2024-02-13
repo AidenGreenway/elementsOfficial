@@ -44,7 +44,7 @@ const ElementImages = {
 
 const ElementColors = {
   fire: ["#FF3131"],
-  water: ["#0047AB"],
+  water: ["#1F51FF"],
   air: ["#ADD8E6"],
   earth: ["#009E60"],
 };
@@ -178,7 +178,7 @@ export const Profile = () => {
               fullWidth
               size="small"
               value={description}
-              onChange={(event) => handleInputChange(event, "description")}
+              onChange={(event) => (event, "description")}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
                 style: { color: "white", backgroundColor: "black", border: "1px white solid" },
