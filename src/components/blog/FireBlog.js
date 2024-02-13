@@ -360,7 +360,7 @@ export const FireBlog = () => {
         </Grid>
       </Box>
       <Typography maxWidth="10%" fontSize="60px" color="red" sx={{ marginLeft: 5, marginTop: -30 }}>
-        Fire Forum
+        Fire Blog
       </Typography>
     </Box>
   );

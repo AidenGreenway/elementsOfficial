@@ -378,7 +378,7 @@ export const EarthBlog = () => {
         color="limeGreen"
         sx={{ marginLeft: 5, marginTop: -30 }}
       >
-        Earth Forum
+        Earth Blog
       </Typography>
     </Box>
   );
