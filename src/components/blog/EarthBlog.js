@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import dalle from "src/assets/images/forumdall.png";
 
 export const EarthBlog = () => {
   const [blogPosts, setBlogPosts] = useState(
@@ -49,11 +50,6 @@ export const EarthBlog = () => {
     }
   };
 
-  const handleClearData = () => {
-    localStorage.removeItem("earthBlogPosts");
-    setBlogPosts([]);
-  };
-
   const handleToggleComments = (postId) => {
     setShowComments((prevComments) => ({
       ...prevComments,
@@ -67,217 +63,323 @@ export const EarthBlog = () => {
 
   const handleAddComment = (postId) => {
     if (commentText[postId]?.trim() !== "") {
-      const updatedPosts = blogPosts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            comments: [commentText[postId], ...post.comments],
-          };
-        }
-        return post;
-      });
+      const updatedPosts = blogPosts.map((post) =>
+        post.id === postId ? { ...post, comments: [commentText[postId], ...post.comments] } : post
+      );
       setBlogPosts(updatedPosts);
       setCommentText({ ...commentText, [postId]: "" });
     }
   };
 
+  const handleClearData = () => {
+    localStorage.removeItem("earthBlogPosts");
+    setBlogPosts([]);
+  };
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        minHeight: "100vh",
-        padding: "20px",
-        backgroundColor: "black", // Kolor ziemi
-      }}
-    >
-      <Grid container spacing={4} sx={{ width: "100%" }}>
-        <Grid item xs={6}>
-          <Box
-            sx={{
-              width: "100%",
-              backgroundColor: "black", // Kolor zieleni
-              padding: "20px",
-              borderRadius: "8px",
-              height: "80vh",
-              overflowY: "auto",
-            }}
-          >
-            <Typography variant="h6" color="#a5d6a7" sx={{ marginBottom: 1 }}>
-              Title
-            </Typography>
-            <TextField
-              fullWidth
-              variant="outlined"
-              name="title"
-              value={newPost.title}
-              onChange={handleInputChange}
+    <Box sx={{ marginTop: "4%" }}>
+      <Box
+        sx={{
+          maxWidth: "auto",
+          padding: "0px",
+          backgroundImage: `url(${dalle})`,
+          backgroundSize: "350px 350px",
+          backgroundPosition: "42% 50%",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <Grid container spacing={4} sx={{ width: "100%" }}>
+          <Grid item xs={6}>
+            <Box
               sx={{
-                marginBottom: 2,
-                "& .MuiOutlinedInput-root": {
-                  borderColor: "#a5d6a7",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                width: "100%",
+                padding: "20px",
+                borderRadius: "8px",
+                height: "80vh",
+                overflowY: "auto",
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                  borderRadius: "8px",
                 },
-                "& input": {
-                  color: "#FFF",
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: "rgba(0, 0, 0, 0.1)",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "#008000",
+                  borderRadius: "8px",
                 },
               }}
-            />
-            <Typography variant="h6" color="#a5d6a7" sx={{ marginBottom: 1 }}>
-              Content
-            </Typography>
-            <TextField
-              fullWidth
-              multiline
-              minRows={4}
-              variant="outlined"
-              name="content"
-              value={newPost.content}
-              onChange={handleInputChange}
-              sx={{
-                marginBottom: 2,
-                "& .MuiOutlinedInput-root": {
-                  borderColor: "#a5d6a7",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                },
-                "& textarea": {
-                  color: "#FFF",
-                },
-              }}
-            />
-            <Button
-              variant="contained"
-              onClick={handlePostSubmit}
-              sx={{ backgroundColor: "#81c784", color: "#FFF", marginRight: 2 }}
             >
-              Add Post
-            </Button>
-            <Button
-              variant="contained"
-              onClick={handleClearData}
-              sx={{ backgroundColor: "#81c784", color: "#FFF" }}
-            >
-              Clear Data
-            </Button>
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Box
-            sx={{
-              width: "100%",
-              padding: "20px",
-              borderRadius: "8px",
-              height: "80vh",
-              overflowY: "auto",
-            }}
-          >
-            {blogPosts.map((post) => (
-              <Card
-                key={post.id}
+              <Typography
+                variant="h6"
+                color="limeGreen"
+                sx={{ marginBottom: 1, textAlign: "left" }}
+              >
+                Title
+              </Typography>
+              <TextField
+                fullWidth
+                variant="outlined"
+                name="title"
+                value={newPost.title}
+                onChange={handleInputChange}
                 sx={{
                   marginBottom: 2,
-                  borderRadius: "8px",
-                  overflowY: "auto",
-                  maxHeight: "300px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  padding: "16px",
+                  width: "60%",
+                  marginRight: "40%",
+                  "& .MuiOutlinedInput-root": {
+                    border: "3px solid #004d00",
+                    backgroundColor: "black",
+                    opacity: "100%",
+                  },
+                  "& input": {
+                    color: "white",
+                  },
+                }}
+              />
+              <Typography
+                variant="h6"
+                color="limeGreen"
+                sx={{ marginBottom: 1, textAlign: "left" }}
+              >
+                Content
+              </Typography>
+              <TextField
+                fullWidth
+                multiline
+                minRows={4}
+                variant="outlined"
+                name="content"
+                value={newPost.content}
+                onChange={handleInputChange}
+                sx={{
+                  width: "60%",
+                  marginRight: "40%",
+                  marginBottom: 2,
+                  "& .MuiOutlinedInput-root": {
+                    border: "3px solid #004d00",
+                    backgroundColor: "black",
+                    opacity: "100%",
+                  },
+                  "& textarea": {
+                    color: "#FFF",
+                  },
+                }}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: "8px",
                 }}
               >
-                <CardHeader
-                  title={post.title}
+                <Button
+                  variant="contained"
+                  onClick={handlePostSubmit}
                   sx={{
-                    color: "#66bb6a",
-                    textAlign: "left",
-                    fontSize: "18px",
-                    "& .MuiCardHeader-content": {
-                      flexGrow: 1,
+                    backgroundColor: "black",
+                    color: "limeGreen",
+                    "&:hover": {
+                      color: "black",
+                      backgroundColor: "limeGreen",
                     },
                   }}
-                  action={
-                    <Typography variant="body2" color="#aed581">
-                      {post.date}
-                    </Typography>
-                  }
-                />
-                <CardContent>
-                  <Typography
-                    variant="body1"
-                    color="text.secondary"
-                    sx={{ color: "#aed581", textAlign: "left" }}
-                  >
-                    {post.content}
-                  </Typography>
-                  {showComments[post.id] && (
-                    <div>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        placeholder="Add a comment..."
-                        value={commentText[post.id] || ""}
-                        onChange={(e) => handleCommentInputChange(post.id, e)}
-                        sx={{
-                          marginTop: 1,
-                          "& .MuiOutlinedInput-root": {
-                            borderColor: "#81c784",
-                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                          },
-                          "& input": {
-                            color: "#FFF",
-                          },
-                        }}
-                      />
-                      <Button
-                        variant="contained"
-                        onClick={() => handleAddComment(post.id)}
-                        sx={{ backgroundColor: "#81c784", color: "#FFF", marginTop: 1 }}
-                      >
-                        Add Comment
-                      </Button>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ marginTop: 2, marginBottom: 3, color: "#aed581", textAlign: "left" }}
-                      >
-                        <strong>Comments:</strong>
-                      </Typography>
-                      {post.comments.map((comment, index) => (
-                        <Typography
-                          key={index}
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{
-                            color: "#aed581",
-                            textAlign: "left",
-                            borderBottom: "1px solid #81c784",
-                            paddingBottom: 1,
-                            marginBottom: 1,
-                          }}
-                        >
-                          {comment}
-                        </Typography>
-                      ))}
-                    </div>
-                  )}
+                >
+                  Add Post
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleClearData}
+                  sx={{
+                    backgroundColor: "black",
+                    color: "limeGreen",
+                    "&:hover": {
+                      color: "black",
+                      backgroundColor: "limeGreen",
+                    },
+                  }}
+                >
+                  Clear Data
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={5}>
+            <Typography color="limeGreen" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
+              posts
+            </Typography>
+            <Box
+              sx={{
+                marginLeft: "17%",
+                width: "100%",
+                padding: "20px",
+                borderRadius: "8px",
+                height: "80vh",
+                overflowY: "auto",
+                borderImage: "linear-gradient(45deg, #008000, #00ff00) 1",
+                borderImageSlice: 1,
+                "&::-webkit-scrollbar": {
+                  width: "8px",
+                  borderRadius: "8px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: "rgba(0, 255, 0, 0.8)",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "#008000",
+                  borderRadius: "8px",
+                },
+              }}
+            >
+              {blogPosts.map((post) => (
+                <div key={post.id}>
                   <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: 2 }}>
                     <Button
-                      variant="outlined"
                       onClick={() => handleToggleComments(post.id)}
                       sx={{
-                        color: "#81c784",
-                        borderColor: "#81c784",
-                        textTransform: "none",
+                        backgroundColor: "transparent",
+                        color: "limeGreen",
+                        margin: 1,
+                        "&:hover": {
+                          color: "lime",
+                          backgroundColor: "transparent",
+                        },
                       }}
                     >
-                      Comments
+                      Ingerete
                     </Button>
                   </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
+                  <Card
+                    sx={{
+                      marginBottom: 2,
+                      borderRadius: "8px",
+                      overflowY: "auto",
+                      maxHeight: "300px",
+                      border: "3px solid #004d00",
+                      backgroundColor: "black",
+                      padding: "16px",
+                      "&::-webkit-scrollbar": {
+                        width: "8px",
+                        borderRadius: "8px",
+                      },
+                      "&::-webkit-scrollbar-track": {
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: "#008000",
+                        borderRadius: "8px",
+                      },
+                    }}
+                  >
+                    <CardHeader
+                      title={post.title}
+                      sx={{
+                        color: "limeGreen",
+                        textAlign: "left",
+                        fontSize: "18px",
+                        "& .MuiCardHeader-content": {
+                          flexGrow: 1,
+                        },
+                      }}
+                      action={
+                        <Typography variant="body2" color="white">
+                          {post.date}
+                        </Typography>
+                      }
+                    />
+                    <CardContent>
+                      <Typography color="text.secondary" sx={{ color: "white", textAlign: "left" }}>
+                        {post.content}
+                      </Typography>
+                      {showComments[post.id] && (
+                        <div>
+                          <TextField
+                            fullWidth
+                            variant="outlined"
+                            placeholder="Add a comment..."
+                            value={commentText[post.id] || ""}
+                            onChange={(e) => handleCommentInputChange(post.id, e)}
+                            sx={{
+                              marginTop: 4,
+                              "& .MuiOutlinedInput-root": {
+                                borderColor: "#008000",
+                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              },
+                              "& input": {
+                                color: "#FFF",
+                              },
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              marginTop: 2,
+                              marginBottom: 1,
+                            }}
+                          >
+                            <Button
+                              variant="contained"
+                              onClick={() => handleAddComment(post.id)}
+                              sx={{
+                                backgroundColor: "transparent",
+                                color: "lime",
+                                marginLeft: "auto",
+                                "&:hover": {
+                                  color: "green",
+                                  backgroundColor: "transparent",
+                                },
+                              }}
+                            >
+                              Add Comment
+                            </Button>
+                          </Box>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                              marginTop: 2,
+                              marginBottom: 3,
+                              color: "limeGreen",
+                              textAlign: "left",
+                            }}
+                          >
+                            <strong>Comments:</strong>
+                          </Typography>
+                          {post.comments.map((comment, index) => (
+                            <Typography
+                              key={index}
+                              variant="body2"
+                              color="text.secondary"
+                              sx={{
+                                color: "white",
+                                textAlign: "left",
+                                borderBottom: "1px solid #008000",
+                                paddingBottom: 1,
+                                marginBottom: 1,
+                              }}
+                            >
+                              {comment}
+                            </Typography>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
+      <Typography
+        maxWidth="10%"
+        fontSize="60px"
+        color="limeGreen"
+        sx={{ marginLeft: 5, marginTop: -30 }}
+      >
+        Earth Forum
+      </Typography>
     </Box>
   );
 };
