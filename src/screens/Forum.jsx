@@ -29,7 +29,7 @@ const centeredImageStyle = {
   left: "53.5%",
   transform: "translate(-50%, -50%)",
   display: "block",
-  maxWidth: "30.5%",
+  maxWidth: "30.75%",
   maxHeight: "100vh",
 };
 
