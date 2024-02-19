@@ -170,10 +170,10 @@ export const AirBlog = () => {
                   onClick={handlePostSubmit}
                   sx={{
                     backgroundColor: "black",
-                    color: "lightBlue",
+                    color: "white",
                     "&:hover": {
                       color: "black",
-                      backgroundColor: "lightBlue",
+                      backgroundColor: "white",
                     },
                   }}
                 >
@@ -184,10 +184,10 @@ export const AirBlog = () => {
                   onClick={handleClearData}
                   sx={{
                     backgroundColor: "black",
-                    color: "lightBlue",
+                    color: "white",
                     "&:hover": {
                       color: "black",
-                      backgroundColor: "lightBlue",
+                      backgroundColor: "red",
                     },
                   }}
                 >

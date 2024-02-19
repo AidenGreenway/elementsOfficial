@@ -197,7 +197,7 @@ export const FireBlog = () => {
             </Box>
           </Grid>
           <Grid item xs={5}>
-            <Typography color="red" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
+            <Typography color="#D70040" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
               posts
             </Typography>
             <Box
@@ -359,7 +359,12 @@ export const FireBlog = () => {
           </Grid>
         </Grid>
       </Box>
-      <Typography maxWidth="10%" fontSize="60px" color="red" sx={{ marginLeft: 5, marginTop: -30 }}>
+      <Typography
+        maxWidth="10%"
+        fontSize="60px"
+        color="#D70040"
+        sx={{ marginLeft: 5, marginTop: -30 }}
+      >
         Fire Blog
       </Typography>
     </Box>

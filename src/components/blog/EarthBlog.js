@@ -195,7 +195,7 @@ export const EarthBlog = () => {
                     color: "limeGreen",
                     "&:hover": {
                       color: "black",
-                      backgroundColor: "limeGreen",
+                      backgroundColor: "red",
                     },
                   }}
                 >
@@ -205,7 +205,7 @@ export const EarthBlog = () => {
             </Box>
           </Grid>
           <Grid item xs={5}>
-            <Typography color="limeGreen" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
+            <Typography color="lightgreen" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
               posts
             </Typography>
             <Box
@@ -375,7 +375,7 @@ export const EarthBlog = () => {
       <Typography
         maxWidth="10%"
         fontSize="60px"
-        color="limeGreen"
+        color="lightgreen"
         sx={{ marginLeft: 5, marginTop: -30 }}
       >
         Earth Blog

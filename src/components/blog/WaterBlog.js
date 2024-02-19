@@ -197,7 +197,7 @@ export const WaterBlog = () => {
             </Box>
           </Grid>
           <Grid item xs={5}>
-            <Typography color="blue" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
+            <Typography color="#00FFFF" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
               posts
             </Typography>
             <Box
@@ -233,7 +233,7 @@ export const WaterBlog = () => {
                         color: "blue",
                         margin: 1,
                         "&:hover": {
-                          color: "green",
+                          color: "#00FFFF",
                           backgroundColor: "transparent",
                         },
                       }}
@@ -362,7 +362,7 @@ export const WaterBlog = () => {
       <Typography
         maxWidth="10%"
         fontSize="60px"
-        color="blue"
+        color="#00FFFF"
         sx={{ marginLeft: 5, marginTop: -30 }}
       >
         Water Blog
