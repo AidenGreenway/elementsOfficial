@@ -128,7 +128,7 @@ export const CourseModules = () => {
         }}
       >
         here you can get knowledge about each element, also you can chose one position from every
-        section to complete your profile!
+        section of your element to complete your profile!
       </Typography>
       <img
         src={dalle}

@@ -135,6 +135,9 @@ export const FireChallenge = () => {
 
     const currentQuestion = fireQuestions[questionIndex];
 
+    // Create a shuffled copy of the answers array
+    const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
+
     return (
       <div
         style={{
@@ -154,7 +157,7 @@ export const FireChallenge = () => {
             {currentQuestion.question}
           </Typography>
           <List>
-            {currentQuestion.answers.map((answer, index) => (
+            {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
                   onClick={() => handleAnswerSelection(index + 1)}

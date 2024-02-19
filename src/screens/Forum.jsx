@@ -1,8 +1,7 @@
 import { Box, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dalle from "src/assets/images/forumdall.png";
-import YourContext from "../elementContext/ElementContext";
 
 const hoverStyles = {
   fire: {
@@ -39,12 +38,12 @@ const imageStyle = {
 };
 
 export const Forum = () => {
-  const { setElementIcon } = useContext(YourContext);
+  // const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
   const navigate = useNavigate();
 
   const handleElementSelection = (selectedElement) => {
-    setElementIcon(selectedElement);
+    // setElementIcon(selectedElement);
     navigate(`${selectedElement}blog`);
   };
 

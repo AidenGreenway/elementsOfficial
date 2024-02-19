@@ -21,6 +21,11 @@ export const Fire = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
+  // const isFireElementSelected =
+  //   selectedZodiacSign === "Aries" ||
+  //   selectedZodiacSign === "Leo" ||
+  //   selectedZodiacSign === "Sagittarius";
+
   const handleSelect = (item, setter) => {
     setter(item);
   };
@@ -128,6 +133,7 @@ export const Fire = () => {
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
+      {/* {isFireElementSelected && ( */}
       <Box
         sx={{
           position: "fixed",
@@ -144,6 +150,7 @@ export const Fire = () => {
         <DetailView title="Exercise" content={selectedExercise || "-"} />
         <DetailView title="Strategy" content={selectedStrategy || "-"} />
       </Box>
+      {/* )} */};
       <Box sx={{ maxWidth: "70%" }}>
         <Accordion
           sx={{ backgroundColor: "transparent" }}

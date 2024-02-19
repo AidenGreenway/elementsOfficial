@@ -178,7 +178,7 @@ export const Profile = () => {
               fullWidth
               size="small"
               value={description}
-              onChange={(event) => (event, "description")}
+              onChange={(event) => handleInputChange(event, "description")}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
                 style: { color: "white", backgroundColor: "black", border: "1px white solid" },
@@ -482,13 +482,17 @@ export const Profile = () => {
                   <strong>Element:</strong> {element}
                 </Typography>
 
-                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
 
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>NAME:</strong> {name}
                 </Typography>
 
-                <Box sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2 }}></Box>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
 
                 <Typography variant="body2" align="left">
                   <strong>BIO:</strong> {description}

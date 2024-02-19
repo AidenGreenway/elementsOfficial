@@ -37,12 +37,14 @@ export const Banner = () => {
 
   const navigate = useNavigate();
   const goToProfile = () => {
+    setElementIcon(astroElement);
     navigate(`/dashboard/profile?element=${astroElement}`);
   };
 
   const handleClick = (element) => {
-    setHoveredElement(element);
-    setElementIcon(element);
+    // setHoveredElement(element);
+    // setElementIcon(element);
+
     switch (element) {
       case "fire":
         navigate("/dashboard/courseModules/fire");
