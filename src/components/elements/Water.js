@@ -9,10 +9,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import ElementContext from "src/elementContext/ElementContext";
 
 export const Water = () => {
+  const { yourValue } = useContext(ElementContext);
+
   const [selectedZodiacSign, setSelectedZodiacSign] = useState("-");
   const [selectedStrength, setSelectedStrength] = useState(null);
   const [selectedWeakness, setSelectedWeakness] = useState(null);
@@ -20,7 +23,6 @@ export const Water = () => {
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
-  const [resetLists, setResetLists] = useState(false);
 
   const handleSelect = (item, setter) => {
     setter(item);
@@ -44,15 +46,6 @@ export const Water = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
     setIsFirstSectionVisible(newIndex === 1);
-  };
-
-  const handleResetLists = () => {
-    setResetLists(!resetLists);
-    setSelectedZodiacSign([]);
-    setSelectedStrength([]);
-    setSelectedWeakness([]);
-    setSelectedExercise([]);
-    setSelectedStrategy([]);
   };
 
   useEffect(() => {
@@ -136,40 +129,24 @@ export const Water = () => {
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          padding: 2,
-          maxWidth: "20%",
-          textAlign: "right",
-        }}
-      >
-        <Typography
-          className="animate__animated animate__backInLeft"
+      {yourValue === "water" && (
+        <Box
           sx={{
-            color: "white",
-            fontSize: "18px",
-            marginTop: "-9%",
-            marginLeft: "-80%",
-            cursor: "pointer",
-            transition: "font-size 0.25s ease",
-            "&:hover": {
-              fontSize: "20px",
-              color: "#00F3FF",
-            },
+            position: "fixed",
+            top: 0,
+            right: 0,
+            padding: 2,
+            maxWidth: "20%",
+            textAlign: "right",
           }}
-          onClick={handleResetLists}
         >
-          Reset
-        </Typography>
-        <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-        <DetailView title="Strength" content={selectedStrength || "-"} />
-        <DetailView title="Weakness" content={selectedWeakness || "-"} />
-        <DetailView title="Exercise" content={selectedExercise || "-"} />
-        <DetailView title="Strategy" content={selectedStrategy || "-"} />
-      </Box>
+          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={selectedStrength || "-"} />
+          <DetailView title="Weakness" content={selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={selectedExercise || "-"} />
+          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+        </Box>
+      )}
       <Box sx={{ maxWidth: "70%" }}>
         <Accordion
           sx={{ backgroundColor: "transparent" }}

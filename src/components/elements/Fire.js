@@ -9,10 +9,13 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import ElementContext from "src/elementContext/ElementContext";
 
 export const Fire = () => {
+  const { yourValue } = useContext(ElementContext);
+
   const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
   const [selectedStrength, setSelectedStrength] = useState(null);
   const [selectedWeakness, setSelectedWeakness] = useState(null);
@@ -20,11 +23,6 @@ export const Fire = () => {
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
-
-  // const isFireElementSelected =
-  //   selectedZodiacSign === "Aries" ||
-  //   selectedZodiacSign === "Leo" ||
-  //   selectedZodiacSign === "Sagittarius";
 
   const handleSelect = (item, setter) => {
     setter(item);
@@ -133,24 +131,24 @@ export const Fire = () => {
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
-      {/* {isFireElementSelected && ( */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          padding: 2,
-          maxWidth: "20%",
-          textAlign: "right",
-        }}
-      >
-        <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-        <DetailView title="Strength" content={selectedStrength || "-"} />
-        <DetailView title="Weakness" content={selectedWeakness || "-"} />
-        <DetailView title="Exercise" content={selectedExercise || "-"} />
-        <DetailView title="Strategy" content={selectedStrategy || "-"} />
-      </Box>
-      {/* )} */};
+      {yourValue === "fire" && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            padding: 2,
+            maxWidth: "20%",
+            textAlign: "right",
+          }}
+        >
+          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={selectedStrength || "-"} />
+          <DetailView title="Weakness" content={selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={selectedExercise || "-"} />
+          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+        </Box>
+      )}
       <Box sx={{ maxWidth: "70%" }}>
         <Accordion
           sx={{ backgroundColor: "transparent" }}
@@ -254,5 +252,3 @@ const DetailView = ({ title, content }) => (
     </Typography>
   </Box>
 );
-
-export default Fire;
