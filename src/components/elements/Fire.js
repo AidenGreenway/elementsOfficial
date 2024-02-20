@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
 
 export const Fire = () => {
-  const { yourValue } = useContext(ElementContext);
+  const { yourValue, setElementInfo } = useContext(ElementContext);
 
   const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
   const [selectedStrength, setSelectedStrength] = useState(null);
@@ -26,19 +26,16 @@ export const Fire = () => {
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
-    // Resetuj stany dla każdej sekcji
     setSelectedZodiacSign(null);
     setSelectedStrength(null);
     setSelectedWeakness(null);
     setSelectedExercise(null);
     setSelectedStrategy(null);
 
-    // Wyczyść dane z local storage
     localStorage.removeItem("fireValues");
   };
 
   useEffect(() => {
-    // Load values from local storage when the component mounts
     const storedValues = JSON.parse(localStorage.getItem("fireValues")) || {};
     setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
     setSelectedStrength(storedValues.selectedStrength || null);
@@ -47,10 +44,9 @@ export const Fire = () => {
     setSelectedStrategy(storedValues.selectedStrategy || null);
   }, []);
 
-  const handleSelect = (item, setter, index) => {
+  const handleSelect = (item, setter, identifier) => {
     setter(() => {
-      // Use the identifier as part of the key
-      const key = `selected${index}`;
+      const key = `selected${identifier}`;
 
       const storedValues = {
         selectedZodiacSign,
@@ -62,9 +58,18 @@ export const Fire = () => {
       storedValues[key] = item;
       localStorage.setItem("fireValues", JSON.stringify(storedValues));
 
-      return item; // Return the updated value
+      setElementInfo({
+        selectedZodiacSign,
+        selectedStrength,
+        selectedWeakness,
+        selectedExercise,
+        selectedStrategy,
+      });
+
+      return item;
     });
   };
+
   const listItemStyle = {
     color: "#9C0808",
     fontSize: "18px",

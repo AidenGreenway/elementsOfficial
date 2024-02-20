@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import aird from "../diaryImages/air/air3.jpg";
 import earthd from "../diaryImages/earth/earth4.png";
 import fired from "../diaryImages/fire/fire4.png";
@@ -7,7 +6,15 @@ import waterd from "../diaryImages/water/water3.png";
 import YourContext from "./ElementContext";
 
 export const ElementContextProvider = ({ children }) => {
-  const [yourValue, setYourValue] = useState(""); // Przykładowy stan
+  const [elementValues, setElementValues] = useState({
+    yourValue: "",
+    selectedZodiacSign: "",
+    selectedStrength: "",
+    selectedWeakness: "",
+    selectedExercise: "",
+    selectedStrategy: "",
+  });
+
   const [elementImages] = useState({
     fire: fired,
     water: waterd,
@@ -16,11 +23,17 @@ export const ElementContextProvider = ({ children }) => {
   });
 
   const setElementIcon = (element) => {
-    setYourValue(element);
+    setElementValues((prevValues) => ({ ...prevValues, yourValue: element }));
+  };
+
+  const setElementInfo = (info) => {
+    setElementValues((prevValues) => ({ ...prevValues, ...info }));
   };
 
   return (
-    <YourContext.Provider value={{ yourValue, setElementIcon, elementImages }}>
+    <YourContext.Provider
+      value={{ ...elementValues, setElementIcon, setElementInfo, elementImages }}
+    >
       {children}
     </YourContext.Provider>
   );

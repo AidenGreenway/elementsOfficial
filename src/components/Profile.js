@@ -15,8 +15,9 @@ import {
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import ElementContext from "src/elementContext/ElementContext";
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
@@ -49,7 +50,7 @@ const ElementColors = {
   earth: ["#009E60"],
 };
 
-export const Profile = ({ handleChangeText }) => {
+export const Profile = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const elementFromBanner = searchParams.get("element");
@@ -57,7 +58,13 @@ export const Profile = ({ handleChangeText }) => {
   const [element, setElement] = useState(
     elementFromBanner || localStorage.getItem("element") || "earth"
   );
-
+  const {
+    selectedZodiacSign,
+    selectedStrength,
+    selectedWeakness,
+    selectedExercise,
+    selectedStrategy,
+  } = useContext(ElementContext) || {};
   const [year, setYear] = useState(localStorage.getItem("year") || "");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
@@ -504,7 +511,7 @@ export const Profile = ({ handleChangeText }) => {
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>year:</strong> {name}
+                  <strong>year:</strong> {year}
                 </Typography>
 
                 <Box
@@ -518,18 +525,21 @@ export const Profile = ({ handleChangeText }) => {
                 ></Box>
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>Zodiac Sign :</strong>
+                  {selectedZodiacSign}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>Strength:</strong>
+                  {selectedStrength}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>Weakness:</strong>
+                  {selectedWeakness}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
@@ -537,13 +547,14 @@ export const Profile = ({ handleChangeText }) => {
 
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>Exercise:</strong>
+                  {selectedExercise}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
 
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Strategy:</strong> {handleChangeText}
+                  <strong>Strategy:</strong> {selectedStrategy}
                 </Typography>
               </Box>
             </Box>
