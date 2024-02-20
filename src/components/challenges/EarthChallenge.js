@@ -1,6 +1,16 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import "animate.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+// Funkcja do losowego przemieszania tablicy
+const shuffleArray = (array) => {
+  const shuffledArray = array.slice();
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
 
 export const EarthChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -9,70 +19,98 @@ export const EarthChallenge = () => {
   const earthQuestions = [
     {
       question: "How do you handle challenges?",
-      answers: [
+      answers: shuffleArray([
         "Avoid challenges",
         "Deal with them reluctantly",
         "Face them bravely",
         "Seek challenges",
-      ],
+      ]),
     },
     {
       question: "Are you spontaneous?",
-      answers: [
+      answers: shuffleArray([
         "Very structured",
         "Somewhat structured",
         "Somewhat spontaneous",
         "Very spontaneous",
-      ],
+      ]),
     },
     {
       question: "Do you enjoy taking risks?",
-      answers: [
+      answers: shuffleArray([
         "Prefer safety",
         "Take calculated risks",
         "Enjoy moderate risks",
         "Love taking risks",
-      ],
+      ]),
     },
     {
       question: "How do you express your emotions?",
-      answers: ["Reserved", "Moderate", "Expressive", "Very expressive"],
+      answers: shuffleArray(["Reserved", "Moderate", "Expressive", "Very expressive"]),
     },
     {
       question: "Are you competitive?",
-      answers: ["Not at all", "Slightly", "Moderately", "Very competitive"],
+      answers: shuffleArray(["Not at all", "Slightly", "Moderately", "Very competitive"]),
     },
     {
       question: "How do you handle criticism?",
-      answers: [
+      answers: shuffleArray([
         "Avoid it",
         "Take it personally",
         "Consider it objectively",
         "Welcome constructive criticism",
-      ],
+      ]),
     },
     {
       question: "Do you enjoy leading others?",
-      answers: ["Prefer to follow", "Lead when necessary", "Enjoy leading", "Natural leader"],
+      answers: shuffleArray([
+        "Prefer to follow",
+        "Lead when necessary",
+        "Enjoy leading",
+        "Natural leader",
+      ]),
     },
     {
       question: "How do you approach new opportunities?",
-      answers: ["Skeptical", "Cautious", "Open-minded", "Enthusiastic"],
+      answers: shuffleArray(["Skeptical", "Cautious", "Open-minded", "Enthusiastic"]),
     },
     {
       question: "Do you enjoy socializing?",
-      answers: [
+      answers: shuffleArray([
         "Prefer solitude",
         "Introverted",
         "Extroverted with limits",
         "Extroverted and social",
-      ],
+      ]),
     },
     {
       question: "How do you handle failure?",
-      answers: ["Devastated", "Disheartened", "Learn from it", "See it as a stepping stone"],
+      answers: shuffleArray([
+        "Devastated",
+        "Disheartened",
+        "Learn from it",
+        "See it as a stepping stone",
+      ]),
     },
   ];
+
+  // Stała z jedną definicją odpowiedzi i przypisanymi punktami
+  const answerOptions = shuffleArray([
+    { answer: "Avoid challenges", points: 1 },
+    { answer: "Deal with them reluctantly", points: 1 },
+    { answer: "Face them bravely", points: 1 },
+    { answer: "Seek challenges", points: 1 },
+  ]);
+
+  // Funkcja do uzyskania losowo przemieszanych odpowiedzi
+  const getShuffledAnswers = () => shuffleArray(answerOptions);
+
+  const [shuffledAnswers, setShuffledAnswers] = useState(getShuffledAnswers());
+
+  // Efekt useEffect do aktualizacji przemieszanych odpowiedzi przy zmianie pytania
+  useEffect(() => {
+    setShuffledAnswers(getShuffledAnswers());
+  }, [questionIndex]);
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
@@ -154,10 +192,10 @@ export const EarthChallenge = () => {
             {currentQuestion.question}
           </Typography>
           <List>
-            {currentQuestion.answers.map((answer, index) => (
+            {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
-                  onClick={() => handleAnswerSelection(index + 1)}
+                  onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
                   sx={{
                     fontSize: "200%",
@@ -168,7 +206,7 @@ export const EarthChallenge = () => {
                     },
                   }}
                 >
-                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
+                  <Typography sx={{ fontSize: "90%" }}> * {answer.answer}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}

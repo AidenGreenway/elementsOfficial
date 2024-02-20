@@ -155,7 +155,7 @@ export const Profile = () => {
             />
 
             <TextField
-              placeholder="change name"
+              placeholder="change year"
               fullWidth
               size="small"
               value={name}
@@ -487,7 +487,7 @@ export const Profile = () => {
                 ></Box>
 
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>NAME:</strong> {name}
+                  <strong>year:</strong> {name}
                 </Typography>
 
                 <Box
