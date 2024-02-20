@@ -107,7 +107,7 @@ export const NavBar = () => {
           <ListItemIcon>
             <ExitToAppIcon style={{ color: "white" }} />
           </ListItemIcon>
-          <ListItemText primary="" />
+          <ListItemText />
         </ListItem>
       </List>
     </CustomDrawer>

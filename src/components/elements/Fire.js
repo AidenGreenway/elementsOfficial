@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   List,
   ListItem,
   ListItemText,
@@ -24,10 +25,46 @@ export const Fire = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
-  const handleSelect = (item, setter) => {
-    setter(item);
+  const reset = () => {
+    // Resetuj stany dla każdej sekcji
+    setSelectedZodiacSign(null);
+    setSelectedStrength(null);
+    setSelectedWeakness(null);
+    setSelectedExercise(null);
+    setSelectedStrategy(null);
+
+    // Wyczyść dane z local storage
+    localStorage.removeItem("fireValues");
   };
 
+  useEffect(() => {
+    // Load values from local storage when the component mounts
+    const storedValues = JSON.parse(localStorage.getItem("fireValues")) || {};
+    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
+    setSelectedStrength(storedValues.selectedStrength || null);
+    setSelectedWeakness(storedValues.selectedWeakness || null);
+    setSelectedExercise(storedValues.selectedExercise || null);
+    setSelectedStrategy(storedValues.selectedStrategy || null);
+  }, []);
+
+  const handleSelect = (item, setter, index) => {
+    setter(() => {
+      // Use the identifier as part of the key
+      const key = `selected${index}`;
+
+      const storedValues = {
+        selectedZodiacSign,
+        selectedStrength,
+        selectedWeakness,
+        selectedExercise,
+        selectedStrategy,
+      };
+      storedValues[key] = item;
+      localStorage.setItem("fireValues", JSON.stringify(storedValues));
+
+      return item; // Return the updated value
+    });
+  };
   const listItemStyle = {
     color: "#9C0808",
     fontSize: "18px",
@@ -137,11 +174,26 @@ export const Fire = () => {
             position: "fixed",
             top: 0,
             right: 0,
-            padding: 2,
+            padding: 3,
             maxWidth: "20%",
             textAlign: "right",
           }}
         >
+          <Button
+            onClick={reset}
+            sx={{
+              border: "1px white solid",
+              color: "#9C0808",
+              backgroundColor: "none",
+              marginTop: "-5px",
+              "&:hover": {
+                backgroundColor: "none",
+                color: "red",
+              },
+            }}
+          >
+            Reset Form
+          </Button>
           <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
           <DetailView title="Strength" content={selectedStrength || "-"} />
           <DetailView title="Weakness" content={selectedWeakness || "-"} />
@@ -218,7 +270,7 @@ export const Fire = () => {
                   <ListItem
                     key={itemIndex}
                     button
-                    onClick={() => handleSelect(item, section.setter)}
+                    onClick={() => handleSelect(item, section.setter, section.title)}
                   >
                     <ListItemText sx={{ "&:hover": { color: "red" } }} primary={`• ${item}`} />
                   </ListItem>
@@ -233,7 +285,7 @@ export const Fire = () => {
 };
 
 const DetailView = ({ title, content }) => (
-  <Box sx={{ marginTop: 2, padding: 2 }}>
+  <Box sx={{ marginTop: 0, padding: 2 }}>
     <Typography
       sx={{
         fontSize: "25px",
@@ -244,7 +296,7 @@ const DetailView = ({ title, content }) => (
     </Typography>
     <Typography
       sx={{
-        color: "yellow",
+        color: "#FE5F5F",
         fontSize: "12px",
       }}
     >

@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
@@ -49,7 +49,7 @@ const ElementColors = {
   earth: ["#009E60"],
 };
 
-export const Profile = () => {
+export const Profile = ({ handleChangeText }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const elementFromBanner = searchParams.get("element");
@@ -58,7 +58,7 @@ export const Profile = () => {
     elementFromBanner || localStorage.getItem("element") || "earth"
   );
 
-  const [name, setName] = useState(localStorage.getItem("name") || "");
+  const [year, setYear] = useState(localStorage.getItem("year") || "");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
@@ -76,9 +76,9 @@ export const Profile = () => {
 
   useEffect(() => {
     localStorage.setItem("element", element);
-    localStorage.setItem("name", name);
+    localStorage.setItem("year", year);
     localStorage.setItem("username", username);
-  }, [element, name, username]);
+  }, [element, year, username]);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
@@ -92,8 +92,8 @@ export const Profile = () => {
     const value = event.target.value;
 
     switch (inputType) {
-      case "name":
-        setName(value);
+      case "year":
+        setYear(value);
         break;
       case "description":
         setDescription(value);
@@ -158,8 +158,8 @@ export const Profile = () => {
               placeholder="change year"
               fullWidth
               size="small"
-              value={name}
-              onChange={(event) => handleInputChange(event, "name")}
+              value={year}
+              onChange={(event) => handleInputChange(event, "year")}
               InputLabelProps={{ style: { color: "white" } }}
               InputProps={{
                 style: {
@@ -423,7 +423,7 @@ export const Profile = () => {
             </Box>
 
             <Box
-              sx={{ position: "relative", marginBottom: 5, marginRight: 0, textAlign: "center" }}
+              sx={{ position: "relative", marginBottom: 5, marginLeft: -14, textAlign: "center" }}
             >
               <Stack
                 direction="row"
@@ -432,6 +432,24 @@ export const Profile = () => {
                 marginTop="-63px"
                 spacing={1}
               >
+                <Link
+                  to={`/dashboard/courseModules/${element.toLowerCase()}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    sx={{
+                      border: "1px white solid",
+                      color: selectedColor,
+                      backgroundColor: "none",
+                      "&:hover": {
+                        backgroundColor: selectedColor,
+                        color: "black",
+                      },
+                    }}
+                  >
+                    element info
+                  </Button>
+                </Link>
                 <IconButton
                   onClick={() => toggleActiveSection("nowyPost")}
                   sx={{
@@ -485,7 +503,6 @@ export const Profile = () => {
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>year:</strong> {name}
                 </Typography>
@@ -493,9 +510,40 @@ export const Profile = () => {
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-
-                <Typography variant="body2" align="left">
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
                   <strong>BIO:</strong> {description}
+                </Typography>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Zodiac Sign :</strong>
+                </Typography>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Strength:</strong>
+                </Typography>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Weakness:</strong>
+                </Typography>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
+
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Exercise:</strong>
+                </Typography>
+                <Box
+                  sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
+                ></Box>
+
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
+                  <strong>Strategy:</strong> {handleChangeText}
                 </Typography>
               </Box>
             </Box>
