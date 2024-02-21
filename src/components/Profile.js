@@ -503,58 +503,58 @@ export const Profile = () => {
               </Typography>
 
               <Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Element:</strong> {element}
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Element:</strong> &nbsp;&nbsp;&nbsp;&nbsp;{element}
                 </Typography>
 
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>year:</strong> {year}
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>year:</strong> &nbsp;&nbsp;&nbsp;&nbsp;{year}
                 </Typography>
 
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>BIO:</strong> {description}
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>BIO:</strong> &nbsp;&nbsp;&nbsp;&nbsp;{description}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Zodiac Sign :</strong>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Zodiac Sign :</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                   {selectedZodiacSign}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Strength:</strong>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Strength:</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                   {selectedStrength}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Weakness:</strong>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Weakness:</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                   {selectedWeakness}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
 
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Exercise:</strong>
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Exercise:</strong> &nbsp;&nbsp;&nbsp;&nbsp;
                   {selectedExercise}
                 </Typography>
                 <Box
                   sx={{ borderBottom: 2, borderColor: selectedColor, mb: 2, maxWidth: "90%" }}
                 ></Box>
 
-                <Typography variant="body2" align="left" sx={{ marginBottom: 2 }}>
-                  <strong>Strategy:</strong> {selectedStrategy}
+                <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
+                  <strong>Strategy:</strong> {selectedStrategy} &nbsp;&nbsp;&nbsp;&nbsp;
                 </Typography>
               </Box>
             </Box>

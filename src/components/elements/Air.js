@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   List,
   ListItem,
   ListItemText,
@@ -14,7 +15,7 @@ import { useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
 
 export const Air = () => {
-  const { yourValue } = useContext(ElementContext);
+  const { yourValue, setElementInfo } = useContext(ElementContext);
 
   const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
   const [selectedStrength, setSelectedStrength] = useState(null);
@@ -24,8 +25,46 @@ export const Air = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
-  const handleSelect = (item, setter) => {
+  const reset = () => {
+    setSelectedZodiacSign(null);
+    setSelectedStrength(null);
+    setSelectedWeakness(null);
+    setSelectedExercise(null);
+    setSelectedStrategy(null);
+
+    localStorage.removeItem("airValues");
+  };
+
+  useEffect(() => {
+    const storedValues = JSON.parse(localStorage.getItem("airValues")) || {};
+    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
+    setSelectedStrength(storedValues.selectedStrength || null);
+    setSelectedWeakness(storedValues.selectedWeakness || null);
+    setSelectedExercise(storedValues.selectedExercise || null);
+    setSelectedStrategy(storedValues.selectedStrategy || null);
+  }, []);
+
+  const handleSelect = (item, setter, identifier) => {
     setter(item);
+    const key = `selected${identifier}`;
+
+    const storedValues = {
+      selectedZodiacSign,
+      selectedStrength,
+      selectedWeakness,
+      selectedExercise,
+      selectedStrategy,
+    };
+    storedValues[key] = item;
+    localStorage.setItem("airValues", JSON.stringify(storedValues));
+
+    setElementInfo({
+      selectedZodiacSign,
+      selectedStrength,
+      selectedWeakness,
+      selectedExercise,
+      selectedStrategy,
+    });
   };
 
   const listItemStyle = {
@@ -140,6 +179,21 @@ export const Air = () => {
             textAlign: "right",
           }}
         >
+          <Button
+            onClick={reset}
+            sx={{
+              border: "1px white solid",
+              color: "lightBlue",
+              backgroundColor: "none",
+              marginTop: "-5px",
+              "&:hover": {
+                backgroundColor: "none",
+                color: "white",
+              },
+            }}
+          >
+            Reset
+          </Button>
           <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
           <DetailView title="Strength" content={selectedStrength || "-"} />
           <DetailView title="Weakness" content={selectedWeakness || "-"} />
@@ -218,7 +272,7 @@ export const Air = () => {
                   <ListItem
                     key={itemIndex}
                     button
-                    onClick={() => handleSelect(item, section.setter)}
+                    onClick={() => handleSelect(item, section.setter, section.title)}
                   >
                     <ListItemText
                       sx={{ "&:hover": { color: "lightBlue" } }}

@@ -197,7 +197,7 @@ export const Fire = () => {
               },
             }}
           >
-            Reset Form
+            Reset
           </Button>
           <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
           <DetailView title="Strength" content={selectedStrength || "-"} />

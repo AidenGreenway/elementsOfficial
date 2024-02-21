@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   List,
   ListItem,
   ListItemText,
@@ -14,9 +15,9 @@ import { useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
 
 export const Water = () => {
-  const { yourValue } = useContext(ElementContext);
+  const { yourValue, setElementInfo } = useContext(ElementContext);
 
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState("-");
+  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
   const [selectedStrength, setSelectedStrength] = useState(null);
   const [selectedWeakness, setSelectedWeakness] = useState(null);
   const [selectedExercise, setSelectedExercise] = useState(null);
@@ -24,8 +25,49 @@ export const Water = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
-  const handleSelect = (item, setter) => {
-    setter(item);
+  const reset = () => {
+    setSelectedZodiacSign(null);
+    setSelectedStrength(null);
+    setSelectedWeakness(null);
+    setSelectedExercise(null);
+    setSelectedStrategy(null);
+
+    localStorage.removeItem("waterValues");
+  };
+
+  useEffect(() => {
+    const storedValues = JSON.parse(localStorage.getItem("waterValues")) || {};
+    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
+    setSelectedStrength(storedValues.selectedStrength || null);
+    setSelectedWeakness(storedValues.selectedWeakness || null);
+    setSelectedExercise(storedValues.selectedExercise || null);
+    setSelectedStrategy(storedValues.selectedStrategy || null);
+  }, []);
+
+  const handleSelect = (item, setter, identifier) => {
+    setter(() => {
+      const key = `selected${identifier}`;
+
+      const storedValues = {
+        selectedZodiacSign,
+        selectedStrength,
+        selectedWeakness,
+        selectedExercise,
+        selectedStrategy,
+      };
+      storedValues[key] = item;
+      localStorage.setItem("waterValues", JSON.stringify(storedValues));
+
+      setElementInfo({
+        selectedZodiacSign,
+        selectedStrength,
+        selectedWeakness,
+        selectedExercise,
+        selectedStrategy,
+      });
+
+      return item;
+    });
   };
 
   const listItemStyle = {
@@ -62,13 +104,13 @@ export const Water = () => {
 
   const content = `An individual associated with the element of water embodies fluidity, intuition, and emotional depth. They are often empathetic, adaptable, and attuned to the subtle nuances of their surroundings. Water personalities are known for their ability to navigate through the complexities of emotions and connect with others on a profound level. Like a flowing river, they possess a natural grace and the capacity to heal and nurture. Individuals aligned with the water element may also have a strong sense of creativity and imagination.`;
 
-  const zodiacSigns = [
+  const zodiacSignsContent = [
     "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities. Cancers are intuitive, empathetic, and often have a strong connection to their family and home.",
     "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion. Scorpios are often resourceful, determined, and have a keen ability to understand the hidden aspects of life.",
     "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion. Pisceans are imaginative, sensitive, and have a deep connection to the spiritual and artistic realms.",
   ];
 
-  const strengths = [
+  const strengthsContent = [
     "Empathy and emotional intelligence: Ability to understand and connect with others on a deep level.",
     "Adaptability and fluidity: Capacity to navigate through changing circumstances.",
     "Intuition and sensitivity: Attuned to subtle nuances and emotions.",
@@ -76,7 +118,7 @@ export const Water = () => {
     "Nurturing qualities: Ability to heal and support others.",
   ];
 
-  const weaknesses = [
+  const weaknessesContent = [
     "Overly emotional: Tendency to be overwhelmed by emotions.",
     "Vulnerability to mood swings: Sensitivity to external influences.",
     "Avoidance of confrontation: Difficulty dealing with conflict.",
@@ -84,7 +126,7 @@ export const Water = () => {
     "Tendency to be easily influenced by others.",
   ];
 
-  const exercises = [
+  const exercisesContent = [
     "Practicing mindfulness and emotional awareness.",
     "Engaging in creative activities: Art, music, writing.",
     "Developing resilience and coping mechanisms for emotional challenges.",
@@ -92,7 +134,7 @@ export const Water = () => {
     "Participating in activities that promote self-care and relaxation.",
   ];
 
-  const strategies = [
+  const strategiesContent = [
     "Cultivating emotional balance and self-awareness.",
     "Creating a nurturing and supportive environment.",
     "Expressing creativity and embracing artistic outlets.",
@@ -101,26 +143,31 @@ export const Water = () => {
 
   const sections = [
     {
-      list: zodiacSigns,
+      list: zodiacSignsContent,
       state: selectedZodiacSign,
       setter: setSelectedZodiacSign,
       title: "Zodiac Signs:",
     },
-    { list: strengths, state: selectedStrength, setter: setSelectedStrength, title: "Strengths:" },
     {
-      list: weaknesses,
+      list: strengthsContent,
+      state: selectedStrength,
+      setter: setSelectedStrength,
+      title: "Strengths:",
+    },
+    {
+      list: weaknessesContent,
       state: selectedWeakness,
       setter: setSelectedWeakness,
       title: "Weaknesses:",
     },
     {
-      list: exercises,
+      list: exercisesContent,
       state: selectedExercise,
       setter: setSelectedExercise,
       title: "Exercises Enhancing Traits:",
     },
     {
-      list: strategies,
+      list: strategiesContent,
       state: selectedStrategy,
       setter: setSelectedStrategy,
       title: "Key Strategies for Harmony:",
@@ -135,11 +182,26 @@ export const Water = () => {
             position: "fixed",
             top: 0,
             right: 0,
-            padding: 2,
+            padding: 3,
             maxWidth: "20%",
             textAlign: "right",
           }}
         >
+          <Button
+            onClick={reset}
+            sx={{
+              border: "1px white solid",
+              color: "#0181E5",
+              backgroundColor: "none",
+              marginTop: "-5px",
+              "&:hover": {
+                backgroundColor: "none",
+                color: "#00F3FF",
+              },
+            }}
+          >
+            Reset
+          </Button>
           <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
           <DetailView title="Strength" content={selectedStrength || "-"} />
           <DetailView title="Weakness" content={selectedWeakness || "-"} />
@@ -201,11 +263,11 @@ export const Water = () => {
           <Accordion
             key={index}
             sx={{ backgroundColor: "transparent" }}
-            id={`panel${index}a-header`}
+            id={`water-panel${index}a-header`}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel${index}a-content`}
+              aria-controls={`water-panel${index}a-content`}
             >
               <Typography sx={listItemStyle}>{section.title}</Typography>
             </AccordionSummary>
@@ -216,9 +278,9 @@ export const Water = () => {
                   <ListItem
                     key={itemIndex}
                     button
-                    onClick={() => handleSelect(item, section.setter)}
+                    onClick={() => handleSelect(item, section.setter, section.title)}
                   >
-                    <ListItemText sx={{ "&:hover": { color: "blue" } }} primary={`• ${item}`} />
+                    <ListItemText sx={{ "&:hover": { color: "#0181E5" } }} primary={`• ${item}`} />
                   </ListItem>
                 ))}
               </List>
@@ -231,15 +293,11 @@ export const Water = () => {
 };
 
 const DetailView = ({ title, content }) => (
-  <Box sx={{ marginTop: 2, padding: 2 }}>
+  <Box sx={{ marginTop: 0, padding: 2 }}>
     <Typography
       sx={{
         fontSize: "25px",
-        color: "#00F3FF",
-        transition: "font-size 0.25s ease",
-        "&:hover": {
-          color: "#00F3FF",
-        },
+        color: "#0181E5",
       }}
     >
       {title}
