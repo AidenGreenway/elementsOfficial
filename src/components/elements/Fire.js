@@ -23,7 +23,9 @@ export const Fire = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
+
+  // Utwórz nowy stan do zarządzania widocznością sekcji akordeonów
+  const [sectionVisibility, setSectionVisibility] = useState(Array(5).fill(false));
 
   const reset = () => {
     setSelectedZodiacSign(null);
@@ -70,6 +72,13 @@ export const Fire = () => {
     });
   };
 
+  const handleAccordionChange = (index) => {
+    const newVisibility = sectionVisibility.map((visibility, i) =>
+      i === index ? !visibility : visibility
+    );
+    setSectionVisibility(newVisibility);
+  };
+
   const listItemStyle = {
     color: "#9C0808",
     fontSize: "18px",
@@ -87,7 +96,9 @@ export const Fire = () => {
   const handleChangeText = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
-    setIsFirstSectionVisible(newIndex === 1);
+
+    // Zaktualizuj widoczność wszystkich sekcji akordeonów
+    setSectionVisibility(Array(5).fill(newIndex === 1));
   };
 
   useEffect(() => {
@@ -199,6 +210,7 @@ export const Fire = () => {
           >
             Reset
           </Button>
+
           <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
           <DetailView title="Strength" content={selectedStrength || "-"} />
           <DetailView title="Weakness" content={selectedWeakness || "-"} />
@@ -210,7 +222,8 @@ export const Fire = () => {
         <Accordion
           sx={{ backgroundColor: "transparent" }}
           id="fire-panel1a-header"
-          expanded={isFirstSectionVisible}
+          expanded={sectionVisibility[(0, 1, 2, 3, 4)]}
+          onClick={handleChangeText}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="fire-panel1a-content">
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -221,7 +234,7 @@ export const Fire = () => {
                 fire
               </Typography>
               <Typography
-                key={currentTextIndex}
+                // key={null}
                 className={`animate__animated animate__backInLeft ${texts[
                   currentTextIndex
                 ].toLowerCase()}`}
@@ -244,7 +257,7 @@ export const Fire = () => {
             </Box>
           </AccordionSummary>
 
-          {isFirstSectionVisible && (
+          {sectionVisibility[0] && (
             <AccordionDetails>
               <Typography
                 sx={{ maxWidth: "90%", marginBottom: "20px", color: "#DC143C", fontSize: "16px" }}
@@ -261,6 +274,8 @@ export const Fire = () => {
             key={index}
             sx={{ backgroundColor: "transparent" }}
             id={`fire-panel${index}a-header`}
+            expanded={sectionVisibility[index]}
+            onChange={() => handleAccordionChange(index)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -289,6 +304,7 @@ export const Fire = () => {
   );
 };
 
+// Komponent do wyświetlania szczegółów
 const DetailView = ({ title, content }) => (
   <Box sx={{ marginTop: 0, padding: 2 }}>
     <Typography

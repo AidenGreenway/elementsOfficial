@@ -554,7 +554,7 @@ export const Profile = () => {
                 ></Box>
 
                 <Typography variant="body2" align="left" sx={{ marginBottom: 2, maxWidth: "90%" }}>
-                  <strong>Strategy:</strong> {selectedStrategy} &nbsp;&nbsp;&nbsp;&nbsp;
+                  <strong>Strategy:</strong>&nbsp;&nbsp;&nbsp;&nbsp; {selectedStrategy}
                 </Typography>
               </Box>
             </Box>
