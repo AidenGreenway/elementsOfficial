@@ -70,7 +70,7 @@ export const FireBlog = () => {
         post.id === postId
           ? {
               ...post,
-              comments: [`${username}: ${commentText[postId]}`, ...post.comments],
+              comments: [`${username}:d ${commentText[postId]}`, ...post.comments],
             }
           : post
       );

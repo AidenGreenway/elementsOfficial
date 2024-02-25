@@ -1,6 +1,15 @@
-import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-import "animate.css";
+import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import { useState } from "react";
+
+const StyledListItemButton = styled(ListItemButton)({
+  fontSize: "200%",
+  color: "orange",
+  "&:hover": {
+    color: "#D70040",
+    transition: "color 0.3s ease",
+  },
+});
 
 export const FireChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -105,12 +114,12 @@ export const FireChallenge = () => {
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
-    setPoints(points + selectedPoints);
-    setQuestionIndex(questionIndex + 1);
+    setPoints((prevPoints) => prevPoints + selectedPoints);
+    setQuestionIndex((prevIndex) => prevIndex + 1);
 
     if (questionIndex === fireQuestions.length - 1) {
       if (points >= 10 && points <= 20) {
-        setResultMessage("Keep going! You're on the right track.");
+        setResultMessage("Keep going! You're on the right track with the Fire element.");
       } else if (points >= 21 && points <= 30) {
         setResultMessage("Great job! You have a good understanding of the Fire element.");
       } else if (points >= 31 && points <= 40) {
@@ -120,23 +129,23 @@ export const FireChallenge = () => {
   };
 
   const renderProgressDots = () => {
-    const progressDots = [];
-    for (let i = 0; i < fireQuestions.length; i++) {
-      progressDots.push(
-        <span
-          key={i}
-          style={{
-            display: "inline-block",
-            width: "20px",
-            height: "20px",
-            borderRadius: "90%",
-            backgroundColor: i <= questionIndex ? "#FF4500" : "white",
-            margin: "0 5px",
-          }}
-        ></span>
-      );
-    }
-    return progressDots;
+    return (
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+        {fireQuestions.map((_, index) => (
+          <span
+            key={index}
+            style={{
+              display: "inline-block",
+              width: "20px",
+              height: "20px",
+              borderRadius: "90%",
+              backgroundColor: index <= questionIndex ? "#D70040" : "white",
+              margin: "0 5px",
+            }}
+          ></span>
+        ))}
+      </Box>
+    );
   };
 
   const renderQuestion = () => {
@@ -144,11 +153,11 @@ export const FireChallenge = () => {
       const percentage = roundToOneDecimalPlace((points / (fireQuestions.length * 4)) * 100);
 
       return (
-        <div
+        <Box
           className="animate__animated animate__bounceInDown"
-          style={{
+          sx={{
             color: "white",
-            marginTop: "16%",
+            marginTop: "8%",
             marginLeft: "auto",
             marginRight: "auto",
             textAlign: "center",
@@ -157,41 +166,38 @@ export const FireChallenge = () => {
             borderRadius: "10px",
           }}
         >
-          <Typography variant="h3" style={{ color: "#FF4500" }}>
+          <Typography variant="h3" sx={{ color: "#D70040" }}>
             Your score for the Fire element:
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "orange" }}>
               {points} / {fireQuestions.length * 4}
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "#FF4500", marginTop: "10px" }}>
+          <Typography variant="h3" sx={{ color: "#D70040", marginTop: "10px" }}>
             Your integration with the element:{" "}
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "orange" }}>
               {percentage}%
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "#FF4500", marginTop: "10px" }}>
+          <Typography variant="h3" sx={{ color: "#D70040", marginTop: "10px" }}>
             {resultMessage}
           </Typography>
-        </div>
+        </Box>
       );
     }
 
     const currentQuestion = fireQuestions[questionIndex];
-
     const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
-      <div
-        style={{
-          marginTop: "70px",
-          marginLeft: "0px",
-          textAlign: "left",
-          color: "white",
-          fontFamily: "The Next Font",
-        }}
+      <Box
+        marginTop="70px"
+        marginLeft="0px"
+        textAlign="left"
+        color="white"
+        fontFamily="The Next Font"
         className="animate__animated animate__bounceInLeft"
       >
-        <div>
+        <Box>
           <Typography variant="h6" sx={{ color: "orange" }}>
             Question {questionIndex + 1}
           </Typography>
@@ -201,41 +207,24 @@ export const FireChallenge = () => {
           <List>
             {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
-                <ListItemButton
+                <StyledListItemButton
                   onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
-                  sx={{
-                    fontSize: "200%",
-                    color: "orange",
-                    "&:hover": {
-                      color: "#D70040",
-                      transition: "color 0.3s ease",
-                    },
-                  }}
                 >
                   <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
-                </ListItemButton>
+                </StyledListItemButton>
               </ListItem>
             ))}
           </List>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   };
 
   return (
-    <div style={{ backgroundColor: "", position: "relative" }}>
+    <Box backgroundColor="" position="relative">
       {renderQuestion()}
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        {renderProgressDots()}
-      </div>
-    </div>
+      {renderProgressDots()}
+    </Box>
   );
 };

@@ -1,6 +1,15 @@
-import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-import "animate.css";
+import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import { useState } from "react";
+
+const StyledListItemButton = styled(ListItemButton)({
+  fontSize: "200%",
+  color: "lightGreen",
+  "&:hover": {
+    color: "#097969",
+    transition: "color 0.3s ease",
+  },
+});
 
 export const EarthChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -105,8 +114,8 @@ export const EarthChallenge = () => {
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
-    setPoints(points + selectedPoints);
-    setQuestionIndex(questionIndex + 1);
+    setPoints((prevPoints) => prevPoints + selectedPoints);
+    setQuestionIndex((prevIndex) => prevIndex + 1);
 
     if (questionIndex === earthQuestions.length - 1) {
       if (points >= 10 && points <= 20) {
@@ -120,23 +129,23 @@ export const EarthChallenge = () => {
   };
 
   const renderProgressDots = () => {
-    const progressDots = [];
-    for (let i = 0; i < earthQuestions.length; i++) {
-      progressDots.push(
-        <span
-          key={i}
-          style={{
-            display: "inline-block",
-            width: "20px",
-            height: "20px",
-            borderRadius: "90%",
-            backgroundColor: i <= questionIndex ? "#008000" : "white",
-            margin: "0 5px",
-          }}
-        ></span>
-      );
-    }
-    return progressDots;
+    return (
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+        {earthQuestions.map((_, index) => (
+          <span
+            key={index}
+            style={{
+              display: "inline-block",
+              width: "20px",
+              height: "20px",
+              borderRadius: "90%",
+              backgroundColor: index <= questionIndex ? "#097969" : "white",
+              margin: "0 5px",
+            }}
+          ></span>
+        ))}
+      </Box>
+    );
   };
 
   const renderQuestion = () => {
@@ -144,11 +153,11 @@ export const EarthChallenge = () => {
       const percentage = roundToOneDecimalPlace((points / (earthQuestions.length * 4)) * 100);
 
       return (
-        <div
+        <Box
           className="animate__animated animate__bounceInDown"
-          style={{
+          sx={{
             color: "white",
-            marginTop: "16%",
+            marginTop: "8%",
             marginLeft: "auto",
             marginRight: "auto",
             textAlign: "center",
@@ -157,41 +166,38 @@ export const EarthChallenge = () => {
             borderRadius: "10px",
           }}
         >
-          <Typography variant="h3" style={{ color: "#008000" }}>
+          <Typography variant="h3" sx={{ color: "#097969" }}>
             Your score for the Earth element:
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "lightGreen" }}>
               {points} / {earthQuestions.length * 4}
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "#008000", marginTop: "10px" }}>
+          <Typography variant="h3" sx={{ color: "#097969", marginTop: "10px" }}>
             Your integration with the element:{" "}
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "lightGreen" }}>
               {percentage}%
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "#008000", marginTop: "10px" }}>
+          <Typography variant="h3" sx={{ color: "#097969", marginTop: "10px" }}>
             {resultMessage}
           </Typography>
-        </div>
+        </Box>
       );
     }
 
     const currentQuestion = earthQuestions[questionIndex];
-
     const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
-      <div
-        style={{
-          marginTop: "70px",
-          marginLeft: "0px",
-          textAlign: "left",
-          color: "white",
-          fontFamily: "The Next Font",
-        }}
+      <Box
+        marginTop="70px"
+        marginLeft="0px"
+        textAlign="left"
+        color="white"
+        fontFamily="The Next Font"
         className="animate__animated animate__bounceInLeft"
       >
-        <div>
+        <Box>
           <Typography variant="h6" sx={{ color: "lightGreen" }}>
             Question {questionIndex + 1}
           </Typography>
@@ -201,41 +207,24 @@ export const EarthChallenge = () => {
           <List>
             {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
-                <ListItemButton
+                <StyledListItemButton
                   onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
-                  sx={{
-                    fontSize: "200%",
-                    color: "lightGreen",
-                    "&:hover": {
-                      color: "#097969",
-                      transition: "color 0.3s ease",
-                    },
-                  }}
                 >
                   <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
-                </ListItemButton>
+                </StyledListItemButton>
               </ListItem>
             ))}
           </List>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   };
 
   return (
-    <div style={{ backgroundColor: "", position: "relative" }}>
+    <Box backgroundColor="" position="relative">
       {renderQuestion()}
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        {renderProgressDots()}
-      </div>
-    </div>
+      {renderProgressDots()}
+    </Box>
   );
 };

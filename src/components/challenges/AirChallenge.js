@@ -1,10 +1,19 @@
-import { List, ListItem, ListItemButton, Typography } from "@mui/material";
-import "animate.css";
+import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import { useState } from "react";
+
+const StyledListItemButton = styled(ListItemButton)({
+  fontSize: "200%",
+  "&:hover": {
+    color: "#00BFFF",
+    transition: "color 0.3s ease",
+  },
+});
 
 export const AirChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
+
   const roundToOneDecimalPlace = (number) => {
     return parseFloat(number.toFixed(1));
   };
@@ -102,28 +111,28 @@ export const AirChallenge = () => {
     },
   ];
   const handleAnswerSelection = (selectedPoints) => {
-    setPoints(points + selectedPoints);
-    setQuestionIndex(questionIndex + 1);
+    setPoints((prevPoints) => prevPoints + selectedPoints);
+    setQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
   const renderProgressDots = () => {
-    const progressDots = [];
-    for (let i = 0; i < airQuestions.length; i++) {
-      progressDots.push(
-        <span
-          key={i}
-          style={{
-            display: "inline-block",
-            width: "20px",
-            height: "20px",
-            borderRadius: "90%",
-            backgroundColor: i <= questionIndex ? "#00BFFF" : "white",
-            margin: "0 5px",
-          }}
-        ></span>
-      );
-    }
-    return progressDots;
+    return (
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+        {airQuestions.map((_, index) => (
+          <span
+            key={index}
+            style={{
+              display: "inline-block",
+              width: "20px",
+              height: "20px",
+              borderRadius: "90%",
+              backgroundColor: index <= questionIndex ? "#00BFFF" : "white", // Air element color
+              margin: "0 5px",
+            }}
+          ></span>
+        ))}
+      </Box>
+    );
   };
 
   const renderQuestion = () => {
@@ -142,11 +151,11 @@ export const AirChallenge = () => {
       }
 
       return (
-        <div
+        <Box
           className="animate__animated animate__bounceInDown"
-          style={{
+          sx={{
             color: "white",
-            marginTop: "16%",
+            marginTop: "8%",
             marginLeft: "auto",
             marginRight: "auto",
             textAlign: "center",
@@ -155,22 +164,22 @@ export const AirChallenge = () => {
             borderRadius: "10px",
           }}
         >
-          <Typography variant="h3" style={{ color: "lightBlue" }}>
+          <Typography variant="h3" style={{ color: "#87CEEB" }}>
             Your score for the Air element:
             <Typography variant="h2" sx={{ color: "white" }}>
               {points} / {airQuestions.length * 4}
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "lightBlue", marginTop: "10px" }}>
+          <Typography variant="h3" style={{ color: "#87CEEB", marginTop: "10px" }}>
             Your integration with the element:{" "}
             <Typography variant="h2" sx={{ color: "white" }}>
               {percentage}%
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "lightBlue", marginTop: "10px" }}>
+          <Typography variant="h3" style={{ color: "#87CEEB", marginTop: "10px" }}>
             {resultMessage}
           </Typography>
-        </div>
+        </Box>
       );
     }
 
@@ -178,60 +187,44 @@ export const AirChallenge = () => {
     const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
-      <div
-        style={{
-          marginTop: "70px",
-          marginLeft: "0px",
-          textAlign: "left",
-          color: "white",
-          fontFamily: "The Next Font",
-        }}
+      <Box
+        marginTop="70px"
+        marginLeft="0px"
+        textAlign="left"
+        color="white"
+        fontFamily="The Next Font"
         className="animate__animated animate__bounceInLeft"
       >
-        <div>
-          <Typography variant="h6" sx={{ color: "white" }}>
+        <Box>
+          <Typography variant="h6" style={{ color: "white" }}>
             Question {questionIndex + 1}
           </Typography>
-          <Typography variant="body1" sx={{ color: "#87CEEB", fontSize: "40px" }}>
+          <Typography variant="body1" style={{ color: "#87CEEB", fontSize: "40px" }}>
             {currentQuestion.question}
           </Typography>
           <List>
             {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
-                <ListItemButton
+                <StyledListItemButton
                   onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
-                  sx={{
-                    fontSize: "200%",
-                    "&:hover": {
-                      color: "#00BFFF",
-                      transition: "color 0.3s ease",
-                    },
-                  }}
                 >
                   <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
-                </ListItemButton>
+                </StyledListItemButton>
               </ListItem>
             ))}
           </List>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   };
 
   return (
-    <div style={{ backgroundColor: "black", position: "relative" }}>
+    <Box backgroundColor="black" position="relative">
       {renderQuestion()}
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
         {renderProgressDots()}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
