@@ -5,47 +5,100 @@ import { useState } from "react";
 export const WaterChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
+  const roundToOneDecimalPlace = (number) => {
+    return parseFloat(number.toFixed(1));
+  };
 
   const waterQuestions = [
     {
       question: "How do you handle emotions?",
-      answers: ["Emotionally detached", "Moderate", "Sensitive", "Highly empathetic"],
+      answers: [
+        { text: "Emotionally detached", points: 1 },
+        { text: "Moderate", points: 2 },
+        { text: "Sensitive", points: 3 },
+        { text: "Highly empathetic", points: 4 },
+      ],
     },
     {
       question: "Are you adaptable?",
-      answers: ["Prefer routine", "Adapt with effort", "Adaptable", "Embrace change"],
+      answers: [
+        { text: "Prefer routine", points: 1 },
+        { text: "Adapt with effort", points: 2 },
+        { text: "Adaptable", points: 3 },
+        { text: "Embrace change", points: 4 },
+      ],
     },
     {
       question: "How do you approach relationships?",
-      answers: ["Independent", "Balanced", "Close-knit", "Deep emotional connections"],
+      answers: [
+        { text: "Independent", points: 1 },
+        { text: "Balanced", points: 2 },
+        { text: "Close-knit", points: 3 },
+        { text: "Deep emotional connections", points: 4 },
+      ],
     },
     {
       question: "Do you trust easily?",
-      answers: ["Distrustful", "Cautiously trusting", "Trust moderately", "Easily trusting"],
+      answers: [
+        { text: "Distrustful", points: 1 },
+        { text: "Cautiously trusting", points: 2 },
+        { text: "Trust moderately", points: 3 },
+        { text: "Easily trusting", points: 4 },
+      ],
     },
     {
       question: "How do you handle stress?",
-      answers: ["Stoic", "Handle it well", "Feel stressed but cope", "Get overwhelmed"],
+      answers: [
+        { text: "Stoic", points: 1 },
+        { text: "Handle it well", points: 2 },
+        { text: "Feel stressed but cope", points: 3 },
+        { text: "Get overwhelmed", points: 4 },
+      ],
     },
     {
       question: "Are you intuitive?",
-      answers: ["Rely on facts", "Occasionally intuitive", "Fairly intuitive", "Highly intuitive"],
+      answers: [
+        { text: "Rely on facts", points: 1 },
+        { text: "Occasionally intuitive", points: 2 },
+        { text: "Fairly intuitive", points: 3 },
+        { text: "Highly intuitive", points: 4 },
+      ],
     },
     {
       question: "How do you communicate?",
-      answers: ["Reserved", "Clear and concise", "Expressive", "In-depth and detailed"],
+      answers: [
+        { text: "Reserved", points: 1 },
+        { text: "Clear and concise", points: 2 },
+        { text: "Expressive", points: 3 },
+        { text: "In-depth and detailed", points: 4 },
+      ],
     },
     {
       question: "How do you handle conflicts?",
-      answers: ["Avoid conflicts", "Prefer compromise", "Assertive", "Address conflicts openly"],
+      answers: [
+        { text: "Avoid conflicts", points: 1 },
+        { text: "Prefer compromise", points: 2 },
+        { text: "Assertive", points: 3 },
+        { text: "Address conflicts openly", points: 4 },
+      ],
     },
     {
       question: "Are you introverted or extroverted?",
-      answers: ["Introverted", "Balanced", "Slightly extroverted", "Extroverted"],
+      answers: [
+        { text: "Introverted", points: 1 },
+        { text: "Balanced", points: 2 },
+        { text: "Slightly extroverted", points: 3 },
+        { text: "Extroverted", points: 4 },
+      ],
     },
     {
       question: "How do you recharge?",
-      answers: ["Alone time", "Quiet environment", "In nature", "Socializing with loved ones"],
+      answers: [
+        { text: "Alone time", points: 1 },
+        { text: "Quiet environment", points: 2 },
+        { text: "In nature", points: 3 },
+        { text: "Socializing with loved ones", points: 4 },
+      ],
     },
   ];
 
@@ -76,14 +129,25 @@ export const WaterChallenge = () => {
 
   const renderQuestion = () => {
     if (questionIndex >= waterQuestions.length) {
-      const percentage = (points / (waterQuestions.length * 4)) * 100;
+      const percentage = roundToOneDecimalPlace((points / (waterQuestions.length * 4)) * 100);
+
+      let resultMessage = "";
+      if (percentage >= 0 && percentage <= 25) {
+        resultMessage = "You may not resonate strongly with the Water element.";
+      } else if (percentage > 25 && percentage <= 50) {
+        resultMessage = "You have some qualities associated with the Water element.";
+      } else if (percentage > 50 && percentage <= 75) {
+        resultMessage = "You resonate well with the Water element.";
+      } else {
+        resultMessage = "Congratulations! You embody the essence of the Water element.";
+      }
 
       return (
         <div
           className="animate__animated animate__bounceInDown"
           style={{
             color: "white",
-            marginTop: "16%",
+            marginTop: "10%",
             marginLeft: "auto",
             marginRight: "auto",
             textAlign: "center",
@@ -104,11 +168,15 @@ export const WaterChallenge = () => {
               {percentage}%
             </Typography>
           </Typography>
+          <Typography variant="h3" style={{ color: "#4682B4", marginTop: "10px" }}>
+            {resultMessage}
+          </Typography>
         </div>
       );
     }
 
     const currentQuestion = waterQuestions[questionIndex];
+    const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
       <div
@@ -129,10 +197,10 @@ export const WaterChallenge = () => {
             {currentQuestion.question}
           </Typography>
           <List>
-            {currentQuestion.answers.map((answer, index) => (
+            {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
-                  onClick={() => handleAnswerSelection(index + 1)}
+                  onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
                   sx={{
                     fontSize: "200%",
@@ -143,7 +211,7 @@ export const WaterChallenge = () => {
                     },
                   }}
                 >
-                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
+                  <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}

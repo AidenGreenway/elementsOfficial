@@ -1,120 +1,122 @@
 import { List, ListItem, ListItemButton, Typography } from "@mui/material";
 import "animate.css";
-import { useEffect, useState } from "react";
-
-// Funkcja do losowego przemieszania tablicy
-const shuffleArray = (array) => {
-  const shuffledArray = array.slice();
-  for (let i = shuffledArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-  }
-  return shuffledArray;
-};
+import { useState } from "react";
 
 export const EarthChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
+  const [resultMessage, setResultMessage] = useState("");
+
+  const roundToOneDecimalPlace = (number) => {
+    return parseFloat(number.toFixed(1));
+  };
 
   const earthQuestions = [
     {
-      question: "How do you handle challenges?",
-      answers: shuffleArray([
-        "Avoid challenges",
-        "Deal with them reluctantly",
-        "Face them bravely",
-        "Seek challenges",
-      ]),
+      question: "How do you handle change?",
+      answers: [
+        { text: "Embrace change and adapt easily", points: 4 },
+        { text: "Adapt to change with time", points: 3 },
+        { text: "Prefer stability but can handle change", points: 2 },
+        { text: "Avoid change and seek stability", points: 1 },
+      ],
     },
     {
-      question: "Are you spontaneous?",
-      answers: shuffleArray([
-        "Very structured",
-        "Somewhat structured",
-        "Somewhat spontaneous",
-        "Very spontaneous",
-      ]),
+      question: "What is your approach to teamwork?",
+      answers: [
+        { text: "Enjoy collaborating with a diverse team", points: 4 },
+        { text: "Work well in a team but prefer individual tasks", points: 3 },
+        { text: "Prefer working independently but can cooperate", points: 2 },
+        { text: "Prefer solo work and avoid group projects", points: 1 },
+      ],
     },
     {
-      question: "Do you enjoy taking risks?",
-      answers: shuffleArray([
-        "Prefer safety",
-        "Take calculated risks",
-        "Enjoy moderate risks",
-        "Love taking risks",
-      ]),
+      question: "How do you connect with nature?",
+      answers: [
+        { text: "Feel deeply connected to nature and spend time outdoors", points: 4 },
+        { text: "Appreciate nature and enjoy occasional outdoor activities", points: 3 },
+        { text: "Like nature but prefer indoor activities", points: 2 },
+        { text: "Rarely spend time in nature and prefer urban settings", points: 1 },
+      ],
     },
     {
-      question: "How do you express your emotions?",
-      answers: shuffleArray(["Reserved", "Moderate", "Expressive", "Very expressive"]),
+      question: "What is your attitude towards material possessions?",
+      answers: [
+        { text: "Value experiences over material possessions", points: 4 },
+        { text: "Appreciate meaningful possessions but not overly attached", points: 3 },
+        { text: "Enjoy collecting and owning material things", points: 2 },
+        { text: "Seek minimalism and avoid unnecessary belongings", points: 1 },
+      ],
     },
     {
-      question: "Are you competitive?",
-      answers: shuffleArray(["Not at all", "Slightly", "Moderately", "Very competitive"]),
+      question: "How do you handle stress?",
+      answers: [
+        { text: "Stay calm and find practical solutions", points: 4 },
+        { text: "Manage stress with a balanced approach", points: 3 },
+        { text: "Feel stressed but cope with time", points: 2 },
+        { text: "Easily overwhelmed by stress and struggle to cope", points: 1 },
+      ],
     },
     {
-      question: "How do you handle criticism?",
-      answers: shuffleArray([
-        "Avoid it",
-        "Take it personally",
-        "Consider it objectively",
-        "Welcome constructive criticism",
-      ]),
+      question: "What is your approach to learning?",
+      answers: [
+        { text: "Constantly seek knowledge and enjoy learning", points: 4 },
+        { text: "Learn when needed and find it enjoyable", points: 3 },
+        { text: "Prefer practical learning and hands-on experience", points: 2 },
+        { text: "Avoid learning new things unless necessary", points: 1 },
+      ],
     },
     {
-      question: "Do you enjoy leading others?",
-      answers: shuffleArray([
-        "Prefer to follow",
-        "Lead when necessary",
-        "Enjoy leading",
-        "Natural leader",
-      ]),
+      question: "How do you approach decision-making?",
+      answers: [
+        { text: "Consider all factors and take time to decide", points: 4 },
+        { text: "Make decisions based on logic and reasoning", points: 3 },
+        { text: "Rely on intuition and gut feelings", points: 2 },
+        { text: "Struggle with decision-making and often second-guess", points: 1 },
+      ],
     },
     {
-      question: "How do you approach new opportunities?",
-      answers: shuffleArray(["Skeptical", "Cautious", "Open-minded", "Enthusiastic"]),
+      question: "What is your perspective on routines?",
+      answers: [
+        { text: "Thrive on routines and find comfort in structure", points: 4 },
+        { text: "Have a balanced approach to routines", points: 3 },
+        { text: "Prefer flexibility but have some routines", points: 2 },
+        { text: "Avoid routines and enjoy spontaneity", points: 1 },
+      ],
     },
     {
-      question: "Do you enjoy socializing?",
-      answers: shuffleArray([
-        "Prefer solitude",
-        "Introverted",
-        "Extroverted with limits",
-        "Extroverted and social",
-      ]),
+      question: "How do you express gratitude?",
+      answers: [
+        { text: "Express gratitude openly and regularly", points: 4 },
+        { text: "Show gratitude through actions more than words", points: 3 },
+        { text: "Feel grateful but don't always express it", points: 2 },
+        { text: "Rarely express gratitude and keep feelings to yourself", points: 1 },
+      ],
     },
     {
-      question: "How do you handle failure?",
-      answers: shuffleArray([
-        "Devastated",
-        "Disheartened",
-        "Learn from it",
-        "See it as a stepping stone",
-      ]),
+      question: "What is your approach to personal growth?",
+      answers: [
+        { text: "Seek constant personal growth and improvement", points: 4 },
+        { text: "Value personal growth and work towards it", points: 3 },
+        { text: "Focus on stability rather than personal growth", points: 2 },
+        { text: "Avoid personal growth efforts and maintain status quo", points: 1 },
+      ],
     },
   ];
-
-  // Stała z jedną definicją odpowiedzi i przypisanymi punktami
-  const answerOptions = shuffleArray([
-    { answer: "Avoid challenges", points: 1 },
-    { answer: "Deal with them reluctantly", points: 1 },
-    { answer: "Face them bravely", points: 1 },
-    { answer: "Seek challenges", points: 1 },
-  ]);
-
-  // Funkcja do uzyskania losowo przemieszanych odpowiedzi
-  const getShuffledAnswers = () => shuffleArray(answerOptions);
-
-  const [shuffledAnswers, setShuffledAnswers] = useState(getShuffledAnswers());
-
-  // Efekt useEffect do aktualizacji przemieszanych odpowiedzi przy zmianie pytania
-  useEffect(() => {
-    setShuffledAnswers(getShuffledAnswers());
-  }, [questionIndex]);
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
     setQuestionIndex(questionIndex + 1);
+
+    if (questionIndex === earthQuestions.length - 1) {
+      if (points >= 10 && points <= 20) {
+        setResultMessage("Keep going! You're on the right track with the Earth element.");
+      } else if (points >= 21 && points <= 30) {
+        setResultMessage("Great job! You have a good understanding of the Earth element.");
+      } else if (points >= 31 && points <= 40) {
+        setResultMessage("Congratulations! You are an Earth element master!");
+      }
+    }
   };
 
   const renderProgressDots = () => {
@@ -128,7 +130,7 @@ export const EarthChallenge = () => {
             width: "20px",
             height: "20px",
             borderRadius: "90%",
-            backgroundColor: i <= questionIndex ? "#228B22" : "white", // Earth element color
+            backgroundColor: i <= questionIndex ? "#008000" : "white",
             margin: "0 5px",
           }}
         ></span>
@@ -139,7 +141,7 @@ export const EarthChallenge = () => {
 
   const renderQuestion = () => {
     if (questionIndex >= earthQuestions.length) {
-      const percentage = (points / (earthQuestions.length * 4)) * 100;
+      const percentage = roundToOneDecimalPlace((points / (earthQuestions.length * 4)) * 100);
 
       return (
         <div
@@ -155,23 +157,28 @@ export const EarthChallenge = () => {
             borderRadius: "10px",
           }}
         >
-          <Typography variant="h3" style={{ color: "#228B22" }}>
+          <Typography variant="h3" style={{ color: "#008000" }}>
             Your score for the Earth element:
             <Typography variant="h2" sx={{ color: "white" }}>
               {points} / {earthQuestions.length * 4}
             </Typography>
           </Typography>
-          <Typography variant="h3" style={{ color: "#228B22", marginTop: "10px" }}>
+          <Typography variant="h3" style={{ color: "#008000", marginTop: "10px" }}>
             Your integration with the element:{" "}
             <Typography variant="h2" sx={{ color: "white" }}>
               {percentage}%
             </Typography>
+          </Typography>
+          <Typography variant="h3" style={{ color: "#008000", marginTop: "10px" }}>
+            {resultMessage}
           </Typography>
         </div>
       );
     }
 
     const currentQuestion = earthQuestions[questionIndex];
+
+    const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
       <div
@@ -185,10 +192,10 @@ export const EarthChallenge = () => {
         className="animate__animated animate__bounceInLeft"
       >
         <div>
-          <Typography variant="h6" sx={{ color: "#228B22" }}>
+          <Typography variant="h6" sx={{ color: "lightGreen" }}>
             Question {questionIndex + 1}
           </Typography>
-          <Typography variant="body1" sx={{ color: "#00A36C", fontSize: "40px" }}>
+          <Typography variant="body1" sx={{ color: "#097969", fontSize: "40px" }}>
             {currentQuestion.question}
           </Typography>
           <List>
@@ -199,14 +206,14 @@ export const EarthChallenge = () => {
                   fullWidth
                   sx={{
                     fontSize: "200%",
-                    color: "#228B22",
+                    color: "lightGreen",
                     "&:hover": {
-                      color: "#00A36C",
+                      color: "#097969",
                       transition: "color 0.3s ease",
                     },
                   }}
                 >
-                  <Typography sx={{ fontSize: "90%" }}> * {answer.answer}</Typography>
+                  <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}

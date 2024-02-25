@@ -54,6 +54,7 @@ export const Profile = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const elementFromBanner = searchParams.get("element");
+  const { setElementInfo } = useContext(ElementContext);
 
   const [element, setElement] = useState(
     elementFromBanner || localStorage.getItem("element") || "earth"
@@ -69,7 +70,7 @@ export const Profile = () => {
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
   const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(localStorage.getItem("description") || "");
   const [username, setUsername] = useState(localStorage.getItem("username") || "Aiden Greenway");
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
@@ -85,7 +86,8 @@ export const Profile = () => {
     localStorage.setItem("element", element);
     localStorage.setItem("year", year);
     localStorage.setItem("username", username);
-  }, [element, year, username]);
+    localStorage.setItem("description", description);
+  }, [element, year, username, description]);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
@@ -135,6 +137,8 @@ export const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setElementInfo({ username }); // Update the context with the new username
+
     setActiveSection("tablica");
   };
 
@@ -308,7 +312,6 @@ export const Profile = () => {
             <Button
               onClick={() => {
                 localStorage.clear();
-
                 setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
               }}
               sx={{
@@ -344,7 +347,6 @@ export const Profile = () => {
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   event.preventDefault(); // Prevent default action (e.g., moving to a new line)
-
                   handleAddPost(); // Invoke the function to add a post
                 }
               }}
@@ -376,7 +378,6 @@ export const Profile = () => {
             <Box
               sx={{
                 maxHeight: "580px", // Maksymalna wysokość kontenera z postami
-
                 overflowY: "auto", // Dodanie paska przewijania, gdy zawartość przekracza maksymalną wysokość
               }}
             >

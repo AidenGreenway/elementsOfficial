@@ -3,7 +3,7 @@ import aird from "../diaryImages/air/air3.jpg";
 import earthd from "../diaryImages/earth/earth4.png";
 import fired from "../diaryImages/fire/fire4.png";
 import waterd from "../diaryImages/water/water3.png";
-import YourContext from "./ElementContext";
+import YourContext from "../elementContext/ElementContext";
 
 export const ElementContextProvider = ({ children }) => {
   const [elementValues, setElementValues] = useState({
@@ -13,6 +13,7 @@ export const ElementContextProvider = ({ children }) => {
     selectedWeakness: "",
     selectedExercise: "",
     selectedStrategy: "",
+    username: "", // Dodaj username do stanu
   });
 
   const [elementImages] = useState({

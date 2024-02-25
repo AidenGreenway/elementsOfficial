@@ -8,10 +8,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import dalle from "src/assets/images/forumdall.png";
+import YourContext from "src/elementContext/ElementContext";
 
 export const FireBlog = () => {
+  const { username } = useContext(YourContext);
+
   const [blogPosts, setBlogPosts] = useState(
     JSON.parse(localStorage.getItem("fireBlogPosts")) || []
   );
@@ -64,7 +67,12 @@ export const FireBlog = () => {
   const handleAddComment = (postId) => {
     if (commentText[postId]?.trim() !== "") {
       const updatedPosts = blogPosts.map((post) =>
-        post.id === postId ? { ...post, comments: [commentText[postId], ...post.comments] } : post
+        post.id === postId
+          ? {
+              ...post,
+              comments: [`${username}: ${commentText[postId]}`, ...post.comments],
+            }
+          : post
       );
       setBlogPosts(updatedPosts);
       setCommentText({ ...commentText, [postId]: "" });
@@ -179,6 +187,9 @@ export const FireBlog = () => {
                 >
                   Add Post
                 </Button>
+                <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
+                  {username}
+                </Typography>
                 <Button
                   variant="contained"
                   onClick={handleClearData}

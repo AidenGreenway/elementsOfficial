@@ -5,78 +5,118 @@ import { useState } from "react";
 export const FireChallenge = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
+  const [resultMessage, setResultMessage] = useState("");
+
+  const roundToOneDecimalPlace = (number) => {
+    return parseFloat(number.toFixed(1));
+  };
 
   const fireQuestions = [
     {
-      question: "How do you handle challenges?",
+      question: "How do you approach challenges?",
       answers: [
-        "Avoid challenges",
-        "Deal with them reluctantly",
-        "Face them bravely",
-        "Seek challenges",
+        { text: "Confront challenges head-on", points: 4 },
+        { text: "Face challenges with determination", points: 3 },
+        { text: "Take on challenges selectively", points: 2 },
+        { text: "Avoid challenges to maintain peace", points: 1 },
       ],
     },
     {
-      question: "Are you spontaneous?",
+      question: "What is your attitude towards authority?",
       answers: [
-        "Very structured",
-        "Somewhat structured",
-        "Somewhat spontaneous",
-        "Very spontaneous",
-      ],
-    },
-    {
-      question: "Do you enjoy taking risks?",
-      answers: [
-        "Prefer safety",
-        "Take calculated risks",
-        "Enjoy moderate risks",
-        "Love taking risks",
+        { text: "Challenge authority often", points: 4 },
+        { text: "Question authority when necessary", points: 3 },
+        { text: "Respect authority but seek independence", points: 2 },
+        { text: "Follow authority without question", points: 1 },
       ],
     },
     {
       question: "How do you express your emotions?",
-      answers: ["Reserved", "Moderate", "Expressive", "Very expressive"],
+      answers: [
+        { text: "Express emotions openly and passionately", points: 4 },
+        { text: "Share emotions selectively", points: 3 },
+        { text: "Keep emotions private most of the time", points: 2 },
+        { text: "Rarely express emotions openly", points: 1 },
+      ],
     },
     {
-      question: "Are you competitive?",
-      answers: ["Not at all", "Slightly", "Moderately", "Very competitive"],
+      question: "What is your approach to competition?",
+      answers: [
+        { text: "Thrive on competition and enjoy winning", points: 4 },
+        { text: "Compete but value collaboration", points: 3 },
+        { text: "Prefer collaboration over competition", points: 2 },
+        { text: "Avoid competition and seek harmony", points: 1 },
+      ],
     },
     {
       question: "How do you handle criticism?",
       answers: [
-        "Avoid it",
-        "Take it personally",
-        "Consider it objectively",
-        "Welcome constructive criticism",
+        { text: "Welcome criticism as an opportunity to grow", points: 4 },
+        { text: "Consider criticism objectively", points: 3 },
+        { text: "Take criticism personally at times", points: 2 },
+        { text: "Avoid criticism and maintain self-assurance", points: 1 },
       ],
     },
     {
       question: "Do you enjoy leading others?",
-      answers: ["Prefer to follow", "Lead when necessary", "Enjoy leading", "Natural leader"],
-    },
-    {
-      question: "How do you approach new opportunities?",
-      answers: ["Skeptical", "Cautious", "Open-minded", "Enthusiastic"],
-    },
-    {
-      question: "Do you enjoy socializing?",
       answers: [
-        "Prefer solitude",
-        "Introverted",
-        "Extroverted with limits",
-        "Extroverted and social",
+        { text: "Natural leader, enjoy taking charge", points: 4 },
+        { text: "Lead when necessary but prefer collaboration", points: 3 },
+        { text: "Prefer to follow but can lead if needed", points: 2 },
+        { text: "Avoid leadership roles", points: 1 },
       ],
     },
     {
-      question: "How do you handle failure?",
-      answers: ["Devastated", "Disheartened", "Learn from it", "See it as a stepping stone"],
+      question: "How do you approach risk-taking?",
+      answers: [
+        { text: "Love taking bold and daring risks", points: 4 },
+        { text: "Enjoy moderate risks for potential rewards", points: 3 },
+        { text: "Prefer safety and avoid unnecessary risks", points: 2 },
+        { text: "Avoid risks to maintain stability", points: 1 },
+      ],
+    },
+    {
+      question: "What is your perspective on rules?",
+      answers: [
+        { text: "Challenge rules and seek flexibility", points: 4 },
+        { text: "Question rules when needed", points: 3 },
+        { text: "Respect rules but may bend them", points: 2 },
+        { text: "Follow rules strictly for order", points: 1 },
+      ],
+    },
+    {
+      question: "How do you approach new opportunities?",
+      answers: [
+        { text: "Embrace new opportunities with enthusiasm", points: 4 },
+        { text: "Optimistic about new opportunities", points: 3 },
+        { text: "Approach with caution and skepticism", points: 2 },
+        { text: "Avoid new opportunities to maintain stability", points: 1 },
+      ],
+    },
+    {
+      question: "What is your perspective on personal freedom?",
+      answers: [
+        { text: "Value personal freedom above all", points: 4 },
+        { text: "Appreciate personal freedom but value security", points: 3 },
+        { text: "Prefer security over excessive personal freedom", points: 2 },
+        { text: "Seek security and follow established norms", points: 1 },
+      ],
     },
   ];
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints(points + selectedPoints);
     setQuestionIndex(questionIndex + 1);
+
+    if (questionIndex === fireQuestions.length - 1) {
+      if (points >= 10 && points <= 20) {
+        setResultMessage("Keep going! You're on the right track.");
+      } else if (points >= 21 && points <= 30) {
+        setResultMessage("Great job! You have a good understanding of the Fire element.");
+      } else if (points >= 31 && points <= 40) {
+        setResultMessage("Congratulations! You are a Fire element master!");
+      }
+    }
   };
 
   const renderProgressDots = () => {
@@ -90,7 +130,7 @@ export const FireChallenge = () => {
             width: "20px",
             height: "20px",
             borderRadius: "90%",
-            backgroundColor: i <= questionIndex ? "#FF4500" : "white", // Fire element color
+            backgroundColor: i <= questionIndex ? "#FF4500" : "white",
             margin: "0 5px",
           }}
         ></span>
@@ -101,7 +141,7 @@ export const FireChallenge = () => {
 
   const renderQuestion = () => {
     if (questionIndex >= fireQuestions.length) {
-      const percentage = (points / (fireQuestions.length * 4)) * 100;
+      const percentage = roundToOneDecimalPlace((points / (fireQuestions.length * 4)) * 100);
 
       return (
         <div
@@ -129,13 +169,15 @@ export const FireChallenge = () => {
               {percentage}%
             </Typography>
           </Typography>
+          <Typography variant="h3" style={{ color: "#FF4500", marginTop: "10px" }}>
+            {resultMessage}
+          </Typography>
         </div>
       );
     }
 
     const currentQuestion = fireQuestions[questionIndex];
 
-    // Create a shuffled copy of the answers array
     const shuffledAnswers = currentQuestion.answers.slice().sort(() => Math.random() - 0.5);
 
     return (
@@ -160,7 +202,7 @@ export const FireChallenge = () => {
             {shuffledAnswers.map((answer, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
-                  onClick={() => handleAnswerSelection(index + 1)}
+                  onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
                   sx={{
                     fontSize: "200%",
@@ -171,7 +213,7 @@ export const FireChallenge = () => {
                     },
                   }}
                 >
-                  <Typography sx={{ fontSize: "90%" }}> * {answer}</Typography>
+                  <Typography sx={{ fontSize: "90%" }}> * {answer.text}</Typography>
                 </ListItemButton>
               </ListItem>
             ))}
