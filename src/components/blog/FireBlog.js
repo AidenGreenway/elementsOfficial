@@ -63,9 +63,8 @@ export const FireBlog = () => {
   const handleCommentInputChange = (postId, e) => {
     setCommentText({ ...commentText, [postId]: e.target.value });
   };
-
   const handleAddComment = (postId) => {
-    if (commentText[postId]?.trim() !== "") {
+    if (commentText[postId] !== undefined && commentText[postId].trim() !== "") {
       const updatedPosts = blogPosts.map((post) =>
         post.id === postId
           ? {
@@ -78,7 +77,6 @@ export const FireBlog = () => {
       setCommentText({ ...commentText, [postId]: "" });
     }
   };
-
   const handleClearData = () => {
     localStorage.removeItem("fireBlogPosts");
     setBlogPosts([]);
