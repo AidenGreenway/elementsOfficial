@@ -70,7 +70,7 @@ export const FireBlog = () => {
         post.id === postId
           ? {
               ...post,
-              comments: [`${username}:d ${commentText[postId]}`, ...post.comments],
+              comments: [`${username}: ${commentText[postId]}`, ...post.comments],
             }
           : post
       );
@@ -249,7 +249,7 @@ export const FireBlog = () => {
                         },
                       }}
                     >
-                      Ingerete
+                      comments
                     </Button>
                   </Box>
                   <Card
@@ -275,7 +275,22 @@ export const FireBlog = () => {
                     }}
                   >
                     <CardHeader
-                      title={post.title}
+                      title={
+                        <>
+                          <Typography
+                            variant="body2"
+                            color="white"
+                            sx={{
+                              fontSize: "14px", // dostosuj wielkość czcionki według potrzeb
+                              display: "block",
+                              marginBottom: "4px", // dostosuj odstęp według potrzeb
+                            }}
+                          >
+                            {username}
+                          </Typography>
+                          {post.title}
+                        </>
+                      }
                       sx={{
                         color: "red",
                         textAlign: "left",

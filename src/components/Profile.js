@@ -81,7 +81,13 @@ export const Profile = () => {
     setPosts(updatedPosts);
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
-
+  useEffect(() => {
+    console.log("useEffect for element, year, username, description");
+    localStorage.setItem("element", element);
+    localStorage.setItem("year", year);
+    localStorage.setItem("username", username);
+    localStorage.setItem("description", description);
+  }, [element, year, username, description]);
   useEffect(() => {
     localStorage.setItem("element", element);
     localStorage.setItem("year", year);
@@ -109,6 +115,8 @@ export const Profile = () => {
         break;
       case "username":
         setUsername(value);
+        setElementInfo({ username: value }); // Update the context with the new username
+
         break;
       default:
         break;
@@ -137,7 +145,6 @@ export const Profile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setElementInfo({ username }); // Update the context with the new username
 
     setActiveSection("tablica");
   };
