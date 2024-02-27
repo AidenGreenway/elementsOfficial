@@ -61,14 +61,13 @@ export const AirBlog = () => {
   const handleCommentInputChange = (postId, e) => {
     setCommentText({ ...commentText, [postId]: e.target.value });
   };
-
   const handleAddComment = (postId) => {
-    if (commentText[postId]?.trim() !== "") {
+    if (commentText[postId] !== undefined && commentText[postId].trim() !== "") {
       const updatedPosts = blogPosts.map((post) =>
         post.id === postId
           ? {
               ...post,
-              comments: [`${username || "Guest"}: ${commentText[postId]}`, ...post.comments],
+              comments: [`${username}: ${commentText[postId]}`, ...post.comments],
             }
           : post
       );
