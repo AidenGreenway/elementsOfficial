@@ -14,7 +14,7 @@ import YourContext from "src/elementContext/ElementContext";
 
 export const FireBlog = () => {
   const { username } = useContext(YourContext);
-
+  console.log(username); // Sprawdź, czy username jest widoczne w konsoli
   const [blogPosts, setBlogPosts] = useState(
     JSON.parse(localStorage.getItem("fireBlogPosts")) || []
   );

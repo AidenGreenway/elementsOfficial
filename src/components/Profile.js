@@ -81,18 +81,13 @@ export const Profile = () => {
     setPosts(updatedPosts);
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
-  useEffect(() => {
-    console.log("useEffect for element, year, username, description");
-    localStorage.setItem("element", element);
-    localStorage.setItem("year", year);
-    localStorage.setItem("username", username);
-    localStorage.setItem("description", description);
-  }, [element, year, username, description]);
+
   useEffect(() => {
     localStorage.setItem("element", element);
     localStorage.setItem("year", year);
     localStorage.setItem("username", username);
     localStorage.setItem("description", description);
+    setElementInfo({ username: username }); // Dodaj username do kontekstu przy każdej zmianie
   }, [element, year, username, description]);
 
   useEffect(() => {

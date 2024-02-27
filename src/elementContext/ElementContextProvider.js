@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import aird from "../diaryImages/air/air3.jpg";
 import earthd from "../diaryImages/earth/earth4.png";
 import fired from "../diaryImages/fire/fire4.png";
@@ -13,7 +13,7 @@ export const ElementContextProvider = ({ children }) => {
     selectedWeakness: "",
     selectedExercise: "",
     selectedStrategy: "",
-    username: "", // Dodaj username do stanu
+    username: localStorage.getItem("username") || "", // Pobierz username z localStorage
   });
 
   const [elementImages] = useState({
@@ -22,6 +22,9 @@ export const ElementContextProvider = ({ children }) => {
     air: aird,
     earth: earthd,
   });
+  useEffect(() => {
+    console.log("Username from context:", elementValues.username);
+  }, [elementValues.username]);
 
   const setElementIcon = (element) => {
     setElementValues((prevValues) => ({ ...prevValues, yourValue: element }));
