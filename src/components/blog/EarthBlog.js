@@ -252,7 +252,7 @@ export const EarthBlog = () => {
                         },
                       }}
                     >
-                      Ingerete
+                      comments
                     </Button>
                   </Box>
                   <Card

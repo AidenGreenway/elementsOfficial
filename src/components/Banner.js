@@ -124,6 +124,7 @@ export const Banner = () => {
     <Box
       sx={{
         transition: "opacity 0.5s ease-in-out", // Smooth transition for opacity
+        overflow: "hidden", // Ukryj overflow
       }}
     >
       <Box

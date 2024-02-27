@@ -130,7 +130,7 @@ export const FireChallenge = () => {
 
   const renderProgressDots = () => {
     return (
-      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+      <Box position="fixed" bottom="20px" left="45%" transform="translateX(-50%)">
         {fireQuestions.map((_, index) => (
           <span
             key={index}
