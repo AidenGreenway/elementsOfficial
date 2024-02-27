@@ -8,10 +8,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import dalle from "src/assets/images/forumdall.png";
+import YourContext from "src/elementContext/ElementContext";
 
 export const EarthBlog = () => {
+  const { username } = useContext(YourContext);
   const [blogPosts, setBlogPosts] = useState(
     JSON.parse(localStorage.getItem("earthBlogPosts")) || []
   );
@@ -34,7 +36,6 @@ export const EarthBlog = () => {
     const { name, value } = e.target;
     setNewPost({ ...newPost, [name]: value });
   };
-
   const handlePostSubmit = () => {
     if (newPost.title.trim() !== "" && newPost.content.trim() !== "") {
       const currentDate = new Date().toISOString().slice(0, 10);
@@ -64,7 +65,12 @@ export const EarthBlog = () => {
   const handleAddComment = (postId) => {
     if (commentText[postId]?.trim() !== "") {
       const updatedPosts = blogPosts.map((post) =>
-        post.id === postId ? { ...post, comments: [commentText[postId], ...post.comments] } : post
+        post.id === postId
+          ? {
+              ...post,
+              comments: [`${username || "Guest"}: ${commentText[postId]}`, ...post.comments],
+            }
+          : post
       );
       setBlogPosts(updatedPosts);
       setCommentText({ ...commentText, [postId]: "" });
@@ -272,7 +278,22 @@ export const EarthBlog = () => {
                     }}
                   >
                     <CardHeader
-                      title={post.title}
+                      title={
+                        <>
+                          <Typography
+                            variant="body2"
+                            color="white"
+                            sx={{
+                              fontSize: "14px", // dostosuj wielkość czcionki według potrzeb
+                              display: "block",
+                              marginBottom: "4px", // dostosuj odstęp według potrzeb
+                            }}
+                          >
+                            {username}
+                          </Typography>
+                          {post.title}
+                        </>
+                      }
                       sx={{
                         color: "limeGreen",
                         textAlign: "left",

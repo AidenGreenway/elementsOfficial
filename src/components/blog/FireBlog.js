@@ -176,27 +176,24 @@ export const FireBlog = () => {
                   onClick={handlePostSubmit}
                   sx={{
                     backgroundColor: "black",
-                    color: "red",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "red",
+                      color: "lightGreen",
+                      backgroundColor: "black",
                     },
                   }}
                 >
                   Add Post
                 </Button>
-                <Typography sx={{ fontFamily: "The Next Font", fontSize: "30px" }}>
-                  {username}
-                </Typography>
                 <Button
                   variant="contained"
                   onClick={handleClearData}
                   sx={{
                     backgroundColor: "black",
-                    color: "red",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "red",
+                      color: "red",
+                      backgroundColor: "black",
                     },
                   }}
                 >

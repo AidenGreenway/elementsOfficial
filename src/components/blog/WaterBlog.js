@@ -8,10 +8,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import dalle from "src/assets/images/forumdall.png";
+import YourContext from "src/elementContext/ElementContext";
 
 export const WaterBlog = () => {
+  const { username } = useContext(YourContext);
   const [blogPosts, setBlogPosts] = useState(
     JSON.parse(localStorage.getItem("waterBlogPosts")) || []
   );
@@ -64,7 +66,12 @@ export const WaterBlog = () => {
   const handleAddComment = (postId) => {
     if (commentText[postId]?.trim() !== "") {
       const updatedPosts = blogPosts.map((post) =>
-        post.id === postId ? { ...post, comments: [commentText[postId], ...post.comments] } : post
+        post.id === postId
+          ? {
+              ...post,
+              comments: [`${username || "Guest"}: ${commentText[postId]}`, ...post.comments],
+            }
+          : post
       );
       setBlogPosts(updatedPosts);
       setCommentText({ ...commentText, [postId]: "" });
@@ -170,10 +177,10 @@ export const WaterBlog = () => {
                   onClick={handlePostSubmit}
                   sx={{
                     backgroundColor: "black",
-                    color: "blue",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "blue",
+                      color: "lightGreen",
+                      backgroundColor: "black",
                     },
                   }}
                 >
@@ -184,10 +191,10 @@ export const WaterBlog = () => {
                   onClick={handleClearData}
                   sx={{
                     backgroundColor: "black",
-                    color: "blue",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "blue",
+                      color: "red",
+                      backgroundColor: "black",
                     },
                   }}
                 >
@@ -264,7 +271,22 @@ export const WaterBlog = () => {
                     }}
                   >
                     <CardHeader
-                      title={post.title}
+                      title={
+                        <>
+                          <Typography
+                            variant="body2"
+                            color="white"
+                            sx={{
+                              fontSize: "14px", // dostosuj wielkość czcionki według potrzeb
+                              display: "block",
+                              marginBottom: "4px", // dostosuj odstęp według potrzeb
+                            }}
+                          >
+                            {username}
+                          </Typography>
+                          {post.title}
+                        </>
+                      }
                       sx={{
                         color: "blue",
                         textAlign: "left",
@@ -298,7 +320,7 @@ export const WaterBlog = () => {
                                 backgroundColor: "rgba(255, 255, 255, 0.1)",
                               },
                               "& input": {
-                                color: "#000",
+                                color: "white",
                               },
                             }}
                           />
@@ -315,7 +337,7 @@ export const WaterBlog = () => {
                               onClick={() => handleAddComment(post.id)}
                               sx={{
                                 backgroundColor: "transparent",
-                                color: "green",
+                                color: "lightBlue",
                                 marginLeft: "auto",
                                 "&:hover": {
                                   color: "limeGreen",
