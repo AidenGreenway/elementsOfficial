@@ -69,13 +69,17 @@
 }
 /* app.css */
 .drawerOpen .course-modules {
-  transition: margin-left 0.2s;
-  margin-left: 240px; /* Szerokość otwartego Drawer'a */
+  /* margin-left: 240px; */
+  /* margin-top: 10px; Przykładowy margines górnego obszaru */
+  /* padding: 20px; Przykładowy padding dla .course-modules */
+  /* transition: margin-left 0.2s; */
 }
 
 .drawerClosed .course-modules {
-  transition: margin-left 0.2s;
-  margin-left: 0; /* Szerokość zamkniętego Drawer'a */
+  /* margin-left: 0;
+  margin-top: 0;
+  padding: 0; */
+  /* transition: margin-left 0.2s; */
 }
 .white-text {
   color: white;
@@ -104,4 +108,3 @@
 .burnButton:hover + .fireAnimation {
   display: block;
 }
-

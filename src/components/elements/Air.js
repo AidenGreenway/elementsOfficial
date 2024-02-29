@@ -290,7 +290,7 @@ export const Air = () => {
 };
 
 const DetailView = ({ title, content }) => (
-  <Box sx={{ marginTop: 2, padding: 2 }}>
+  <Box sx={{ marginTop: 0, padding: 1 }}>
     <Typography
       sx={{
         fontSize: "25px",

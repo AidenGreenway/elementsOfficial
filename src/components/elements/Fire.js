@@ -25,7 +25,7 @@ export const Fire = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   // Utwórz nowy stan do zarządzania widocznością sekcji akordeonów
-  const [sectionVisibility, setSectionVisibility] = useState(Array(5).fill(false));
+  const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
     setSelectedZodiacSign(null);
@@ -72,12 +72,12 @@ export const Fire = () => {
     });
   };
 
-  const handleAccordionChange = (index) => {
-    const newVisibility = sectionVisibility.map((visibility, i) =>
-      i === index ? !visibility : visibility
-    );
-    setSectionVisibility(newVisibility);
-  };
+  // const handleAccordionChange = (index) => {
+  //   const newVisibility = sectionVisibility.map((visibility, i) =>
+  //     i === index ? !visibility : visibility
+  //   );
+  //   setSectionVisibility(newVisibility);
+  // };
 
   const listItemStyle = {
     color: "#9C0808",
@@ -97,8 +97,11 @@ export const Fire = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
 
-    // Zaktualizuj widoczność wszystkich sekcji akordeonów
-    setSectionVisibility(Array(5).fill(newIndex === 1));
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
   };
 
   useEffect(() => {
@@ -222,7 +225,7 @@ export const Fire = () => {
         <Accordion
           sx={{ backgroundColor: "transparent" }}
           id="fire-panel1a-header"
-          expanded={sectionVisibility[(0, 1, 2, 3, 4)]}
+          expanded={isFirstSectionVisible}
           onClick={handleChangeText}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="fire-panel1a-content">
@@ -234,19 +237,19 @@ export const Fire = () => {
                 fire
               </Typography>
               <Typography
-                // key={null}
+                key={currentTextIndex}
                 className={`animate__animated animate__backInLeft ${texts[
                   currentTextIndex
                 ].toLowerCase()}`}
                 sx={{
                   color: "white",
                   fontSize: "18px",
-                  marginTop: "-9%",
+                  marginTop: "-10%",
                   marginLeft: "-80%",
                   cursor: "pointer",
-                  transition: "font-size 0.25s ease",
+                  transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
                   "&:hover": {
-                    fontSize: "20px",
+                    fontSize: "20px", // Adjust the larger font size on hover
                     color: "#ea5455",
                   },
                 }}
@@ -257,7 +260,7 @@ export const Fire = () => {
             </Box>
           </AccordionSummary>
 
-          {sectionVisibility[0] && (
+          {isFirstSectionVisible && (
             <AccordionDetails>
               <Typography
                 sx={{ maxWidth: "90%", marginBottom: "20px", color: "#DC143C", fontSize: "16px" }}
@@ -274,8 +277,6 @@ export const Fire = () => {
             key={index}
             sx={{ backgroundColor: "transparent" }}
             id={`fire-panel${index}a-header`}
-            expanded={sectionVisibility[index]}
-            onChange={() => handleAccordionChange(index)}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}

@@ -361,7 +361,7 @@ export const WaterBlog = () => {
                               variant="body2"
                               color="text.secondary"
                               sx={{
-                                color: "black",
+                                color: "white",
                                 textAlign: "left",
                                 borderBottom: "1px solid #3498db",
                                 paddingBottom: 1,

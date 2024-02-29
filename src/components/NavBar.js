@@ -1,6 +1,7 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Button, Drawer, List, ListItem, ListItemIcon, ListItemText, styled } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import YourContext from "src/elementContext/ElementContext";
@@ -77,17 +78,40 @@ export const NavBar = () => {
             <ArrowBackIcon />
           </Button>
         </ListItem>
-
         {menuItems.map((item) => (
           <ListItem
             button
-            component={Link}
-            to={`/${item.path}`}
-            onClick={() => setSelectedItem(item.name)} // Aktualizuj stan po kliknięciu
-            sx={getHoverStyle(item.name, selectedItem)}
             key={item.name}
+            onMouseEnter={() => {
+              if (
+                item.name === "Profile" &&
+                !elementImages?.[yourValue] &&
+                selectedItem !== "Profile"
+              ) {
+                console.log("put your birthday first");
+              }
+            }}
+            onClick={() => {
+              if (item.name === "Profile" && !elementImages?.[yourValue]) {
+                return;
+              }
+              setSelectedItem(item.name);
+              navigate(`/${item.path}`);
+            }}
+            sx={getHoverStyle(item.name, selectedItem)}
           >
-            <ListItemText primary={item.name} />
+            {item.name === "Profile" ? (
+              <Tooltip
+                title={!elementImages?.[yourValue] ? "put your birthday first" : ""}
+                placement="bottom"
+              >
+                <ListItemText primary={item.name} />
+              </Tooltip>
+            ) : (
+              <Link to={`/${item.path}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <ListItemText primary={item.name} />
+              </Link>
+            )}
           </ListItem>
         ))}
 

@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ const StyledListItemButton = styled(ListItemButton)({
 });
 
 export const EarthChallenge = () => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [resultMessage, setResultMessage] = useState("");
@@ -112,7 +113,6 @@ export const EarthChallenge = () => {
       ],
     },
   ];
-
   const handleAnswerSelection = (selectedPoints) => {
     setPoints((prevPoints) => prevPoints + selectedPoints);
     setQuestionIndex((prevIndex) => prevIndex + 1);
@@ -130,15 +130,20 @@ export const EarthChallenge = () => {
 
   const renderProgressDots = () => {
     return (
-      <Box position="fixed" bottom="20px" left="45%" transform="translateX(-50%)">
+      <Box
+        position="fixed"
+        bottom={isSmallScreen ? "10px" : "20px"}
+        left="50%"
+        transform="translateX(-50%)"
+      >
         {earthQuestions.map((_, index) => (
           <span
             key={index}
             style={{
               display: "inline-block",
-              width: "20px",
-              height: "20px",
-              borderRadius: "90%",
+              width: "10px", // Zmniejszenie szerokości kropki
+              height: "10px", // Zmniejszenie wysokości kropki
+              borderRadius: "50%", // Okrągłe kropki
               backgroundColor: index <= questionIndex ? "#097969" : "white",
               margin: "0 5px",
             }}
@@ -190,7 +195,7 @@ export const EarthChallenge = () => {
 
     return (
       <Box
-        marginTop="70px"
+        marginTop={isSmallScreen ? "20px" : "70px"}
         marginLeft="0px"
         textAlign="left"
         color="white"

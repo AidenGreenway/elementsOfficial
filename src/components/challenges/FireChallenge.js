@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
 
@@ -12,6 +12,8 @@ const StyledListItemButton = styled(ListItemButton)({
 });
 
 export const FireChallenge = () => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [resultMessage, setResultMessage] = useState("");
@@ -19,7 +21,6 @@ export const FireChallenge = () => {
   const roundToOneDecimalPlace = (number) => {
     return parseFloat(number.toFixed(1));
   };
-
   const fireQuestions = [
     {
       question: "How do you approach challenges?",
@@ -136,11 +137,11 @@ export const FireChallenge = () => {
             key={index}
             style={{
               display: "inline-block",
-              width: "20px",
-              height: "20px",
+              width: "10px", // Zmniejszyłem szerokość kropek
+              height: "10px", // Zmniejszyłem wysokość kropek
               borderRadius: "90%",
               backgroundColor: index <= questionIndex ? "#D70040" : "white",
-              margin: "0 5px",
+              margin: isSmallScreen ? "0 2px" : "0 5px",
             }}
           ></span>
         ))}
@@ -190,7 +191,7 @@ export const FireChallenge = () => {
 
     return (
       <Box
-        marginTop="70px"
+        marginTop={isSmallScreen ? "20px" : "70px"}
         marginLeft="0px"
         textAlign="left"
         color="white"

@@ -1,7 +1,8 @@
-import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
 
+// StyledListItemButton - Komponent stylizowany z MUI
 const StyledListItemButton = styled(ListItemButton)({
   fontSize: "200%",
   "&:hover": {
@@ -10,10 +11,16 @@ const StyledListItemButton = styled(ListItemButton)({
   },
 });
 
+// Komponent główny
 export const AirChallenge = () => {
+  // Sprawdza, czy ekran jest mały
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
+  // Stan komponentu
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
 
+  // Funkcja zaokrąglająca liczbę do jednego miejsca po przecinku
   const roundToOneDecimalPlace = (number) => {
     return parseFloat(number.toFixed(1));
   };
@@ -110,24 +117,27 @@ export const AirChallenge = () => {
       ],
     },
   ];
+
+  // Obsługa wyboru odpowiedzi
   const handleAnswerSelection = (selectedPoints) => {
     setPoints((prevPoints) => prevPoints + selectedPoints);
     setQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
+  // Rysowanie kropek postępu
   const renderProgressDots = () => {
     return (
-      <Box position="fixed" bottom="20px" left="45%" transform="translateX(-50%)">
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
         {airQuestions.map((_, index) => (
           <span
             key={index}
             style={{
               display: "inline-block",
-              width: "20px",
-              height: "20px",
+              width: "10px",
+              height: "10px",
               borderRadius: "90%",
-              backgroundColor: index <= questionIndex ? "#00BFFF" : "white", // Air element color
-              margin: "0 5px",
+              backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
+              margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
             }}
           ></span>
         ))}
@@ -135,6 +145,7 @@ export const AirChallenge = () => {
     );
   };
 
+  // Rysowanie pytania
   const renderQuestion = () => {
     if (questionIndex >= airQuestions.length) {
       const percentage = roundToOneDecimalPlace((points / (airQuestions.length * 4)) * 100);
@@ -188,7 +199,7 @@ export const AirChallenge = () => {
 
     return (
       <Box
-        marginTop="70px"
+        marginTop={isSmallScreen ? "20px" : "70px"} // Dostosowuje margines dla mniejszych ekranów
         marginLeft="0px"
         textAlign="left"
         color="white"
@@ -219,12 +230,54 @@ export const AirChallenge = () => {
     );
   };
 
+  // Renderowanie komponentu
   return (
     <Box backgroundColor="black" position="relative">
       {renderQuestion()}
-      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+      <Box
+        position="fixed"
+        bottom={isSmallScreen ? "10px" : "20px"}
+        left="50%"
+        transform="translateX(-50%)"
+      >
         {renderProgressDots()}
       </Box>
     </Box>
   );
 };
+
+return (
+  <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+    {waterQuestions.map((_, index) => (
+      <span
+        key={index}
+        style={{
+          display: "inline-block",
+          width: isSmallScreen ? "10px" : "20px", // Zmniejszenie szerokości kropki
+          height: isSmallScreen ? "10px" : "20px", // Zmniejszenie wysokości kropki
+          borderRadius: "50%",
+          backgroundColor: index <= questionIndex ? "#1E90FF" : "white", // Kolor elementu Wody
+          margin: "0 5px",
+        }}
+      ></span>
+    ))}
+  </Box>
+);
+
+return (
+  <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
+    {airQuestions.map((_, index) => (
+      <span
+        key={index}
+        style={{
+          display: "inline-block",
+          width: "10px",
+          height: "10px",
+          borderRadius: "90%",
+          backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
+          margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
+        }}
+      ></span>
+    ))}
+  </Box>
+);

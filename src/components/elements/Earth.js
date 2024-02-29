@@ -185,6 +185,8 @@ export const Earth = () => {
             top: 0,
             right: 0,
             padding: 2,
+            margin: "0 10px 10px 0", // Format: top right bottom left
+
             maxWidth: "20%",
             textAlign: "right",
           }}
@@ -195,6 +197,8 @@ export const Earth = () => {
               border: "1px white solid",
               color: "#00ff7f",
               backgroundColor: "none",
+              marginTop: "-5px",
+
               "&:hover": {
                 backgroundColor: "#00ff7f",
                 color: "black",
@@ -203,11 +207,13 @@ export const Earth = () => {
           >
             Reset
           </Button>
-          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-          <DetailView title="Strength" content={selectedStrength || "-"} />
-          <DetailView title="Weakness" content={selectedWeakness || "-"} />
-          <DetailView title="Exercise" content={selectedExercise || "-"} />
-          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          <Box sx={{ marginBottom: "4%" }}>
+            <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
+            <DetailView title="Strength" content={selectedStrength || "-"} />
+            <DetailView title="Weakness" content={selectedWeakness || "-"} />
+            <DetailView title="Exercise" content={selectedExercise || "-"} />
+            <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          </Box>
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>
@@ -220,7 +226,7 @@ export const Earth = () => {
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography
                 className="animate__animated animate__bounceInDown"
-                sx={{ fontSize: "220px", color: "#00ff7f", textAlign: "", marginTop: "-7%" }}
+                sx={{ fontSize: "220px", color: "#00ff7f", textAlign: "left", marginTop: "-4%" }}
               >
                 earth
               </Typography>
@@ -294,7 +300,7 @@ export const Earth = () => {
 };
 
 const DetailView = ({ title, content }) => (
-  <Box sx={{ marginTop: 2, padding: 2 }}>
+  <Box sx={{ marginTop: 2, padding: 1 }}>
     <Typography
       sx={{
         fontSize: "25px",

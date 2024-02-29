@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
+import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
 
@@ -12,6 +12,8 @@ const StyledListItemButton = styled(ListItemButton)({
 });
 
 export const WaterChallenge = () => {
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
 
@@ -119,17 +121,17 @@ export const WaterChallenge = () => {
 
   const renderProgressDots = () => {
     return (
-      <Box position="fixed" bottom="20px" left="45%" transform="translateX(-50%)">
+      <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
         {waterQuestions.map((_, index) => (
           <span
             key={index}
             style={{
               display: "inline-block",
-              width: "20px",
-              height: "20px",
+              width: "10px",
+              height: "10px",
               borderRadius: "90%",
-              backgroundColor: index <= questionIndex ? "#4682B4" : "white", // Water element color
-              margin: "0 5px",
+              backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
+              margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
             }}
           ></span>
         ))}
@@ -168,13 +170,13 @@ export const WaterChallenge = () => {
         >
           <Typography variant="h3" style={{ color: "#4682B4" }}>
             Your score for the Water element:
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "#1E90FF" }}>
               {points} / {waterQuestions.length * 4}
             </Typography>
           </Typography>
           <Typography variant="h3" style={{ color: "#4682B4", marginTop: "10px" }}>
             Your integration with the element:{" "}
-            <Typography variant="h2" sx={{ color: "white" }}>
+            <Typography variant="h2" sx={{ color: "#1E90FF" }}>
               {percentage}%
             </Typography>
           </Typography>
@@ -211,7 +213,10 @@ export const WaterChallenge = () => {
                   onClick={() => handleAnswerSelection(answer.points)}
                   fullWidth
                 >
-                  <Typography style={{ fontSize: "90%" }}> * {answer.text}</Typography>
+                  <Typography style={{ fontSize: isSmallScreen ? "70%" : "90%" }}>
+                    {" "}
+                    * {answer.text}
+                  </Typography>
                 </StyledListItemButton>
               </ListItem>
             ))}
