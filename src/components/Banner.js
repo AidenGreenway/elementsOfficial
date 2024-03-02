@@ -38,6 +38,8 @@ export const Banner = () => {
   const navigate = useNavigate();
   const goToProfile = () => {
     setElementIcon(astroElement);
+    localStorage.setItem("selectedElement", astroElement);
+
     navigate(`/dashboard/profile?element=${astroElement}`);
   };
 

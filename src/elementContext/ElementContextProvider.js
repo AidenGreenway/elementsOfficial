@@ -15,7 +15,15 @@ export const ElementContextProvider = ({ children }) => {
     selectedStrategy: "",
     username: localStorage.getItem("username") || "", // Pobierz username z localStorage
   });
+  useEffect(() => {
+    // Pobierz wybrany element z pamięci lokalnej
+    const storedElement = localStorage.getItem("selectedElement");
 
+    // Jeśli jest zapisany, ustaw go jako ikonę
+    if (storedElement) {
+      setElementIcon(storedElement);
+    }
+  }, []);
   const [elementImages] = useState({
     fire: fired,
     water: waterd,

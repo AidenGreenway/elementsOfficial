@@ -69,7 +69,10 @@ export const Profile = () => {
   const [year, setYear] = useState(localStorage.getItem("year") || "");
   const [selectedColor, setSelectedColor] = useState(ElementColors[element][0]);
   const [selectedAvatarColor, setSelectedAvatarColor] = useState(ElementColors[element][0]);
-  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(
+    localStorage.getItem("selectedAvatarIndex") || 3
+  );
+
   const [description, setDescription] = useState(localStorage.getItem("description") || "");
   const [username, setUsername] = useState(localStorage.getItem("username") || "Aiden Greenway");
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
@@ -81,14 +84,22 @@ export const Profile = () => {
     setPosts(updatedPosts);
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
+  useEffect(() => {
+    localStorage.setItem("selectedZodiacSign", selectedZodiacSign);
+    localStorage.setItem("selectedStrength", selectedStrength);
+    localStorage.setItem("selectedWeakness", selectedWeakness);
+    localStorage.setItem("selectedExercise", selectedExercise);
+    localStorage.setItem("selectedStrategy", selectedStrategy);
+  }, [selectedZodiacSign, selectedStrength, selectedWeakness, selectedExercise, selectedStrategy]);
 
   useEffect(() => {
+    localStorage.setItem("selectedAvatarIndex", selectedAvatarIndex);
     localStorage.setItem("element", element);
     localStorage.setItem("year", year);
     localStorage.setItem("username", username);
     localStorage.setItem("description", description);
     setElementInfo({ username: username }); // Dodaj username do kontekstu przy każdej zmianie
-  }, [element, year, username, description]);
+  }, [element, year, username, description, selectedAvatarIndex]);
 
   useEffect(() => {
     localStorage.setItem("posts", JSON.stringify(posts));
@@ -110,10 +121,12 @@ export const Profile = () => {
         break;
       case "username":
         setUsername(value);
-        setElementInfo({ username: value }); // Update the context with the new username
-
-        break;
-      default:
+        setElementInfo({ username: value });
+        //   break;
+        // case "selectedAvatarIndex": // Dodane obsługi selectedAvatarIndex
+        //   setSelectedAvatarIndex(value);
+        //   break;
+        // default:
         break;
     }
   };
@@ -123,7 +136,6 @@ export const Profile = () => {
     setElement(selectedElement);
     setSelectedColor(ElementColors[selectedElement][0]);
     setSelectedAvatarColor(ElementColors[selectedElement][0]);
-    setSelectedAvatarIndex(0); // Reset indeksu obrazka
   };
 
   const handleNewPostChange = (event) => {
@@ -239,10 +251,12 @@ export const Profile = () => {
               </Select>
             </FormControl>
 
-            <FormControl fullWidth size="small" sx={{ backgroundColor: "black" }}>
-              <InputLabel id="avatar-label" style={{ color: "white" }}>
-                choose icon
-              </InputLabel>
+            <FormControl
+              fullWidth
+              size="small"
+              sx={{ backgroundColor: "black", "& .MuiSelect-root": { borderColor: "white" } }}
+            >
+              <InputLabel id="avatar-label" style={{ color: "white" }}></InputLabel>
 
               <Select
                 labelId="avatar-label"
@@ -259,12 +273,17 @@ export const Profile = () => {
                   "& .MuiOutlinedInput-notchedOutline": {
                     borderColor: "white",
                   },
+
+                  "&:hover": {
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "white !important",
+                    },
+                  },
                 }}
                 MenuProps={{
                   PaperProps: {
                     style: {
                       backgroundColor: "black",
-
                       color: "white",
                     },
                   },

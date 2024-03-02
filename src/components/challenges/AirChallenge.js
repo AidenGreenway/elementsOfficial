@@ -245,39 +245,3 @@ export const AirChallenge = () => {
     </Box>
   );
 };
-
-return (
-  <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
-    {waterQuestions.map((_, index) => (
-      <span
-        key={index}
-        style={{
-          display: "inline-block",
-          width: isSmallScreen ? "10px" : "20px", // Zmniejszenie szerokości kropki
-          height: isSmallScreen ? "10px" : "20px", // Zmniejszenie wysokości kropki
-          borderRadius: "50%",
-          backgroundColor: index <= questionIndex ? "#1E90FF" : "white", // Kolor elementu Wody
-          margin: "0 5px",
-        }}
-      ></span>
-    ))}
-  </Box>
-);
-
-return (
-  <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
-    {airQuestions.map((_, index) => (
-      <span
-        key={index}
-        style={{
-          display: "inline-block",
-          width: "10px",
-          height: "10px",
-          borderRadius: "90%",
-          backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
-          margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
-        }}
-      ></span>
-    ))}
-  </Box>
-);
