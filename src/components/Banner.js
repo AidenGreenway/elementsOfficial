@@ -44,9 +44,6 @@ export const Banner = () => {
   };
 
   const handleClick = (element) => {
-    // setHoveredElement(element);
-    // setElementIcon(element);
-
     switch (element) {
       case "fire":
         navigate("/dashboard/courseModules/fire");
@@ -176,14 +173,10 @@ export const Banner = () => {
                     onChange={(e) => setBirthDate((prev) => ({ ...prev, day: e.target.value }))}
                     placeholder="day"
                     margin="normal"
-                    InputLabelProps={{
-                      style: { color: "red" },
-                    }}
                     InputProps={{
                       style: {
                         color: "#fff",
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "#fff",
                       },
                     }}
                     sx={{
@@ -207,14 +200,10 @@ export const Banner = () => {
                     onChange={(e) => setBirthDate((prev) => ({ ...prev, month: e.target.value }))}
                     placeholder="month"
                     margin="dense"
-                    InputLabelProps={{
-                      style: { color: "#fff" },
-                    }}
                     InputProps={{
                       style: {
                         color: "#fff",
                         backgroundColor: "rgba(255, 255, 255, 0.1)",
-                        borderColor: "#fff",
                         marginTop: "-10px",
                       },
                     }}
@@ -240,7 +229,6 @@ export const Banner = () => {
                     sx={{
                       display: elementSelected ? "none" : "block", // Ukryj guzik, jeśli element został już wybrany
                       textAlign: "center",
-                      right: 0,
                       bottom: -10,
                       color: "white",
                       border: "1px solid white",

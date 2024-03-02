@@ -8,11 +8,11 @@ import YourContext from "../elementContext/ElementContext";
 export const ElementContextProvider = ({ children }) => {
   const [elementValues, setElementValues] = useState({
     yourValue: "",
-    selectedZodiacSign: "",
-    selectedStrength: "",
-    selectedWeakness: "",
-    selectedExercise: "",
-    selectedStrategy: "",
+    selectedZodiacSign: localStorage.getItem("selectedZodiacSign") || "",
+    selectedStrength: localStorage.getItem("selectedStrength") || "",
+    selectedWeakness: localStorage.getItem("selectedWeakness") || "",
+    selectedExercise: localStorage.getItem("selectedExercise") || "",
+    selectedStrategy: localStorage.getItem("selectedStrategy") || "",
     username: localStorage.getItem("username") || "", // Pobierz username z localStorage
   });
   useEffect(() => {
