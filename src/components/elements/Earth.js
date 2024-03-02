@@ -207,13 +207,11 @@ export const Earth = () => {
           >
             Reset
           </Button>
-          <Box sx={{ marginBottom: "4%" }}>
-            <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-            <DetailView title="Strength" content={selectedStrength || "-"} />
-            <DetailView title="Weakness" content={selectedWeakness || "-"} />
-            <DetailView title="Exercise" content={selectedExercise || "-"} />
-            <DetailView title="Strategy" content={selectedStrategy || "-"} />
-          </Box>
+          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={selectedStrength || "-"} />
+          <DetailView title="Weakness" content={selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={selectedExercise || "-"} />
+          <DetailView title="Strategy" content={selectedStrategy || "-"} />
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>

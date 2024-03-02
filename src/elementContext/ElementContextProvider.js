@@ -30,9 +30,6 @@ export const ElementContextProvider = ({ children }) => {
     air: aird,
     earth: earthd,
   });
-  useEffect(() => {
-    console.log("Username from context:", elementValues.username);
-  }, [elementValues.username]);
 
   const setElementIcon = (element) => {
     setElementValues((prevValues) => ({ ...prevValues, yourValue: element }));

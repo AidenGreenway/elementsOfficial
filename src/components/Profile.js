@@ -47,7 +47,7 @@ const ElementColors = {
   fire: ["#FF3131"],
   water: ["#1F51FF"],
   air: ["#ADD8E6"],
-  earth: ["#009E60"],
+  earth: ["limeGreen"],
 };
 
 export const Profile = () => {
@@ -112,6 +112,9 @@ export const Profile = () => {
   const handleInputChange = (event, inputType) => {
     const value = event.target.value;
 
+    const MAX_USERNAME_LENGTH = 14;
+    let truncatedValue;
+
     switch (inputType) {
       case "year":
         setYear(value);
@@ -120,13 +123,10 @@ export const Profile = () => {
         setDescription(value);
         break;
       case "username":
-        setUsername(value);
-        setElementInfo({ username: value });
-        //   break;
-        // case "selectedAvatarIndex": // Dodane obsługi selectedAvatarIndex
-        //   setSelectedAvatarIndex(value);
-        //   break;
-        // default:
+        truncatedValue = value.slice(0, MAX_USERNAME_LENGTH);
+        setUsername(truncatedValue);
+        setElementInfo({ username: truncatedValue });
+
         break;
     }
   };
@@ -150,11 +150,11 @@ export const Profile = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
 
-    setActiveSection("tablica");
-  };
+  //   setActiveSection("tablica");
+  // };
 
   const renderRightSection = () => {
     switch (activeSection) {
@@ -311,24 +311,6 @@ export const Profile = () => {
                 ))}
               </Select>
             </FormControl>
-
-            <Button
-              onClick={handleSubmit}
-              sx={{
-                border: "1px white solid",
-                marginTop: 2,
-                width: "15%",
-                margin: "0px auto",
-                color: "white",
-                backgroundColor: "none", // Brak koloru tła
-                "&:hover": {
-                  backgroundColor: "none", // Tło pozostaje bez zmian
-                  color: "#00e676", // Zmiana koloru ikony przy najechaniu myszką
-                },
-              }}
-            >
-              save
-            </Button>
 
             <Button
               onClick={() => {

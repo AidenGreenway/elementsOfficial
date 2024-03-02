@@ -226,7 +226,7 @@ export const Fire = () => {
           sx={{ backgroundColor: "transparent" }}
           id="fire-panel1a-header"
           expanded={isFirstSectionVisible}
-          onClick={handleChangeText}
+          // onClick={handleChangeText}
         >
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="fire-panel1a-content">
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

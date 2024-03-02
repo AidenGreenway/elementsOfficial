@@ -184,10 +184,10 @@ export const EarthBlog = () => {
                   onClick={handlePostSubmit}
                   sx={{
                     backgroundColor: "black",
-                    color: "limeGreen",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "limeGreen",
+                      color: "lightGreen",
+                      backgroundColor: "black",
                     },
                   }}
                 >
@@ -198,10 +198,10 @@ export const EarthBlog = () => {
                   onClick={handleClearData}
                   sx={{
                     backgroundColor: "black",
-                    color: "limeGreen",
+                    color: "white",
                     "&:hover": {
-                      color: "black",
-                      backgroundColor: "red",
+                      color: "red",
+                      backgroundColor: "black",
                     },
                   }}
                 >
