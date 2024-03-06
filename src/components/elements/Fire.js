@@ -17,75 +17,87 @@ import ElementContext from "src/elementContext/ElementContext";
 export const Fire = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
 
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
-  const [selectedStrength, setSelectedStrength] = useState(null);
-  const [selectedWeakness, setSelectedWeakness] = useState(null);
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [selectedStrategy, setSelectedStrategy] = useState(null);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [fireValues, setFireValues] = useState({
+    selectedZodiacSign: null,
+    selectedStrength: null,
+    selectedWeakness: null,
+    selectedExercise: null,
+    selectedStrategy: null,
+  });
 
-  // Utwórz nowy stan do zarządzania widocznością sekcji akordeonów
+  const setSelectedZodiacSign = (value) =>
+    setFireValues((prev) => ({ ...prev, selectedZodiacSign: value }));
+  const setSelectedStrength = (value) =>
+    setFireValues((prev) => ({ ...prev, selectedStrength: value }));
+  const setSelectedWeakness = (value) =>
+    setFireValues((prev) => ({ ...prev, selectedWeakness: value }));
+  const setSelectedExercise = (value) =>
+    setFireValues((prev) => ({ ...prev, selectedExercise: value }));
+  const setSelectedStrategy = (value) =>
+    setFireValues((prev) => ({ ...prev, selectedStrategy: value }));
+
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
-    setSelectedZodiacSign(null);
-    setSelectedStrength(null);
-    setSelectedWeakness(null);
-    setSelectedExercise(null);
-    setSelectedStrategy(null);
+    setFireValues({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
 
     localStorage.removeItem("fireValues");
   };
 
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("fireValues")) || {};
-    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
-    setSelectedStrength(storedValues.selectedStrength || null);
-    setSelectedWeakness(storedValues.selectedWeakness || null);
-    setSelectedExercise(storedValues.selectedExercise || null);
-    setSelectedStrategy(storedValues.selectedStrategy || null);
+    setFireValues({
+      selectedZodiacSign: storedValues.selectedZodiacSign || null,
+      selectedStrength: storedValues.selectedStrength || null,
+      selectedWeakness: storedValues.selectedWeakness || null,
+      selectedExercise: storedValues.selectedExercise || null,
+      selectedStrategy: storedValues.selectedStrategy || null,
+    });
   }, []);
 
   const handleSelect = (item, setter, identifier) => {
-    setter(() => {
-      const key = `selected${identifier}`;
+    setter(item);
 
+    const key = `selected${identifier}`;
+
+    setFireValues((prevValues) => {
       const storedValues = {
-        selectedZodiacSign,
-        selectedStrength,
-        selectedWeakness,
-        selectedExercise,
-        selectedStrategy,
+        selectedZodiacSign: prevValues.selectedZodiacSign,
+        selectedStrength: prevValues.selectedStrength,
+        selectedWeakness: prevValues.selectedWeakness,
+        selectedExercise: prevValues.selectedExercise,
+        selectedStrategy: prevValues.selectedStrategy,
       };
       storedValues[key] = item;
+
       localStorage.setItem("fireValues", JSON.stringify(storedValues));
 
-      setElementInfo({
-        selectedZodiacSign,
-        selectedStrength,
-        selectedWeakness,
-        selectedExercise,
-        selectedStrategy,
-      });
+      return storedValues;
+    });
 
-      return item;
+    setElementInfo({
+      selectedZodiacSign: fireValues.selectedZodiacSign,
+      selectedStrength: fireValues.selectedStrength,
+      selectedWeakness: fireValues.selectedWeakness,
+      selectedExercise: fireValues.selectedExercise,
+      selectedStrategy: fireValues.selectedStrategy,
     });
   };
 
-  // const handleAccordionChange = (index) => {
-  //   const newVisibility = sectionVisibility.map((visibility, i) =>
-  //     i === index ? !visibility : visibility
-  //   );
-  //   setSectionVisibility(newVisibility);
-  // };
-
   const listItemStyle = {
-    color: "#9C0808",
+    color: "#ff0000",
     fontSize: "18px",
     transition: "font-size 0.25s ease",
     "&:hover": {
       fontSize: "20px",
-      color: "red",
+      color: "#ff4500",
     },
   };
 
@@ -116,70 +128,73 @@ export const Fire = () => {
     }
   }, [location.hash]);
 
-  const content = `An individual associated with the element of fire exudes energy, passion, and a strong sense of self. It's someone who is adventurous, dynamic, and loves to take risks. They are characterized by charisma, warmth, and a magnetic personality. A fiery person is enthusiastic, optimistic, and has a zest for life. Their strength lies in their ability to inspire and motivate others. Individuals associated with the fire element are natural leaders, but they need to be careful not to let their enthusiasm lead to impulsiveness.`;
+  const content = `An individual associated with the element of fire is dynamic, passionate, and full of energy. They possess a strong will, determination, and a desire for action. Fire individuals are often leaders, enthusiastic about taking on challenges and pursuing their goals. They are creative, confident, and radiate a vibrant energy that inspires those around them. However, they need to be mindful of impatience and impulsiveness, balancing their fiery nature with consideration for others.`;
 
   const zodiacSignsContent = [
-    "Aries (March 21 - April 19): Aries is a Fire sign known for its adventurous and energetic nature. Arians are courageous, optimistic, and often have a strong sense of self. They are natural leaders and pioneers.",
-    "Leo (July 23 - August 22): Leo is a Fire sign characterized by its charisma and warmth. Leos are generous, loyal, and have a magnetic personality. They are natural-born leaders who enjoy being in the spotlight.",
-    "Sagittarius (November 22 - December 21): Sagittarius is a Fire sign associated with optimism and a love for freedom. Sagittarians are adventurous, enthusiastic, and have a great sense of humor. They are known for their wisdom and philosophical outlook on life.",
+    "Aries (March 21 - April 19): Aries is a Fire sign known for its boldness, passion, and adventurous spirit. Arians are natural-born leaders, often taking the initiative and embracing challenges with enthusiasm.",
+    "Leo (July 23 - August 22): Leo is a Fire sign associated with creativity, self-expression, and a charismatic personality. Leos are confident, generous, and enjoy being in the spotlight. They have a warm and playful nature.",
+    "Sagittarius (November 22 - December 21): Sagittarius, the Archer, is a Fire sign known for its love of freedom, adventure, and optimism. Sagittarians are curious, open-minded, and seek to explore new horizons.",
   ];
 
   const strengthsContent = [
-    "Energy and passion: Enthusiasm, warmth, and charisma.",
-    "Adventurousness and dynamism: Love for challenges and risks.",
-    "Charisma and magnetism: Ability to inspire and motivate others.",
-    "Optimism and enthusiasm: Positive outlook on life.",
+    "Passion and enthusiasm: Full of energy and excitement.",
+    "Leadership qualities: Natural ability to take charge.",
+    "Creativity and self-expression: Enjoy expressing ideas and emotions.",
+    "Courage and boldness: Willingness to take risks.",
+    "Optimism and a positive outlook on life.",
   ];
 
   const weaknessesContent = [
-    "Impulsiveness and impatience: Acting without thinking.",
-    "Self-centeredness and dominance: Tendency to focus on their own needs.",
-    "Quick temper and irritability: Reacting impulsively to frustration.",
-    "Lack of persistence: Moving on to the next thing too quickly.",
+    "Impatience and impulsiveness: Tendency to act without careful consideration.",
+    "Short temper and a tendency to be argumentative.",
+    "Difficulty dealing with routine and boredom.",
+    "Restlessness and a constant need for change.",
+    "Overestimating capabilities and taking on too much.",
   ];
 
   const exercisesContent = [
-    "Mindfulness practice to manage impulsiveness.",
-    "Team sports or group activities to develop patience and persistence.",
-    "Volunteering or mentoring to cultivate empathy and selflessness.",
-    "Regular exercise to channel energy and reduce irritability.",
+    "Mindfulness and meditation to channel energy positively.",
+    "Learning to listen and consider others' perspectives.",
+    "Developing patience and practicing tolerance.",
+    "Setting realistic goals and avoiding overcommitment.",
+    "Balancing action with moments of relaxation.",
   ];
 
   const strategiesContent = [
-    "Developing self-awareness and emotional intelligence.",
-    "Practicing active listening and empathy.",
-    "Setting boundaries and learning to say 'no' when necessary.",
-    "Cultivating a sense of purpose and meaning in life.",
+    "Learning to pause and reflect before reacting.",
+    "Cultivating patience and embracing the journey.",
+    "Focusing on one task at a time to avoid overwhelm.",
+    "Building healthy outlets for excess energy.",
   ];
 
   const sections = [
     {
       list: zodiacSignsContent,
-      state: selectedZodiacSign,
+      state: fireValues.selectedZodiacSign,
       setter: setSelectedZodiacSign,
       title: "Zodiac Signs:",
     },
     {
       list: strengthsContent,
-      state: selectedStrength,
+      state: fireValues.selectedStrength,
       setter: setSelectedStrength,
       title: "Strengths:",
     },
     {
       list: weaknessesContent,
-      state: selectedWeakness,
+      state: fireValues.selectedWeakness,
       setter: setSelectedWeakness,
       title: "Weaknesses:",
     },
     {
       list: exercisesContent,
-      state: selectedExercise,
+      state: fireValues.selectedExercise,
       setter: setSelectedExercise,
       title: "Exercises Strengthening Traits:",
     },
     {
       list: strategiesContent,
-      state: selectedStrategy,
+      state: fireValues.selectedStrategy,
       setter: setSelectedStrategy,
       title: "Key Strategies for Harmony:",
     },
@@ -193,7 +208,8 @@ export const Fire = () => {
             position: "fixed",
             top: 0,
             right: 0,
-            padding: 3,
+            padding: 2,
+            margin: "0 10px 10px 0",
             maxWidth: "20%",
             textAlign: "right",
           }}
@@ -202,37 +218,35 @@ export const Fire = () => {
             onClick={reset}
             sx={{
               border: "1px white solid",
-              color: "#9C0808",
+              color: "#ff4500",
               backgroundColor: "none",
               marginTop: "-5px",
               "&:hover": {
-                backgroundColor: "none",
-                color: "red",
+                backgroundColor: "#ff4500",
+                color: "black",
               },
             }}
           >
             Reset
           </Button>
-
-          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-          <DetailView title="Strength" content={selectedStrength || "-"} />
-          <DetailView title="Weakness" content={selectedWeakness || "-"} />
-          <DetailView title="Exercise" content={selectedExercise || "-"} />
-          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          <DetailView title="Zodiac Sign" content={fireValues.selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={fireValues.selectedStrength || "-"} />
+          <DetailView title="Weakness" content={fireValues.selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={fireValues.selectedExercise || "-"} />
+          <DetailView title="Strategy" content={fireValues.selectedStrategy || "-"} />
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>
         <Accordion
           sx={{ backgroundColor: "transparent" }}
-          id="fire-panel1a-header"
+          id="panel1a-header"
           expanded={isFirstSectionVisible}
-          // onClick={handleChangeText}
         >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="fire-panel1a-content">
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography
                 className="animate__animated animate__bounceInDown"
-                sx={{ fontSize: "220px", color: "#DC143C", textAlign: "", marginTop: "-7%" }}
+                sx={{ fontSize: "220px", color: "#ff4500", textAlign: "left", marginTop: "-4%" }}
               >
                 fire
               </Typography>
@@ -247,10 +261,10 @@ export const Fire = () => {
                   marginTop: "-10%",
                   marginLeft: "-80%",
                   cursor: "pointer",
-                  transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                  transition: "font-size 0.25s ease",
                   "&:hover": {
-                    fontSize: "20px", // Adjust the larger font size on hover
-                    color: "#ea5455",
+                    fontSize: "20px",
+                    color: "#ff0000",
                   },
                 }}
                 onClick={handleChangeText}
@@ -263,7 +277,7 @@ export const Fire = () => {
           {isFirstSectionVisible && (
             <AccordionDetails>
               <Typography
-                sx={{ maxWidth: "90%", marginBottom: "20px", color: "#DC143C", fontSize: "16px" }}
+                sx={{ maxWidth: "90%", marginBottom: "20px", color: "#ffa07a", fontSize: "16px" }}
                 align="left"
               >
                 {content}
@@ -276,24 +290,24 @@ export const Fire = () => {
           <Accordion
             key={index}
             sx={{ backgroundColor: "transparent" }}
-            id={`fire-panel${index}a-header`}
+            id={`panel${index}a-header`}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls={`fire-panel${index}a-content`}
+              aria-controls={`panel${index}a-content`}
             >
               <Typography sx={listItemStyle}>{section.title}</Typography>
             </AccordionSummary>
 
             <AccordionDetails>
-              <List sx={{ marginTop: "8px", color: "#FE5F5F" }}>
+              <List sx={{ marginTop: "8px", color: "#ffa07a" }}>
                 {section.list.map((item, itemIndex) => (
                   <ListItem
                     key={itemIndex}
                     button
                     onClick={() => handleSelect(item, section.setter, section.title)}
                   >
-                    <ListItemText sx={{ "&:hover": { color: "red" } }} primary={`• ${item}`} />
+                    <ListItemText sx={{ "&:hover": { color: "#ff4500" } }} primary={`• ${item}`} />
                   </ListItem>
                 ))}
               </List>
@@ -305,20 +319,23 @@ export const Fire = () => {
   );
 };
 
-// Komponent do wyświetlania szczegółów
 const DetailView = ({ title, content }) => (
-  <Box sx={{ marginTop: 0, padding: 2 }}>
+  <Box sx={{ marginTop: 2, padding: 1 }}>
     <Typography
       sx={{
         fontSize: "25px",
-        color: "red",
+        color: "#ff4500",
+        transition: "font-size 0.25s ease",
+        "&:hover": {
+          color: "#ff4500",
+        },
       }}
     >
       {title}
     </Typography>
     <Typography
       sx={{
-        color: "#FE5F5F",
+        color: "#ffa07a",
         fontSize: "12px",
       }}
     >

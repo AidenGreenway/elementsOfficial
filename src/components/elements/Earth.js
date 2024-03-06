@@ -17,53 +17,77 @@ import ElementContext from "src/elementContext/ElementContext";
 export const Earth = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
 
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
-  const [selectedStrength, setSelectedStrength] = useState(null);
-  const [selectedWeakness, setSelectedWeakness] = useState(null);
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const [earthValues, setEarthValues] = useState({
+    selectedZodiacSign: null,
+    selectedStrength: null,
+    selectedWeakness: null,
+    selectedExercise: null,
+    selectedStrategy: null,
+  });
+
+  const setSelectedZodiacSign = (value) =>
+    setEarthValues((prev) => ({ ...prev, selectedZodiacSign: value }));
+  const setSelectedStrength = (value) =>
+    setEarthValues((prev) => ({ ...prev, selectedStrength: value }));
+  const setSelectedWeakness = (value) =>
+    setEarthValues((prev) => ({ ...prev, selectedWeakness: value }));
+  const setSelectedExercise = (value) =>
+    setEarthValues((prev) => ({ ...prev, selectedExercise: value }));
+  const setSelectedStrategy = (value) =>
+    setEarthValues((prev) => ({ ...prev, selectedStrategy: value }));
+
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
-    setSelectedZodiacSign(null);
-    setSelectedStrength(null);
-    setSelectedWeakness(null);
-    setSelectedExercise(null);
-    setSelectedStrategy(null);
+    setEarthValues({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
 
     localStorage.removeItem("earthValues");
   };
 
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("earthValues")) || {};
-    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
-    setSelectedStrength(storedValues.selectedStrength || null);
-    setSelectedWeakness(storedValues.selectedWeakness || null);
-    setSelectedExercise(storedValues.selectedExercise || null);
-    setSelectedStrategy(storedValues.selectedStrategy || null);
+    setEarthValues({
+      selectedZodiacSign: storedValues.selectedZodiacSign || null,
+      selectedStrength: storedValues.selectedStrength || null,
+      selectedWeakness: storedValues.selectedWeakness || null,
+      selectedExercise: storedValues.selectedExercise || null,
+      selectedStrategy: storedValues.selectedStrategy || null,
+    });
   }, []);
 
   const handleSelect = (item, setter, identifier) => {
     setter(item);
+
     const key = `selected${identifier}`;
 
-    const storedValues = {
-      selectedZodiacSign,
-      selectedStrength,
-      selectedWeakness,
-      selectedExercise,
-      selectedStrategy,
-    };
-    storedValues[key] = item;
-    localStorage.setItem("earthValues", JSON.stringify(storedValues));
+    setEarthValues((prevValues) => {
+      const storedValues = {
+        selectedZodiacSign: prevValues.selectedZodiacSign,
+        selectedStrength: prevValues.selectedStrength,
+        selectedWeakness: prevValues.selectedWeakness,
+        selectedExercise: prevValues.selectedExercise,
+        selectedStrategy: prevValues.selectedStrategy,
+      };
+      storedValues[key] = item;
+
+      localStorage.setItem("earthValues", JSON.stringify(storedValues));
+
+      return storedValues;
+    });
 
     setElementInfo({
-      selectedZodiacSign,
-      selectedStrength,
-      selectedWeakness,
-      selectedExercise,
-      selectedStrategy,
+      selectedZodiacSign: earthValues.selectedZodiacSign,
+      selectedStrength: earthValues.selectedStrength,
+      selectedWeakness: earthValues.selectedWeakness,
+      selectedExercise: earthValues.selectedExercise,
+      selectedStrategy: earthValues.selectedStrategy,
     });
   };
 
@@ -146,31 +170,31 @@ export const Earth = () => {
   const sections = [
     {
       list: zodiacSignsContent,
-      state: selectedZodiacSign,
+      state: earthValues.selectedZodiacSign,
       setter: setSelectedZodiacSign,
       title: "Zodiac Signs:",
     },
     {
       list: strengthsContent,
-      state: selectedStrength,
+      state: earthValues.selectedStrength,
       setter: setSelectedStrength,
       title: "Strengths:",
     },
     {
       list: weaknessesContent,
-      state: selectedWeakness,
+      state: earthValues.selectedWeakness,
       setter: setSelectedWeakness,
       title: "Weaknesses:",
     },
     {
       list: exercisesContent,
-      state: selectedExercise,
+      state: earthValues.selectedExercise,
       setter: setSelectedExercise,
       title: "Exercises Strengthening Traits:",
     },
     {
       list: strategiesContent,
-      state: selectedStrategy,
+      state: earthValues.selectedStrategy,
       setter: setSelectedStrategy,
       title: "Key Strategies for Harmony:",
     },
@@ -178,15 +202,14 @@ export const Earth = () => {
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
-      {yourValue === "earth" && ( // Check if the selected value is "earth"
+      {yourValue === "earth" && (
         <Box
           sx={{
             position: "fixed",
             top: 0,
             right: 0,
             padding: 2,
-            margin: "0 10px 10px 0", // Format: top right bottom left
-
+            margin: "0 10px 10px 0",
             maxWidth: "20%",
             textAlign: "right",
           }}
@@ -198,7 +221,6 @@ export const Earth = () => {
               color: "#00ff7f",
               backgroundColor: "none",
               marginTop: "-5px",
-
               "&:hover": {
                 backgroundColor: "#00ff7f",
                 color: "black",
@@ -207,11 +229,11 @@ export const Earth = () => {
           >
             Reset
           </Button>
-          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-          <DetailView title="Strength" content={selectedStrength || "-"} />
-          <DetailView title="Weakness" content={selectedWeakness || "-"} />
-          <DetailView title="Exercise" content={selectedExercise || "-"} />
-          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          <DetailView title="Zodiac Sign" content={earthValues.selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={earthValues.selectedStrength || "-"} />
+          <DetailView title="Weakness" content={earthValues.selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={earthValues.selectedExercise || "-"} />
+          <DetailView title="Strategy" content={earthValues.selectedStrategy || "-"} />
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>
@@ -239,9 +261,9 @@ export const Earth = () => {
                   marginTop: "-10%",
                   marginLeft: "-80%",
                   cursor: "pointer",
-                  transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                  transition: "font-size 0.25s ease",
                   "&:hover": {
-                    fontSize: "20px", // Adjust the larger font size on hover
+                    fontSize: "20px",
                     color: "#097969",
                   },
                 }}
@@ -285,7 +307,7 @@ export const Earth = () => {
                     button
                     onClick={() => handleSelect(item, section.setter, section.title)}
                   >
-                    <ListItemText sx={{ "&:hover": { color: "#00ff7f" } }} primary={`• ${item}`} />{" "}
+                    <ListItemText sx={{ "&:hover": { color: "#00ff7f" } }} primary={`• ${item}`} />
                   </ListItem>
                 ))}
               </List>

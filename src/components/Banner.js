@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import four from "../diaryImages/air/444.png"; // Obrazek początkowy
+import four from "../diaryImages/air/444.png";
 import dallair from "../diaryImages/air/dallair.png";
 import dallearth from "../diaryImages/earth/dallearth.png";
 import dallfire from "../diaryImages/fire/dallfire.png";
@@ -14,7 +14,7 @@ export const Banner = () => {
   const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
   const [otherIconsVisible, setOtherIconsVisible] = useState(true);
-  const [birthDate, setBirthDate] = useState({ day: "", month: "" }); // Dodaj ten state obok innych
+  const [birthDate, setBirthDate] = useState({ day: "", month: "" });
 
   const [astroElement, setAstroElement] = useState("");
   const [selectedElement, setSelectedElement] = useState("");
@@ -24,13 +24,13 @@ export const Banner = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const element = determineElement(parseInt(birthDate.day), parseInt(birthDate.month));
+    const { day, month } = birthDate;
+    const element = determineElement(parseInt(day), parseInt(month));
     if (element !== "wrong data") {
       setAstroElement(element);
       setSelectedElement(element);
       setElementSelected(true);
     } else {
-      // Dodaj tutaj kod obsługujący przypadek "wrong data", np. wyświetlenie komunikatu, że dane są błędne
       alert("Invalid zodiac sign. Please provide a valid birth date.");
     }
   };
@@ -39,7 +39,6 @@ export const Banner = () => {
   const goToProfile = () => {
     setElementIcon(astroElement);
     localStorage.setItem("selectedElement", astroElement);
-
     navigate(`/dashboard/profile?element=${astroElement}`);
   };
 
@@ -72,48 +71,33 @@ export const Banner = () => {
     setOtherIconsVisible(true);
   };
 
-  const getBackgroundColor = () => {
-    if (hoveredElement) {
-      return ELEMENT_DESCRIPTIONS[hoveredElement].colors[0];
-    }
-    return "black";
-  };
-
-  const getTextColor = () => {
-    if (hoveredElement) {
-      return ELEMENT_DESCRIPTIONS[hoveredElement].colors[1];
-    }
-    return "#000";
-  };
-
-  const getCurrentAltImage = () => {
-    if (hoveredElement) {
-      return ELEMENT_DESCRIPTIONS[hoveredElement].altImage;
-    }
-
-    return null;
-  };
+  const getBackgroundColor = () =>
+    hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[0] : "black";
+  const getTextColor = () =>
+    hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#000";
+  const getCurrentAltImage = () =>
+    hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].altImage : null;
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-    }, 10000); // Zmienia indeks tekstu co 7 sekund
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentAdviceIndex((prevIndex) => (prevIndex + 1) % advices.length);
-    }, 7000); // Zmienia poradę co 5 sekund
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 
   const infoContent = (
     <Typography
-      key={currentTextIndex} // Dodaj klucz zależny od zmieniającego się indeksu
+      key={currentTextIndex}
       fontFamily="The Next Font"
       fontSize="23px"
-      className="animate__animated animate__bounceInDown" // Twoja klasa animacji
+      className="animate__animated animate__bounceInDown"
     >
       {texts[currentTextIndex]}
     </Typography>
@@ -122,8 +106,8 @@ export const Banner = () => {
   return (
     <Box
       sx={{
-        transition: "opacity 0.5s ease-in-out", // Smooth transition for opacity
-        overflow: "hidden", // Ukryj overflow
+        transition: "opacity 0.5s ease-in-out",
+        overflow: "hidden",
       }}
     >
       <Box
@@ -212,11 +196,9 @@ export const Banner = () => {
                         "& fieldset": {
                           borderColor: "white",
                         },
-
                         "&:hover fieldset": {
                           borderColor: "white",
                         },
-
                         "&.Mui-focused fieldset": {
                           borderColor: "white",
                         },
@@ -227,7 +209,7 @@ export const Banner = () => {
                   <Button
                     type="submit"
                     sx={{
-                      display: elementSelected ? "none" : "block", // Ukryj guzik, jeśli element został już wybrany
+                      display: elementSelected ? "none" : "block",
                       textAlign: "center",
                       bottom: -10,
                       color: "white",
@@ -267,11 +249,9 @@ export const Banner = () => {
                                   ? "#ADD8E6"
                                   : selectedElement === "earth"
                                     ? "lightGreen"
-                                    : "red", // Ustaw kolor guzika na podstawie wybranego żywiołu
-
+                                    : "red",
                           "&:hover": {
-                            backgroundColor: "black", // Kolor tła przy najechaniu
-
+                            backgroundColor: "black",
                             color:
                               selectedElement === "fire"
                                 ? "#D70040"
@@ -281,15 +261,15 @@ export const Banner = () => {
                                     ? "#ADD8E6"
                                     : selectedElement === "earth"
                                       ? "lightGreen"
-                                      : "darkRed", // Kolor tekstu przy najechaniu, użyj koloru wybranego żywiołu lub domyślnego "black"
+                                      : "darkRed",
                           },
                           position: "center",
-                          marginTop: "20px", // Dodaj margines od góry
+                          marginTop: "20px",
                           marginLeft: "20px",
                         }}
-                        onClick={goToProfile} // Update with your desired path
+                        onClick={goToProfile}
                       >
-                        create profil: {astroElement}
+                        create profile: {astroElement}
                       </Button>
                     </Typography>
                   </Box>
@@ -363,17 +343,17 @@ export const Banner = () => {
             </>
           )}
 
-          <Box style={{ padding: "6%" }}>
+          <Box style={{ padding: "5%" }}>
             <h2
               style={{
-                marginRight: "32%",
-                marginBottom: "-20px",
+                marginRight: "11.5%",
+                marginBottom: "-25px",
                 fontFamily: "unset",
                 fontSize: "12px",
                 color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
               }}
             >
-              Hello to your very first experience with
+              Hello! Free speech for all 4 points of view, also known as an:
             </h2>
 
             <h1
@@ -423,6 +403,7 @@ export const Banner = () => {
                         : four
               }
               style={{ width: "50%", height: "auto", marginTop: "20px" }}
+              alt={hoveredElement}
             />
             <Box
               sx={{

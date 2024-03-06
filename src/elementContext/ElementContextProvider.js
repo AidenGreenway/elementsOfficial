@@ -36,7 +36,9 @@ export const ElementContextProvider = ({ children }) => {
   };
 
   const setElementInfo = (info) => {
-    setElementValues((prevValues) => ({ ...prevValues, ...info }));
+    if (info && Object.keys(info).length > 0) {
+      setElementValues((prevValues) => ({ ...prevValues, ...info }));
+    }
   };
 
   return (

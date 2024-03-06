@@ -17,53 +17,77 @@ import ElementContext from "src/elementContext/ElementContext";
 export const Air = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
 
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
-  const [selectedStrength, setSelectedStrength] = useState(null);
-  const [selectedWeakness, setSelectedWeakness] = useState(null);
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const [airValues, setAirValues] = useState({
+    selectedZodiacSign: null,
+    selectedStrength: null,
+    selectedWeakness: null,
+    selectedExercise: null,
+    selectedStrategy: null,
+  });
+
+  const setSelectedZodiacSign = (value) =>
+    setAirValues((prev) => ({ ...prev, selectedZodiacSign: value }));
+  const setSelectedStrength = (value) =>
+    setAirValues((prev) => ({ ...prev, selectedStrength: value }));
+  const setSelectedWeakness = (value) =>
+    setAirValues((prev) => ({ ...prev, selectedWeakness: value }));
+  const setSelectedExercise = (value) =>
+    setAirValues((prev) => ({ ...prev, selectedExercise: value }));
+  const setSelectedStrategy = (value) =>
+    setAirValues((prev) => ({ ...prev, selectedStrategy: value }));
+
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
-    setSelectedZodiacSign(null);
-    setSelectedStrength(null);
-    setSelectedWeakness(null);
-    setSelectedExercise(null);
-    setSelectedStrategy(null);
+    setAirValues({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
 
     localStorage.removeItem("airValues");
   };
 
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("airValues")) || {};
-    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
-    setSelectedStrength(storedValues.selectedStrength || null);
-    setSelectedWeakness(storedValues.selectedWeakness || null);
-    setSelectedExercise(storedValues.selectedExercise || null);
-    setSelectedStrategy(storedValues.selectedStrategy || null);
+    setAirValues({
+      selectedZodiacSign: storedValues.selectedZodiacSign || null,
+      selectedStrength: storedValues.selectedStrength || null,
+      selectedWeakness: storedValues.selectedWeakness || null,
+      selectedExercise: storedValues.selectedExercise || null,
+      selectedStrategy: storedValues.selectedStrategy || null,
+    });
   }, []);
 
   const handleSelect = (item, setter, identifier) => {
     setter(item);
+
     const key = `selected${identifier}`;
 
-    const storedValues = {
-      selectedZodiacSign,
-      selectedStrength,
-      selectedWeakness,
-      selectedExercise,
-      selectedStrategy,
-    };
-    storedValues[key] = item;
-    localStorage.setItem("airValues", JSON.stringify(storedValues));
+    setAirValues((prevValues) => {
+      const storedValues = {
+        selectedZodiacSign: prevValues.selectedZodiacSign,
+        selectedStrength: prevValues.selectedStrength,
+        selectedWeakness: prevValues.selectedWeakness,
+        selectedExercise: prevValues.selectedExercise,
+        selectedStrategy: prevValues.selectedStrategy,
+      };
+      storedValues[key] = item;
+
+      localStorage.setItem("airValues", JSON.stringify(storedValues));
+
+      return storedValues;
+    });
 
     setElementInfo({
-      selectedZodiacSign,
-      selectedStrength,
-      selectedWeakness,
-      selectedExercise,
-      selectedStrategy,
+      selectedZodiacSign: airValues.selectedZodiacSign,
+      selectedStrength: airValues.selectedStrength,
+      selectedWeakness: airValues.selectedWeakness,
+      selectedExercise: airValues.selectedExercise,
+      selectedStrategy: airValues.selectedStrategy,
     });
   };
 
@@ -84,7 +108,12 @@ export const Air = () => {
   const handleChangeText = () => {
     const newIndex = (currentTextIndex + 1) % texts.length;
     setCurrentTextIndex(newIndex);
-    setIsFirstSectionVisible(newIndex === 1);
+
+    if (newIndex === 1) {
+      setIsFirstSectionVisible(true);
+    } else {
+      setIsFirstSectionVisible(false);
+    }
   };
 
   useEffect(() => {
@@ -99,68 +128,63 @@ export const Air = () => {
     }
   }, [location.hash]);
 
-  const content = `An individual associated with the element of air is characterized by intellect, curiosity, and adaptability. They are quick thinkers, communicative, and enjoy socializing. Air individuals are often open-minded, objective, and value mental stimulation. They possess the ability to connect with diverse perspectives and thrive on change. Their strength lies in their ability to embrace new ideas, communicate effectively, and foster harmonious connections.`;
+  const content = `An individual associated with the element of air is characterized by intellect, curiosity, and adaptability... [continuation text]`;
 
-  const zodiacSigns = [
-    "Gemini (May 21 - June 20): Gemini is an Air sign known for its versatility, curiosity, and communication skills. Geminis are adaptable, sociable, and thrive in dynamic environments.",
-    "Libra (September 23 - October 22): Libra is an Air sign characterized by its sense of balance, harmony, and social grace. Librans value relationships, beauty, and diplomatic solutions.",
-    "Aquarius (January 20 - February 18): Aquarius, the Water-Bearer, is an Air sign associated with innovation, originality, and humanitarianism. Aquarians are forward-thinking and enjoy exploring unconventional ideas.",
+  const zodiacSignsContent = [
+    "Gemini (May 21 - June 20): Gemini is an Air sign known for its versatility, curiosity, and communication skills...",
+    "Libra (September 23 - October 22): Libra is an Air sign characterized by its sense of balance, harmony, and social grace...",
+    "Aquarius (January 20 - February 18): Aquarius, the Water-Bearer, is an Air sign associated with innovation, originality, and humanitarianism...",
   ];
 
-  const strengths = [
+  const strengthsContent = [
     "Intellect and curiosity: Quick thinking and a thirst for knowledge.",
     "Adaptability: Ease in adjusting to new situations.",
-    "Communication skills: Ability to express ideas effectively.",
-    "Open-mindedness: Embracing diverse perspectives.",
-    "Harmonious connections: Fostering positive relationships.",
+    "Communication skills: Ability to express ideas effectively...",
   ];
 
-  const weaknesses = [
+  const weaknessesContent = [
     "Restlessness: Difficulty staying focused on one task.",
-    "Indecisiveness: Weighing multiple options without choosing.",
-    "Overthinking: Analyzing situations excessively.",
-    "Detachment: Struggling with emotional expression.",
-    "Inconsistency: Difficulty maintaining commitments.",
+    "Indecisiveness: Weighing multiple options without choosing...",
   ];
 
-  const exercises = [
+  const exercisesContent = [
     "Mindfulness meditation to enhance focus.",
-    "Engaging in diverse social activities.",
-    "Developing decision-making skills.",
-    "Practicing emotional expression.",
-    "Balancing intellectual pursuits with relaxation.",
+    "Engaging in diverse social activities...",
   ];
 
-  const strategies = [
+  const strategiesContent = [
     "Embrace change and variety in life.",
-    "Practice effective communication skills.",
-    "Balance intellectual pursuits with emotional connection.",
-    "Cultivate patience in decision-making.",
+    "Practice effective communication skills...",
   ];
 
   const sections = [
     {
-      list: zodiacSigns,
-      state: selectedZodiacSign,
+      list: zodiacSignsContent,
+      state: airValues.selectedZodiacSign,
       setter: setSelectedZodiacSign,
       title: "Zodiac Signs:",
     },
-    { list: strengths, state: selectedStrength, setter: setSelectedStrength, title: "Strengths:" },
     {
-      list: weaknesses,
-      state: selectedWeakness,
+      list: strengthsContent,
+      state: airValues.selectedStrength,
+      setter: setSelectedStrength,
+      title: "Strengths:",
+    },
+    {
+      list: weaknessesContent,
+      state: airValues.selectedWeakness,
       setter: setSelectedWeakness,
       title: "Weaknesses:",
     },
     {
-      list: exercises,
-      state: selectedExercise,
+      list: exercisesContent,
+      state: airValues.selectedExercise,
       setter: setSelectedExercise,
       title: "Exercises Strengthening Traits:",
     },
     {
-      list: strategies,
-      state: selectedStrategy,
+      list: strategiesContent,
+      state: airValues.selectedStrategy,
       setter: setSelectedStrategy,
       title: "Key Strategies for Harmony:",
     },
@@ -168,7 +192,7 @@ export const Air = () => {
 
   return (
     <Box sx={{ backgroundColor: "black" }}>
-      {yourValue === "air" && ( // Check if the selected value is "air"
+      {yourValue === "air" && (
         <Box
           sx={{
             position: "fixed",
@@ -194,11 +218,11 @@ export const Air = () => {
           >
             Reset
           </Button>
-          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-          <DetailView title="Strength" content={selectedStrength || "-"} />
-          <DetailView title="Weakness" content={selectedWeakness || "-"} />
-          <DetailView title="Exercise" content={selectedExercise || "-"} />
-          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          <DetailView title="Zodiac Sign" content={airValues.selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={airValues.selectedStrength || "-"} />
+          <DetailView title="Weakness" content={airValues.selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={airValues.selectedExercise || "-"} />
+          <DetailView title="Strategy" content={airValues.selectedStrategy || "-"} />
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>
@@ -227,9 +251,9 @@ export const Air = () => {
                     marginTop: "-10%",
                     marginLeft: "-80%",
                     cursor: "pointer",
-                    transition: "font-size 0.25s ease", // Smooth transition over 0.25 seconds
+                    transition: "font-size 0.25s ease",
                     "&:hover": {
-                      fontSize: "18px", // Adjust the larger font size on hover
+                      fontSize: "18px",
                       color: "white",
                     },
                   }}

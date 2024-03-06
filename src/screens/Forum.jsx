@@ -23,12 +23,12 @@ const hoverStyles = {
 };
 
 const centeredImageStyle = {
-  position: "fixed",
+  position: "absolute", // Change fixed to absolute
   top: "51%",
-  left: "53.5%",
+  left: "52.94%",
   transform: "translate(-50%, -50%)",
   display: "block",
-  maxWidth: "30.75%",
+  maxWidth: "30.5%",
   maxHeight: "100vh",
 };
 
@@ -38,12 +38,10 @@ const imageStyle = {
 };
 
 export const Forum = () => {
-  // const { setElementIcon } = useContext(YourContext);
   const [hoveredElement, setHoveredElement] = useState("");
   const navigate = useNavigate();
 
   const handleElementSelection = (selectedElement) => {
-    // setElementIcon(selectedElement);
     navigate(`${selectedElement}blog`);
   };
 
@@ -63,9 +61,10 @@ export const Forum = () => {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "flex-start",
-        height: "100vh",
+        // height: "100vh",  // Remove or adjust this line
         color: "#ffffff",
         padding: "20px",
+        overflow: "hidden", // Add this line to hide any overflow
       }}
     >
       {["fire", "water", "air", "earth"].map((group) => (

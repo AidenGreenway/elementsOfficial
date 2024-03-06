@@ -74,7 +74,7 @@ export const Profile = () => {
   );
 
   const [description, setDescription] = useState(localStorage.getItem("description") || "");
-  const [username, setUsername] = useState(localStorage.getItem("username") || "Aiden Greenway");
+  const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
   const [newPost, setNewPost] = useState("");
   const [activeSection, setActiveSection] = useState("tablica");
