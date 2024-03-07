@@ -121,33 +121,45 @@ export const Water = () => {
   const content = `An individual associated with the element of water embodies fluidity, intuition, and emotional depth. They are often empathetic, adaptable, and attuned to the subtle nuances of their surroundings... [continuation text]`;
 
   const zodiacSignsContent = [
-    "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities...",
-    "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion...",
-    "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion...",
+    "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities. Cancers are intuitive, empathetic, and often have a strong connection to their family and home.",
+    "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion. Scorpios are often resourceful, determined, and have a keen ability to understand the hidden aspects of life.",
+    "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion. Pisceans are imaginative, sensitive, and have a deep connection to the spiritual and artistic realms.",
+    // [additional zodiac signs]
   ];
 
   const strengthsContent = [
     "Empathy and emotional intelligence: Ability to understand and connect with others on a deep level.",
-    "Adaptability and fluidity: Capacity to navigate through changing circumstances...",
-    // [continuation of the strengthsContent]
+    "Adaptability and fluidity: Capacity to navigate through changing circumstances.",
+    "Intuition and sensitivity: Attuned to subtle nuances and emotions.",
+    "Creativity and imagination: Strong connection to artistic and spiritual realms.",
+    "Nurturing qualities: Ability to heal and support others.",
+    // [additional strengths]
   ];
 
   const weaknessesContent = [
-    "Overly emotional: Tendency to be overwhelmed by emotions...",
-    "Vulnerability to mood swings: Sensitivity to external influences...",
-    // [continuation of the weaknessesContent]
+    "Overly emotional: Tendency to be overwhelmed by emotions.",
+    "Vulnerability to mood swings: Sensitivity to external influences.",
+    "Avoidance of confrontation: Difficulty dealing with conflict.",
+    "Overly idealistic: Struggle with accepting harsh realities.",
+    "Tendency to be easily influenced by others.",
+    // [additional weaknesses]
   ];
 
   const exercisesContent = [
-    "Practicing mindfulness and emotional awareness...",
-    "Engaging in creative activities: Art, music, writing...",
-    // [continuation of the exercisesContent]
+    "Practicing mindfulness and emotional awareness.",
+    "Engaging in creative activities: Art, music, writing.",
+    "Developing resilience and coping mechanisms for emotional challenges.",
+    "Exploring nature and connecting with natural elements.",
+    "Participating in activities that promote self-care and relaxation.",
+    // [additional exercises]
   ];
 
   const strategiesContent = [
-    "Cultivating emotional balance and self-awareness...",
-    "Creating a nurturing and supportive environment...",
-    // [continuation of the strategiesContent]
+    "Cultivating emotional balance and self-awareness.",
+    "Creating a nurturing and supportive environment.",
+    "Expressing creativity and embracing artistic outlets.",
+    "Building healthy boundaries while maintaining empathy.",
+    // [additional strategies]
   ];
 
   const sections = [
