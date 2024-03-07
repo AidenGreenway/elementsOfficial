@@ -48,7 +48,17 @@ export const Fire = () => {
       selectedStrategy: null,
     });
 
+    // Usuń odpowiednie klucze z localStorage
     localStorage.removeItem("fireValues");
+
+    // Ustaw puste wartości w kontekście
+    setElementInfo({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
   };
 
   useEffect(() => {

@@ -48,7 +48,17 @@ export const Water = () => {
       selectedStrategy: null,
     });
 
+    // Usuń odpowiednie klucze z localStorage
     localStorage.removeItem("waterValues");
+
+    // Ustaw puste wartości w kontekście
+    setElementInfo({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
   };
 
   useEffect(() => {

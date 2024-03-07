@@ -83,7 +83,17 @@ export const Earth = () => {
       selectedStrategy: null,
     });
 
+    // Usuń odpowiednie klucze z localStorage
     localStorage.removeItem("earthValues");
+
+    // Ustaw puste wartości w kontekście
+    setElementInfo({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
   };
 
   const listItemStyle = {
