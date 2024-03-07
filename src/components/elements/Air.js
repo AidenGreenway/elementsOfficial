@@ -79,15 +79,10 @@ export const Air = () => {
 
       localStorage.setItem("airValues", JSON.stringify(storedValues));
 
-      return storedValues;
-    });
+      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
+      setElementInfo(storedValues);
 
-    setElementInfo({
-      selectedZodiacSign: airValues.selectedZodiacSign,
-      selectedStrength: airValues.selectedStrength,
-      selectedWeakness: airValues.selectedWeakness,
-      selectedExercise: airValues.selectedExercise,
-      selectedStrategy: airValues.selectedStrategy,
+      return storedValues;
     });
   };
 

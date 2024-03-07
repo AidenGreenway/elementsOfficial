@@ -150,12 +150,6 @@ export const Profile = () => {
     }
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   setActiveSection("tablica");
-  // };
-
   const renderRightSection = () => {
     switch (activeSection) {
       case "edycja":

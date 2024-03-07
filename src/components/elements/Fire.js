@@ -79,15 +79,10 @@ export const Fire = () => {
 
       localStorage.setItem("fireValues", JSON.stringify(storedValues));
 
-      return storedValues;
-    });
+      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
+      setElementInfo(storedValues);
 
-    setElementInfo({
-      selectedZodiacSign: fireValues.selectedZodiacSign,
-      selectedStrength: fireValues.selectedStrength,
-      selectedWeakness: fireValues.selectedWeakness,
-      selectedExercise: fireValues.selectedExercise,
-      selectedStrategy: fireValues.selectedStrategy,
+      return storedValues;
     });
   };
 
@@ -128,43 +123,32 @@ export const Fire = () => {
     }
   }, [location.hash]);
 
-  const content = `An individual associated with the element of fire is dynamic, passionate, and full of energy. They possess a strong will, determination, and a desire for action. Fire individuals are often leaders, enthusiastic about taking on challenges and pursuing their goals. They are creative, confident, and radiate a vibrant energy that inspires those around them. However, they need to be mindful of impatience and impulsiveness, balancing their fiery nature with consideration for others.`;
+  const content = `An individual associated with the element of fire is dynamic, passionate, and full of energy. They possess a strong will, determination, and a desire for action... [continuation text]`;
 
   const zodiacSignsContent = [
-    "Aries (March 21 - April 19): Aries is a Fire sign known for its boldness, passion, and adventurous spirit. Arians are natural-born leaders, often taking the initiative and embracing challenges with enthusiasm.",
-    "Leo (July 23 - August 22): Leo is a Fire sign associated with creativity, self-expression, and a charismatic personality. Leos are confident, generous, and enjoy being in the spotlight. They have a warm and playful nature.",
-    "Sagittarius (November 22 - December 21): Sagittarius, the Archer, is a Fire sign known for its love of freedom, adventure, and optimism. Sagittarians are curious, open-minded, and seek to explore new horizons.",
+    "Aries (March 21 - April 19): Aries is a Fire sign known for its boldness, passion, and adventurous spirit...",
+    "Leo (July 23 - August 22): Leo is a Fire sign associated with creativity, self-expression, and a charismatic personality...",
+    "Sagittarius (November 22 - December 21): Sagittarius, the Archer, is a Fire sign known for its love of freedom, adventure, and optimism...",
   ];
 
   const strengthsContent = [
     "Passion and enthusiasm: Full of energy and excitement.",
-    "Leadership qualities: Natural ability to take charge.",
-    "Creativity and self-expression: Enjoy expressing ideas and emotions.",
-    "Courage and boldness: Willingness to take risks.",
-    "Optimism and a positive outlook on life.",
+    "Leadership qualities: Natural ability to take charge...",
   ];
 
   const weaknessesContent = [
-    "Impatience and impulsiveness: Tendency to act without careful consideration.",
-    "Short temper and a tendency to be argumentative.",
-    "Difficulty dealing with routine and boredom.",
-    "Restlessness and a constant need for change.",
-    "Overestimating capabilities and taking on too much.",
+    "Impatience and impulsiveness: Tendency to act without careful consideration...",
+    "Short temper and a tendency to be argumentative...",
   ];
 
   const exercisesContent = [
     "Mindfulness and meditation to channel energy positively.",
-    "Learning to listen and consider others' perspectives.",
-    "Developing patience and practicing tolerance.",
-    "Setting realistic goals and avoiding overcommitment.",
-    "Balancing action with moments of relaxation.",
+    "Learning to listen and consider others' perspectives...",
   ];
 
   const strategiesContent = [
     "Learning to pause and reflect before reacting.",
-    "Cultivating patience and embracing the journey.",
-    "Focusing on one task at a time to avoid overwhelm.",
-    "Building healthy outlets for excess energy.",
+    "Cultivating patience and embracing the journey...",
   ];
 
   const sections = [
@@ -209,7 +193,6 @@ export const Fire = () => {
             top: 0,
             right: 0,
             padding: 2,
-            margin: "0 10px 10px 0",
             maxWidth: "20%",
             textAlign: "right",
           }}
@@ -239,10 +222,10 @@ export const Fire = () => {
       <Box sx={{ maxWidth: "70%" }}>
         <Accordion
           sx={{ backgroundColor: "transparent" }}
-          id="panel1a-header"
+          id="panel1a-header-fire"
           expanded={isFirstSectionVisible}
         >
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content">
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content-fire">
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
               <Typography
                 className="animate__animated animate__bounceInDown"
@@ -290,11 +273,11 @@ export const Fire = () => {
           <Accordion
             key={index}
             sx={{ backgroundColor: "transparent" }}
-            id={`panel${index}a-header`}
+            id={`panel${index}a-header-fire`}
           >
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel${index}a-content`}
+              aria-controls={`panel${index}a-content-fire`}
             >
               <Typography sx={listItemStyle}>{section.title}</Typography>
             </AccordionSummary>

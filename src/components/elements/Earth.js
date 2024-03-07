@@ -39,18 +39,6 @@ export const Earth = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
-  const reset = () => {
-    setEarthValues({
-      selectedZodiacSign: null,
-      selectedStrength: null,
-      selectedWeakness: null,
-      selectedExercise: null,
-      selectedStrategy: null,
-    });
-
-    localStorage.removeItem("earthValues");
-  };
-
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("earthValues")) || {};
     setEarthValues({
@@ -79,16 +67,23 @@ export const Earth = () => {
 
       localStorage.setItem("earthValues", JSON.stringify(storedValues));
 
+      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
+      setElementInfo(storedValues);
+
       return storedValues;
     });
+  };
 
-    setElementInfo({
-      selectedZodiacSign: earthValues.selectedZodiacSign,
-      selectedStrength: earthValues.selectedStrength,
-      selectedWeakness: earthValues.selectedWeakness,
-      selectedExercise: earthValues.selectedExercise,
-      selectedStrategy: earthValues.selectedStrategy,
+  const reset = () => {
+    setEarthValues({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
     });
+
+    localStorage.removeItem("earthValues");
   };
 
   const listItemStyle = {

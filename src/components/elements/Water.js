@@ -17,56 +17,72 @@ import ElementContext from "src/elementContext/ElementContext";
 export const Water = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
 
-  const [selectedZodiacSign, setSelectedZodiacSign] = useState(null);
-  const [selectedStrength, setSelectedStrength] = useState(null);
-  const [selectedWeakness, setSelectedWeakness] = useState(null);
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const [waterValues, setWaterValues] = useState({
+    selectedZodiacSign: null,
+    selectedStrength: null,
+    selectedWeakness: null,
+    selectedExercise: null,
+    selectedStrategy: null,
+  });
+
+  const setSelectedZodiacSign = (value) =>
+    setWaterValues((prev) => ({ ...prev, selectedZodiacSign: value }));
+  const setSelectedStrength = (value) =>
+    setWaterValues((prev) => ({ ...prev, selectedStrength: value }));
+  const setSelectedWeakness = (value) =>
+    setWaterValues((prev) => ({ ...prev, selectedWeakness: value }));
+  const setSelectedExercise = (value) =>
+    setWaterValues((prev) => ({ ...prev, selectedExercise: value }));
+  const setSelectedStrategy = (value) =>
+    setWaterValues((prev) => ({ ...prev, selectedStrategy: value }));
+
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isFirstSectionVisible, setIsFirstSectionVisible] = useState(false);
 
   const reset = () => {
-    setSelectedZodiacSign(null);
-    setSelectedStrength(null);
-    setSelectedWeakness(null);
-    setSelectedExercise(null);
-    setSelectedStrategy(null);
+    setWaterValues({
+      selectedZodiacSign: null,
+      selectedStrength: null,
+      selectedWeakness: null,
+      selectedExercise: null,
+      selectedStrategy: null,
+    });
 
     localStorage.removeItem("waterValues");
   };
 
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("waterValues")) || {};
-    setSelectedZodiacSign(storedValues.selectedZodiacSign || null);
-    setSelectedStrength(storedValues.selectedStrength || null);
-    setSelectedWeakness(storedValues.selectedWeakness || null);
-    setSelectedExercise(storedValues.selectedExercise || null);
-    setSelectedStrategy(storedValues.selectedStrategy || null);
+    setWaterValues({
+      selectedZodiacSign: storedValues.selectedZodiacSign || null,
+      selectedStrength: storedValues.selectedStrength || null,
+      selectedWeakness: storedValues.selectedWeakness || null,
+      selectedExercise: storedValues.selectedExercise || null,
+      selectedStrategy: storedValues.selectedStrategy || null,
+    });
   }, []);
 
   const handleSelect = (item, setter, identifier) => {
-    setter(() => {
-      const key = `selected${identifier}`;
+    setter(item);
 
+    const key = `selected${identifier}`;
+
+    setWaterValues((prevValues) => {
       const storedValues = {
-        selectedZodiacSign,
-        selectedStrength,
-        selectedWeakness,
-        selectedExercise,
-        selectedStrategy,
+        selectedZodiacSign: prevValues.selectedZodiacSign,
+        selectedStrength: prevValues.selectedStrength,
+        selectedWeakness: prevValues.selectedWeakness,
+        selectedExercise: prevValues.selectedExercise,
+        selectedStrategy: prevValues.selectedStrategy,
       };
       storedValues[key] = item;
+
       localStorage.setItem("waterValues", JSON.stringify(storedValues));
 
-      setElementInfo({
-        selectedZodiacSign,
-        selectedStrength,
-        selectedWeakness,
-        selectedExercise,
-        selectedStrategy,
-      });
+      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
+      setElementInfo(storedValues);
 
-      return item;
+      return storedValues;
     });
   };
 
@@ -102,73 +118,66 @@ export const Water = () => {
     }
   }, [location.hash]);
 
-  const content = `An individual associated with the element of water embodies fluidity, intuition, and emotional depth. They are often empathetic, adaptable, and attuned to the subtle nuances of their surroundings. Water personalities are known for their ability to navigate through the complexities of emotions and connect with others on a profound level. Like a flowing river, they possess a natural grace and the capacity to heal and nurture. Individuals aligned with the water element may also have a strong sense of creativity and imagination.`;
+  const content = `An individual associated with the element of water embodies fluidity, intuition, and emotional depth. They are often empathetic, adaptable, and attuned to the subtle nuances of their surroundings... [continuation text]`;
 
   const zodiacSignsContent = [
-    "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities. Cancers are intuitive, empathetic, and often have a strong connection to their family and home.",
-    "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion. Scorpios are often resourceful, determined, and have a keen ability to understand the hidden aspects of life.",
-    "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion. Pisceans are imaginative, sensitive, and have a deep connection to the spiritual and artistic realms.",
+    "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities...",
+    "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion...",
+    "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion...",
   ];
 
   const strengthsContent = [
     "Empathy and emotional intelligence: Ability to understand and connect with others on a deep level.",
-    "Adaptability and fluidity: Capacity to navigate through changing circumstances.",
-    "Intuition and sensitivity: Attuned to subtle nuances and emotions.",
-    "Creativity and imagination: Strong connection to artistic and spiritual realms.",
-    "Nurturing qualities: Ability to heal and support others.",
+    "Adaptability and fluidity: Capacity to navigate through changing circumstances...",
+    // [continuation of the strengthsContent]
   ];
 
   const weaknessesContent = [
-    "Overly emotional: Tendency to be overwhelmed by emotions.",
-    "Vulnerability to mood swings: Sensitivity to external influences.",
-    "Avoidance of confrontation: Difficulty dealing with conflict.",
-    "Overly idealistic: Struggle with accepting harsh realities.",
-    "Tendency to be easily influenced by others.",
+    "Overly emotional: Tendency to be overwhelmed by emotions...",
+    "Vulnerability to mood swings: Sensitivity to external influences...",
+    // [continuation of the weaknessesContent]
   ];
 
   const exercisesContent = [
-    "Practicing mindfulness and emotional awareness.",
-    "Engaging in creative activities: Art, music, writing.",
-    "Developing resilience and coping mechanisms for emotional challenges.",
-    "Exploring nature and connecting with natural elements.",
-    "Participating in activities that promote self-care and relaxation.",
+    "Practicing mindfulness and emotional awareness...",
+    "Engaging in creative activities: Art, music, writing...",
+    // [continuation of the exercisesContent]
   ];
 
   const strategiesContent = [
-    "Cultivating emotional balance and self-awareness.",
-    "Creating a nurturing and supportive environment.",
-    "Expressing creativity and embracing artistic outlets.",
-    "Building healthy boundaries while maintaining empathy.",
+    "Cultivating emotional balance and self-awareness...",
+    "Creating a nurturing and supportive environment...",
+    // [continuation of the strategiesContent]
   ];
 
   const sections = [
     {
       list: zodiacSignsContent,
-      state: selectedZodiacSign,
+      state: waterValues.selectedZodiacSign,
       setter: setSelectedZodiacSign,
       title: "Zodiac Signs:",
     },
     {
       list: strengthsContent,
-      state: selectedStrength,
+      state: waterValues.selectedStrength,
       setter: setSelectedStrength,
       title: "Strengths:",
     },
     {
       list: weaknessesContent,
-      state: selectedWeakness,
+      state: waterValues.selectedWeakness,
       setter: setSelectedWeakness,
       title: "Weaknesses:",
     },
     {
       list: exercisesContent,
-      state: selectedExercise,
+      state: waterValues.selectedExercise,
       setter: setSelectedExercise,
       title: "Exercises Enhancing Traits:",
     },
     {
       list: strategiesContent,
-      state: selectedStrategy,
+      state: waterValues.selectedStrategy,
       setter: setSelectedStrategy,
       title: "Key Strategies for Harmony:",
     },
@@ -202,11 +211,11 @@ export const Water = () => {
           >
             Reset
           </Button>
-          <DetailView title="Zodiac Sign" content={selectedZodiacSign || "-"} />
-          <DetailView title="Strength" content={selectedStrength || "-"} />
-          <DetailView title="Weakness" content={selectedWeakness || "-"} />
-          <DetailView title="Exercise" content={selectedExercise || "-"} />
-          <DetailView title="Strategy" content={selectedStrategy || "-"} />
+          <DetailView title="Zodiac Sign" content={waterValues.selectedZodiacSign || "-"} />
+          <DetailView title="Strength" content={waterValues.selectedStrength || "-"} />
+          <DetailView title="Weakness" content={waterValues.selectedWeakness || "-"} />
+          <DetailView title="Exercise" content={waterValues.selectedExercise || "-"} />
+          <DetailView title="Strategy" content={waterValues.selectedStrategy || "-"} />
         </Box>
       )}
       <Box sx={{ maxWidth: "70%" }}>

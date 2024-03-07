@@ -7,7 +7,6 @@ import YourContext from "../elementContext/ElementContext";
 
 export const ElementContextProvider = ({ children }) => {
   const [elementValues, setElementValues] = useState({
-    yourValue: "",
     selectedZodiacSign: localStorage.getItem("selectedZodiacSign") || "",
     selectedStrength: localStorage.getItem("selectedStrength") || "",
     selectedWeakness: localStorage.getItem("selectedWeakness") || "",
@@ -36,9 +35,13 @@ export const ElementContextProvider = ({ children }) => {
   };
 
   const setElementInfo = (info) => {
-    if (info && Object.keys(info).length > 0) {
-      setElementValues((prevValues) => ({ ...prevValues, ...info }));
-    }
+    setElementValues((prevValues) => {
+      const updatedValues = { ...prevValues, ...info };
+
+      // Tutaj możesz wykonywać dodatkowe operacje, jeśli są potrzebne
+
+      return updatedValues;
+    });
   };
 
   return (
