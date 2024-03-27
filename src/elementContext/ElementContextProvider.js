@@ -12,17 +12,18 @@ export const ElementContextProvider = ({ children }) => {
     selectedWeakness: localStorage.getItem("selectedWeakness") || "",
     selectedExercise: localStorage.getItem("selectedExercise") || "",
     selectedStrategy: localStorage.getItem("selectedStrategy") || "",
-    username: localStorage.getItem("username") || "", // Pobierz username z localStorage
+    yourValue: localStorage.getItem("yourValue") || "",
+    username: localStorage.getItem("username") || "",
   });
-  useEffect(() => {
-    // Pobierz wybrany element z pamięci lokalnej
-    const storedElement = localStorage.getItem("selectedElement");
 
-    // Jeśli jest zapisany, ustaw go jako ikonę
+  useEffect(() => {
+    const storedElement = localStorage.getItem("yourValue");
+
     if (storedElement) {
       setElementIcon(storedElement);
     }
   }, []);
+
   const [elementImages] = useState({
     fire: fired,
     water: waterd,
@@ -31,15 +32,27 @@ export const ElementContextProvider = ({ children }) => {
   });
 
   const setElementIcon = (element) => {
-    setElementValues((prevValues) => ({ ...prevValues, yourValue: element }));
+    setElementValues((prevValues) => ({
+      ...prevValues,
+      // selectedZodiacSign: "",
+      // selectedStrength: "",
+      // selectedWeakness: "",
+      // selectedExercise: "",
+      // selectedStrategy: "",
+      yourValue: element,
+    }));
+
+    localStorage.setItem("selectedZodiacSign", "");
+    localStorage.setItem("selectedStrength", "");
+    localStorage.setItem("selectedWeakness", "");
+    localStorage.setItem("selectedExercise", "");
+    localStorage.setItem("selectedStrategy", "");
+    localStorage.setItem("yourValue", element);
   };
 
   const setElementInfo = (info) => {
     setElementValues((prevValues) => {
       const updatedValues = { ...prevValues, ...info };
-
-      // Tutaj możesz wykonywać dodatkowe operacje, jeśli są potrzebne
-
       return updatedValues;
     });
   };

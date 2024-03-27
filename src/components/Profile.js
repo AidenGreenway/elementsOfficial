@@ -15,9 +15,11 @@ import {
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import { addDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
+import { colRef } from "src/firebaseConfig"; // Importuj db z firebaseConfig
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
@@ -144,9 +146,20 @@ export const Profile = () => {
 
   const handleAddPost = () => {
     if (newPost) {
-      setPosts([newPost, ...posts]);
-      setNewPost("");
-      setActiveSection("tablica");
+      // Dodaj post do bazy danych Firestore
+      addDoc(colRef, {
+        content: newPost,
+        timestamp: new Date().toISOString(), // Dodaj timestamp w postaci ISO string
+      })
+        .then((docRef) => {
+          console.log("Post added with ID: ", docRef.id);
+          setPosts([newPost, ...posts]);
+          setNewPost("");
+          setActiveSection("tablica");
+        })
+        .catch((error) => {
+          console.error("Error adding post: ", error);
+        });
     }
   };
 
