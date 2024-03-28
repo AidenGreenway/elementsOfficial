@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { addUserToFirestore, auth } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
-
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -13,6 +9,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addUserToFirestore, auth, userColRef } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
 
 import image444 from "src/diaryImages/air/444.png";
 
@@ -67,15 +66,15 @@ export const Register = () => {
     event.preventDefault();
     try {
       // Rejestracja użytkownika przy użyciu Firebase
+      console.log(auth);
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       // Jeśli rejestracja przebiegła pomyślnie, dodaj użytkownika do Firestore
-
       const userData = {
         email: email,
         password: password,
       };
 
-      await addUserToFirestore(userData);
+      await addUserToFirestore(userData, userColRef); // Przekazanie userColRef do funkcji addUserToFirestore
 
       console.log("Zarejestrowano pomyślnie:", userCredential.user.uid);
       navigate("/"); // Przenieś użytkownika na stronę logowania po pomyślnej rejestracji

@@ -26,6 +26,8 @@ const auth = getAuth(app);
 // Inicjalizacja bazy danych Firestore za pomocą funkcji getFirestore
 // Podobnie jak w przypadku autentykacji, funkcja ta przyjmuje jako argument instancję aplikacji Firebase (app)
 const db = getFirestore(app);
+const userColRef = collection(db, "users");
+
 const colRef = collection(db, "posts");
 getDocs(colRef).then((snapshot) => {
   console.log(snapshot.docs);
@@ -40,4 +42,4 @@ const addUserToFirestore = async (userData) => {
   }
 };
 // Eksportowanie zainicjowanej aplikacji Firebase oraz modułów autentykacji i bazy danych Firestore
-export { addUserToFirestore, app, auth, colRef, db };
+export { addUserToFirestore, app, auth, colRef, db, userColRef };
