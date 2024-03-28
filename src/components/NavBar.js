@@ -83,7 +83,7 @@ export const NavBar = () => {
     <CustomDrawer variant="permanent" anchor="left">
       <List>
         <ListItem>
-          <ListItemText primary={`${email}`} style={{ color: "grey" }} />
+          <ListItemText primary={` ${email}`} style={{ color: "grey" }} />
         </ListItem>
         <ListItem>
           <Button onClick={goBack} variant="text" style={{ color: "white" }}>

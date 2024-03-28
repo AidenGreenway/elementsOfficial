@@ -14,7 +14,7 @@ export const ElementContextProvider = ({ children }) => {
     selectedStrategy: localStorage.getItem("selectedStrategy") || "",
     yourValue: localStorage.getItem("yourValue") || "",
     username: localStorage.getItem("username") || "",
-    email: "", // Dodajemy pole dla emaila
+    email: localStorage.getItem("email") || "", // Pobranie wartości email z localStorage
   });
 
   useEffect(() => {
@@ -54,6 +54,7 @@ export const ElementContextProvider = ({ children }) => {
   const setElementInfo = (info) => {
     setElementValues((prevValues) => {
       const updatedValues = { ...prevValues, ...info };
+      localStorage.setItem("email", info.email); // Dodanie zapisu email do localStorage
       return updatedValues;
     });
   };
