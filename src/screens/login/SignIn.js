@@ -11,9 +11,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image444 from "src/diaryImages/air/444.png";
+import ElementContext from "src/elementContext/ElementContext";
 import { auth } from "src/firebaseConfig";
 
 // Tworzenie niestandardowego motywu MUI
@@ -66,8 +67,9 @@ export const SignIn = () => {
   const navigate = useNavigate();
 
   // Stany przechowujące wartości wpisane przez użytkownika
-  const [email, setEmail] = useState("M");
-  const [password, setPassword] = useState("M");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setElementInfo } = useContext(ElementContext);
 
   // Obsługa formularza logowania
   const handleSubmit = (e) => {
@@ -75,6 +77,7 @@ export const SignIn = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    setElementInfo({ email });
 
     // Logowanie użytkownika za pomocą emaila i hasła
     signInWithEmailAndPassword(auth, email, password)

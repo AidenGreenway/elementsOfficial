@@ -69,7 +69,7 @@ export const NavBar = () => {
       });
   };
 
-  const { elementImages, yourValue } = useContext(YourContext);
+  const { elementImages, yourValue, email } = useContext(YourContext);
 
   const menuItems = [
     { name: "Home", path: "dashboard/home" },
@@ -82,6 +82,9 @@ export const NavBar = () => {
   return (
     <CustomDrawer variant="permanent" anchor="left">
       <List>
+        <ListItem>
+          <ListItemText primary={`${email}`} style={{ color: "grey" }} />
+        </ListItem>
         <ListItem>
           <Button onClick={goBack} variant="text" style={{ color: "white" }}>
             <ArrowBackIcon />

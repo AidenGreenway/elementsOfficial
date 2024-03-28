@@ -14,6 +14,7 @@ export const ElementContextProvider = ({ children }) => {
     selectedStrategy: localStorage.getItem("selectedStrategy") || "",
     yourValue: localStorage.getItem("yourValue") || "",
     username: localStorage.getItem("username") || "",
+    email: "", // Dodajemy pole dla emaila
   });
 
   useEffect(() => {
