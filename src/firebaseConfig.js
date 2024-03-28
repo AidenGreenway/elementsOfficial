@@ -1,9 +1,9 @@
 // Importujemy funkcję initializeApp z modułu firebase/app
 import { initializeApp } from "firebase/app";
 // Importujemy funkcję getAuth z modułu firebase/auth
-import { getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 // Importujemy funkcję getFirestore z modułu firebase/firestore
-import { addDoc, collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 // Konfiguracja Firebase, zawierająca kluczowe informacje dla naszej aplikacji Firebase
 const firebaseConfig = {
@@ -26,20 +26,11 @@ const auth = getAuth(app);
 // Inicjalizacja bazy danych Firestore za pomocą funkcji getFirestore
 // Podobnie jak w przypadku autentykacji, funkcja ta przyjmuje jako argument instancję aplikacji Firebase (app)
 const db = getFirestore(app);
-const userColRef = collection(db, "users");
-
+const ColRef1 = collection(db, "users");
 const colRef = collection(db, "posts");
 getDocs(colRef).then((snapshot) => {
   console.log(snapshot.docs);
 });
-const addUserToFirestore = async (userData) => {
-  try {
-    // Dodaj nowy dokument użytkownika do kolekcji "users" w Firestore
-    await addDoc(collection(db, "users"), userData);
-    console.log("Użytkownik dodany do kolekcji 'users' w Firestore");
-  } catch (error) {
-    console.error("Błąd podczas dodawania użytkownika do Firestore:", error);
-  }
-};
+
 // Eksportowanie zainicjowanej aplikacji Firebase oraz modułów autentykacji i bazy danych Firestore
-export { addUserToFirestore, app, auth, colRef, db, userColRef };
+export { ColRef1, app, auth, colRef, createUserWithEmailAndPassword, db };

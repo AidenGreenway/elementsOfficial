@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addUserToFirestore, auth, userColRef } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
+import { auth, createUserWithEmailAndPassword } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
 
 import image444 from "src/diaryImages/air/444.png";
 
@@ -62,26 +62,18 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = async (event) => {
-    event.preventDefault();
-    try {
-      // Rejestracja użytkownika przy użyciu Firebase
-      console.log(auth);
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      // Jeśli rejestracja przebiegła pomyślnie, dodaj użytkownika do Firestore
-      const userData = {
-        email: email,
-        password: password,
-      };
+  const handleRegister = (e) => {
+    e.preventDefault();
 
-      await addUserToFirestore(userData, userColRef); // Przekazanie userColRef do funkcji addUserToFirestore
-
-      console.log("Zarejestrowano pomyślnie:", userCredential.user.uid);
-      navigate("/"); // Przenieś użytkownika na stronę logowania po pomyślnej rejestracji
-    } catch (error) {
-      console.error("Błąd podczas rejestracji:", error);
-      // Obsłuż błędy rejestracji, np. wyświetlając komunikat dla użytkownika
-    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        console.log("User created:", cred.user);
+        setEmail(""); // Resetuj stan emaila po zakończeniu rejestracji
+        setPassword(""); // Resetuj stan hasła po zakończeniu rejestracji
+      })
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
   };
   const handleGoToRegulamin = () => {
     navigate("/regulamin");
