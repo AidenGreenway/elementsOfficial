@@ -10,9 +10,11 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import image444 from "src/diaryImages/air/444.png";
+import { auth } from "src/firebaseConfig";
 
 // Tworzenie niestandardowego motywu MUI
 const theme = createTheme({
@@ -68,16 +70,21 @@ export const SignIn = () => {
   const [password, setPassword] = useState("M");
 
   // Obsługa formularza logowania
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // Sprawdzenie poprawności danych logowania
-    if (email === "M" && password === "M") {
-      // Przejście do strony nawigacyjnej "/dashboard"
-      navigate("/dashboard");
-    } else {
-      console.log("Niepoprawne dane logowania");
-    }
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    // Logowanie użytkownika za pomocą emaila i hasła
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        // Jeżeli logowanie zakończyło się sukcesem, przejdź do strony nawigacyjnej "/dashboard"
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.error("Błąd logowania:", error.message);
+      });
   };
 
   // Obsługa kliknięcia "Sign Up"

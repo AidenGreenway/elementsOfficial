@@ -11,8 +11,9 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, createUserWithEmailAndPassword } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
+import { ColRef1, auth, createUserWithEmailAndPassword } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
 
+import { addDoc } from "firebase/firestore";
 import image444 from "src/diaryImages/air/444.png";
 
 const theme = createTheme({
@@ -65,15 +66,39 @@ export const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
+    // Pobierz wartości email i hasła z formularza
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    // Utwórz nowego użytkownika w Firebase Authentication
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("User created:", cred.user);
+
+        // Pobierz identyfikator nowego użytkownika
+        const userId = cred.user.uid;
+
+        // Dodaj nowego użytkownika do kolekcji w Firestore
+        addDoc(ColRef1, {
+          userId: userId, // Identyfikator nowego użytkownika
+          email: email,
+          password: password, // Adres email nowego użytkownika
+          // Dodaj inne dane użytkownika, jeśli są dostępne
+        })
+          .then((docRef) => {
+            console.log("User data added to Firestore with ID: ", docRef.id);
+          })
+          .catch((error) => {
+            console.error("Error adding user data to Firestore:", error);
+          });
+
         setEmail(""); // Resetuj stan emaila po zakończeniu rejestracji
         setPassword(""); // Resetuj stan hasła po zakończeniu rejestracji
       })
       .catch((error) => {
         console.error("Error creating user:", error);
       });
+    navigate("/dashboard");
   };
   const handleGoToRegulamin = () => {
     navigate("/regulamin");

@@ -2,9 +2,11 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Button, Drawer, List, ListItem, ListItemIcon, ListItemText, styled } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
+import { signOut } from "firebase/auth";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import YourContext from "src/elementContext/ElementContext";
+import { auth } from "src/firebaseConfig";
 
 const CustomDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -56,8 +58,15 @@ export const NavBar = () => {
   };
 
   const handleLogout = () => {
-    // Tutaj logika wylogowania
-    navigate("/"); // Przekieruj na stronę główną / logowania
+    // Tutaj wykonujemy wylogowanie użytkownika
+    signOut(auth)
+      .then(() => {
+        console.log("User logged out successfully");
+        navigate("/"); // Przekieruj na stronę logowania po wylogowaniu
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
   };
 
   const { elementImages, yourValue } = useContext(YourContext);
