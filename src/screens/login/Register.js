@@ -9,12 +9,13 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ColRef1, auth, createUserWithEmailAndPassword } from "src/firebaseConfig"; // Zaimportuj moduł autentykacji z pliku firebaseConfig.js
 
 import { addDoc } from "firebase/firestore";
 import image444 from "src/diaryImages/air/444.png";
+import ElementContext from "src/elementContext/ElementContext";
 
 const theme = createTheme({
   typography: {
@@ -59,6 +60,7 @@ const theme = createTheme({
 
 export const Register = () => {
   const navigate = useNavigate();
+  const { setElementInfo } = useContext(ElementContext); // Pobierz funkcję setElementInfo z kontekstu użytkownika
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,13 +82,16 @@ export const Register = () => {
 
         // Dodaj nowego użytkownika do kolekcji w Firestore
         addDoc(ColRef1, {
-          userId: userId, // Identyfikator nowego użytkownika
+          userId: userId,
           email: email,
-          password: password, // Adres email nowego użytkownika
-          // Dodaj inne dane użytkownika, jeśli są dostępne
+          password: password,
         })
           .then((docRef) => {
             console.log("User data added to Firestore with ID: ", docRef.id);
+
+            // Zapisz email do localStorage
+            localStorage.setItem("email", email);
+            setElementInfo({ email: email });
           })
           .catch((error) => {
             console.error("Error adding user data to Firestore:", error);
@@ -94,12 +99,15 @@ export const Register = () => {
 
         setEmail(""); // Resetuj stan emaila po zakończeniu rejestracji
         setPassword(""); // Resetuj stan hasła po zakończeniu rejestracji
+
+        // Przekieruj użytkownika do dashboard po rejestracji
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error("Error creating user:", error);
       });
-    navigate("/dashboard");
   };
+
   const handleGoToRegulamin = () => {
     navigate("/regulamin");
   };
