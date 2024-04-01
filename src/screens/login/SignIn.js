@@ -82,8 +82,8 @@ export const SignIn = () => {
     // Logowanie użytkownika za pomocą emaila i hasła
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        // Jeżeli logowanie zakończyło się sukcesem, przejdź do strony nawigacyjnej "/dashboard"
-        navigate("/dashboard");
+        // przekazujemy email użytkownika do nawigacji
+        navigate("/dashboard", { state: { userEmail: email } });
       })
       .catch((error) => {
         console.error("Błąd logowania:", error.message);

@@ -3,7 +3,8 @@ import aird from "../diaryImages/air/air3.jpg";
 import earthd from "../diaryImages/earth/earth4.png";
 import fired from "../diaryImages/fire/fire4.png";
 import waterd from "../diaryImages/water/water3.png";
-import YourContext from "../elementContext/ElementContext";
+import { auth } from "../firebaseConfig";
+import ElementContext from "./ElementContext";
 
 export const ElementContextProvider = ({ children }) => {
   const [elementValues, setElementValues] = useState({
@@ -14,15 +15,29 @@ export const ElementContextProvider = ({ children }) => {
     selectedStrategy: localStorage.getItem("selectedStrategy") || "",
     yourValue: localStorage.getItem("yourValue") || "",
     username: localStorage.getItem("username") || "",
-    email: localStorage.getItem("email") || "", // Pobranie wartości email z localStorage
+    email: "", // Usuwamy wartość email z localStorage
   });
-
+  const setElementInfo = (info) => {
+    setElementValues((prevValues) => ({
+      ...prevValues,
+      ...info,
+    }));
+  };
   useEffect(() => {
     const storedElement = localStorage.getItem("yourValue");
 
     if (storedElement) {
       setElementIcon(storedElement);
     }
+
+    // Pobieramy bieżącego użytkownika Firebase i aktualizujemy jego adres e-mail
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setElementInfo({ email: user.email });
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const [elementImages] = useState({
@@ -46,19 +61,13 @@ export const ElementContextProvider = ({ children }) => {
     localStorage.setItem("yourValue", element);
   };
 
-  const setElementInfo = (info) => {
-    setElementValues((prevValues) => {
-      const updatedValues = { ...prevValues, ...info };
-      localStorage.setItem("email", info.email); // Dodanie zapisu email do localStorage
-      return updatedValues;
-    });
-  };
-
   return (
-    <YourContext.Provider
+    <ElementContext.Provider
       value={{ ...elementValues, setElementIcon, setElementInfo, elementImages }}
     >
       {children}
-    </YourContext.Provider>
+    </ElementContext.Provider>
   );
 };
+
+export default ElementContext;
