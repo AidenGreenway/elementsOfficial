@@ -79,7 +79,10 @@ export const Challenges = () => {
   ];
 
   return (
-    <div style={{ color: "white", display: "flex", justifyContent: "space-between" }}>
+    <div
+      className="animate__animated animate__zoomIn"
+      style={{ color: "white", display: "flex", justifyContent: "space-between" }}
+    >
       <div>
         <Typography style={{ color: "white", fontSize: "80px", marginBottom: "20px" }}>
           CHALLENGES

@@ -64,9 +64,16 @@ export const Register = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false); // Dodany stan dla zgody na warunki
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    if (!acceptedTerms) {
+      // Sprawdź, czy użytkownik zaakceptował warunki
+      alert("Please accept the terms and conditions.");
+      return;
+    }
 
     // Pobierz wartości email i hasła z formularza
     const email = e.target.email.value;
@@ -99,6 +106,7 @@ export const Register = () => {
 
         setEmail(""); // Resetuj stan emaila po zakończeniu rejestracji
         setPassword(""); // Resetuj stan hasła po zakończeniu rejestracji
+        setAcceptedTerms(false); // Resetuj stan zgody na warunki po zakończeniu rejestracji
 
         // Przekieruj użytkownika do dashboard po rejestracji
         navigate("/dashboard");
@@ -156,7 +164,13 @@ export const Register = () => {
                 />
               </Grid>
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={
+                  <Checkbox
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                    color="primary"
+                  />
+                }
                 label="I accept the terms and conditions"
               />
             </Grid>

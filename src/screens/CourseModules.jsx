@@ -51,7 +51,11 @@ export const CourseModules = () => {
   ];
 
   return (
-    <Box className="course-modules" overflow="hidden" sx={{ margin: 0, padding: 0 }}>
+    <Box
+      className="animate__animated animate__zoomIn"
+      overflow="hidden"
+      sx={{ margin: 0, padding: 0 }}
+    >
       <Typography
         variant="h3"
         sx={{

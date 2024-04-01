@@ -105,6 +105,7 @@ export const Banner = () => {
 
   return (
     <Box
+      className="animate__animated animate__zoomIn"
       sx={{
         transition: "opacity 0.5s ease-in-out",
         overflow: "hidden",
@@ -133,6 +134,7 @@ export const Banner = () => {
             <>
               <form onSubmit={handleSubmit}>
                 <Box
+                  className="animate__animated animate__bounceInDown"
                   sx={{
                     position: "absolute",
                     top: "10%",

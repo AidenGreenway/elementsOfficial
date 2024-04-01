@@ -1,7 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dalle from "src/assets/images/forumdall.png";
 
 const hoverStyles = {
   fire: {
@@ -20,21 +19,6 @@ const hoverStyles = {
     backgroundColor: "black",
     color: "lightGreen",
   },
-};
-
-const centeredImageStyle = {
-  position: "absolute", // Change fixed to absolute
-  top: "51%",
-  left: "52.94%",
-  transform: "translate(-50%, -50%)",
-  display: "block",
-  maxWidth: "30.5%",
-  maxHeight: "100vh",
-};
-
-const imageStyle = {
-  width: "75%",
-  height: "auto",
 };
 
 export const Forum = () => {
@@ -56,6 +40,7 @@ export const Forum = () => {
 
   return (
     <Box
+      className="animate__animated animate__zoomIn"
       sx={{
         display: "flex",
         flexDirection: "row",
@@ -90,10 +75,6 @@ export const Forum = () => {
           </Button>
         </Box>
       ))}
-
-      <div style={centeredImageStyle}>
-        <img alt="" src={dalle} style={imageStyle} />
-      </div>
     </Box>
   );
 };

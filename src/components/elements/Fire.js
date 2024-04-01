@@ -64,11 +64,11 @@ export const Fire = () => {
   useEffect(() => {
     const storedValues = JSON.parse(localStorage.getItem("fireValues")) || {};
     setFireValues({
-      selectedZodiacSign: storedValues.selectedZodiacSign || null,
-      selectedStrength: storedValues.selectedStrength || null,
-      selectedWeakness: storedValues.selectedWeakness || null,
-      selectedExercise: storedValues.selectedExercise || null,
-      selectedStrategy: storedValues.selectedStrategy || null,
+      selectedZodiacSign: storedValues.selectedZodiacSign || "",
+      selectedStrength: storedValues.selectedStrength || "",
+      selectedWeakness: storedValues.selectedWeakness || "",
+      selectedExercise: storedValues.selectedExercise || "",
+      selectedStrategy: storedValues.selectedStrategy || "",
     });
   }, []);
 

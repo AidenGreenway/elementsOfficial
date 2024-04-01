@@ -66,9 +66,10 @@ export const SignIn = () => {
   // Hook do nawigacji w aplikacji
   const navigate = useNavigate();
 
-  // Stany przechowujące wartości wpisane przez użytkownika
+  // Stany przechowujące wartości wpisane przez użytkownika oraz komunikat o błędzie
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // Dodany stan dla komunikatu o błędzie
   const { setElementInfo } = useContext(ElementContext);
 
   // Obsługa formularza logowania
@@ -86,6 +87,7 @@ export const SignIn = () => {
         navigate("/dashboard", { state: { userEmail: email } });
       })
       .catch((error) => {
+        setError("wrong data,try again"); // Ustawienie komunikatu o błędzie
         console.error("Błąd logowania:", error.message);
       });
   };
@@ -124,6 +126,8 @@ export const SignIn = () => {
           {/* Podtytuł strony */}
           <Typography sx={{ fontSize: "24px" }}>Login</Typography>
 
+          {/* Komunikat o błędzie */}
+
           {/* Formularz logowania */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             {/* Pole tekstowe dla adresu email */}
@@ -139,7 +143,6 @@ export const SignIn = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
             {/* Pole tekstowe dla hasła */}
             <TextField
               margin="normal"
@@ -153,13 +156,15 @@ export const SignIn = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
-            {/* Checkbox "Remember me" */}
+            {error && (
+              <Typography variant="body2" sx={{ color: "red", mt: 1 }}>
+                {error}
+              </Typography>
+            )}{" "}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-
             {/* Przycisk do zatwierdzenia formularza logowania */}
             <Button
               type="submit"
@@ -179,7 +184,6 @@ export const SignIn = () => {
             >
               Login
             </Button>
-
             {/* Link do odzyskiwania hasła */}
             <Grid container>
               <Grid item xs>

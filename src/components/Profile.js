@@ -425,7 +425,7 @@ export const Profile = () => {
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Box>
+          <Box className="animate__animated animate__zoomIn">
             <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
                 <img

@@ -12,6 +12,7 @@ import { addDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import YourContext from "src/elementContext/ElementContext";
 import { ColRef5 } from "src/firebaseConfig"; // Importuj odpowiednią kolekcję dla EarthBlog
+import { addButtonStyles } from "src/styles";
 
 export const EarthBlog = () => {
   const { username } = useContext(YourContext);
@@ -85,7 +86,7 @@ export const EarthBlog = () => {
   };
 
   return (
-    <Box sx={{ marginTop: "4%" }}>
+    <Box className="animate__animated animate__bounceInDown" sx={{ marginTop: "4%" }}>
       <Grid container spacing={4} sx={{ width: "100%" }}>
         <Grid item xs={6}>
           <Box
@@ -165,18 +166,7 @@ export const EarthBlog = () => {
                 gap: "8px",
               }}
             >
-              <Button
-                variant="contained"
-                onClick={handlePostSubmit}
-                sx={{
-                  backgroundColor: "black",
-                  color: "white",
-                  "&:hover": {
-                    color: "lightGreen",
-                    backgroundColor: "black",
-                  },
-                }}
-              >
+              <Button variant="contained" onClick={handlePostSubmit} sx={addButtonStyles.button}>
                 Add Post
               </Button>
             </Box>
