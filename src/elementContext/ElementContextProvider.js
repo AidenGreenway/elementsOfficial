@@ -35,11 +35,6 @@ export const ElementContextProvider = ({ children }) => {
   const setElementIcon = (element) => {
     setElementValues((prevValues) => ({
       ...prevValues,
-      // selectedZodiacSign: "",
-      // selectedStrength: "",
-      // selectedWeakness: "",
-      // selectedExercise: "",
-      // selectedStrategy: "",
       yourValue: element,
     }));
 

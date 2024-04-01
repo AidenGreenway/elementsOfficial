@@ -28,11 +28,25 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const colRef = collection(db, "posts");
 const ColRef1 = collection(db, "users");
-const ColRef2 = collection(db, "fireblog");
+const ColRef2 = collection(db, "firePosts");
+const ColRef3 = collection(db, "waterPosts");
+const ColRef4 = collection(db, "airPosts");
+const ColRef5 = collection(db, "earthPosts");
 
 getDocs(colRef).then((snapshot) => {
   console.log(snapshot.docs);
 });
 
 // Eksportowanie zainicjowanej aplikacji Firebase oraz modułów autentykacji i bazy danych Firestore
-export { ColRef1, ColRef2, app, auth, colRef, createUserWithEmailAndPassword, db };
+export {
+  ColRef1,
+  ColRef2,
+  ColRef3,
+  ColRef4,
+  ColRef5,
+  app,
+  auth,
+  colRef,
+  createUserWithEmailAndPassword,
+  db,
+};

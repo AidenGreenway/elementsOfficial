@@ -8,9 +8,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { addDoc, doc, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import dalle from "src/assets/images/forumdall.png";
 import YourContext from "src/elementContext/ElementContext";
+import { ColRef4 } from "src/firebaseConfig";
 
 export const AirBlog = () => {
   const { username } = useContext(YourContext);
@@ -36,17 +38,20 @@ export const AirBlog = () => {
     const { name, value } = e.target;
     setNewPost({ ...newPost, [name]: value });
   };
-  const handlePostSubmit = () => {
+
+  const handlePostSubmit = async () => {
     if (newPost.title.trim() !== "" && newPost.content.trim() !== "") {
       const currentDate = new Date().toISOString().slice(0, 10);
       const newBlogPost = {
-        id: blogPosts.length + 1,
         title: newPost.title,
         content: newPost.content,
         date: currentDate,
         comments: [],
       };
-      setBlogPosts([newBlogPost, ...blogPosts]);
+
+      const docRef = await addDoc(ColRef4, newBlogPost);
+
+      setBlogPosts((prevPosts) => [{ id: docRef.id, ...newBlogPost }, ...prevPosts]);
       setNewPost({ title: "", content: "" });
     }
   };
@@ -61,17 +66,21 @@ export const AirBlog = () => {
   const handleCommentInputChange = (postId, e) => {
     setCommentText({ ...commentText, [postId]: e.target.value });
   };
-  const handleAddComment = (postId) => {
+
+  const handleAddComment = async (postId) => {
     if (commentText[postId] !== undefined && commentText[postId].trim() !== "") {
-      const updatedPosts = blogPosts.map((post) =>
-        post.id === postId
-          ? {
-              ...post,
-              comments: [`${username}: ${commentText[postId]}`, ...post.comments],
-            }
-          : post
+      const updatedComments = [
+        ...blogPosts.find((post) => post.id === postId).comments,
+        `${username}: ${commentText[postId]}`,
+      ];
+
+      await updateDoc(doc(ColRef4, postId), { comments: updatedComments });
+
+      const updatedBlogPosts = blogPosts.map((post) =>
+        post.id === postId ? { ...post, comments: updatedComments } : post
       );
-      setBlogPosts(updatedPosts);
+
+      setBlogPosts(updatedBlogPosts);
       setCommentText({ ...commentText, [postId]: "" });
     }
   };
@@ -79,6 +88,13 @@ export const AirBlog = () => {
   const handleClearData = () => {
     localStorage.removeItem("airBlogPosts");
     setBlogPosts([]);
+  };
+
+  const handleEnterKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handlePostSubmit();
+    }
   };
 
   return (
@@ -124,6 +140,7 @@ export const AirBlog = () => {
                 name="title"
                 value={newPost.title}
                 onChange={handleInputChange}
+                onKeyPress={handleEnterKeyPress}
                 sx={{
                   marginBottom: 2,
                   width: "60%",
@@ -149,6 +166,7 @@ export const AirBlog = () => {
                 name="content"
                 value={newPost.content}
                 onChange={handleInputChange}
+                onKeyPress={handleEnterKeyPress}
                 sx={{
                   width: "60%",
                   marginRight: "40%",
@@ -313,6 +331,7 @@ export const AirBlog = () => {
                             onChange={(e) => handleCommentInputChange(post.id, e)}
                             sx={{
                               marginTop: 4,
+                              marginBottom: 2,
                               "& .MuiOutlinedInput-root": {
                                 borderColor: "#3498db",
                                 backgroundColor: "rgba(255, 255, 255, 0.1)",
@@ -322,30 +341,20 @@ export const AirBlog = () => {
                               },
                             }}
                           />
-                          <Box
+                          <Button
+                            variant="contained"
+                            onClick={() => handleAddComment(post.id)}
                             sx={{
-                              display: "flex",
-                              justifyContent: "flex-end",
-                              marginTop: 2,
-                              marginBottom: 1,
+                              backgroundColor: "transparent",
+                              color: "lightBlue",
+                              "&:hover": {
+                                color: "LimeGreen",
+                                backgroundColor: "transparent",
+                              },
                             }}
                           >
-                            <Button
-                              variant="contained"
-                              onClick={() => handleAddComment(post.id)}
-                              sx={{
-                                backgroundColor: "transparent",
-                                color: "lightBlue",
-                                marginLeft: "auto",
-                                "&:hover": {
-                                  color: "LimeGreen",
-                                  backgroundColor: "transparent",
-                                },
-                              }}
-                            >
-                              Add Comment
-                            </Button>
-                          </Box>
+                            Add Comment
+                          </Button>
                           <Typography
                             variant="body2"
                             color="text.secondary"
