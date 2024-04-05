@@ -18,7 +18,6 @@ import {
 const theme = createTheme({
   typography: {
     fontFamily: "The Next Font",
-    //fontColor: "green",
   },
 });
 
@@ -30,7 +29,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add the new route */}
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/regulamin" element={<Regulamin />} />
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="home" element={<Banner />} />

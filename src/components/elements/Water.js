@@ -48,10 +48,8 @@ export const Water = () => {
       selectedStrategy: null,
     });
 
-    // Usuń odpowiednie klucze z localStorage
     localStorage.removeItem("waterValues");
 
-    // Ustaw puste wartości w kontekście
     setElementInfo({
       selectedZodiacSign: null,
       selectedStrength: null,
@@ -89,7 +87,6 @@ export const Water = () => {
 
       localStorage.setItem("waterValues", JSON.stringify(storedValues));
 
-      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
       setElementInfo(storedValues);
 
       return storedValues;
@@ -134,7 +131,6 @@ export const Water = () => {
     "Cancer (June 21 - July 22): Cancer, the Crab, is a Water sign known for its emotional depth and nurturing qualities. Cancers are intuitive, empathetic, and often have a strong connection to their family and home.",
     "Scorpio (October 23 - November 21): Scorpio is a Water sign characterized by its intensity and passion. Scorpios are often resourceful, determined, and have a keen ability to understand the hidden aspects of life.",
     "Pisces (February 19 - March 20): Pisces, the Fish, is a Water sign associated with creativity and compassion. Pisceans are imaginative, sensitive, and have a deep connection to the spiritual and artistic realms.",
-    // [additional zodiac signs]
   ];
 
   const strengthsContent = [
@@ -143,7 +139,6 @@ export const Water = () => {
     "Intuition and sensitivity: Attuned to subtle nuances and emotions.",
     "Creativity and imagination: Strong connection to artistic and spiritual realms.",
     "Nurturing qualities: Ability to heal and support others.",
-    // [additional strengths]
   ];
 
   const weaknessesContent = [
@@ -152,7 +147,6 @@ export const Water = () => {
     "Avoidance of confrontation: Difficulty dealing with conflict.",
     "Overly idealistic: Struggle with accepting harsh realities.",
     "Tendency to be easily influenced by others.",
-    // [additional weaknesses]
   ];
 
   const exercisesContent = [
@@ -161,7 +155,6 @@ export const Water = () => {
     "Developing resilience and coping mechanisms for emotional challenges.",
     "Exploring nature and connecting with natural elements.",
     "Participating in activities that promote self-care and relaxation.",
-    // [additional exercises]
   ];
 
   const strategiesContent = [
@@ -169,7 +162,6 @@ export const Water = () => {
     "Creating a nurturing and supportive environment.",
     "Expressing creativity and embracing artistic outlets.",
     "Building healthy boundaries while maintaining empathy.",
-    // [additional strategies]
   ];
 
   const sections = [

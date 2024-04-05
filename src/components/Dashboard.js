@@ -19,8 +19,6 @@ export const Dashboard = () => {
         backgroundRepeat: "no-repeat",
 
         minHeight: "100vh",
-
-        //color: "white",
       }}
     >
       <NavBar />

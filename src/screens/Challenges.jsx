@@ -75,12 +75,11 @@ export const Challenges = () => {
       color: "#00ff7f",
       destination: "earth",
     },
-    // Dodaj inne wyzwania tutaj
   ];
 
   return (
     <div
-      className="animate__animated animate__zoomIn"
+      className="animate__animated animate__fadeIn"
       style={{ color: "white", display: "flex", justifyContent: "space-between" }}
     >
       <div>

@@ -9,14 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import { addDoc, doc, getDocs, updateDoc } from "firebase/firestore";
-import { useContext, useEffect, useRef, useState } from "react"; // Dodano useRef
+import { useContext, useEffect, useRef, useState } from "react";
 import YourContext from "src/elementContext/ElementContext";
 import { ColRef2 } from "src/firebaseConfig";
 import { addButtonStyles } from "src/styles";
 
 export const FireBlog = () => {
   const { username } = useContext(YourContext);
-  const commentsEndRef = useRef(null); // Dodano referencję do ostatniego komentarza
+  const commentsEndRef = useRef(null);
 
   const [blogPosts, setBlogPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: "", content: "" });
@@ -43,16 +43,14 @@ export const FireBlog = () => {
         comments: [],
       };
 
-      // Dodanie nowego posta do Firestore
       const docRef = await addDoc(ColRef2, newBlogPost);
 
-      // Aktualizacja stanu blogPosts
       setBlogPosts((prevPosts) =>
         [{ id: docRef.id, ...newBlogPost }, ...prevPosts].sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         )
       );
-      // Wyczyszczenie pól nowego posta
+
       setNewPost({ title: "", content: "" });
     }
   };
@@ -74,16 +72,13 @@ export const FireBlog = () => {
 
   const handleAddComment = async (postId) => {
     if (commentText[postId] !== undefined && commentText[postId].trim() !== "") {
-      // Dodanie nowego komentarza do tablicy komentarzy
       const updatedComments = [
         ...blogPosts.find((post) => post.id === postId).comments,
         `${username}: ${commentText[postId]} `,
       ];
 
-      // Aktualizacja komentarza w Firestore
       await updateDoc(doc(ColRef2, postId), { comments: updatedComments });
 
-      // Aktualizacja stanu blogPosts
       const updatedBlogPosts = blogPosts.map((post) =>
         post.id === postId
           ? {
@@ -99,7 +94,6 @@ export const FireBlog = () => {
 
       setBlogPosts(updatedBlogPosts);
 
-      // Wyczyszczenie pola wprowadzania komentarza
       setCommentText({ ...commentText, [postId]: "" });
     }
   };
@@ -157,7 +151,7 @@ export const FireBlog = () => {
             <TextField
               fullWidth
               multiline
-              rows={4} // Ustaw maksymalną liczbę wierszy
+              rows={4}
               variant="outlined"
               name="content"
               value={newPost.content}
@@ -173,7 +167,7 @@ export const FireBlog = () => {
                 },
                 "& textarea": {
                   color: "#FFF",
-                  overflowY: "auto", // Wyłącz automatyczne dostosowywanie wysokości
+                  overflowY: "auto",
                 },
               }}
             />
@@ -295,8 +289,6 @@ export const FireBlog = () => {
                     </Typography>
                     <Box sx={{ marginBottom: 8 }} />
 
-                    {/* Linia oddzielająca treść posta od komentarzy */}
-
                     {showComments[post.id] && (
                       <div>
                         {post.comments.map((comment, index) => (
@@ -312,10 +304,10 @@ export const FireBlog = () => {
                               marginBottom: 1,
                             }}
                           >
-                            {comment}
+                            {username}: {comment}
                           </Typography>
                         ))}
-                        <div ref={commentsEndRef} /> {/* Referencja do ostatniego komentarza */}
+                        <div ref={commentsEndRef} />
                         <TextField
                           fullWidth
                           variant="outlined"

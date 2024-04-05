@@ -2,7 +2,6 @@ import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "
 import { styled } from "@mui/system";
 import { useState } from "react";
 
-// StyledListItemButton - Komponent stylizowany z MUI
 const StyledListItemButton = styled(ListItemButton)({
   fontSize: "200%",
   "&:hover": {
@@ -11,16 +10,12 @@ const StyledListItemButton = styled(ListItemButton)({
   },
 });
 
-// Komponent główny
 export const AirChallenge = () => {
-  // Sprawdza, czy ekran jest mały
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
-  // Stan komponentu
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
 
-  // Funkcja zaokrąglająca liczbę do jednego miejsca po przecinku
   const roundToOneDecimalPlace = (number) => {
     return parseFloat(number.toFixed(1));
   };
@@ -118,13 +113,11 @@ export const AirChallenge = () => {
     },
   ];
 
-  // Obsługa wyboru odpowiedzi
   const handleAnswerSelection = (selectedPoints) => {
     setPoints((prevPoints) => prevPoints + selectedPoints);
     setQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
-  // Rysowanie kropek postępu
   const renderProgressDots = () => {
     return (
       <Box position="fixed" bottom="20px" left="50%" transform="translateX(-50%)">
@@ -137,7 +130,7 @@ export const AirChallenge = () => {
               height: "10px",
               borderRadius: "90%",
               backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
-              margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
+              margin: isSmallScreen ? "0 2px" : "0 3px",
             }}
           ></span>
         ))}
@@ -145,7 +138,6 @@ export const AirChallenge = () => {
     );
   };
 
-  // Rysowanie pytania
   const renderQuestion = () => {
     if (questionIndex >= airQuestions.length) {
       const percentage = roundToOneDecimalPlace((points / (airQuestions.length * 4)) * 100);
@@ -199,7 +191,7 @@ export const AirChallenge = () => {
 
     return (
       <Box
-        marginTop={isSmallScreen ? "20px" : "70px"} // Dostosowuje margines dla mniejszych ekranów
+        marginTop={isSmallScreen ? "20px" : "70px"}
         marginLeft="0px"
         textAlign="left"
         color="white"
@@ -230,7 +222,6 @@ export const AirChallenge = () => {
     );
   };
 
-  // Renderowanie komponentu
   return (
     <Box backgroundColor="black" position="relative">
       {renderQuestion()}

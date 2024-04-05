@@ -3,7 +3,7 @@ const determineElement = (day, month) => {
   const isValidDay = day >= 1 && day <= 31;
 
   if (!isValidMonth || !isValidDay) {
-    return "wrong data"; // Dla nieprawidłowych dat
+    return "wrong data";
   }
 
   // Ogień: Baran, Lew, Strzelec
@@ -51,7 +51,7 @@ const determineElement = (day, month) => {
     return "water";
   }
 
-  return "wrong data"; // Jeżeli data jest w prawidłowym zakresie, ale nie pasuje do znaku zodiaku
+  return "wrong data";
 };
 
 export default determineElement;

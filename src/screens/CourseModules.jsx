@@ -52,7 +52,7 @@ export const CourseModules = () => {
 
   return (
     <Box
-      className="animate__animated animate__zoomIn"
+      className="animate__animated animate__fadeIn"
       overflow="hidden"
       sx={{ margin: 0, padding: 0 }}
     >

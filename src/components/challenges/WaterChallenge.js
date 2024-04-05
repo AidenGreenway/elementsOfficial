@@ -131,7 +131,7 @@ export const WaterChallenge = () => {
               height: "10px",
               borderRadius: "90%",
               backgroundColor: index <= questionIndex ? "#00BFFF" : "white",
-              margin: isSmallScreen ? "0 2px" : "0 3px", // Dostosowuje odstępy dla mniejszych ekranów
+              margin: isSmallScreen ? "0 2px" : "0 3px",
             }}
           ></span>
         ))}

@@ -138,7 +138,6 @@ export const Fire = () => {
     "Aries (March 21 - April 19): Aries is a Fire sign known for its boldness, passion, and adventurous spirit. Arians are natural-born leaders, often taking the initiative and embracing challenges with enthusiasm.",
     "Leo (July 23 - August 22): Leo is a Fire sign associated with creativity, self-expression, and a charismatic personality. Leos are confident, generous, and enjoy being in the spotlight. They have a warm and playful nature.",
     "Sagittarius (November 22 - December 21): Sagittarius, the Archer, is a Fire sign known for its love of freedom, adventure, and optimism. Sagittarians are curious, open-minded, and seek to explore new horizons.",
-    // [additional zodiac signs]
   ];
 
   const strengthsContent = [
@@ -147,7 +146,6 @@ export const Fire = () => {
     "Creativity and self-expression: Enjoy expressing ideas and emotions.",
     "Courage and boldness: Willingness to take risks.",
     "Optimism and a positive outlook on life.",
-    // [additional strengths]
   ];
 
   const weaknessesContent = [
@@ -156,7 +154,6 @@ export const Fire = () => {
     "Difficulty dealing with routine and boredom.",
     "Restlessness and a constant need for change.",
     "Overestimating capabilities and taking on too much.",
-    // [additional weaknesses]
   ];
 
   const exercisesContent = [
@@ -165,7 +162,6 @@ export const Fire = () => {
     "Developing patience and practicing tolerance.",
     "Setting realistic goals and avoiding overcommitment.",
     "Balancing action with moments of relaxation.",
-    // [additional exercises]
   ];
 
   const strategiesContent = [
@@ -173,7 +169,6 @@ export const Fire = () => {
     "Cultivating patience and embracing the journey.",
     "Focusing on one task at a time to avoid overwhelm.",
     "Building healthy outlets for excess energy.",
-    // [additional strategies]
   ];
 
   const sections = [

@@ -14,9 +14,9 @@ export const Regulamin = () => {
   };
 
   const backButtonStyle = {
-    color: "white", // Kolor ikony strzałki
+    color: "white",
 
-    backgroundColor: "transparent", // Tło przycisku przezroczyste
+    backgroundColor: "transparent",
   };
 
   return (
@@ -95,4 +95,3 @@ export const Regulamin = () => {
     </div>
   );
 };
-

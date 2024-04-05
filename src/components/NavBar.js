@@ -51,18 +51,17 @@ const getHoverStyle = (element, selectedItem) => {
 
 export const NavBar = () => {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState(""); // Dodany stan dla aktualnie wybranego elementu
+  const [selectedItem, setSelectedItem] = useState("");
 
   const goBack = () => {
     window.history.back();
   };
 
   const handleLogout = () => {
-    // Tutaj wykonujemy wylogowanie użytkownika
     signOut(auth)
       .then(() => {
         console.log("User logged out successfully");
-        navigate("/"); // Przekieruj na stronę logowania po wylogowaniu
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error logging out:", error);

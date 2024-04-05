@@ -17,7 +17,6 @@ import image444 from "src/diaryImages/air/444.png";
 import ElementContext from "src/elementContext/ElementContext";
 import { auth } from "src/firebaseConfig";
 
-// Tworzenie niestandardowego motywu MUI
 const theme = createTheme({
   typography: {
     fontFamily: '"The Next Font", Arial, sans-serif',
@@ -63,16 +62,13 @@ const theme = createTheme({
 });
 
 export const SignIn = () => {
-  // Hook do nawigacji w aplikacji
   const navigate = useNavigate();
 
-  // Stany przechowujące wartości wpisane przez użytkownika oraz komunikat o błędzie
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // Dodany stan dla komunikatu o błędzie
+  const [error, setError] = useState("");
   const { setElementInfo } = useContext(ElementContext);
 
-  // Obsługa formularza logowania
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -80,31 +76,25 @@ export const SignIn = () => {
     const password = e.target.password.value;
     setElementInfo({ email });
 
-    // Logowanie użytkownika za pomocą emaila i hasła
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        // przekazujemy email użytkownika do nawigacji
+      .then((data) => {
+        localStorage.setItem("token", data.user.accessToken);
         navigate("/dashboard", { state: { userEmail: email } });
       })
       .catch((error) => {
-        setError("wrong data,try again"); // Ustawienie komunikatu o błędzie
+        setError("wrong data,try again");
         console.error("Błąd logowania:", error.message);
       });
   };
 
-  // Obsługa kliknięcia "Sign Up"
   const handleSignUpClick = () => {
-    // Przejście do strony nawigacyjnej "/register"
     navigate("/register");
   };
 
-  // Obsługa kliknięcia "Forgot password?"
   const handleForgotClick = () => {
-    // Przejście do strony nawigacyjnej "/forgot-password"
     navigate("/forgot-password");
   };
 
-  // Renderowanie komponentu
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -117,20 +107,13 @@ export const SignIn = () => {
             alignItems: "center",
           }}
         >
-          {/* Avatar użytkownika */}
           <Avatar sx={{ m: 1, width: 140, height: 140 }} alt="Avatar" src={image444}></Avatar>
 
-          {/* Nagłówek strony */}
           <Typography sx={{ fontSize: "60px" }}>ELEMENTS.</Typography>
 
-          {/* Podtytuł strony */}
           <Typography sx={{ fontSize: "24px" }}>Login</Typography>
 
-          {/* Komunikat o błędzie */}
-
-          {/* Formularz logowania */}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            {/* Pole tekstowe dla adresu email */}
             <TextField
               margin="normal"
               required
@@ -143,7 +126,6 @@ export const SignIn = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {/* Pole tekstowe dla hasła */}
             <TextField
               margin="normal"
               required
@@ -165,7 +147,6 @@ export const SignIn = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            {/* Przycisk do zatwierdzenia formularza logowania */}
             <Button
               type="submit"
               fullWidth
@@ -184,7 +165,6 @@ export const SignIn = () => {
             >
               Login
             </Button>
-            {/* Link do odzyskiwania hasła */}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2" sx={{ color: "white" }} onClick={handleForgotClick}>
@@ -192,7 +172,6 @@ export const SignIn = () => {
                 </Link>
               </Grid>
 
-              {/* Link do rejestracji */}
               <Grid item>
                 <Link href="#" variant="body2" sx={{ color: "white" }} onClick={handleSignUpClick}>
                   {"Don't have an account? Sign Up"}

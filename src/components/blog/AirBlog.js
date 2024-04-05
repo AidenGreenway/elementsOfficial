@@ -272,9 +272,9 @@ export const AirBlog = () => {
                           variant="body2"
                           color="white"
                           sx={{
-                            fontSize: "14px", // dostosuj wielkość czcionki według potrzeb
+                            fontSize: "14px",
                             display: "block",
-                            marginBottom: "4px", // dostosuj odstęp według potrzeb
+                            marginBottom: "4px",
                           }}
                         >
                           {username}

@@ -70,33 +70,28 @@ export const Register = () => {
     e.preventDefault();
 
     if (!acceptedTerms) {
-      // Sprawdź, czy użytkownik zaakceptował warunki
       alert("Please accept the terms and conditions.");
       return;
     }
 
-    // Pobierz wartości email i hasła z formularza
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    // Utwórz nowego użytkownika w Firebase Authentication
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("User created:", cred.user);
 
-        // Pobierz identyfikator nowego użytkownika
         const userId = cred.user.uid;
 
-        // Dodaj nowego użytkownika do kolekcji w Firestore
         addDoc(ColRef1, {
           userId: userId,
           email: email,
           password: password,
+          diaryEntries: [],
         })
           .then((docRef) => {
             console.log("User data added to Firestore with ID: ", docRef.id);
 
-            // Zapisz email do localStorage
             localStorage.setItem("email", email);
             setElementInfo({ email: email });
           })
@@ -104,11 +99,10 @@ export const Register = () => {
             console.error("Error adding user data to Firestore:", error);
           });
 
-        setEmail(""); // Resetuj stan emaila po zakończeniu rejestracji
-        setPassword(""); // Resetuj stan hasła po zakończeniu rejestracji
-        setAcceptedTerms(false); // Resetuj stan zgody na warunki po zakończeniu rejestracji
+        setEmail("");
+        setPassword("");
+        setAcceptedTerms(false);
 
-        // Przekieruj użytkownika do dashboard po rejestracji
         navigate("/dashboard");
       })
       .catch((error) => {

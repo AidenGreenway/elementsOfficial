@@ -105,7 +105,7 @@ export const Banner = () => {
 
   return (
     <Box
-      className="animate__animated animate__zoomIn"
+      className="animate__animated animate__fadeIn"
       sx={{
         transition: "opacity 0.5s ease-in-out",
         overflow: "hidden",
@@ -348,21 +348,21 @@ export const Banner = () => {
           <Box style={{ padding: "5%" }}>
             <h2
               style={{
-                marginRight: "11.5%",
-                marginBottom: "-25px",
+                marginRight: "31.5%",
+                marginBottom: "-30px",
                 fontFamily: "unset",
                 fontSize: "12px",
                 color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
               }}
             >
-              Hello! Free speech for all 4 points of view, also known as an:
+              Welcome in your very first experience with:
             </h2>
 
             <h1
               style={{
                 marginRight: "34%",
                 fontFamily: "The Next Font",
-                fontSize: "40px",
+                fontSize: "45px",
                 color: hoveredElement ? ELEMENT_DESCRIPTIONS[hoveredElement].colors[1] : "#fff",
               }}
             >

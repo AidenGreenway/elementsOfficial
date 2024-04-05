@@ -141,9 +141,9 @@ export const EarthChallenge = () => {
             key={index}
             style={{
               display: "inline-block",
-              width: "10px", // Zmniejszenie szerokości kropki
-              height: "10px", // Zmniejszenie wysokości kropki
-              borderRadius: "50%", // Okrągłe kropki
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
               backgroundColor: index <= questionIndex ? "#097969" : "white",
               margin: "0 5px",
             }}

@@ -15,11 +15,11 @@ import {
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { addDoc } from "firebase/firestore";
+import { doc, getDocs, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
-import { colRef } from "src/firebaseConfig"; // Importuj db z firebaseConfig
+import { ColRef1 } from "src/firebaseConfig";
 import airGif1 from "../diaryImages/air/air1.jpg";
 import airGif2 from "../diaryImages/air/air2.jpg";
 import airGif3 from "../diaryImages/air/air3.jpg";
@@ -86,6 +86,17 @@ export const Profile = () => {
     setPosts(updatedPosts);
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userSnapshot = await getDocs(ColRef1);
+      const userData = userSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log({ userData });
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("selectedZodiacSign", selectedZodiacSign);
     localStorage.setItem("selectedStrength", selectedStrength);
@@ -100,7 +111,7 @@ export const Profile = () => {
     localStorage.setItem("year", year);
     localStorage.setItem("username", username);
     localStorage.setItem("description", description);
-    setElementInfo({ username: username }); // Dodaj username do kontekstu przy każdej zmianie
+    setElementInfo({ username: username });
   }, [element, year, username, description, selectedAvatarIndex]);
 
   useEffect(() => {
@@ -146,10 +157,13 @@ export const Profile = () => {
 
   const handleAddPost = () => {
     if (newPost) {
-      // Dodaj post do bazy danych Firestore
-      addDoc(colRef, {
-        content: newPost,
-        timestamp: new Date().toISOString(), // Dodaj timestamp w postaci ISO string
+      updateDoc(doc(ColRef1, "PEw8Ih917TiowDH3daU2"), {
+        diaryEntries: [
+          {
+            content: newPost,
+            timestamp: new Date().toISOString(),
+          },
+        ],
       })
         .then((docRef) => {
           console.log("Post added with ID: ", docRef.id);
@@ -322,15 +336,15 @@ export const Profile = () => {
             <Button
               onClick={() => {
                 localStorage.clear();
-                setPosts([]); // Bezpośrednie resetowanie stanu 'posts'
+                setPosts([]);
               }}
               sx={{
                 border: "1px white solid",
                 color: "white",
-                backgroundColor: "none", // Brak koloru tła
+                backgroundColor: "none",
                 "&:hover": {
-                  backgroundColor: "none", // Tło pozostaje bez zmian
-                  color: "red", // Zmiana koloru ikony przy najechaniu myszką
+                  backgroundColor: "none",
+                  color: "red",
                 },
                 width: "15%",
                 fontSize: "12px",
@@ -369,10 +383,10 @@ export const Profile = () => {
                 width: "15%",
                 marginLeft: "515px ",
                 color: "#00e676",
-                backgroundColor: "none", // Brak koloru tła
+                backgroundColor: "none",
                 "&:hover": {
-                  backgroundColor: "none", // Tło pozostaje bez zmian
-                  color: "#69f0ae", // Zmiana koloru ikony przy najechaniu myszką
+                  backgroundColor: "none",
+                  color: "#69f0ae",
                 },
               }}
             >
@@ -387,8 +401,8 @@ export const Profile = () => {
           <Stack spacing={2}>
             <Box
               sx={{
-                maxHeight: "580px", // Maksymalna wysokość kontenera z postami
-                overflowY: "auto", // Dodanie paska przewijania, gdy zawartość przekracza maksymalną wysokość
+                maxHeight: "580px",
+                overflowY: "auto",
               }}
             >
               {posts.map((post, index) => (
@@ -425,7 +439,7 @@ export const Profile = () => {
     <Box bgcolor="black" p={4} borderRadius={8} color="white">
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Box className="animate__animated animate__zoomIn">
+          <Box className="animate__animated animate__fadeIn">
             <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
               <Avatar sx={{ bgcolor: selectedAvatarColor, width: 56, height: 56, marginRight: 2 }}>
                 <img
@@ -473,12 +487,12 @@ export const Profile = () => {
                   sx={{
                     color: "white",
 
-                    backgroundColor: "none", // Brak koloru tła
+                    backgroundColor: "none",
 
                     "&:hover": {
-                      backgroundColor: "none", // Tło pozostaje bez zmian
+                      backgroundColor: "none",
 
-                      color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                      color: selectedColor,
                     },
                   }}
                 >
@@ -490,12 +504,12 @@ export const Profile = () => {
                   sx={{
                     color: "white",
 
-                    backgroundColor: "none", // Brak koloru tła
+                    backgroundColor: "none",
 
                     "&:hover": {
-                      backgroundColor: "none", // Tło pozostaje bez zmian
+                      backgroundColor: "none",
 
-                      color: selectedColor, // Zmiana koloru ikony przy najechaniu myszką
+                      color: selectedColor,
                     },
                   }}
                 >

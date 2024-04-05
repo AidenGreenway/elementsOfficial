@@ -89,7 +89,6 @@ export const Air = () => {
 
       localStorage.setItem("airValues", JSON.stringify(storedValues));
 
-      // Aktualizacja informacji o elemencie w kontekście na podstawie aktualnych wartości.
       setElementInfo(storedValues);
 
       return storedValues;
@@ -138,7 +137,6 @@ export const Air = () => {
     "Gemini (May 21 - June 20): Gemini is an Air sign known for its versatility, curiosity, and communication skills. Geminis are quick thinkers with a thirst for knowledge, making them adaptable and socially adept.",
     "Libra (September 23 - October 22): Libra is an Air sign characterized by its sense of balance, harmony, and social grace. Librans are known for their ability to maintain equilibrium, appreciate beauty, and navigate social situations with ease.",
     "Aquarius (January 20 - February 18): Aquarius, the Water-Bearer, is an Air sign associated with innovation, originality, and humanitarianism. Aquarians are forward-thinking individuals who value progress and often engage in activities that benefit humanity.",
-    // [additional zodiac signs]
   ];
 
   const strengthsContent = [
@@ -147,7 +145,6 @@ export const Air = () => {
     "Communication skills: Ability to express ideas effectively.",
     "Objectivity and rationality: Making decisions based on logic.",
     "Social awareness and diplomacy: Navigating social interactions with grace.",
-    // [additional strengths]
   ];
 
   const weaknessesContent = [
@@ -156,7 +153,6 @@ export const Air = () => {
     "Overthinking and analyzing: Getting caught up in mental loops.",
     "Detachment from emotions: Prioritizing logic over feelings.",
     "Difficulty dealing with routine and monotony.",
-    // [additional weaknesses]
   ];
 
   const exercisesContent = [
@@ -165,7 +161,6 @@ export const Air = () => {
     "Journaling to organize thoughts and reduce overthinking.",
     "Practicing decision-making with small choices.",
     "Exploring new areas of interest and learning.",
-    // [additional exercises]
   ];
 
   const strategiesContent = [
@@ -174,7 +169,6 @@ export const Air = () => {
     "Set specific goals to maintain focus and direction.",
     "Balance analytical thinking with intuitive insights.",
     "Engage in activities that stimulate creativity and curiosity.",
-    // [additional strategies]
   ];
 
   const sections = [

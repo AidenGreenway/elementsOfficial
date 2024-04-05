@@ -137,8 +137,8 @@ export const FireChallenge = () => {
             key={index}
             style={{
               display: "inline-block",
-              width: "10px", // Zmniejszyłem szerokość kropek
-              height: "10px", // Zmniejszyłem wysokość kropek
+              width: "10px",
+              height: "10px",
               borderRadius: "90%",
               backgroundColor: index <= questionIndex ? "#D70040" : "white",
               margin: isSmallScreen ? "0 2px" : "0 5px",

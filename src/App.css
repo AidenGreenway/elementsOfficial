@@ -67,20 +67,7 @@
 .air {
   color: grey;
 }
-/* app.css */
-.drawerOpen .course-modules {
-  /* margin-left: 240px; */
-  /* margin-top: 10px; Przykładowy margines górnego obszaru */
-  /* padding: 20px; Przykładowy padding dla .course-modules */
-  /* transition: margin-left 0.2s; */
-}
 
-.drawerClosed .course-modules {
-  /* margin-left: 0;
-  margin-top: 0;
-  padding: 0; */
-  /* transition: margin-left 0.2s; */
-}
 .white-text {
   color: white;
 }
@@ -95,14 +82,13 @@
 .burnButton:hover + .burnAnimation {
   display: block;
 }
-/* Dodaj do arkusza stylów */
 .fireAnimation {
   display: none;
   width: 200px;
   height: 200px;
   position: absolute;
-  right: 20px; /* Dopasuj pozycję według potrzeb */
-  top: 50px; /* Dopasuj pozycję według potrzeb */
+  right: 20px;
+  top: 50px;
 }
 
 .burnButton:hover + .fireAnimation {

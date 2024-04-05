@@ -15,7 +15,7 @@ export const ElementContextProvider = ({ children }) => {
     selectedStrategy: localStorage.getItem("selectedStrategy") || "",
     yourValue: localStorage.getItem("yourValue") || "",
     username: localStorage.getItem("username") || "",
-    email: "", // Usuwamy wartość email z localStorage
+    email: "",
   });
   const setElementInfo = (info) => {
     setElementValues((prevValues) => ({
@@ -30,7 +30,6 @@ export const ElementContextProvider = ({ children }) => {
       setElementIcon(storedElement);
     }
 
-    // Pobieramy bieżącego użytkownika Firebase i aktualizujemy jego adres e-mail
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setElementInfo({ email: user.email });

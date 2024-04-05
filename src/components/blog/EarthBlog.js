@@ -11,7 +11,7 @@ import {
 import { addDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import YourContext from "src/elementContext/ElementContext";
-import { ColRef5 } from "src/firebaseConfig"; // Importuj odpowiednią kolekcję dla EarthBlog
+import { ColRef5 } from "src/firebaseConfig";
 import { addButtonStyles } from "src/styles";
 
 export const EarthBlog = () => {
@@ -25,7 +25,7 @@ export const EarthBlog = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const postsSnapshot = await getDocs(ColRef5); // Pobierz dane z odpowiedniej kolekcji dla EarthBlog
+      const postsSnapshot = await getDocs(ColRef5);
       const postsData = postsSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setBlogPosts(postsData);
     };
@@ -43,7 +43,7 @@ export const EarthBlog = () => {
         comments: [],
       };
 
-      const docRef = await addDoc(ColRef5, newBlogPost); // Dodaj nowy post do odpowiedniej kolekcji dla EarthBlog
+      const docRef = await addDoc(ColRef5, newBlogPost);
 
       setBlogPosts((prevPosts) => [{ id: docRef.id, ...newBlogPost }, ...prevPosts]);
       setNewPost({ title: "", content: "" });
@@ -118,7 +118,7 @@ export const EarthBlog = () => {
               name="title"
               value={newPost.title}
               onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-              onKeyDown={handleEnterKeyPress} // Obsługa przycisku Enter
+              onKeyDown={handleEnterKeyPress}
               sx={{
                 marginBottom: 2,
                 width: "60%",
@@ -144,7 +144,7 @@ export const EarthBlog = () => {
               name="content"
               value={newPost.content}
               onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-              onKeyDown={handleEnterKeyPress} // Obsługa przycisku Enter
+              onKeyDown={handleEnterKeyPress}
               sx={{
                 width: "60%",
                 marginRight: "40%",
