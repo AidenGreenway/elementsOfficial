@@ -13,6 +13,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
+import { earthTexts } from "./elementsTexts";
 
 export const Earth = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
@@ -132,45 +133,12 @@ export const Earth = () => {
       }
     }
   }, [location.hash]);
-
-  const content = `An individual associated with the element of earth exudes calmness, stability, and deep internal strength. It's someone immersed in reality, practical, with strong moral foundations and common sense. They are characterized by perseverance, patience, and an ability to feel connected to the surrounding world. An earthy person is practical, has a sense of reality, enabling them to achieve goals step by step. Their strength lies in stability, making them a pillar of support for others. Individuals associated with the earth element need time to build trust and bonds with their surroundings, but once they do, their loyalty and dedication are unwavering.`;
-
-  const zodiacSignsContent = [
-    "Taurus (April 20 - May 20): Taurus is an Earth sign known for its practical and grounded nature. Taureans are reliable, patient, and often have a strong sense of determination. They appreciate the beauty of the material world.",
-    "Virgo (August 23 - September 22): Virgo is an Earth sign characterized by its attention to detail and analytical mindset. Virgos are often hardworking, reliable, and have a practical approach to problem-solving. They value precision and order.",
-    "Capricorn (December 22 - January 19): Capricorn, the Sea-Goat, is an Earth sign associated with ambition and discipline. Capricorns are known for their strong work ethic, determination, and strategic thinking. They strive for long-term success and stability.",
-  ];
-
-  const strengthsContent = [
-    "Stability and perseverance: Calmness, internal strength.",
-    "Practicality and common sense: Ability to make pragmatic decisions.",
-    "Patience and ability to build foundations.",
-    "Empathy and connection with nature: Ability to feel coherence with the world.",
-    "Moderation: Ability to maintain balance in difficult situations.",
-  ];
-
-  const weaknessesContent = [
-    "Loss of flexibility: Excessive slowness and resistance to change.",
-    "Stubbornness and resistance to adaptation in situations requiring change.",
-    "Excessive focus on material aspects of life.",
-    "Excessive stability, which can lead to a lack of innovation.",
-    "Taking on too many commitments due to difficulty in refusal.",
-  ];
-
-  const exercisesContent = [
-    "Mindfulness practice and observing nature.",
-    "Developing planning skills and gradually achieving goals.",
-    "Building social bonds and empathy.",
-    "Flexibility and the ability to adapt to change.",
-    "Developing the ability to let go of commitments that do not bring value.",
-  ];
-
-  const strategiesContent = [
-    "Developing flexibility and openness to change.",
-    "Maintaining a balance between stability and flexibility.",
-    "Taking risks sensibly, being open to new experiences.",
-    "Cultivating creativity and innovation.",
-  ];
+  const content = earthTexts.content;
+  const zodiacSignsContent = earthTexts.zodiacSignsContent;
+  const strengthsContent = earthTexts.strengthsContent;
+  const weaknessesContent = earthTexts.weaknessesContent;
+  const exercisesContent = earthTexts.exercisesContent;
+  const strategiesContent = earthTexts.strategiesContent;
 
   const sections = [
     {

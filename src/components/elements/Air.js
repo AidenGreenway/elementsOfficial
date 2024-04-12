@@ -13,6 +13,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ElementContext from "src/elementContext/ElementContext";
+import { airTexts } from "./elementsTexts";
 
 export const Air = () => {
   const { yourValue, setElementInfo } = useContext(ElementContext);
@@ -132,44 +133,12 @@ export const Air = () => {
     }
   }, [location.hash]);
 
-  const content = `An individual associated with the element of air is characterized by intellect, curiosity, and adaptability... [continuation text]`;
-  const zodiacSignsContent = [
-    "Gemini (May 21 - June 20): Gemini is an Air sign known for its versatility, curiosity, and communication skills. Geminis are quick thinkers with a thirst for knowledge, making them adaptable and socially adept.",
-    "Libra (September 23 - October 22): Libra is an Air sign characterized by its sense of balance, harmony, and social grace. Librans are known for their ability to maintain equilibrium, appreciate beauty, and navigate social situations with ease.",
-    "Aquarius (January 20 - February 18): Aquarius, the Water-Bearer, is an Air sign associated with innovation, originality, and humanitarianism. Aquarians are forward-thinking individuals who value progress and often engage in activities that benefit humanity.",
-  ];
-
-  const strengthsContent = [
-    "Intellect and curiosity: Quick thinking and a thirst for knowledge.",
-    "Adaptability: Ease in adjusting to new situations.",
-    "Communication skills: Ability to express ideas effectively.",
-    "Objectivity and rationality: Making decisions based on logic.",
-    "Social awareness and diplomacy: Navigating social interactions with grace.",
-  ];
-
-  const weaknessesContent = [
-    "Restlessness: Difficulty staying focused on one task.",
-    "Indecisiveness: Weighing multiple options without choosing.",
-    "Overthinking and analyzing: Getting caught up in mental loops.",
-    "Detachment from emotions: Prioritizing logic over feelings.",
-    "Difficulty dealing with routine and monotony.",
-  ];
-
-  const exercisesContent = [
-    "Mindfulness meditation to enhance focus.",
-    "Engaging in diverse social activities to promote adaptability.",
-    "Journaling to organize thoughts and reduce overthinking.",
-    "Practicing decision-making with small choices.",
-    "Exploring new areas of interest and learning.",
-  ];
-
-  const strategiesContent = [
-    "Embrace change and variety in life.",
-    "Practice effective communication skills in various contexts.",
-    "Set specific goals to maintain focus and direction.",
-    "Balance analytical thinking with intuitive insights.",
-    "Engage in activities that stimulate creativity and curiosity.",
-  ];
+  const content = airTexts.content;
+  const zodiacSignsContent = airTexts.zodiacSignsContent;
+  const strengthsContent = airTexts.strengthsContent;
+  const weaknessesContent = airTexts.weaknessesContent;
+  const exercisesContent = airTexts.exercisesContent;
+  const strategiesContent = airTexts.strategiesContent;
 
   const sections = [
     {
