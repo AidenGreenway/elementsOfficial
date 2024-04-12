@@ -17,7 +17,12 @@ import {
 
 const theme = createTheme({
   typography: {
-    fontFamily: "The Next Font",
+    fontFamily: '"The Next Font", Arial, sans-serif',
+  },
+  palette: {
+    background: {
+      default: "#000000", // Tutaj definiujesz kolor tła (czarny w tym przypadku)
+    },
   },
 });
 
