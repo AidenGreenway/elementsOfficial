@@ -1,6 +1,7 @@
 import { Box, List, ListItem, ListItemButton, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
+import { elementsQuestions } from "./ElementsQuestions";
 
 const StyledListItemButton = styled(ListItemButton)({
   fontSize: "200%",
@@ -21,98 +22,8 @@ export const FireChallenge = () => {
   const roundToOneDecimalPlace = (number) => {
     return parseFloat(number.toFixed(1));
   };
-  const fireQuestions = [
-    {
-      question: "How do you approach challenges?",
-      answers: [
-        { text: "Confront challenges head-on", points: 4 },
-        { text: "Face challenges with determination", points: 3 },
-        { text: "Take on challenges selectively", points: 2 },
-        { text: "Avoid challenges to maintain peace", points: 1 },
-      ],
-    },
-    {
-      question: "What is your attitude towards authority?",
-      answers: [
-        { text: "Challenge authority often", points: 4 },
-        { text: "Question authority when necessary", points: 3 },
-        { text: "Respect authority but seek independence", points: 2 },
-        { text: "Follow authority without question", points: 1 },
-      ],
-    },
-    {
-      question: "How do you express your emotions?",
-      answers: [
-        { text: "Express emotions openly and passionately", points: 4 },
-        { text: "Share emotions selectively", points: 3 },
-        { text: "Keep emotions private most of the time", points: 2 },
-        { text: "Rarely express emotions openly", points: 1 },
-      ],
-    },
-    {
-      question: "What is your approach to competition?",
-      answers: [
-        { text: "Thrive on competition and enjoy winning", points: 4 },
-        { text: "Compete but value collaboration", points: 3 },
-        { text: "Prefer collaboration over competition", points: 2 },
-        { text: "Avoid competition and seek harmony", points: 1 },
-      ],
-    },
-    {
-      question: "How do you handle criticism?",
-      answers: [
-        { text: "Welcome criticism as an opportunity to grow", points: 4 },
-        { text: "Consider criticism objectively", points: 3 },
-        { text: "Take criticism personally at times", points: 2 },
-        { text: "Avoid criticism and maintain self-assurance", points: 1 },
-      ],
-    },
-    {
-      question: "Do you enjoy leading others?",
-      answers: [
-        { text: "Natural leader, enjoy taking charge", points: 4 },
-        { text: "Lead when necessary but prefer collaboration", points: 3 },
-        { text: "Prefer to follow but can lead if needed", points: 2 },
-        { text: "Avoid leadership roles", points: 1 },
-      ],
-    },
-    {
-      question: "How do you approach risk-taking?",
-      answers: [
-        { text: "Love taking bold and daring risks", points: 4 },
-        { text: "Enjoy moderate risks for potential rewards", points: 3 },
-        { text: "Prefer safety and avoid unnecessary risks", points: 2 },
-        { text: "Avoid risks to maintain stability", points: 1 },
-      ],
-    },
-    {
-      question: "What is your perspective on rules?",
-      answers: [
-        { text: "Challenge rules and seek flexibility", points: 4 },
-        { text: "Question rules when needed", points: 3 },
-        { text: "Respect rules but may bend them", points: 2 },
-        { text: "Follow rules strictly for order", points: 1 },
-      ],
-    },
-    {
-      question: "How do you approach new opportunities?",
-      answers: [
-        { text: "Embrace new opportunities with enthusiasm", points: 4 },
-        { text: "Optimistic about new opportunities", points: 3 },
-        { text: "Approach with caution and skepticism", points: 2 },
-        { text: "Avoid new opportunities to maintain stability", points: 1 },
-      ],
-    },
-    {
-      question: "What is your perspective on personal freedom?",
-      answers: [
-        { text: "Value personal freedom above all", points: 4 },
-        { text: "Appreciate personal freedom but value security", points: 3 },
-        { text: "Prefer security over excessive personal freedom", points: 2 },
-        { text: "Seek security and follow established norms", points: 1 },
-      ],
-    },
-  ];
+
+  const fireQuestions = elementsQuestions.fire;
 
   const handleAnswerSelection = (selectedPoints) => {
     setPoints((prevPoints) => prevPoints + selectedPoints);
