@@ -8,16 +8,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { addDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import { doc, getDocs, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useRef, useState } from "react";
 import YourContext from "src/elementContext/ElementContext";
 import { ColRef5 } from "src/firebaseConfig";
 import { addButtonStyles } from "src/styles";
+import { useBlogComponents } from "./useBlogComponents";
 
 export const EarthBlog = () => {
   const { username } = useContext(YourContext);
   const commentsEndRef = useRef(null);
-
+  const { handlePostSubmit } = useBlogComponents;
   const [blogPosts, setBlogPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: "", content: "" });
   const [showComments, setShowComments] = useState({});
@@ -32,23 +33,6 @@ export const EarthBlog = () => {
 
     fetchData();
   }, []);
-
-  const handlePostSubmit = async () => {
-    if (newPost.title.trim() !== "" && newPost.content.trim() !== "") {
-      const currentDate = new Date().toISOString().slice(0, 10);
-      const newBlogPost = {
-        title: newPost.title,
-        content: newPost.content,
-        date: currentDate,
-        comments: [],
-      };
-
-      const docRef = await addDoc(ColRef5, newBlogPost);
-
-      setBlogPosts((prevPosts) => [{ id: docRef.id, ...newBlogPost }, ...prevPosts]);
-      setNewPost({ title: "", content: "" });
-    }
-  };
 
   const handleToggleComments = (postId) => {
     setShowComments((prevComments) => ({

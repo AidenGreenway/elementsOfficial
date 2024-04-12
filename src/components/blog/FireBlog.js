@@ -61,11 +61,13 @@ export const FireBlog = () => {
       [postId]: !prevComments[postId],
     }));
   };
+
   const handleCommentKeyDown = (postId, e) => {
     if (e.key === "Enter") {
       handleAddComment(postId);
     }
   };
+
   const handleCommentInputChange = (postId, e) => {
     setCommentText({ ...commentText, [postId]: e.target.value });
   };
@@ -187,7 +189,7 @@ export const FireBlog = () => {
         </Grid>
         <Grid item xs={5}>
           <Typography color="#D70040" sx={{ fontSize: "24px", marginTop: 0, marginLeft: 62 }}>
-            posts
+            Posts
           </Typography>
           <Box
             sx={{
@@ -227,7 +229,7 @@ export const FireBlog = () => {
                       },
                     }}
                   >
-                    comments
+                    Comments
                   </Button>
                 </Box>
                 <Card
@@ -304,7 +306,7 @@ export const FireBlog = () => {
                               marginBottom: 1,
                             }}
                           >
-                            {username}: {comment}
+                            {comment}
                           </Typography>
                         ))}
                         <div ref={commentsEndRef} />
