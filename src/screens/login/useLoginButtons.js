@@ -18,7 +18,7 @@ const useLoginButtons = () => {
       backgroundColor: "rgba(255, 255, 255, 0.15)",
     },
     "& input::placeholder": {
-      color: "white", // ustawia kolor placeholdera na biały
+      color: "red", // ustawia kolor placeholdera na biały
     },
   };
   return { styledButton, textFieldStyles };
