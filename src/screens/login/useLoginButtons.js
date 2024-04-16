@@ -17,6 +17,7 @@ const useLoginButtons = () => {
     "&:hover": {
       backgroundColor: "rgba(255, 255, 255, 0.15)",
     },
+
     "& input": {
       color: "white", // ustawia kolor tekstu na biały
       "::placeholder": {
